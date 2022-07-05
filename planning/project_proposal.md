@@ -80,7 +80,7 @@ What questions do you still have? What topics do you need to research more for y
 For the project, we still need to research specific details that go on the productivity reports in terms of bug tracking and what smaller development teams might need over what is offered in other bug trackers. We also need to research certain accessibility features that can be added to the interface that has not been readily available on current bug trackers so that anyone and everyone can use the site.
 
 Questions:
-How can we improve the overall performance/speed of our bugtracker compared to others?
-How can the interface be made more accessible and user friendly?
-What other tools can be implemented into the tracker that are aligned with the needs of smaller businesses / development teams?
+1. How can we improve the overall performance/speed of our bugtracker compared to others?
+2. How can the interface be made more accessible and user friendly?
+3. What other tools can be implemented into the tracker that are aligned with the needs of smaller businesses / development teams?
 

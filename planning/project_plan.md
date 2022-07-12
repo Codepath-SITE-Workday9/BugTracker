@@ -1,6 +1,6 @@
 # Project Plan
 
-Pod Members: **Add Pod Members Names**
+Pod Members: **Katherin Jimenez, Doris Sanchez Velasquez, Aaron Alemi**
 
 ## Problem Statement and Description
 
@@ -54,20 +54,44 @@ List the current user stories you will implement.
 
 10. **As a developer, I want to freely be able to update any ticket if anything needs to be changed so that I can keep them up to date and fix any potential mistakes when first creating the ticket.**
 
+11. **As a developer, I want to be able to login in to my account so I can continue my work.**
+
+12. **As a developer, I want to be able to register so I can create an account and start working.**
+
+13. **As a manager, I want to be able to make a new project so my developers can start working**
+
+14. **As a manager, I want to be able to update my project’s information so that it can be up to date if anything has to be changed**
+
+15. **As a developer, I want to have proper authentication so that our information can be properly secured**
+
+16. **As a developer, I want to be able to see an overview of my project’s information so that I can stay up to date with the project details.**
+
+17. **As a developer, I want to be able to update any comment I left on a ticket so that I can fix potential mistakes I made when first creating the comment**
+
 
 
 ## Pages/Screens
 
 List all the pages and screens in the app. Include wireframes for at least 3 of them.
 
-[![WIREFRAMES](../planning/wireframes.png)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)
+[![WIREFRAMES](../planning/images/wireframes.png)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)
+
+
 
 ## Data Model
 
 Describe your app's data model using diagrams or tables
 
+![Database Relations](../planning/images/database_relations.png)
+
+
 ## Endpoints
 
 List the API endpoints you will need to implement.
+
+![Auth,Team,Project endpoints](../planning/images/endpoints_1.png)
+![Ticket,Comment,Report endpoints](../planning/images/endpoints_2.png)
+
+
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***

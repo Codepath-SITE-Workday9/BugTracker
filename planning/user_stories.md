@@ -63,4 +63,4 @@ Include at least 10 user stories.
 
 Insert link or image to your group's wireframe. 
 
-[![WIREFRAMES](https://drive.google.com/file/d/1RAl-ksfJPd21nNfRg32F6YNW7xdF7uyk/view?usp=sharing)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)
+[![WIREFRAMES](../planning/wireframes.png)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)

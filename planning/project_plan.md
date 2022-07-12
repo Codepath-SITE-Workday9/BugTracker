@@ -60,7 +60,7 @@ List the current user stories you will implement.
 
 List all the pages and screens in the app. Include wireframes for at least 3 of them.
 
-[![WIREFRAMES](https://drive.google.com/file/d/1RAl-ksfJPd21nNfRg32F6YNW7xdF7uyk/view?usp=sharing)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)
+[![WIREFRAMES](../planning/wireframes.png)](https://www.figma.com/file/IyeL6LEgssMkwAtZ2EhPYy/SITE-CAPSTONE-WIREFRAMES?node-id=0%3A1)
 
 ## Data Model
 

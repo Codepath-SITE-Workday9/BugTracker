@@ -8,7 +8,7 @@ Cohort: **Workday**
 
 Team Member Names:**Aaron Alemi, Katherin Jimenez, Doris Sanchez**
 
-Mentors Names: **Insert Professional Mentor Names**
+Mentors Names: **Smitha Sandasani, Jason van Raamsdonk, Victor Wei**
 
 Project Code Repository Links
 

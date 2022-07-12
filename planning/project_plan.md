@@ -89,9 +89,51 @@ Describe your app's data model using diagrams or tables
 
 List the API endpoints you will need to implement.
 
-![Auth,Team,Project endpoints](../planning/images/endpoints_1.png)
-![Ticket,Comment,Report endpoints](../planning/images/endpoints_2.png)
+**/auth**
+| CRUD 	|           | HTTP verb | 	Description          |User stories| 
+| ----   |----       |----       |  ------               |----|
+| Read   | 	/login	| POST	   | Log in to account	   | 11 | 
+| Create | 	/register| POST      | 	Register an account	| 12 | 
+| Read   | 	/me	   | GET       | 	Authorize a user	   | 15 | 
 
+
+**/team**				
+| CRUD   |   |	HTTP verb | Description  |	User stories
+| ----   |----       |----       |  ------               |----|
+|Create  |	/	  |	POST  |	Create a team  |	
+|Update  |  /add	  |	PUT  |	Add member to team  |	5
+
+
+**/project**			
+| CRUD	|  endpoint |HTTP verb|	Description|User stories|
+| ----   | ----      |  ----   |  ------    |----        |
+| Create |  /create	|  POST|	Create a new project	|13
+| Update |  /update	|	PUT|	Update a project's information|	14|
+| Read	|	/id	   |	GET|	Fetches specific project information|	16
+| Read	|	/        |		GET|	Fetches all projects for user	|  | 
+
+
+**/ticket**				
+| CRUD	|  endpoint |HTTP verb|	Description|User stories|
+| ----   | ----      |  ----   |  ------    |----        |
+| Read	|/          |	GET	 | Fetch tickets for project	|1,4,6,7|
+| Update	|/update	   |  POST   | Change update ticket (status, description etc.) 	|2, 10|
+| Create	|/create    |	POST	 | Create new ticket	|9|
+| Read	|/:id       |	GET	 | Fetches details for specific ticket|	|
+				
+				
+**/comment**				
+| CRUD	|  endpoint |HTTP verb|	Description|User stories|
+| ----   | ----      |  ----   |  ------    |----        |
+| Create	|/	|POST	|User leaves a comment on a ticket	|8|
+| Delete	|/	|DELETE|	User deletes a comment on a ticket|	|
+| Update	|/	|PUT|	User updates a comment on a ticket	|17|
+				
+				
+**/report - stretch feature**				
+| CRUD	|  endpoint |HTTP verb|	Description|User stories|
+| ----   | ----      |  ----   |  ------    |----        |
+|Read	|/velocity|	GET|	Get team velocity data	|3|
 
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***

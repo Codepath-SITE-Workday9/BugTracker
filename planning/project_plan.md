@@ -100,25 +100,26 @@ List the API endpoints you will need to implement.
 **/team**				
 | CRUD   |   |	HTTP verb | Description  |	User stories
 | ----   |----       |----       |  ------               |----|
-|Create  |	/	  |	POST  |	Create a team  |	
-|Update  |  /add	  |	PUT  |	Add member to team  |	5
+|Read  |	/	  |	GET  |	List of all teams a user belongs to  |  |	
+|Create  |	/	  |	POST  |	Create a team  |	|
+|Update  |  /add	  |	PUT  |	Add member to team  |	5 |
 
 
 **/project**			
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|
 | ----   | ----      |  ----   |  ------    |----        |
-| Create |  /create	|  POST|	Create a new project	|13
+| Read	|	/        |		GET|	Fetches all projects for user	|  | 
+| Create |  /	|  POST|	Create a new project	|13
 | Update |  /update	|	PUT|	Update a project's information|	14|
 | Read	|	/:id	   |	GET|	Fetches specific project information|	16
-| Read	|	/        |		GET|	Fetches all projects for user	|  | 
 
 
 **/ticket**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|
 | ----   | ----      |  ----   |  ------    |----        |
 | Read	|/          |	GET	 | Fetch tickets for project	|1,4,6,7|
-| Update	|/update	   |  POST   | Change update ticket (status, description etc.) 	|2, 10|
 | Create	|/create    |	POST	 | Create new ticket	|9|
+| Update	|/update	   |  POST   | Change update ticket (status, description etc.) 	|2, 10|
 | Read	|/:id       |	GET	 | Fetches details for specific ticket|	|
 				
 				

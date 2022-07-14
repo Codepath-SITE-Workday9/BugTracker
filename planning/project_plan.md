@@ -96,40 +96,32 @@ List the API endpoints you will need to implement.
 | Create | /register| POST      | Register an account	|  12 | 
 | Read   | /me	    | GET       | Authorize a user	|  15 | 
 
-
 **/team**				
 | CRUD   |   |	HTTP verb | Description  |	User stories
 | ----   |----       |----       |  ------               |----|
-|Read  |	/	  |	GET  |	List of all teams a user belongs to  |  |	
-|Create  |	/	  |	POST  |	Create a team  |	|
-|Update  |  /add	  |	PUT  |	Add member to team  |	5 |
-
+|Read    | / |	GET  |	List of all teams a user belongs to  |  |
+|Read    | /:teamId |	GET  |	Returns a specific team by id  |  |
+|Create  | / |	POST  |	Create a team  |	|
+|Update  | /:teamId/add	| PUT |	Add member to team  |	5 |
 
 **/project**			
-| CRUD	|  endpoint |HTTP verb|	Description|User stories|
-| ----   | ----      |  ----   |  ------    |----        |
-| Read	|	/        |		GET|	Fetches all projects for user	|  | 
-| Create |  /	|  POST|	Create a new project	|13
-| Update |  /update	|	PUT|	Update a project's information|	14|
-| Read	|	/:id	   |	GET|	Fetches specific project information|	16
-
+| CRUD	|  endpoint    		  |HTTP verb|Description|User stories|
+| ----   | ----      		  |----|  ------    |----        |
+| Read	 | /    		  | GET |	Fetches all projects for user	|  | 
+| Read	 | /:projectId	   	  | GET |	Fetches specific project information|	16
+| Create | /			  | POST|	Create a new project	|13
+| Update | /:projectId/update	  | PUT |	Update a project's information|	14|
 
 **/ticket**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|
-| ----   | ----      |  ----   |  ------    |----        |
-| Read	|/          |	GET	 | Fetch tickets for project	|1,4,6,7|
-| Create	|/create    |	POST	 | Create new ticket	|9|
-| Update	|/update	   |  POST   | Change update ticket (status, description etc.) 	|2, 10|
-| Read	|/:id       |	GET	 | Fetches details for specific ticket|	|
-				
-				
-**/comment**				
-| CRUD	|  endpoint |HTTP verb|	Description|User stories|
-| ----   | ----      |  ----   |  ------    |----        |
-| Create	|/	|POST	|User leaves a comment on a ticket	|8|
-| Delete	|/	|DELETE|	User deletes a comment on a ticket|	|
-| Update	|/	|PUT|	User updates a comment on a ticket	|17|
-				
+| ----   | ----      	       |  ----  |  ------    |----        |
+| Read	 | /          	       | GET	| Fetch tickets for project	|1,4,6,7|
+| Read	 | /:ticketId          | GET	| Fetches details for specific ticket|	|
+| Create | /create    	       | POST	| Create new ticket	|9|
+| Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10|
+| Create | /:ticket/comment    | POST	| User leaves a comment on a ticket	|8|
+| Delete | /:ticket/:commentId | DELETE	| User deletes a comment on a ticket|	|
+| Update | /:ticket/:commentId | PUT	| User updates a comment on a ticket	|17|				
 				
 **/report - stretch feature**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|

@@ -90,11 +90,11 @@ Describe your app's data model using diagrams or tables
 List the API endpoints you will need to implement.
 
 **/auth**
-| CRUD 	|           | HTTP verb | 	Description          |User stories| 
-| ----   |----       |----       |  ------               |----|
-| Read   | 	/login	| POST	   | Log in to account	   | 11 | 
-| Create | 	/register| POST      | 	Register an account	| 12 | 
-| Read   | 	/me	   | GET       | 	Authorize a user	   | 15 | 
+| CRUD	 |          | HTTP verb | 	Description     | User stories| 
+| ----	 |   ----   |  ----     |  ------               | ----|
+| Read   | /login   | POST	| Log in to account	|  11 | 
+| Create | /register| POST      | Register an account	|  12 | 
+| Read   | /me	    | GET       | Authorize a user	|  15 | 
 
 
 **/team**				

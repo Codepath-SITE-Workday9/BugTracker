@@ -100,24 +100,24 @@ List the API endpoints you will need to implement.
 | CRUD   |   |	HTTP verb | Description  |	User stories
 | ----   |----       |----       |  ------               |----|
 |Read    | / |	GET  |	List of all teams a user belongs to  |  |
-|Read    | /:teamId |	GET  |	Returns a specific team by id  |  |
 |Create  | / |	POST  |	Create a team  |	|
+|Read    | /:teamId |	GET  |	Returns a specific team by id  |  |
 |Update  | /:teamId/add	| PUT |	Add member to team  |	5 |
 
 **/project**			
 | CRUD	|  endpoint    		  |HTTP verb|Description|User stories|
 | ----   | ----      		  |----|  ------    |----        |
 | Read	 | /    		  | GET |	Fetches all projects for user	|  | 
-| Read	 | /:projectId	   	  | GET |	Fetches specific project information|	16
 | Create | /			  | POST|	Create a new project	|13
+| Read	 | /:projectId	   	  | GET |	Fetches specific project information|	16
 | Update | /:projectId/update	  | PUT |	Update a project's information|	14|
 
 **/ticket**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|
 | ----   | ----      	       |  ----  |  ------    |----        |
 | Read	 | /          	       | GET	| Fetch tickets for project	|1,4,6,7|
+| Create | /    	       | POST	| Create new ticket	|9|
 | Read	 | /:ticketId          | GET	| Fetches details for specific ticket|	|
-| Create | /create    	       | POST	| Create new ticket	|9|
 | Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10|
 | Create | /:ticket/comment    | POST	| User leaves a comment on a ticket	|8|
 | Delete | /:ticket/:commentId | DELETE	| User deletes a comment on a ticket|	|

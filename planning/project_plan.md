@@ -109,7 +109,7 @@ List the API endpoints you will need to implement.
 | ----   | ----      |  ----   |  ------    |----        |
 | Create |  /create	|  POST|	Create a new project	|13
 | Update |  /update	|	PUT|	Update a project's information|	14|
-| Read	|	/id	   |	GET|	Fetches specific project information|	16
+| Read	|	/:id	   |	GET|	Fetches specific project information|	16
 | Read	|	/        |		GET|	Fetches all projects for user	|  | 
 
 

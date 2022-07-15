@@ -132,9 +132,9 @@ List the API endpoints you will need to implement.
 | Create | /    	       | POST	| Create new ticket	|9|
 | Read	 | /:ticketId          | GET	| Fetches details for specific ticket|22|
 | Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10|
-| Create | /:ticket/comment    | POST	| User leaves a comment on a ticket	|8|
-| Delete | /:ticket/:commentId | DELETE	| User deletes a comment on a ticket| 23|
-| Update | /:ticket/:commentId | PUT	| User updates a comment on a ticket	|17|				
+| Create | /:ticketId/comment    | POST	| User leaves a comment on a ticket	|8|
+| Delete | /:ticketId/:commentId | DELETE	| User deletes a comment on a ticket| 23|
+| Update | /:ticketId/:commentId | PUT	| User updates a comment on a ticket	|17|				
 				
 **/report - stretch feature**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|

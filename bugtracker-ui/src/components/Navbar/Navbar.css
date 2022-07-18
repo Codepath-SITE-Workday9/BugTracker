@@ -12,6 +12,7 @@
     width: 100%;
     /* margin-left: 264px; */
     -webkit-transition: all 0.3s ease-in-out;
+    box-shadow: 1px 0 20px 0 #3f4d67;
     transition: all 0.3s ease-in-out;
 }
 

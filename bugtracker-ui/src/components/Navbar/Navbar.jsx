@@ -3,6 +3,8 @@ import { useState } from "react";
 import "./Navbar.css";
 
 export default function Navbar({ isOpen }) {
+    console.log("Navbar isopen below")
+    console.log(isOpen)
 
     return (
         <div className="navbar">

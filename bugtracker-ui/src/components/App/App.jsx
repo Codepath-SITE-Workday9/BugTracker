@@ -14,7 +14,7 @@ import ProjectsPage from "../ProjectsPage/ProjectsPage";
 import { AuthContextProvider, useAuthContext } from "../../contexts/auth";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import { useState } from "react";
 export default function AppContainer() {
   return (
     <AuthContextProvider>
@@ -28,7 +28,7 @@ export function App() {
   //const {user} = useAuthContext();
 
   // fake user boolean for routing testing
-  var exampleUser = false;
+  var exampleUser = true;
 
   return (
     <div className="app">
@@ -37,7 +37,7 @@ export function App() {
           <Navbar />
           {exampleUser ? (
             <>
-              <Sidebar />
+              <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
             </>
           ) : (
             <></>

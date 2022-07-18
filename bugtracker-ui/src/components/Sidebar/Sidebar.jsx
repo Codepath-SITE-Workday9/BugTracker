@@ -21,48 +21,48 @@ export function ClosedSideBar() {
     <div className="sidebar-icons">
       <div className="sidebar-logo">
         <div className="sidebar-icon">
-          <span class="material-symbols-outlined">circle</span>
-          <label> Bug tracker </label>
+          <span className="material-symbols-outlined">circle</span>
+          <span className="icon-text"> Bug tracker </span>
         </div>
       </div>
       <div className="top-sidebar">
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">desktop_windows</span>
-          <label> Dashboard </label>
+          <span className="icon-text"> Dashboard </span>
         </div>
       </div>
       <div className="middle-sidebar">
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">confirmation_number</span>
-          <label> Tickets </label>
+          <span className="icon-text"> Tickets </span>
         </div>
 
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">groups</span>
-          <label> Teams </label>
+          <span className="icon-text"> Teams </span>
         </div>
 
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">query_stats</span>
-          <label> Projects</label>
+          <span className="icon-text"> Projects</span>
         </div>
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">work</span>
-          <label> Statistics </label>
+          <span className="icon-text"> Statistics </span>
         </div>
       </div>
       <div className="bottom-sidebar">
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">account_circle</span>
-          <label> Profile </label>
+          <span className="icon-text"> Profile </span>
         </div>
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">settings</span>
-          <label> Settings </label>
+          <span className="icon-text"> Settings </span>
         </div>
         <div className="sidebar-icon">
           <span className="material-symbols-outlined">logout</span>
-          <label> Log out </label>
+          <span className="icon-text"> Log out </span>
         </div>
       </div>
     </div>

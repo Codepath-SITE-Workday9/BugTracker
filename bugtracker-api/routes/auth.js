@@ -1,12 +1,16 @@
 const express = require("express")
-const User = require("../models/user")
 const router = express.Router()
+const User = require("../models/user")
 
 //POST REQUEST TO LOG A USER INTO THEIR ACCOUNT
 router.post("/login", async (req,res,next) => {
     try
     {
-        //Take in email and password to authenticate user
+        //Request will take in an email and password
+        const user = await User.login(req.body)
+
+        //Return the user when authenticated
+        return res.status(200).json({user: user})
     } 
     catch(error)
     {
@@ -22,8 +26,11 @@ router.post("/login", async (req,res,next) => {
 router.post("/register", async (req,res,next) => {
     try
     {
-        //Take in email, full name, and password
-        //Create new user in the database
+        //Request will take in an email, password, and full name from user
+        const user = await User.register(req.body)
+
+        //Return the user when authenticated
+        return res.status(200).json({user: user})
     } 
     catch(error)
     {

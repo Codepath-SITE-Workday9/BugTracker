@@ -4,8 +4,14 @@ require('colors')
 
 
 
+
 //IMPORTING THE LISTENING PORT
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001
+//IMPORTING THE SECRET KEY AND BCRYPT FACTOR
+const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR ? Number(process.env.BCRYPT_WORK_FACTOR) : 15;
+const SECRET_KEY = process.env.SECRET_KEY;
+
+
 
 
 
@@ -23,13 +29,23 @@ function getDatabaseUri()
 }
 
 
+
+
+
 //CONSOLE LOGGING THE CURRENT URI BEING USED AND OTHER SYSTEM INFORMATION
 console.log("Bug Tracker Config: ".red)
 console.log("PORT: ".blue, PORT)
 console.log("Bug Tracker URI: ".blue, getDatabaseUri())
 console.log("-----")
 
+
+
+
+
+//MODULE EXPORTS
 module.exports = {
     PORT,
+    SECRET_KEY,
+    BCRYPT_WORK_FACTOR,
     getDatabaseUri
 }

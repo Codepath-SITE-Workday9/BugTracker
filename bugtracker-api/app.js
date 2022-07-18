@@ -4,6 +4,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 //Import Error Handling File
 const {NotFoundError} = require("./utils/errors")
+//Importing Models and Routes
+const authRoutes = require('./routes/auth')
 
 
 
@@ -17,6 +19,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny'))
+//APP USE - All authorization/registration routes including login, register, and me
+app.use("/auth", authRoutes)
+
 
 
 

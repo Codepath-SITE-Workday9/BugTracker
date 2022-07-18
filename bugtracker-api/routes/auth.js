@@ -1,4 +1,5 @@
 const express = require("express")
+const User = require("../models/user")
 const router = express.Router()
 
 //POST REQUEST TO LOG A USER INTO THEIR ACCOUNT

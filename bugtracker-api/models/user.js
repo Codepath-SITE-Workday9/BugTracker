@@ -1,3 +1,4 @@
+const db = require("../db")
 const {UnauthorizedError} = require("../utils/errors")
 
 class User {

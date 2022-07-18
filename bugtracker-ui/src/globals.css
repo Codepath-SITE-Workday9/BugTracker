@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+      "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --dark-blue: #3f4d67;
+
+
+    --muted-purple: rgb(162, 143, 157);
+    --black-coffee: rgb(50, 41, 47);
+    --egg-shell: rgb(250, 243, 221);
+    --myrtle-green: rgb(29, 120, 116);
+    --wintergreen-dream: rgb(103, 146, 137);
+  }
+  
+  i,
+  button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }

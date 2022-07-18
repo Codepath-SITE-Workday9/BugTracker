@@ -1,8 +1,5 @@
 import * as React from "react";
-<<<<<<< HEAD
-=======
-import Navbar from "../Navbar/Navbar"
->>>>>>> ea6e83b5664646a8e20228e7a0d6f9094ceda098
+import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
@@ -12,24 +9,45 @@ import StatisticsPage from "../StatisticsPage/StatisticsPage";
 import UserProfile from "../UserProfile/UserProfile";
 import TeamsPage from "../TeamsPage/TeamsPage";
 import Settings from "../Settings/Settings";
+import Dashboard from "../Dashboard/Dashboard";
 import ProjectsPage from "../ProjectsPage/ProjectsPage";
-
+import { AuthContextProvider, useAuthContext } from "../../contexts/auth";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-export default function App() {
+export default function AppContainer() {
+  return (
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  );
+}
+
+export function App() {
+  //const {user} = useAuthContext();
+
+  // fake user boolean for routing testing
+  var exampleUser = false;
+
   return (
     <div className="app">
       <BrowserRouter>
         <main>
-          <Sidebar />
           <Navbar />
+          {exampleUser ? (
+            <>
+              <Sidebar />
+            </>
+          ) : (
+            <></>
+          )}
 
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tickets" element={<TicketsPage />} />
-            <Route path="/" element={<LandingPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/teams" element={<TeamsPage />} />

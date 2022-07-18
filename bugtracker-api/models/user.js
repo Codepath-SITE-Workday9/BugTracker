@@ -27,7 +27,7 @@ class User {
         //Make sure that request body includes all necessary information : email and password
         //If parts of the body information is missing, then send back a bad request error with information of the missing fields
         const requiredFields = ["email", "password"]
-        requiredFields.map((field) => {
+        requiredFields.forEach((field) => {
             if(!credentials.hasOwnProperty(field))
             {
                 throw new BadRequestError(`Missing ${field} in request`)
@@ -61,7 +61,7 @@ class User {
         //Make sure that the request body all pertinent information including email, password, and the user's full name
         //If one of these fields does not exist within the request body, throw a bad request detailing the missing field
         const requiredFields = ["email", "fullName", "password"]
-        requiredFields.map((field) => {
+        requiredFields.forEach((field) => {
             if(!credentials.hasOwnProperty(field))
             {
                 throw new BadRequestError(`Missing ${field} in request`)
@@ -103,7 +103,7 @@ class User {
             )
             VALUES ($1, $2, $3)
             RETURNING id, email, full_name, password, created_at
-        `, [lowercaseEmail, credentials.fullName], hashedPw)
+        `, [lowercaseEmail, credentials.fullName, hashedPw])
 
 
         //Return the only the user's email and fullname

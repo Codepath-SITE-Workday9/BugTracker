@@ -8,7 +8,7 @@ require('colors')
 //IMPORTING THE LISTENING PORT
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001
 //IMPORTING THE SECRET KEY AND BCRYPT FACTOR
-const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR ? Number(process.env.BCRYPT_WORK_FACTOR) : 15;
+const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR ? Number(process.env.BCRYPT_WORK_FACTOR) : 13;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 

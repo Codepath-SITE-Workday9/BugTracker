@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
+const {createUserJwt} = require("../utils/tokens")
+const security = require("../middleware/security")
 
 //POST REQUEST TO LOG A USER INTO THEIR ACCOUNT
 router.post("/login", async (req,res,next) => {
@@ -9,8 +11,11 @@ router.post("/login", async (req,res,next) => {
         //Request will take in an email and password
         const user = await User.login(req.body)
 
+        //Create the user's web token once user has been authenticated in login function
+        const token = createUserJwt(user)
+
         //Return the user when authenticated
-        return res.status(200).json({user: user})
+        return res.status(200).json({user: user, token: token})
     } 
     catch(error)
     {
@@ -29,8 +34,11 @@ router.post("/register", async (req,res,next) => {
         //Request will take in an email, password, and full name from user
         const user = await User.register(req.body)
 
+        //Create the user's web token once user has been authenticated in login function
+        const token = createUserJwt(user)
+
         //Return the user when authenticated
-        return res.status(200).json({user: user})
+        return res.status(200).json({user: user, token: token})
     } 
     catch(error)
     {
@@ -43,16 +51,27 @@ router.post("/register", async (req,res,next) => {
 
 
 //GET REQUEST TO AUTHORIZE THE IDENTITY OF THE USER
-router.get("/me", async (req,res,next) => {
+router.get("/me", security.requireAuthenticatedUser, async (req,res,next) => {
     try
     {
-        //Authenticates and authorizes the user
+        //Get the email of the user from the local server
+        const {email} = res.locals.user
+
+        //Extract the user from the database using their email
+        const user = await User.fetchUserByEmail(email)
+
+        //Post the public information of the user (info that is not pertinent to the user's identity)
+        const publicUser = User.makePublicUser(user)
+        
+        //Return the authorized user
+        return res.status(200).json({user: publicUser})
     } 
     catch(error)
     {
         next(error)
     }
 })
+
 
 
 //Export all the login, register, and me routes

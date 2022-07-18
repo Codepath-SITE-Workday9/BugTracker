@@ -1,0 +1,16 @@
+
+.hero{
+   display:flex;
+   align-items: center;
+   justify-content: center;
+}
+.hero-content{
+    max-width: 720px;
+    justify-content: center;
+    text-align: center;
+}
+
+.register-btn{
+    font-size: 24px;
+    
+}

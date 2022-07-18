@@ -7,22 +7,27 @@
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
     white-space: nowrap;
+    box-shadow: 1px 0 20px 0 #3f4d67;
 }
 .sidebar-logo{
     flex-direction: row;
 }
+.sidebar-icons{
+    overflow:hidden;
+}
+
 .sidebar-icon{
     position:relative;
     display:block;
-    width:250px;
     align-items: center;
     margin-bottom: 20px;
     margin-left: 5px;
 }
 
 .sidebar-icon:hover{
-    color: white;
+    color: #1dc4e9;
     cursor: pointer;
+
 }
 .sidebar:hover{
     width:260px;
@@ -56,11 +61,13 @@
     bottom: 0;
     margin-bottom: 50px;
 }
-.sidebar .icon-text{
-    position: fixed;
+.sidebar .icon-text:hover{
+    transform: rotateY(0deg);
+    opacity: 1;
 }
 .sidebar-logo, .top-sidebar, .middle-sidebar, .bottom-sidebar{
     display: flex;
     flex-direction: column;
     margin-left: 20px;
 }
+

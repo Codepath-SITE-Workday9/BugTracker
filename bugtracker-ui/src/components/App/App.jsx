@@ -36,10 +36,9 @@ export function App() {
     <div className="app">
       <BrowserRouter>
         <main>
-          <Navbar isOpen={isOpen} />
           {exampleUser ? (
             <>
-              <Navbar />
+              <Navbar isOpen={isOpen} />
               <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
             </>
           ) : (

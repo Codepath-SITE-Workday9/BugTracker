@@ -8,6 +8,7 @@
     font-family: "Open Sans", sans-serif;
     white-space: nowrap;
     box-shadow: 1px 0 20px 0 #3f4d67;
+    transition: 0.5s;
 }
 .sidebar-logo{
     flex-direction: row;
@@ -33,6 +34,7 @@
 }
 .sidebar:hover{
     width:260px;
+    transition: 0.5s;
 }
 .material-symbols-outlined {
     font-size: 50px;

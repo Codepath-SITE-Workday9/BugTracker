@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 export default function RegisterForm() {
   // const { form, errors, isLoading, handleOnInputChange, handleOnSubmit } =
-  //   useRegistrationForm({ user, setUser });
+  //   useRegisterForm({ user, setUser });
   return (
-    <div className="registration-form">
-      <h2>Register For an Account</h2>
+    <div className="register-form">
+      <h2>Register For An Account</h2>
       <div className="form">
         <div className="input-field">
           <label htmlFor="email">Enter email</label>
@@ -64,7 +64,7 @@ export default function RegisterForm() {
           </div>
 
           <button
-            className="submit-registration"
+            className="submit-register"
             //   disabled={isLoading}
             //   onClick={handleOnSubmit}
           >

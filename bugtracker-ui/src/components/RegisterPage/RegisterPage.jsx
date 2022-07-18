@@ -6,8 +6,11 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 export default function RegisterPage() {
   // const { user, setUser } = useAuthContext();
   return (
-    <div className="registration-page">
-      <RegisterForm />
+    <div className="register-page">
+      <div className="register-card">
+        <span className="material-symbols-outlined">pest_control</span>
+        <RegisterForm />
+      </div>
     </div>
   );
 }

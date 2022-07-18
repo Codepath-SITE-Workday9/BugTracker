@@ -11,7 +11,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-form">
-      <h2>Login</h2>
+      <h2>Login To Your Account</h2>
       {/* 
       {Boolean(errors.form) && <span className="error">{errors.form}</span>}
       <br /> */}
@@ -25,7 +25,7 @@ export default function LoginForm() {
             type="email"
             // value={form.email}
             // onChange={handleOnInputChange}
-            placeholder="email@gmail.com"
+            placeholder="email"
           />
           {/* {errors.email && <span className="error">{errors.email}</span>} */}
         </div>
@@ -46,6 +46,8 @@ export default function LoginForm() {
           //   disabled={isLoading}
           //   onClick={handleOnSubmit}
         >
+          {" "}
+          Login
           {/* {isLoading ? "Loading..." : "Login"} */}
         </button>{" "}
       </div>

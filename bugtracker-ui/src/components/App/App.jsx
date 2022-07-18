@@ -16,21 +16,23 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
+import { OpenContextProvider } from "../../contexts/open";
 
 export default function AppContainer() {
   return (
     <AuthContextProvider>
-      <App />
+      <OpenContextProvider>
+        <App />
+      </OpenContextProvider>
     </AuthContextProvider>
   );
 }
 
 export function App() {
-  const [isOpen, setIsOpen] = useState(false);
   //const {user} = useAuthContext();
 
   // fake user boolean for routing testing
-  var exampleUser = false;
+  var exampleUser = true;
 
   return (
     <div className="app">
@@ -38,8 +40,8 @@ export function App() {
         <main>
           {exampleUser ? (
             <>
-              <Navbar isOpen={isOpen} />
-              <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+              <Navbar />
+              <Sidebar />
             </>
           ) : (
             <NoUserNavbar />
@@ -50,6 +52,7 @@ export function App() {
               path="/"
               element={exampleUser ? <Dashboard /> : <LandingPage />}
             />
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/dashboard" element={<Dashboard />} />

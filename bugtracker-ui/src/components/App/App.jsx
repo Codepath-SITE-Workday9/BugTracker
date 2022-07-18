@@ -14,6 +14,7 @@ export default function App() {
       <BrowserRouter>
         <main>
           <Sidebar />
+          <Navbar />
 
           <Routes>
             <Route path="/login" element={<LoginPage />} />

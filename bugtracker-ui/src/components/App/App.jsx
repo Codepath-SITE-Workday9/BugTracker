@@ -15,6 +15,8 @@ import { AuthContextProvider, useAuthContext } from "../../contexts/auth";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
+import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
+
 export default function AppContainer() {
   return (
     <AuthContextProvider>
@@ -37,14 +39,18 @@ export function App() {
           <Navbar isOpen={isOpen} />
           {exampleUser ? (
             <>
+              <Navbar />
               <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
             </>
           ) : (
-            <></>
+            <NoUserNavbar />
           )}
 
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route
+              path="/"
+              element={exampleUser ? <Dashboard /> : <LandingPage />}
+            />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/dashboard" element={<Dashboard />} />

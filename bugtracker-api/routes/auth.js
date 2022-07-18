@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
+//POST REQUEST TO LOG A USER INTO THEIR ACCOUNT
 router.post("/login", async (req,res,next) => {
     try
     {
@@ -12,6 +13,11 @@ router.post("/login", async (req,res,next) => {
     }
 })
 
+
+
+
+
+//POST REQUEST TO REGISTER A USER TO THE DATABASE
 router.post("/register", async (req,res,next) => {
     try
     {
@@ -24,7 +30,12 @@ router.post("/register", async (req,res,next) => {
     }
 })
 
-router.post("/me", async (req,res,next) => {
+
+
+
+
+//GET REQUEST TO AUTHORIZE THE IDENTITY OF THE USER
+router.get("/me", async (req,res,next) => {
     try
     {
         //Authenticates and authorizes the user
@@ -35,4 +46,6 @@ router.post("/me", async (req,res,next) => {
     }
 })
 
+
+//Export all the login, register, and me routes
 module.exports = router

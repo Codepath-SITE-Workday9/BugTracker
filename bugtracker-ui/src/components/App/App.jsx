@@ -34,7 +34,7 @@ export function App() {
     <div className="app">
       <BrowserRouter>
         <main>
-          <Navbar />
+          <Navbar isOpen={isOpen} />
           {exampleUser ? (
             <>
               <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />

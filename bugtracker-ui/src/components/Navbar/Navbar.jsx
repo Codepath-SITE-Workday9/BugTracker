@@ -1,8 +1,9 @@
 import * as React from "react";
+import { useState } from "react";
 import "./Navbar.css";
 
-export default function Navbar() {
-    const isOpen = false;
+export default function Navbar({ isOpen }) {
+
     return (
         <div className="navbar">
 

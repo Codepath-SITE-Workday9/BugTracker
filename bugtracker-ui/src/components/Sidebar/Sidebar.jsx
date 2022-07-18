@@ -2,12 +2,14 @@ import * as React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 
-export default function Sidebar({ isOpen, handleOnToggle }) {
-  isOpen = false;
+export default function Sidebar({ isOpen, setIsOpen, handleOnToggle }) {
+  //isOpen = false;
+  console.log(isOpen)
   return (
-    <div className="sidebar">
+    <div className="sidebar" onMouseOver={() => setIsOpen(true)} onMouseOut={() => setIsOpen(false)}>
       <div className={isOpen ? "sidebar open" : "sidebar closed"}>
-        {isOpen ? <OpenSideBar isOpen={isOpen} /> : <ClosedSideBar />}
+        <ClosedSideBar />
+        { /* isOpen ? <OpenSideBar isOpen={isOpen} /> : <ClosedSideBar /> */}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export default function AppContainer() {
 }
 
 export function App() {
+  const [isOpen, setIsOpen] = useState(false);
   //const {user} = useAuthContext();
 
   // fake user boolean for routing testing

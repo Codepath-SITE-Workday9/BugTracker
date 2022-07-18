@@ -20,10 +20,13 @@ app.use(morgan('tiny'))
 
 
 
+
 //Server Health Check
 app.get('/', async(req,res,next) => {
     res.status(200).json({"ping":"pong"})
 })
+
+
 
 
 //ERROR HANDLING - Not Found

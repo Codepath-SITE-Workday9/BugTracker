@@ -7,13 +7,16 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 // import Home from "../Home/Home"
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 export default function App() {
+const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className="app">
       <BrowserRouter>
         <main>
-          <Sidebar />
+          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
           <Navbar />
 
           <Routes>

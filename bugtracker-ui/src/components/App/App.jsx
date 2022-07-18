@@ -1,8 +1,5 @@
 import * as React from "react";
-<<<<<<< HEAD
-=======
 import Navbar from "../Navbar/Navbar"
->>>>>>> ea6e83b5664646a8e20228e7a0d6f9094ceda098
 import Sidebar from "../Sidebar/Sidebar";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";

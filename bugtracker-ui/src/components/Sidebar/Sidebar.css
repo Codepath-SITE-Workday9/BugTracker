@@ -1,0 +1,32 @@
+.sidebar {
+    background-color: var(--dark-blue);
+    color: #a9b7d0;
+    width: 80px;
+    max-width: 260px;
+    position: absolute;
+    height: 100%;
+    font-family: "Open Sans", sans-serif;
+}
+.sidebar-logo{
+    flex-direction: row;
+    
+}
+.sidebar:hover{
+    width:260px;
+    overflow:visible;
+}
+.material-symbols-outlined {
+    font-size: 45px;
+}
+
+.bottom-sidebar{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+.logo, .top-sidebar, .middle-sidebar, .bottom-sidebar{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}

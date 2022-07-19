@@ -1,16 +1,15 @@
 import * as React from "react";
 import { useState } from "react";
 import "./Navbar.css";
+import { useOpenContext } from "../../contexts/open";
 
-export default function Navbar({ isOpen }) {
-    console.log("Navbar isopen below")
-    console.log(isOpen)
+export default function Navbar() {
+  const { isOpen } = useOpenContext();
 
-    return (
-        <div className="navbar">
-
-        <div className="navbar-content">
-            {/*}
+  return (
+    <div className="navbar">
+      <div className="navbar-content">
+        {/*}
             <ul class="navbar-nav mr-auto">
                 <li><a href="javascript:" class="full-screen" onclick="javascript:toggleFullScreen()"><i class="feather icon-maximize"></i></a></li>
                 <li class="nav-item dropdown">
@@ -36,17 +35,18 @@ export default function Navbar({ isOpen }) {
                 </li>
             </ul>
             */}
-            <div className={isOpen ? "navbar-left-open" : "navbar-left-closed"}>
-                <h>DASHBOARD</h> 
-            </div>
-
-            <div className="navbar-right">
-                <span className="material-symbols-outlined">circle_notifications</span> {/* TODO: Add menus for both icons */}
-                <span className="material-symbols-outlined">account_circle</span>
-            </div>
+        <div className={isOpen ? "navbar-left-open" : "navbar-left-closed"}>
+          <h>DASHBOARD</h>
         </div>
+
+        <div className="navbar-right">
+          <span className="material-symbols-outlined">
+            circle_notifications
+          </span>{" "}
+          {/* TODO: Add menus for both icons */}
+          <span className="material-symbols-outlined">account_circle</span>
+        </div>
+      </div>
     </div>
-
-
-    )
+  );
 }

@@ -1,22 +1,21 @@
 import * as React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import { useOpenContext } from "../../contexts/open";
 
-export default function Sidebar({ isOpen, setIsOpen, handleOnToggle }) {
-  //isOpen = false;
-  console.log(isOpen)
+export default function Sidebar() {
+  const { isOpen, setIsOpen } = useOpenContext();
   return (
-    <div className="sidebar" onMouseOver={() => setIsOpen(true)} onMouseOut={() => setIsOpen(false)}>
+    <div
+      className="sidebar"
+      onMouseOver={() => setIsOpen(true)}
+      onMouseOut={() => setIsOpen(false)}
+    >
       <div className={isOpen ? "sidebar open" : "sidebar closed"}>
         <ClosedSideBar />
-        { /* isOpen ? <OpenSideBar isOpen={isOpen} /> : <ClosedSideBar /> */}
       </div>
     </div>
   );
-}
-
-export function OpenSideBar() {
-  return <div></div>;
 }
 
 export function ClosedSideBar() {

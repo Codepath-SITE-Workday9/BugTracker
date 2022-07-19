@@ -30,11 +30,9 @@
 .register-form .form input{
     font-size: 18px;
     margin-bottom: 20px;
-}
-
-.register-form .form-input{
     padding: 10px 20px;
 }
+
 
 .register-form .form button{
     width: 100%;
@@ -52,7 +50,11 @@
 
 .register-form .footer{
     font-size: 20px;
+    text-align: center;
 }
 .register-form a:hover {
     text-decoration: underline;
+}
+.errors{
+    color:red;
 }

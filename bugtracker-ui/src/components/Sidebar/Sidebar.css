@@ -58,22 +58,26 @@
 .icon-text{
     font-size: 20px;
     text-transform: uppercase;
-
     text-align: center;
     vertical-align: center;
 }
+
 a, a:hover, a:active, a:visited, a:focus {
     text-decoration:none;
 }
+
 .bottom-sidebar{
     position: absolute;
     bottom: 0;
     margin-bottom: 50px;
 }
+
 .sidebar .icon-text:hover{
     transform: rotateY(0deg);
     opacity: 1;
+    
 }
+
 .sidebar-logo, .top-sidebar, .middle-sidebar, .bottom-sidebar{
     display: flex;
     flex-direction: column;

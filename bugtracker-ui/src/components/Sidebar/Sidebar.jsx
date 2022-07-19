@@ -24,7 +24,7 @@ export function ClosedSideBar() {
       <div className="sidebar-logo">
         <Link to="/">
           <div className="sidebar-icon">
-            <span className="material-symbols-outlined">circle</span>
+            <span className="material-symbols-outlined">bug_report</span>
             <span className="icon-text"> Bug tracker </span>
           </div>
         </Link>

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import "./Dashboard.css";
-
+import { useOpenContext } from "../../contexts/open";
 export default function Dashboard( { isOpen } ) {
+  const { isOpen } = useOpenContext();
   console.log("Dashboard isOpen below")
   console.log(isOpen)
   return (

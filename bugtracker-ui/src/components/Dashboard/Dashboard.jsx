@@ -1,13 +1,10 @@
 import * as React from "react";
-import { useState } from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import "../../services/charts.js"
 
 export default function Dashboard() {
   const { isOpen } = useOpenContext();
-  console.log("Dashboard isOpen below")
-  console.log(isOpen)
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
       <div className="projects-table">
@@ -130,6 +127,5 @@ export default function Dashboard() {
           </div>
       </div>
     </div>
-    
-  )
+  );
 }

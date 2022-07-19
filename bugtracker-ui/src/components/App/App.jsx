@@ -16,7 +16,11 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
-
+import { useOpenContext } from "../../contexts/open";
+import { useEffect } from "react";
+import apiClient from "../../services/apiClient";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import NotFound from "../NotFound/NotFound";
 export default function AppContainer() {
   return (
     <AuthContextProvider>
@@ -28,20 +32,37 @@ export default function AppContainer() {
 }
 
 export function App() {
-  //const [isOpen, setIsOpen] = useState(false);
-  //const { isOpen } = useOpenContext()
-  //console.log("App isopen below:")
-  //console.log(isOpen)
-  //const {user} = useAuthContext();
+  const { user, setUser, setInitialized, setIsProcessing, setError } =
+    useAuthContext();
 
-  // fake user boolean for routing testing
-  var exampleUser = true;
+  useEffect(() => {
+    const fetchUser = async () => {
+      "Fetching user info";
+      const { data } = await apiClient.fetchUserFromToken();
+      if (data) {
+        setUser(data.user);
+      }
+      setInitialized(true);
+      setIsProcessing(false);
+    };
+
+    const token = localStorage.getItem("bugtracker_token");
+
+    if (token) {
+      apiClient.setToken(token);
+      setIsProcessing(true);
+      setError(null);
+      fetchUser();
+    }
+    setIsProcessing(false);
+    setInitialized(true);
+  }, []);
 
   return (
     <div className="app">
       <BrowserRouter>
         <main>
-          {exampleUser ? (
+          {user?.email ? (
             <>
               <Navbar />
               <Sidebar />
@@ -53,18 +74,40 @@ export function App() {
           <Routes>
             <Route
               path="/"
-              element={exampleUser ? <Dashboard /> : <LandingPage />}
+              element={user?.email ? <Dashboard /> : <LandingPage />}
             />
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/tickets" element={<TicketsPage />} />
-            <Route path="/statistics" element={<StatisticsPage />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/teams" element={<TeamsPage />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/projects" element={<ProjectsPage />} />
+            <Route
+              path="/dashboard"
+              element={<ProtectedRoute element={<Dashboard />} />}
+            />
+            <Route
+              path="/tickets"
+              element={<ProtectedRoute element={<TicketsPage />} />}
+            />
+            <Route
+              path="/statistics"
+              element={<ProtectedRoute element={<StatisticsPage />} />}
+            />
+            <Route
+              path="/userprofile"
+              element={<ProtectedRoute element={<UserProfile />} />}
+            />
+            <Route
+              path="/teams"
+              element={<ProtectedRoute element={<TeamsPage />} />}
+            />
+            <Route
+              path="/settings"
+              element={<ProtectedRoute element={<Settings />} />}
+            />
+            <Route
+              path="/projects"
+              element={<ProtectedRoute element={<ProjectsPage />} />}
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </BrowserRouter>

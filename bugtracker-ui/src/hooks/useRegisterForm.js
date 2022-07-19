@@ -7,8 +7,7 @@ export const useRegisterForm = ({ user, setUser}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
-      firstName: "",
-      lastName: "",
+      fullName: "",
       email: "",
       password: "",
       passwordConfirm: "",
@@ -65,9 +64,7 @@ export const useRegisterForm = ({ user, setUser}) => {
       }
   
       const { data, error } = await apiClient.signup({
-        username: form.username,
-        firstName: form.firstName,
-        lastName: form.lastName,
+        fullName: form.fullName,
         email: form.email,
         password: form.password,
       });

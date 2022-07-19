@@ -1,13 +1,147 @@
 .dashboard {
-    
+    position: relative;
 }
 
-.dashboard .open {
+.dashboard.open {
     margin-left: 264px;
     transition: 0.5s;
 }
 
-.dashboard .closed {
+.dashboard.closed {
     margin-left: 96px;
     transition: 0.5s;
+}
+
+.dashboard .header-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dashboard h {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.dashboard .projects-table {
+
+}
+
+.dashboard .project-input {
+
+}
+
+.dashboard .input-group {
+    border-radius: 200px;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    
+}
+
+/*.dashboard .table {
+    border: 1px solid;
+    border-collapse: collapse;
+    background-color: white;
+    
+} */
+
+.dashboard .table {
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+}
+
+#doughnut-chart {
+    -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+
+        display: flex;
+          width: 25%;
+}
+
+.table th1 {
+    /* border-bottom: 1px solid #eaeaea; */
+}
+
+.table th2 {
+    /* border-bottom: 1px solid #eaeaea; */
+    position: center;
+}
+
+.table th3 {
+    /* border-bottom: 1px solid #eaeaea; */
+}
+
+.table td, .table th {
+    border-top: 1px solid #eaeaea;
+    white-space: nowrap;
+    padding: 1.05rem 0.75rem;
+}
+
+
+.dashboard .table-header-row {
+     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*display: table-header-group;*/
+    vertical-align: middle;
+    border-color: inherit;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.dashboard .table-content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.dashboard .projects-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dashboard .statistics-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.donut-chart {
+    -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+
+        display: flex;
+          width: 25%;
+          max-height: 400px;
+          max-width: 600px;
 }

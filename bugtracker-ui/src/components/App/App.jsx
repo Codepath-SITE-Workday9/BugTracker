@@ -28,10 +28,10 @@ export default function AppContainer() {
 }
 
 export function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  //const [isOpen, setIsOpen] = useState(false);
   //const { isOpen } = useOpenContext()
-  console.log("App isopen below:")
-  console.log(isOpen)
+  //console.log("App isopen below:")
+  //console.log(isOpen)
   //const {user} = useAuthContext();
 
   // fake user boolean for routing testing
@@ -50,7 +50,7 @@ export function App() {
             <NoUserNavbar />
           )}
 
-          <Routes isOpen={isOpen}>
+          <Routes>
             <Route
               path="/"
               element={exampleUser ? <Dashboard /> : <LandingPage />}
@@ -58,7 +58,7 @@ export function App() {
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route isOpen={isOpen} path="/dashboard" element={<Dashboard isOpen={isOpen} setIsOpen={setIsOpen}/>} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tickets" element={<TicketsPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/userprofile" element={<UserProfile />} />

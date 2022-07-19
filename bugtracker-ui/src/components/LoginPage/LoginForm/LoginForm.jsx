@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
-// import { useLoginForm } from "../../hooks/useLoginForm";
-// import { useAuthContext } from "../../contexts/auth";
+import { useLoginForm } from "../../../hooks/useLoginForm";
+import { useAuthContext } from "../../../contexts/auth";
 
 import "./LoginForm.css";
 
 export default function LoginForm() {
-  //   const { user, setUser } = useAuthContext();
-  //   const { form, errors, isLoading, handleOnInputChange, handleOnSubmit } =
-  //     useLoginForm({ user, setUser });
+  const { user, setUser } = useAuthContext();
+  const { form, errors, isLoading, handleOnInputChange, handleOnSubmit } =
+    useLoginForm({ user, setUser });
 
   return (
     <div className="login-form">
       <h2>Login To Your Account</h2>
-      {/* 
-      {Boolean(errors.form) && <span className="error">{errors.form}</span>}
-      <br /> */}
+
+      {Boolean(errors.form) && <p className="error">{errors.form}</p>}
+      <br />
 
       <div className="form">
         <div className="input-field">
@@ -23,11 +23,11 @@ export default function LoginForm() {
             className="form-input"
             name="email"
             type="email"
-            // value={form.email}
-            // onChange={handleOnInputChange}
+            value={form.email}
+            onChange={handleOnInputChange}
             placeholder="email"
           />
-          {/* {errors.email && <span className="error">{errors.email}</span>} */}
+          {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="input-field">
           <label htmlFor="password">Password</label>
@@ -35,20 +35,18 @@ export default function LoginForm() {
             className="form-input"
             name="password"
             type="password"
-            // value={form.password}
-            // onChange={handleOnInputChange}
+            value={form.password}
+            onChange={handleOnInputChange}
             placeholder="password"
           />
-          {/* {errors.password && <span className="error">{errors.password}</span>} */}
+          {errors.password && <p className="error">{errors.password}</p>}
         </div>
         <button
           className="submit-login"
-          //   disabled={isLoading}
-          //   onClick={handleOnSubmit}
+          disabled={isLoading}
+          onClick={handleOnSubmit}
         >
-          {" "}
-          Login
-          {/* {isLoading ? "Loading..." : "Login"} */}
+          {isLoading ? "Loading..." : "Login"}
         </button>{" "}
       </div>
       <div className="footer">

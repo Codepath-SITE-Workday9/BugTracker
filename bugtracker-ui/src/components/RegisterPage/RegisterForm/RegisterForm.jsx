@@ -1,9 +1,12 @@
 import "./RegisterForm.css";
 import { Link } from "react-router-dom";
+import { useRegisterForm } from "../../../hooks/useRegisterForm";
+import { useAuthContext } from "../../../contexts/auth";
 
 export default function RegisterForm() {
-  // const { form, errors, isLoading, handleOnInputChange, handleOnSubmit } =
-  //   useRegisterForm({ user, setUser });
+  const { user, setUser } = useAuthContext();
+  const { form, errors, isLoading, handleOnInputChange, handleOnSubmit } =
+    useRegisterForm({ user, setUser });
   return (
     <div className="register-form">
       <h2>Register For An Account</h2>
@@ -13,11 +16,11 @@ export default function RegisterForm() {
           <input
             type="email"
             name="email"
-            placeholder="jane@doe.io"
-            //   value={form.email}
-            //   onChange={handleOnInputChange}
+            placeholder="email"
+            value={form.email}
+            onChange={handleOnInputChange}
           />
-          {/* {errors.email && <span className="error">{errors.email}</span>} */}
+          {errors.email && <p className="error">{errors.email}</p>}
 
           <div className="split-inputs">
             <div className="input-field">
@@ -25,13 +28,11 @@ export default function RegisterForm() {
               <input
                 type="text"
                 name="firstName"
-                placeholder="Jane"
-                //   value={form.firstName}
-                //   onChange={handleOnInputChange}
+                placeholder="name"
+                value={form.firstName}
+                onChange={handleOnInputChange}
               />
-              {/* {errors.firstName && (
-                  <span className="error">{errors.firstName}</span>
-                )} */}
+              {errors.firstName && <p className="error">{errors.firstName}</p>}
             </div>
           </div>
 
@@ -41,12 +42,10 @@ export default function RegisterForm() {
               type="password"
               name="password"
               placeholder="password"
-              // value={form.password}
-              // onChange={handleOnInputChange}
+              value={form.password}
+              onChange={handleOnInputChange}
             />
-            {/* {errors.password && (
-                <span className="error">{errors.password}</span>
-              )} */}
+            {errors.password && <p className="error">{errors.password}</p>}
           </div>
 
           <div className="input-field">
@@ -55,22 +54,20 @@ export default function RegisterForm() {
               type="password"
               name="passwordConfirm"
               placeholder="confirm password"
-              // value={form.passwordConfirm}
-              // onChange={handleOnInputChange}
+              value={form.passwordConfirm}
+              onChange={handleOnInputChange}
             />
-            {/* {errors.passwordConfirm && (
-                <span className="error">{errors.passwordConfirm}</span>
-              )} */}
+            {errors.passwordConfirm && (
+              <p className="error">{errors.passwordConfirm}</p>
+            )}
           </div>
 
           <button
             className="submit-register"
-            //   disabled={isLoading}
-            //   onClick={handleOnSubmit}
+            disabled={isLoading}
+            onClick={handleOnSubmit}
           >
-            {" "}
-            Sign up
-            {/* {isLoading ? "Loading..." : "Create Account"} */}
+            {isLoading ? "Loading..." : "Create Account"}
           </button>
         </div>
       </div>

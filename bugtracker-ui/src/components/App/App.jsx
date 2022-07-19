@@ -13,8 +13,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import ProjectsPage from "../ProjectsPage/ProjectsPage";
 import { AuthContextProvider, useAuthContext } from "../../contexts/auth";
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
 
@@ -29,7 +28,7 @@ export default function AppContainer() {
 }
 
 export function App() {
-  //const {user} = useAuthContext();
+  // const {user} = useAuthContext();
 
   // fake user boolean for routing testing
   var exampleUser = true;

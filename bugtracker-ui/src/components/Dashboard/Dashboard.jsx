@@ -66,10 +66,16 @@ export default function Dashboard() {
       <div className="ticket-statistics">
         <h>TICKET STATISTICS</h>
         <div className="statistics-row">
-          <div className="statistic-element">
-            <canvas className="donut-chart" id="doughnut-chart" width="800" height="450"></canvas>
           
-          </div>
+            <canvas className="donut-chart" id="category-chart" width="800" height="450"></canvas>
+            <br />
+            <canvas className="donut-chart" id="status-chart" width="800" height="450"></canvas>
+            <br />
+            <canvas className="donut-chart" id="priority-chart" width="800" height="450"></canvas>
+           
+            
+         
+
         </div>
       </div>
     

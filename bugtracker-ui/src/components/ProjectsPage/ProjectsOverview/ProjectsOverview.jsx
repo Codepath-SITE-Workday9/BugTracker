@@ -1,6 +1,6 @@
 import "./ProjectsOverview.css";
 import ProjectCard from "../ProjectCard/ProjectCard";
-
+import { useState } from "react";
 export default function ProjectsOverview() {
   const fakeData = [
     {
@@ -34,6 +34,20 @@ export default function ProjectsOverview() {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",
     },
   ];
+  var projectsToShow = [];
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleOnChange = (change) => {
+    setSearchTerm(change.target.value);
+    console.log(searchTerm);
+  };
+
+  projectsToShow = fakeData.filter((p) =>
+    p.projectTitle.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log(projectsToShow);
+
   return (
     <div className="projects-overview">
       <div className="header">
@@ -46,7 +60,7 @@ export default function ProjectsOverview() {
           type="text"
           name="search"
           placeholder="search for project"
-          // onChange={handleOnChange}
+          onChange={handleOnChange}
         />
         <i className="material-icons">search</i>
       </div>
@@ -56,7 +70,7 @@ export default function ProjectsOverview() {
       </div>
 
       <div className="project-card-container">
-        {fakeData.map((project) => (
+        {projectsToShow.map((project) => (
           <>
             <ProjectCard
               title={project.projectTitle}

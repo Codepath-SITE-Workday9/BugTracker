@@ -47,7 +47,7 @@ export default function LoginForm() {
           onClick={handleOnSubmit}
         >
           {isLoading ? "Loading..." : "Login"}
-        </button>{" "}
+        </button>
       </div>
       <div className="footer">
         <p>

@@ -16,7 +16,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
-
+import { useOpenContext } from "../../contexts/open";
+import { useEffect } from "react";
+import apiClient from "../../services/apiClient";
 export default function AppContainer() {
   return (
     <AuthContextProvider>
@@ -28,20 +30,38 @@ export default function AppContainer() {
 }
 
 export function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  //const { isOpen } = useOpenContext()
-  console.log("App isopen below:")
-  console.log(isOpen)
-  //const {user} = useAuthContext();
+  const { isOpen } = useOpenContext();
+  const { user, setUser, setInitialized, setIsProcessing, setError } =
+    useAuthContext();
 
-  // fake user boolean for routing testing
-  var exampleUser = false;
+  useEffect(() => {
+    const fetchUser = async () => {
+      "Fetching user info";
+      const { data } = await apiClient.fetchUserFromToken();
+      if (data) {
+        setUser(data.user);
+      }
+      setInitialized(true);
+      setIsProcessing(false);
+    };
+
+    const token = localStorage.getItem("bugtracker_token");
+
+    if (token) {
+      apiClient.setToken(token);
+      setIsProcessing(true);
+      setError(null);
+      fetchUser();
+    }
+
+    setInitialized(true);
+  }, []);
 
   return (
     <div className="app">
       <BrowserRouter>
         <main>
-          {exampleUser ? (
+          {user?.email ? (
             <>
               <Navbar />
               <Sidebar />
@@ -50,15 +70,15 @@ export function App() {
             <NoUserNavbar />
           )}
 
-          <Routes isOpen={isOpen}>
+          <Routes>
             <Route
               path="/"
-              element={exampleUser ? <Dashboard /> : <LandingPage />}
+              element={user?.email ? <Dashboard /> : <LandingPage />}
             />
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route isOpen={isOpen} path="/dashboard" element={<Dashboard isOpen={isOpen} setIsOpen={setIsOpen}/>} />
+            <Route isOpen={isOpen} path="/dashboard" element={<Dashboard />} />
             <Route path="/tickets" element={<TicketsPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/userprofile" element={<UserProfile />} />

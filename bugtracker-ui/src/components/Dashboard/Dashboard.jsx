@@ -1,18 +1,15 @@
 import * as React from "react";
-import { useState } from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
-export default function Dashboard( { isOpen } ) {
+
+export default function Dashboard() {
   const { isOpen } = useOpenContext();
-  console.log("Dashboard isOpen below")
-  console.log(isOpen)
   return (
     <div className="dashboard closed">
       <div className="projects-table">
         <div className="header-row">
           <h>YOUR PROJECTS</h>
           <h>Search Hereee</h>
-          
         </div>
         <div className="table">
           <div className="table-header-row">
@@ -20,9 +17,7 @@ export default function Dashboard( { isOpen } ) {
             <h>DESCRIPTION</h>
             <h>COLLABORATORS</h>
           </div>
-          <div className="table-content-row">
-
-          </div>
+          <div className="table-content-row"></div>
         </div>
       </div>
 
@@ -30,6 +25,5 @@ export default function Dashboard( { isOpen } ) {
 
       <div className="teams-table">Teams Table</div>
     </div>
-    
-  )
+  );
 }

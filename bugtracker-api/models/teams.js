@@ -123,7 +123,7 @@ class Teams
 
 
 
-
+    //FUNCTION TO ADD A NEW TEAM MEMBER TO AN EXISITNG TEAM
     static async addNewTeamMember()
     {
         //Add a new member to a team
@@ -132,7 +132,7 @@ class Teams
 
 
 
-    
+
 
 
     //FUNCTION TO FIND A USER'S ID GIVEN ONLY THE USER EMAIL

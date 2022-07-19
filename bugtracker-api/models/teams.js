@@ -3,9 +3,23 @@ const {BadRequestError, NotFoundError} = require("../utils/errors")
 
 class Teams
 {
-    static async listAllTeams()
+    //FUNCTION GET A LIST OF ALL THE TEAMS A USER IS A PART OF
+    static async listAllTeams({user})
     {
-        //List all teams a user belongs to
+        //Runs a query to find all the teams a user is a part of by : 
+        //First, finding the id of the user given the user's email from the local server
+        //And then matching this id to any of the teams where this id matches a member's id in a team
+        const results = await db.query(
+            `
+                SELECT *
+                FROM teams 
+                WHERE (SELECT id FROM users WHERE email = $1) = any(teams.members)
+            `, [user.email])
+        
+
+            
+        //Return all the teams a user is a part of
+        return results.rows
     }
 
 
@@ -30,7 +44,7 @@ class Teams
 
 
 
-        
+
         //Inserts into the teams table the team name, members, projects, and id of the creator (in this case it is the user who created the team
         //To find the id of all the members, 
         //the query finds the id of all the users who have the same email as those from the members list (request body)

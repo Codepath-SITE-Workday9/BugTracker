@@ -14,7 +14,7 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
         //Grab the user from the local server
         //Get a list of all the teams a user belongs to by calling Teams Class
         //Return a the list back to the Client
-        const {user} = res.locals.user
+        const {user} = res.locals
         const teamList = await Teams.listAllTeams({user})
         return res.status(200).json({teamList: teamList})
     }

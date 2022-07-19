@@ -36,7 +36,7 @@ router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
         //Grab the user from the local server
         //Send both the user and team information provided from the Client req body and store it
         //Return a json body with the new team information
-        const {user} = res.locals.user
+        const {user} = res.locals
         const team = await Teams.createTeam({user: user, teamInfo: req.body})
         return res.status(201).json({team: team})
     }

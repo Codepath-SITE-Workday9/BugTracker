@@ -4,31 +4,31 @@ import { useState } from "react";
 export default function ProjectsOverview() {
   const fakeData = [
     {
-      projectTitle: "Project 1",
+      projectTitle: "Student Store",
       tickets: 3,
       description:
         "Lorem ipsum dolor sit amet, sectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit",
     },
     {
-      projectTitle: "Project 2",
+      projectTitle: "Lifetracker",
       tickets: 5,
       description:
         "vLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .",
     },
     {
-      projectTitle: "Project 3",
+      projectTitle: "Flixster",
       tickets: 2,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . . ",
     },
     {
-      projectTitle: "Project 4",
+      projectTitle: "Stock App",
       tickets: 7,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .. ",
     },
     {
-      projectTitle: "Project 5",
+      projectTitle: "Bug Tracker Project",
       tickets: 4,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",

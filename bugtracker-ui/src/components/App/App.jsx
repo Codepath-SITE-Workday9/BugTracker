@@ -31,7 +31,7 @@ export function App() {
   // const {user} = useAuthContext();
 
   // fake user boolean for routing testing
-  var exampleUser = true;
+  var exampleUser = false;
 
   return (
     <div className="app">

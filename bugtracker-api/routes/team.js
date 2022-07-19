@@ -59,7 +59,8 @@ router.get("/:teamId", security.requireAuthenticatedUser, async(req,res,next) =>
         //Return the team information back to the Client
 
         const {teamId} = req.params
-        const team = Teams.fetchTeamById(teamId)
+        const {user} = res.locals
+        const team = await Teams.fetchTeamById({teamId: teamId, user: user})
         return res.status(200).json({team: team})
     }
     catch(error)

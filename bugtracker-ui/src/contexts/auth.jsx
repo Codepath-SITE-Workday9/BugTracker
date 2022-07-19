@@ -9,38 +9,46 @@ export const AuthContextProvider = ({ children }) => {
   const [error, setError] = useState();
 
   const loginUser = async () => {
+    setIsProcessing(true);
     const { data, error } = await apiClient.login(credentials);
     if (data) {
       setUser(data.user);
       apiClient.setToken(data.token);
-      localStorage.setItem("kavholm_token", data.token);
+      localStorage.setItem("bugtracker_token", data.token);
     }
     if (error) setError(error);
+    setIsProcessing(false);
   };
 
   const signupUser = async () => {
+    setIsProcessing(true);
     const { data, error } = await apiClient.signupUser(credentials);
     if (data) {
       setUser(data.user);
       apiClient.setToken(data.token);
-      localStorage.setItem("kavholm_token", data.token);
+      localStorage.setItem("bugtracker_token", data.token);
     }
     if (error) setError(error);
+    setIsProcessing(false);
   };
 
   const fetchUserFromToken = async () => {
+    setIsProcessing(true);
     const { data } = await apiClient.fetchUserFromToken();
     if (data) {
       setUser(data.user);
     }
     setInitialized(true);
+    setIsProcessing(false);
   };
 
   const logoutUser = async () => {
+    setIsProcessing(true);
     apiClient.logoutUser();
     setUser({});
     setInitialized(true);
     setError(null);
+    setIsProcessing(false);
   };
 
   const authValue = {

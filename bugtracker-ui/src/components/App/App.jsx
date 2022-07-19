@@ -19,6 +19,8 @@ import { OpenContextProvider } from "../../contexts/open";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
 import apiClient from "../../services/apiClient";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import NotFound from "../NotFound/NotFound";
 export default function AppContainer() {
   return (
     <AuthContextProvider>
@@ -53,7 +55,7 @@ export function App() {
       setError(null);
       fetchUser();
     }
-
+    setIsProcessing(false);
     setInitialized(true);
   }, []);
 
@@ -78,13 +80,35 @@ export function App() {
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route isOpen={isOpen} path="/dashboard" element={<Dashboard />} />
-            <Route path="/tickets" element={<TicketsPage />} />
-            <Route path="/statistics" element={<StatisticsPage />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/teams" element={<TeamsPage />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/projects" element={<ProjectsPage />} />
+            <Route
+              path="/dashboard"
+              element={<ProtectedRoute element={<Dashboard />} />}
+            />
+            <Route
+              path="/tickets"
+              element={<ProtectedRoute element={<TicketsPage />} />}
+            />
+            <Route
+              path="/statistics"
+              element={<ProtectedRoute element={<StatisticsPage />} />}
+            />
+            <Route
+              path="/userprofile"
+              element={<ProtectedRoute element={<UserProfile />} />}
+            />
+            <Route
+              path="/teams"
+              element={<ProtectedRoute element={<TeamsPage />} />}
+            />
+            <Route
+              path="/settings"
+              element={<ProtectedRoute element={<Settings />} />}
+            />
+            <Route
+              path="/projects"
+              element={<ProtectedRoute element={<ProjectsPage />} />}
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </BrowserRouter>

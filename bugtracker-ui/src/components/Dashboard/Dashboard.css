@@ -1,0 +1,13 @@
+.dashboard {
+    
+}
+
+.dashboard .open {
+    margin-left: 264px;
+    transition: 0.5s;
+}
+
+.dashboard .closed {
+    margin-left: 96px;
+    transition: 0.5s;
+}

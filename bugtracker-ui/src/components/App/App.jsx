@@ -32,7 +32,6 @@ export default function AppContainer() {
 }
 
 export function App() {
-  const { isOpen } = useOpenContext();
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
 

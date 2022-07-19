@@ -1,0 +1,18 @@
+.project-view{
+    padding: 10px;
+
+}
+.project-header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    align-items: center;
+}
+
+.project-header button {
+    height: 30px;
+}
+.project-description{
+    border-bottom: 1px solid black;
+}

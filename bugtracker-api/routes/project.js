@@ -3,6 +3,7 @@ const express = require("express")
 const router = express.Router()
 const Projects = require("../models/projects")
 const security = require("../middleware/security")
+const Teams = require("../models/teams")
 
 
 
@@ -43,7 +44,7 @@ router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
 })
 
 
-//FUNCTION THAT FETCHES DETAILS FOR SPECIFIC TICKET
+//FUNCTION THAT FETCHES DETAILS FOR SPECIFIC PROJECT BY THEIR ID
 router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
@@ -51,6 +52,10 @@ router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next)
         //Get the user from the local server
         //call  fetchProjectbyId function to find specific project info
         //Return the specific project info
+        const {projectId} = req.params
+        const {user} = res.locals
+        const project = await Projects.fetchProjectById({projectId: projectId, user: user})
+        return res.status(200).json({project: project})
     }
     catch(error)
     {

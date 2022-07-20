@@ -4,6 +4,7 @@ const Teams = require("../models/teams")
 
 class Projects
 {
+
     //FUNCTION TO GET A LIST OF ALL THE PROJECTS A USER IS A PART OF OR CREATOR OF
     static async listAllProjects({user})
     {
@@ -33,6 +34,7 @@ class Projects
         //Return all the projects a user is a part of
         return results.rows
     }
+
 
 
 
@@ -78,10 +80,35 @@ class Projects
 
 
 
-    //FETCHES SPECIFIC PROJECT INFORMATION
-    static async fetchProjectbyId()
+    //FUNCTION TO FETCH SPECIFIC PROJECT INFORMATION GIVE THE PROJECT ID
+    static async fetchProjectById({projectId, user})
     {
-        //Fetches specific project information
+        //Run a query to obtain the id of the user given their user email from the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        
+        const results = await db.query(
+            `
+                SELECT pro.id,
+                       pro.name,
+                       pro.description,
+                       pro.image_url,
+                       pro.tickets,
+                       pro.teams,
+                       pro.created_at,
+                       pro.creator_id
+                FROM projects AS pro
+                    LEFT JOIN teams ON teams.id = pro.id
+                WHERE pro.id = $1 AND ((pro.creator_id = $2) OR $1 = any(teams.members))
+            `, [projectId, userId])
+        
+        const project = results.rows[0]
+        if(!project)
+        {
+            throw new NotFoundError("Project was not found!")
+        }
+
+        return project
     }
 
 

@@ -1,0 +1,16 @@
+.tickets-page{
+    margin-left: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 20px;
+}
+
+.tickets-page .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tickets-page .projects-box {
+    background-color: white;
+}

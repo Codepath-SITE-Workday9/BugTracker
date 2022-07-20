@@ -11,7 +11,9 @@ const security = require("../middleware/security")
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //
+        //Get the user info from res.locals
+        //call the listAllProject function and send in the user
+        //Return the list of all the projects
     }
     catch(error)
     {
@@ -23,7 +25,13 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
 router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //
+        //Retrieve the user information
+        //Call the createProject function to create a new project
+        //Take in all project information
+        //Return the new project information
+        const {user} = res.locals
+        const project = await Projects.createProject({user: user, projectInfo: req.body})
+        return res.status(201).json({project: project})
     }
     catch(error)
     {
@@ -36,7 +44,10 @@ router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
 router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //
+        //Retrieve the teams id from the url
+        //Get the user from the local server
+        //call  fetchProjectbyId function to find specific project info
+        //Return the specific project info
     }
     catch(error)
     {
@@ -48,7 +59,11 @@ router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next)
 router.patch("/:projectId/update", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //
+        //Retrieve the team id from the url
+        //Get the user from the local server
+        //Call the updateProjectInfo function to update specific project fields
+        //Req body should have the name of the field to update and the info to update it
+        //Return the updated project info
     }
     catch(error)
     {

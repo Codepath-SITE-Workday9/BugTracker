@@ -14,6 +14,9 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
         //Get the user info from res.locals
         //call the listAllProject function and send in the user
         //Return the list of all the projects
+        const {user} = res.locals
+        const projectList = await Projects.listAllProjects({user})
+        return res.status(200).json({projectList: projectList})
     }
     catch(error)
     {

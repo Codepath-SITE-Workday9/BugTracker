@@ -4,10 +4,34 @@ const Teams = require("../models/teams")
 
 class Projects
 {
-    //FETCH ALL PROJECTS FOR A USER
-    static async listAllProjects()
+    //FUNCTION TO GET A LIST OF ALL THE PROJECTS A USER IS A PART OF OR CREATOR OF
+    static async listAllProjects({user})
     {
-        //function
+        //First, runs a query to find the id of the user given the user's email from the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Runs a query to find all the projects a user is a creator or member of:
+        //First, the query combines the information from both the projects and teams table
+        //Then finds the project's teams where a user is a member and then checks whether the user is a creator of the project
+        //If successful, return all the project information
+        const results = await db.query(
+            `
+                SELECT pro.id,
+                       pro.name,
+                       pro.description,
+                       pro.image_url,
+                       pro.tickets,
+                       pro.teams,
+                       pro.created_at,
+                       pro.creator_id
+                FROM projects as pro
+                    LEFT JOIN teams on teams.id = pro.id
+                WHERE $1 = any(teams.members) OR (pro.creator_id = $1)
+                ORDER BY pro.id ASC
+            `, [userId])
+        
+        //Return all the projects a user is a part of
+        return results.rows
     }
 
 

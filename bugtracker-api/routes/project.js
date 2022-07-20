@@ -1,7 +1,7 @@
 //IMPORT EXPRESS, ROUTER, AND SECURITY MIDDLEWARE
 const express = require("express")
 const router = express.Router()
-const Teams = require("../models/teams")
+const Projects = require("../models/projects")
 const security = require("../middleware/security")
 
 

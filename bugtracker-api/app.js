@@ -9,6 +9,7 @@ const security = require('./middleware/security')
 //Importing Models and Routes
 const authRoutes = require('./routes/auth')
 const teamRoutes = require('./routes/team')
+const projectRoutes = require('./routes/project')
 
 
 
@@ -29,6 +30,8 @@ app.use(security.extractUserFromJwt)
 app.use("/auth", authRoutes)
 //APP USE - All teams routes including list all teams, creating a team, and add new members to teams
 app.use("/team", teamRoutes)
+//APP USE - All project routes including list all projects, creating a project, getting detailings for a project, and updating project info
+app.use("/project", projectRoutes)
 
 
 

@@ -1,0 +1,30 @@
+.team-card{
+    background-color: white;
+    margin-bottom: 10px;
+    padding:10px;
+    box-shadow: 0 1px 20px 0 rgba(41, 52, 58, 0.08);
+}
+.team-card:hover{
+    transform: scale(1.006);
+    box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+.team-card .team-card-title{
+    font-size: 20px;
+    padding-bottom:10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid grey;
+}
+
+/* .team-card .team-card-description{
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+} */
+
+.team-card p{
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

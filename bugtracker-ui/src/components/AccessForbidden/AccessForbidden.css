@@ -1,0 +1,16 @@
+.access-forbidden{
+    text-align: center;
+}
+
+.access-forbidden h1{
+    font-size: 60px;
+}
+
+.access-forbidden h2{
+    font-size: 30px;
+}
+
+.access-forbidden a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

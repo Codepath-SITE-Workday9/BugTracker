@@ -6,7 +6,6 @@ export default function ProtectedRoute({ element }) {
   if (isProcessing) {
     return null;
   }
-
   if (!user?.email) {
     return <AccessForbidden />;
   }

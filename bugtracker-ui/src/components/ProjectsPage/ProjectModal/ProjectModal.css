@@ -1,0 +1,85 @@
+.project-modal-background{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding-top: 50px;
+    vertical-align: top;
+    z-index: 1;
+}
+
+.project-modal-container{
+    width: 700px;
+    height: 700px;
+    display: flex;
+    background: var(--off-white);
+    flex-direction: column;
+    box-shadow: 1px 0 20px 0 #3f4d67;
+    border-radius: 23px;
+}
+
+.project-modal-container .header{
+    padding: 10px;
+    background-color: var(--dark-blue);
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px 20px 0px 0px; 
+}
+.project-modal-container .header p{
+    margin: 5px;
+}
+
+.project-modal-container .header button {
+    background: none;
+    color: white;
+    font-size: 20px;
+}
+
+.project-modal-container .form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+}
+.project-modal-container .form-container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.project-modal-container .form-container label{
+    font-size: 25px;
+}
+
+.modal-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.split-input-fields{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.modal-buttons{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.modal-buttons button{
+    font-size: 25px;
+}

@@ -1,39 +1,7 @@
 import "./ProjectsOverview.css";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import { useState } from "react";
-export default function ProjectsOverview() {
-  const fakeData = [
-    {
-      projectTitle: "Student Store",
-      tickets: 3,
-      description:
-        "Lorem ipsum dolor sit amet, sectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit",
-    },
-    {
-      projectTitle: "Lifetracker",
-      tickets: 5,
-      description:
-        "vLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .",
-    },
-    {
-      projectTitle: "Flixster",
-      tickets: 2,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . . ",
-    },
-    {
-      projectTitle: "Stock App",
-      tickets: 7,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .. ",
-    },
-    {
-      projectTitle: "Bug Tracker Project",
-      tickets: 4,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",
-    },
-  ];
+export default function ProjectsOverview({ projects, handleOnProjectClick }) {
   var projectsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -42,11 +10,9 @@ export default function ProjectsOverview() {
     console.log(searchTerm);
   };
 
-  projectsToShow = fakeData.filter((p) =>
+  projectsToShow = projects.filter((p) =>
     p.projectTitle.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log(projectsToShow);
 
   return (
     <div className="projects-overview">
@@ -76,6 +42,7 @@ export default function ProjectsOverview() {
               title={project.projectTitle}
               description={project.description}
               numOpenTickets={project.tickets}
+              handleOnClick={handleOnProjectClick}
             />
           </>
         ))}

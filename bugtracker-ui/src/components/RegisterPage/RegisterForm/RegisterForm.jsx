@@ -10,6 +10,8 @@ export default function RegisterForm() {
   return (
     <div className="register-form">
       <h2>Register For An Account</h2>
+      {Boolean(errors.form) && <p className="error">{errors.form}</p>}
+      <br />
       <div className="form">
         <div className="input-field">
           <label htmlFor="email">Enter email</label>

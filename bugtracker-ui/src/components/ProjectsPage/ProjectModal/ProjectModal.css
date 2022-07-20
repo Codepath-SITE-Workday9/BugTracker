@@ -1,0 +1,37 @@
+.project-modal-background{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding-top: 50px;
+    vertical-align: top;
+    z-index: 1;
+}
+
+.project-modal-container{
+    width: 800px;
+    height: 800px;
+    display: flex;
+    background: var(--off-white);
+    flex-direction: column;
+    box-shadow: 1px 0 20px 0 #3f4d67;
+}
+
+.project-modal-container .header{
+    padding: 10px;
+    background-color: var(--dark-blue);
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.project-modal-container .header button {
+    background: none;
+    color: white;
+    font-size: 20px;
+}

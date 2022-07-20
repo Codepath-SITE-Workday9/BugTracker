@@ -19,3 +19,11 @@
 tr:hover{
     color: #212529;
 }
+
+.row:hover{
+    color: darkgray;
+    cursor: pointer;
+}
+tbody tr:nth-of-type(odd){
+    background-color: rgba(4,169,245,.05);
+}

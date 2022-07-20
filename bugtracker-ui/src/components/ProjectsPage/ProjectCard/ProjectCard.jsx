@@ -1,7 +1,12 @@
 import "./ProjectCard.css";
-export default function ProjectCard({ title, description, numOpenTickets }) {
+export default function ProjectCard({
+  title,
+  description,
+  numOpenTickets,
+  handleOnClick,
+}) {
   return (
-    <div className="project-card">
+    <div className="project-card" onClick={() => handleOnClick(title)}>
       <div className="project-card-title">
         <p>{title}</p>
       </div>

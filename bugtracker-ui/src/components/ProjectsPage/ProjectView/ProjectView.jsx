@@ -1,29 +1,30 @@
 import "./ProjectView.css";
-export default function ProjectView() {
+import ProjectModal from "../ProjectModal/ProjectModal";
+export default function ProjectView({ setModal }) {
   const fakeData = [
     {
-      name: " fake ticket 1",
+      name: "Live chat feature",
       description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
       status: "in progress",
       developers: ["", "", ""],
       priority: "low",
     },
     {
-      name: "fake ticket 3",
+      name: "Activity cards are not colorblind accessible",
       description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
       status: "submitted",
       developers: ["", "", ""],
       priority: "extreme",
     },
     {
-      name: "flixster ticket ",
+      name: "Adding nutrition does not render on screen",
       description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
       status: "not started",
       developers: ["", "", ""],
       priority: "low",
     },
     {
-      name: "bug tracker ticket",
+      name: "Total calories are not calculated correctly",
       description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
       status: "in progress",
       developers: ["", "", ""],
@@ -33,8 +34,10 @@ export default function ProjectView() {
   return (
     <div className="project-view">
       <div className="project-header">
-        <h1>Project Title </h1>
-        <button className="new-project-btn">New Project</button>
+        <h1>Lifetracker </h1>
+        <button className="new-project-btn" onClick={() => setModal(true)}>
+          New Project
+        </button>
       </div>
       <div className="project-description">
         <p>
@@ -42,12 +45,6 @@ export default function ProjectView() {
           tempor consecr adipiscing elit ipsum dolor sit amet, sectetur
           adipiscing elit, sed do eiusmod tempor consecr adipiscing elit
         </p>
-      </div>
-      <div className="tickets-header">
-        <h2>Tickets</h2>
-      </div>
-      <div className="ticket-name-header">
-        <h3>Ticket Name</h3>
       </div>
 
       <div className="table">
@@ -104,12 +101,12 @@ export function TicketsTableRow({
   priority,
 }) {
   return (
-    <tr role="row">
-      <td rold="cell">{name}</td>
-      <td rold="cell">{description}</td>
-      <td rold="cell">{status}</td>
-      <td rold="cell">{developers}</td>
-      <td rold="cell">{priority}</td>
+    <tr role="row" className="row">
+      <td role="cell">{name}</td>
+      <td role="cell">{description}</td>
+      <td role="cell">{status}</td>
+      <td role="cell">{developers}</td>
+      <td role="cell">{priority}</td>
     </tr>
   );
 }

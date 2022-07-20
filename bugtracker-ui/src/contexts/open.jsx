@@ -6,13 +6,13 @@ const OpenContext = createContext(null);
 export const OpenContextProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const authValue = {
+  const openValue = {
     isOpen,
     setIsOpen,
   };
 
   return (
-    <OpenContext.Provider value={authValue}>
+    <OpenContext.Provider value={openValue}>
       <>{children}</>
     </OpenContext.Provider>
   );

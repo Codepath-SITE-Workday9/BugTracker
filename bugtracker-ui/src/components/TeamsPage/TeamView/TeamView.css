@@ -1,6 +1,6 @@
 .team-view{
     padding: 10px;
-
+    width: 100%;
 }
 .team-header{
     display:flex;
@@ -17,6 +17,7 @@
 
 
 .developer-row {
+    
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid lightgray;

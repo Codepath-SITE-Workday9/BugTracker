@@ -1,6 +1,6 @@
 import "./ProjectView.css";
 import ProjectModal from "../ProjectModal/ProjectModal";
-export default function ProjectView({ setModal }) {
+export default function ProjectView({ setModal, projectToShow }) {
   const fakeData = [
     {
       name: "Live chat feature",
@@ -34,8 +34,8 @@ export default function ProjectView({ setModal }) {
   return (
     <div className="project-view">
       <div className="project-header">
-        <h1>Lifetracker </h1>
-        <button className="new-project-btn" onClick={() => setModal(true)}>
+        <h1> {projectToShow} </h1>
+        <button className="new-btn" onClick={() => setModal(true)}>
           New Project
         </button>
       </div>
@@ -54,7 +54,7 @@ export default function ProjectView({ setModal }) {
         >
           <thead>
             <tr role="row">
-              <th colSpan="5" role="columnheader">
+              <th colSpan="5" role="columnheader" className="title">
                 Tickets
               </th>
             </tr>

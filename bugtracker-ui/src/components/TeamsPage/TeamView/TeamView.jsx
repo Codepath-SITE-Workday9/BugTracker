@@ -10,7 +10,7 @@ export default function TeamView({ setModal, currentTeam }) {
     <div className="team-view">
       <div className="team-header">
         <h1> {currentTeam} </h1>
-        <button className="new-team-btn" onClick={() => setModal(true)}>
+        <button className="new-btn" onClick={() => setModal(true)}>
           New Team
         </button>
       </div>

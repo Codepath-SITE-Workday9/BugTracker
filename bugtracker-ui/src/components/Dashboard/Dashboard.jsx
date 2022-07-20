@@ -3,6 +3,9 @@ import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
 import "../../services/charts.js"
+import { BasicTable } from "../Tables/BasicTable";
+//import MaterialTable from 'material-table';
+import { data } from '../../sampleData'
 
 
 export default function Dashboard() {
@@ -185,6 +188,7 @@ export default function Dashboard() {
 
           </div>
       </div>
+      
     </div>
   );
 }

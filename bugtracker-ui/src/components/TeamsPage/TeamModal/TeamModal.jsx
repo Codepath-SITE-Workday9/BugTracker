@@ -5,7 +5,7 @@ export default function TeamModal({ setModal }) {
     <div className="team-modal-background">
       <div className="team-modal-container">
         <div className="header">
-          <p>CREATE A NEW PROJECT</p>
+          <p>CREATE A NEW TEAM</p>
           <button className="close-modal-btn" onClick={() => setModal(false)}>
             X
           </button>
@@ -20,7 +20,7 @@ export function TeamModalForm({ setModal }) {
   return (
     <div className="form">
       <div className="input-field">
-        <label htmlFor="name">Enter Team Name</label>
+        <label htmlFor="name">Enter team name</label>
         <input
           className="form-input"
           name="name"
@@ -29,26 +29,15 @@ export function TeamModalForm({ setModal }) {
           //   onChange={handleOnInputChange}
           placeholder="team name"
         />
-        {/* {errors.email && <p className="error">{errors.email}</p>} */}
       </div>
-      <div className="input-field">
-        <label htmlFor="describe">Describe your team</label>
-        <input
-          className="form-input"
-          name="describe"
-          type="text"
-          //   value={form.password}
-          //   onChange={handleOnInputChange}
-          placeholder="describe your team "
-        />
-        {/* {errors.password && <p className="error">{errors.password}</p>} */}
-      </div>
+
       <div className="teams-search">
+        <label htmlFor="search">Search for developers by email </label>
         <input
           className="search-input"
           type="text"
           name="search"
-          placeholder="search for teams"
+          placeholder="search for developers"
           //   onChange={handleOnChange}
         />
         <i className="material-icons">search</i>

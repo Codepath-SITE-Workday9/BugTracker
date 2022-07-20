@@ -1,20 +1,15 @@
 import "./TeamCard.css";
-export default function TeamCard({
-  title,
-  description,
-  numOpenTickets,
-  handleOnClick,
-}) {
+export default function TeamCard({ name, numProjects, handleOnClick }) {
   return (
-    <div className="team-card" onClick={() => handleOnClick(title)}>
+    <div className="team-card" onClick={() => handleOnClick(name)}>
       <div className="team-card-title">
-        <p>{title}</p>
+        <p>{name}</p>
       </div>
-      <div className="team-card-description">
+      {/* <div className="team-card-description">
         <p>{description}</p>
-      </div>
+      </div> */}
       <div className="team-card-tickets">
-        <p> Open tickets: {numOpenTickets}</p>
+        <p> Projects assigned: {numProjects}</p>
       </div>
     </div>
   );

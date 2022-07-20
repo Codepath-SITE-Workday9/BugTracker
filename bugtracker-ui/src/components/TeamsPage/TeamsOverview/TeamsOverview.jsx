@@ -11,7 +11,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
   };
 
   teamsToShow = teams.filter((p) =>
-    p.teamTitle.toLowerCase().includes(searchTerm.toLowerCase())
+    p.teamName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -39,9 +39,8 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
         {teamsToShow.map((team) => (
           <>
             <TeamCard
-              title={team.teamTitle}
-              description={team.description}
-              numOpenTickets={team.tickets}
+              name={team.teamName}
+              numProjects={team.projects}
               handleOnClick={handleOnTeamClick}
             />
           </>

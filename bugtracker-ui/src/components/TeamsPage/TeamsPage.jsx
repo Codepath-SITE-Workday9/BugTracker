@@ -6,49 +6,51 @@ import { useState } from "react";
 
 export default function TeamsPage() {
   const [teamModal, setTeamModal] = useState(false);
+  // const [currentTeam, setCurrentTeam] = useState([]);
 
   var fakeData = [
     {
-      teamTitle: "Student Store",
-      tickets: 3,
+      teamName: "frontend",
+      projects: 3,
       description:
         "Lorem ipsum dolor sit amet, sectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit",
     },
     {
-      teamTitle: "Lifetracker",
-      tickets: 5,
+      teamName: "backend",
+      projects: 2,
       description:
         "vLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .",
     },
     {
-      teamTitle: "Flixster",
-      tickets: 2,
+      teamName: "ux/ui",
+      projects: 3,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . . ",
     },
     {
-      teamTitle: "Stock App",
-      tickets: 7,
+      teamName: "testing",
+      projects: 1,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .. ",
     },
-    {
-      teamTitle: "Bug Tracker Project",
-      tickets: 4,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",
-    },
   ];
 
+  const [currentTeam, setCurrentTeam] = useState([fakeData[0].teamName]);
+
   const handleOnTeamClick = (teamId) => {
+    setCurrentTeam(teamId);
     console.log(teamId);
   };
   return (
     <div className="teams-page">
       {teamModal && <TeamModal setModal={setTeamModal} />}
       <div className={teamModal ? "background-blur" : "background"}>
-        <TeamsOverview teams={fakeData} handleOnteamClick={handleOnTeamClick} />
-        <TeamView modal={teamModal} setModal={setTeamModal} />
+        <TeamsOverview teams={fakeData} handleOnTeamClick={handleOnTeamClick} />
+        <TeamView
+          modal={teamModal}
+          setModal={setTeamModal}
+          currentTeam={currentTeam}
+        />
       </div>
     </div>
   );

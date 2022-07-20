@@ -9,6 +9,5 @@
     flex-direction: rows;
 }
 .background-blur{
-
     filter: blur(5px);
 }

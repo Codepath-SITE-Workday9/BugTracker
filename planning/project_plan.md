@@ -103,19 +103,19 @@ Describe your app's data model using diagrams or tables
 List the API endpoints you will need to implement.
 
 **/auth**
-| CRUD	 |endpoint| HTTP verb | 	Description     | User stories| 
-| ----	 |   ----   |  ----     |  ------               | ----|
-| Read   | /login   | POST	| Log in to account	|  11 | 
-| Create | /register| POST      | Register an account	|  12 | 
-| Read   | /me	    | GET       | Authorize a user	|  15 | 
+| CRUD	 |endpoint| HTTP verb | 	Description     | User stories | Request Body | JSON Returns |
+| ----	 |   ----   |  ----     |  ------               | ----| ------            | -------      |
+| Read   | /login   | POST	| Log in to account	|  11 | email, password | id, email, fullname |
+| Create | /register| POST      | Register an account	|  12 | email, fullname, password | id, email, fullname |
+| Read   | /me	    | GET       | Authorize a user	|  15 | N/A | id, email, fullname |
 
 **/team**				
-| CRUD   |endpoint|	HTTP verb | Description  |	User stories
-| ----   |----       |----       |  ------               |----|
-|Read    | / | GET | List of all teams a user belongs to  | 18 |
-|Create  | / | POST | Create a team  | 19 |
-|Read    | /:teamId | GET | Returns a specific team by id  | 20 |
-|Update  | /:teamId/add	| PATCH | Add member to team  |	5 |
+| CRUD   |endpoint|	HTTP verb | Description  |	User stories | Request Body | JSON Returns |
+| ----   |----       |----       |  ------               |----| -------     |  --------     |
+|Read    | / | GET | List of all teams a user belongs to  | 18 | N/A | id, name, members (ids), creator_id, projects(ids) (for every team) |
+|Create  | / | POST | Create a team  | 19 | name, members (emails), projects (names) | id, name, members (id), creator_id, projects(id) |
+|Read    | /:teamId | GET | Returns a specific team by id  | 20 | teamId from req params | id, name, members (id), creator_id, projects(id) |
+|Update  | /:teamId/add	| PATCH | Add member to team  |	5 | email | id, name, members (id), creator_id, projects(id) |
 
 **/project**			
 | CRUD	|  endpoint    		  |HTTP verb|Description|User stories|

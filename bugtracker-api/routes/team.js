@@ -82,7 +82,9 @@ router.patch("/:teamId/add", security.requireAuthenticatedUser, async(req,res,ne
         //Send the new information to the client
         const {teamId} = req.params
         const {user} = res.locals
-        const updatedTeam = await Teams.addNewTeamMember({teamId: teamId, user: user})
+        const updatedTeam = await Teams.addNewTeamMember({teamId: teamId, newMember: req.body, user: user})
+        console.log("Updated Team: ", updatedTeam)
+        return res.status(200).json({team: updatedTeam})
     }
     catch(error)
     {

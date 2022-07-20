@@ -86,7 +86,10 @@ class Projects
         //Run a query to obtain the id of the user given their user email from the local server
         const userId = await Teams.fetchUserId(user.email)
 
-        
+        //Run a query to find the specific project information by id
+        //User can not access the project info if they are not a creator or member of the project
+        //First, search is the project id can be found and then checks if the user is the creator of the project id
+        //Or a member of one of the teams on the project
         const results = await db.query(
             `
                 SELECT pro.id,
@@ -102,12 +105,15 @@ class Projects
                 WHERE pro.id = $1 AND ((pro.creator_id = $2) OR $1 = any(teams.members))
             `, [projectId, userId])
         
+        //If the project id could not found, the user is not a member or creator of the project,
+        //Throw a bad request error saying that the project was not found
         const project = results.rows[0]
         if(!project)
         {
             throw new NotFoundError("Project was not found!")
         }
 
+        //Return the specific project information
         return project
     }
 

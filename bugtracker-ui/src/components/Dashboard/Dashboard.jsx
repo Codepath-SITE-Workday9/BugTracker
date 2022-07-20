@@ -1,10 +1,22 @@
 import * as React from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
+import { useEffect } from "react";
 import "../../services/charts.js"
+
 
 export default function Dashboard() {
   const { isOpen } = useOpenContext();
+  /* useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "../../services/charts.js"
+    script.async = true;
+    script.onload = () => this.scriptLoaded()
+
+    document.body.appendChild(script)
+    
+  }); */
+
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
       <div className="projects-table">
@@ -55,10 +67,27 @@ export default function Dashboard() {
         </div>
 
         <div className="projects-footer">
-          <div className="page-search">
 
+          <div className="page-search">
+            <button className="back-button-double">
+                &larr;
+                &larr;
+            </button>
+            <button className="back-button">&larr;</button>
+            <button className="page-button-1">1</button>
+            <button className="page-button-2">2</button>
+            <button className="page-button-3">3</button>
+            <button className="forward-button">&rarr;</button>
+            <button className="forward-button-double">&rarr; &rarr;</button>
+            <input className="project-table-page-search"></input>
+            <button className="project-table-page-go">Go</button>
+            
           </div>
-          <div className="create-project"></div>
+
+          <div className="create-project">
+            <button className="create-project-button">Create Project</button>
+          </div>
+
         </div>
 
       </div>
@@ -130,6 +159,30 @@ export default function Dashboard() {
 
             </div>
             <div className="create-project"></div>
+          </div>
+
+          <div className="projects-footer">
+
+            <div className="page-search">
+              <button className="back-button-double">
+                  &larr;
+                  &larr;
+              </button>
+              <button className="back-button">&larr;</button>
+              <button className="page-button-1">1</button>
+              <button className="page-button-2">2</button>
+              <button className="page-button-3">3</button>
+              <button className="forward-button">&rarr;</button>
+              <button className="forward-button-double">&rarr; &rarr;</button>
+              <input className="project-table-page-search"></input>
+              <button className="project-table-page-go">Go</button>
+              
+            </div>
+
+            <div className="create-team">
+              <button className="create-team-button">Create Team</button>
+            </div>
+
           </div>
       </div>
     </div>

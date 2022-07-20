@@ -10,7 +10,7 @@ window.onload = function() {
 
     
 
-    let myChart = new Chart(document.getElementById("priority-chart"), {
+    let myChart = new Chart(document.getElementById("priority-chart").getContext('2d'), {
     type: 'doughnut',
     data: {
       labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -90,3 +90,4 @@ window.onload = function() {
         }
         }) */
 };
+

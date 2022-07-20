@@ -125,7 +125,7 @@
     justify-content: space-between;
 }
 
-.dashboard .statistics-row {
+.dashboard .statistics-row { /* TODO: Add responsiveness to page sizes, If page is small it should be column not row*/
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -144,4 +144,16 @@
           width: 25%;
           max-height: 400px;
           max-width: 600px;
+}
+
+.dashboard .page-search {
+    padding:7px;
+}
+
+.dashboard .page-search button{
+    padding:19px;
+    color: green;
+    background-color: lightcyan;
+    border: 10px;
+    border-color: aqua;
 }

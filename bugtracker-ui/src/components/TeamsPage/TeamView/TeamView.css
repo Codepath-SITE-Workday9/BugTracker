@@ -26,3 +26,28 @@
     padding: 10px;
     border-bottom: 1px solid black;
 }
+
+.add-developer-to-team{
+    display: flex;
+}
+
+.add-developer-to-team p{
+    font-size: 20px;
+}
+
+.add-developer-to-team .dev-search{
+    position: relative;
+    display: flex;
+    height: 40px;
+}
+
+.dev-search .search-input{
+        width: 100%;
+        padding: 10px;
+        border-radius: 13px;
+        border-right: none;
+        position: relative;
+        font-size: 16px;
+        border: 1px solid gray;
+}
+

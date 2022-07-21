@@ -188,7 +188,7 @@ export default function Dashboard() {
 
           </div>
       </div>
-      
+      <BasicTable />
     </div>
   );
 }

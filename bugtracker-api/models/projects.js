@@ -141,7 +141,6 @@ class Projects
         }
 
 
-
         //MAIN QUERY TO UPDATE PROJECT -------------
         //Run a separate query to get the id of the user using the email provided from the local server
         const userId = await Teams.fetchUserId(user.email)
@@ -149,6 +148,7 @@ class Projects
         //Get the names of all the fields the user wants to update by extracting from the object sent from frontend; 
         //Property names becomes an array of all those fields
         const propertyNames = Object.keys(projectInfo)
+
 
         //Loop through every field and run a function to create the query statement to update the field
         //Run the given query to update the specific field with the new user's value
@@ -163,6 +163,7 @@ class Projects
             }
         })
 
+        
         //Return the project's updated information
         const updatedProject = await Projects.fetchProjectById({projectId, user})
         return updatedProject
@@ -171,7 +172,7 @@ class Projects
 
 
 
-    
+
 
     //FUNCTION TO CREATE THE QUERY STATEMENT TO UPDATE THE USER'S SPECIFIC PROJECT FIELD WITH NEW INFORMATION
     static createUpdateStatement(field)

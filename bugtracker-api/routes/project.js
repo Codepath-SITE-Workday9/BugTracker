@@ -12,11 +12,13 @@ const Teams = require("../models/teams")
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //Get the user info from res.locals
-        //call the listAllProject function and send in the user
-        //Return the list of all the projects
+        //Retrieve the user information from the local server
         const {user} = res.locals
+
+        //Call the listallProjects function to get a list of all the projects a user is a member of or creator
         const projectList = await Projects.listAllProjects({user})
+
+        //Return the list of all the projects if successful
         return res.status(200).json({projectList: projectList})
     }
     catch(error)
@@ -29,10 +31,7 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
 router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //Retrieve the user information
-        //Call the createProject function to create a new project
-        //Take in all project information
-        //Return the new project information
+        //Retrieve the user information from the local server
         const {user} = res.locals
         const project = await Projects.createProject({user: user, projectInfo: req.body})
         return res.status(201).json({project: project})
@@ -72,7 +71,11 @@ router.patch("/:projectId/update", security.requireAuthenticatedUser, async(req,
         //Call the updateProjectInfo function to update specific project fields
         //Req body should have the name of the field to update and the info to update it
         //Return the updated project info
-        //Add a random comment
+        
+        const {projectId} = req.params
+        const {user} = res.locals
+        const updatedProject = await Projects.updateProjectInfo({projectId: projectId, projectInfo: req.body, user: user})
+        return res.status(200).json({project: updatedProject})
     }
     catch(error)
     {

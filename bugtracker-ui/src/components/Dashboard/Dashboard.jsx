@@ -3,9 +3,11 @@ import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
 import "../../services/charts.js";
-// import { BasicTable } from "../Tables/BasicTable";
+ import { BasicTable } from "../Tables/BasicTable";
+ import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
 //import MaterialTable from 'material-table';
 import { data } from "../../sampleData";
+import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
 
 export default function Dashboard() {
   const { isOpen } = useOpenContext();
@@ -21,7 +23,42 @@ export default function Dashboard() {
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
-      <div className="projects-table">
+      <DashboardProjectsTable />
+
+
+      <div className="ticket-statistics">
+        <h>TICKET STATISTICS</h>
+        <div className="statistics-row">
+          <canvas
+            className="donut-chart"
+            id="category-chart"
+            width="800"
+            height="450"
+          ></canvas>
+          <br />
+          <canvas
+            className="donut-chart"
+            id="status-chart"
+            width="800"
+            height="450"
+          ></canvas>
+          <br />
+          <canvas
+            className="donut-chart"
+            id="priority-chart"
+            width="800"
+            height="450"
+          ></canvas>
+        </div>
+      </div>
+
+      <DashboardTeamsTable />
+    </div>
+  );
+}
+
+/*
+  <div className="projects-table">
         <div className="header-row">
           <h>YOUR PROJECTS</h>
           <div className="project-search">
@@ -88,7 +125,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="ticket-statistics">
+*/
+
+/*
+<div className="ticket-statistics">
         <h>TICKET STATISTICS</h>
         <div className="statistics-row">
           <canvas
@@ -113,8 +153,10 @@ export default function Dashboard() {
           ></canvas>
         </div>
       </div>
+*/
 
-      <div className="teams-table">
+/*
+<div className="teams-table">
         <div className="header-row">
           <h>YOUR TEAMS</h>
           <div className="project-search">
@@ -183,7 +225,4 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <BasicTable />
-    </div>
-  );
-}
+*/

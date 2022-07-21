@@ -72,6 +72,7 @@ router.patch("/:projectId/update", security.requireAuthenticatedUser, async(req,
         //Call the updateProjectInfo function to update specific project fields
         //Req body should have the name of the field to update and the info to update it
         //Return the updated project info
+        //Add a random comment
     }
     catch(error)
     {

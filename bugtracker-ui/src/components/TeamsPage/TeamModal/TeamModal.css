@@ -4,7 +4,6 @@
     position: fixed;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     padding-top: 50px;
     vertical-align: top;
     z-index: 1;
@@ -47,4 +46,10 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+}
+
+.input-field-name{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }

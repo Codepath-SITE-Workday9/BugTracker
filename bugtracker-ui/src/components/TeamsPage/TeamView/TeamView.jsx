@@ -5,9 +5,9 @@ export default function TeamView({ setModal, currentTeam }) {
   const { projects } = useProjectContext();
   console.log(projects);
   var devs = [
-    { name: "doris", numTickets: 3 },
-    { name: "aaron", numTickets: 3 },
-    { name: "katherin", numTickets: 2 },
+    { name: "doris", numTickets: 1, role: "developer" },
+    { name: "aaron", numTickets: 3, role: "developer" },
+    { name: "katherin", numTickets: 2, role: "designer" },
   ];
 
   return (
@@ -19,9 +19,11 @@ export default function TeamView({ setModal, currentTeam }) {
         </button>
       </div>
 
-      <DevelopersOnTeam devs={devs} />
-
-      <AddDeveloperToRow />
+      <div className="team-developers">
+        <h2>Developers on this team: </h2>
+        <DevelopersOnTeam devs={devs} />
+        <AddDeveloper />
+      </div>
 
       <ProjectsAssignedToTeams projects={projects} />
     </div>
@@ -30,35 +32,31 @@ export default function TeamView({ setModal, currentTeam }) {
 
 export function DevelopersOnTeam({ devs }) {
   return (
-    <div className="team-developers">
-      <h2>Developers on this team: </h2>
-
-      <div className="developers-table">
-        <table role="table" className="table">
-          <thead>
-            <tr role="row">
-              <th colSpan="1" role="columnheader">
-                Developer
-              </th>
-              <th colSpan="1" role="columnheader">
-                Role
-              </th>
-              <th colSpan="1" role="columnheader">
-                Number of open tickets
-              </th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            {devs?.map((dev) => (
-              <DeveloperRow
-                name={dev.name}
-                numTickets={dev.numTickets}
-                role="developer"
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="developers-table">
+      <table role="table" className="table">
+        <thead>
+          <tr role="row">
+            <th colSpan="1" role="columnheader">
+              Developer
+            </th>
+            <th colSpan="1" role="columnheader">
+              Role
+            </th>
+            <th colSpan="1" role="columnheader">
+              Number of open tickets
+            </th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          {devs?.map((dev) => (
+            <DeveloperRow
+              name={dev.name}
+              numTickets={dev.numTickets}
+              role={dev.role}
+            />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -71,12 +69,14 @@ export function DeveloperRow({ name, numTickets, role }) {
         {name}
       </td>
       <td role="cell">{role}</td>
-      <td role="cell">{numTickets}</td>
+      <td role="cell">
+        {numTickets} open ticket{numTickets == 1 ? "" : "s"}
+      </td>
     </tr>
   );
 }
 
-export function AddDeveloperToRow() {
+export function AddDeveloper() {
   return (
     <div className="add-developer-to-team">
       <p> Add a developer to this team: </p>
@@ -85,11 +85,11 @@ export function AddDeveloperToRow() {
           className="search-input"
           type="text"
           name="search"
-          placeholder="developers email"
+          placeholder="developer email"
           // onChange={handleOnChange}
         />
-        <button className="search-btn">
-          <i className="material-icons">search</i>
+        <button type="submit" className="search-btn">
+          <span class="material-symbols-outlined">send</span>
         </button>
       </div>
     </div>
@@ -111,7 +111,7 @@ export function ProjectsAssignedToTeams({ projects }) {
                 Description
               </th>
               <th colSpan="1" role="columnheader">
-                Number of open tickets
+                Total tickets
               </th>
             </tr>
           </thead>

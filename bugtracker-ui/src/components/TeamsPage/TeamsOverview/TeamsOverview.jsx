@@ -1,11 +1,12 @@
 import "./TeamsOverview.css";
 import TeamCard from "../TeamCard/TeamCard";
 import { useState } from "react";
+import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 export default function TeamsOverview({ teams, handleOnTeamClick }) {
   var teamsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleOnChange = (change) => {
+  const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
     console.log(searchTerm);
   };
@@ -26,15 +27,16 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
           type="text"
           name="search"
           placeholder="search for team"
-          onChange={handleOnChange}
+          onChange={handleOnSearchChange}
         />
         <button className="search-btn">
           <i className="material-icons">search</i>
         </button>
       </div>
 
-      <div className="sort-filter">
+      <div className="sort-by">
         <p> Sort by: </p>
+        <SortByDrowpdown />
       </div>
 
       <div className="team-card-container">

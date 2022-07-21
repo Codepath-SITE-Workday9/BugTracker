@@ -29,6 +29,7 @@
 
 .add-developer-to-team{
     display: flex;
+    align-items: center;
 }
 
 .add-developer-to-team p{
@@ -49,5 +50,24 @@
         position: relative;
         font-size: 16px;
         border: 1px solid gray;
+        padding-right: 30px;
 }
 
+.dev-search{
+    margin-left: 20px;
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+}
+
+.dev-search .search-btn{
+    position: absolute;
+    right: 0;
+    background: transparent;
+    font-size: 10px;
+}
+
+.dev-search .search-btn .material-symbols-outlined{
+    font-size: 30px;
+    margin: 0px;
+}

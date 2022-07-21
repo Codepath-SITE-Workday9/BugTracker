@@ -19,7 +19,7 @@ export default function TeamModal({ setModal }) {
 export function TeamModalForm({ setModal }) {
   return (
     <div className="form">
-      <div className="input-field">
+      <div className="input-field-name">
         <label htmlFor="name">Enter team name</label>
         <input
           className="form-input"
@@ -42,11 +42,12 @@ export function TeamModalForm({ setModal }) {
         />
         <i className="material-icons">search</i>
       </div>
-      <button className="cancel" onClick={() => setModal(false)}>
-        {" "}
-        Cancel{" "}
-      </button>
-      <button className="submit"> Submit </button>
+      <div className="modal=buttons">
+        <button className="cancel" onClick={() => setModal(false)}>
+          Cancel
+        </button>
+        <button className="submit"> Submit </button>
+      </div>
     </div>
   );
 }

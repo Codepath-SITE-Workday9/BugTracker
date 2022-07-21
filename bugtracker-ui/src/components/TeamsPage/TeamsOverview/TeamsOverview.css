@@ -1,7 +1,7 @@
 .teams-overview{
     padding: 10px;
     width: 400px;
-    min-width: 200px;
+    min-width: 400px;
 }
 
 .teams-overview .team-search{ 
@@ -29,4 +29,13 @@
     position: absolute;
     right: 0;
     background: transparent;
+}
+
+.teams-overview .sort-by{
+    display: flex;
+    align-items: center;
+}
+
+.teams-overview .sort-by p{
+    margin-right: 10px;
 }

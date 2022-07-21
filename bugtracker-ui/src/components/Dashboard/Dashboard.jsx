@@ -23,27 +23,28 @@ export default function Dashboard() {
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
-      <DashboardProjectsTable />
+      {/* Renders a table for projects on the dashboard */}
+      <DashboardProjectsTable /> 
 
 
       <div className="ticket-statistics">
         <h>TICKET STATISTICS</h>
         <div className="statistics-row">
-          <canvas
+          <canvas // Renders a donut chart for category statistics
             className="donut-chart"
             id="category-chart"
             width="800"
             height="450"
           ></canvas>
           <br />
-          <canvas
+          <canvas // Renders a donut chart for status statistics
             className="donut-chart"
             id="status-chart"
             width="800"
             height="450"
           ></canvas>
           <br />
-          <canvas
+          <canvas // Renders a donut chart for priority statistics
             className="donut-chart"
             id="priority-chart"
             width="800"
@@ -51,7 +52,8 @@ export default function Dashboard() {
           ></canvas>
         </div>
       </div>
-
+      
+      {/* Renders a table for teams on the dashboard */}
       <DashboardTeamsTable />
     </div>
   );

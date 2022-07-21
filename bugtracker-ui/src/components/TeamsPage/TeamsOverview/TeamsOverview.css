@@ -1,8 +1,10 @@
 .teams-overview{
     padding: 10px;
     width: 400px;
-    min-width: 200px;
+    min-width: 400px;
 }
+
+/* -------- search section ------------ */
 
 .teams-overview .team-search{ 
     position: relative;
@@ -29,4 +31,15 @@
     position: absolute;
     right: 0;
     background: transparent;
+}
+
+/* ---------- sort by section ----------- */
+
+.teams-overview .sort-by{
+    display: flex;
+    align-items: center;
+}
+
+.teams-overview .sort-by p{
+    margin-right: 10px;
 }

@@ -1,9 +1,10 @@
 import "./TeamView.css";
 import { useProjectContext } from "../../../contexts/project";
 
+//Overview of a specific team
 export default function TeamView({ setModal, currentTeam }) {
   const { projects } = useProjectContext();
-  console.log(projects);
+
   var devs = [
     { name: "doris", numTickets: 1, role: "developer" },
     { name: "aaron", numTickets: 3, role: "developer" },
@@ -33,7 +34,7 @@ export default function TeamView({ setModal, currentTeam }) {
 export function DevelopersOnTeam({ devs }) {
   return (
     <div className="developers-table">
-      <table role="table" className="table">
+      <table role="table" className="teams-table">
         <thead>
           <tr role="row">
             <th colSpan="1" role="columnheader">
@@ -65,11 +66,15 @@ export function DeveloperRow({ name, numTickets, role }) {
   return (
     <tr role="row" className="row">
       <td role="cell">
-        <span class="material-symbols-outlined">face</span>
-        {name}
+        <div className="developer-cell">
+          <span className="material-symbols-outlined">face</span>
+          {name}
+        </div>
       </td>
-      <td role="cell">{role}</td>
-      <td role="cell">
+      <td role="cell" className="role-cell">
+        {role}
+      </td>
+      <td role="cell" className="tickets-cell">
         {numTickets} open ticket{numTickets == 1 ? "" : "s"}
       </td>
     </tr>
@@ -89,7 +94,7 @@ export function AddDeveloper() {
           // onChange={handleOnChange}
         />
         <button type="submit" className="search-btn">
-          <span class="material-symbols-outlined">send</span>
+          <span className="material-symbols-outlined">send</span>
         </button>
       </div>
     </div>

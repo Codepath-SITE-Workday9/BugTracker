@@ -71,3 +71,20 @@
     font-size: 30px;
     margin: 0px;
 }
+
+.teams-table{
+    background-color: white;
+}
+
+.developer-cell{
+    display: flex;
+    align-items: center;
+}
+
+.role-cell{
+    text-align: center;
+}
+
+.tickets-cell{
+    text-align: center;
+}

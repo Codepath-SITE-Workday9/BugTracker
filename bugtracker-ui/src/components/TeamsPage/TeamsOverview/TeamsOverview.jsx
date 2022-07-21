@@ -28,11 +28,13 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
           placeholder="search for team"
           onChange={handleOnChange}
         />
-        <i className="material-icons">search</i>
+        <button className="search-btn">
+          <i className="material-icons">search</i>
+        </button>
       </div>
 
       <div className="sort-filter">
-        <p> Sort by: filter by: </p>
+        <p> Sort by: </p>
       </div>
 
       <div className="team-card-container">

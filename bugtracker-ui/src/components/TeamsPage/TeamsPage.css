@@ -3,6 +3,7 @@
     margin-top: 10px;
     margin-right: 10px;
     padding: 20px;
+    height: 100vh;
 }
 .background, .background-blur{
     display: flex;

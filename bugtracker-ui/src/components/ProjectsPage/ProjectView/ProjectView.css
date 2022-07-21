@@ -1,4 +1,5 @@
 .project-view{
+    width: 100%;
     padding: 10px;
 
 }
@@ -16,14 +17,23 @@
 .project-description{
     border-bottom: 1px solid black;
 }
-tr:hover{
-    color: #212529;
-}
+
 
 .row:hover{
-    color: darkgray;
+    background-color: #e2e2e2;
     cursor: pointer;
 }
-tbody tr:nth-of-type(odd){
-    background-color: rgba(4,169,245,.05);
+tbody tr:nth-child(odd){
+    background-color: #f3f3f3;
 }
+
+.new-btn{
+    font-size: 20px;
+    background-color: var(--lightgrey);
+    border: 1px solid lightgray;
+    
+}
+
+table {
+    width: 100%;
+  }

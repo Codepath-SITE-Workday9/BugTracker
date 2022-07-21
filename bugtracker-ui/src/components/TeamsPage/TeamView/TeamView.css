@@ -1,6 +1,6 @@
 .team-view{
     padding: 10px;
-
+    width: 100%;
 }
 .team-header{
     display:flex;
@@ -25,5 +25,4 @@
 .team-developers{
     padding: 10px;
     border-bottom: 1px solid black;
-
 }

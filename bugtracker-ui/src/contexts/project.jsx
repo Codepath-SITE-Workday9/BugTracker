@@ -4,15 +4,18 @@ import { createContext, useContext, useState } from "react";
 const ProjectContext = createContext(null);
 
 export const ProjectContextProvider = ({ children }) => {
-  const [project, setProject] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [currentProject, setCurrentProject] = useState([]);
 
-  const authValue = {
-    project,
-    setProject,
+  const projectValue = {
+    projects,
+    setProjects,
+    currentProject,
+    setCurrentProject,
   };
 
   return (
-    <ProjectContext.Provider value={authValue}>
+    <ProjectContext.Provider value={projectValue}>
       <>{children}</>
     </ProjectContext.Provider>
   );

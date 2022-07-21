@@ -15,6 +15,9 @@ export function Hero() {
   return (
     <div className="hero">
       <div className="hero-content">
+        <div className="hero-logo">
+          <span className="material-symbols-outlined">emoji_nature</span>
+        </div>
         <h1>WELCOME TO BUG TRACKER</h1>
         <h2>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

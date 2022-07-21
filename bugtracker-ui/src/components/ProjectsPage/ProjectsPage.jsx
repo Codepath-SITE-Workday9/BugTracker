@@ -1,12 +1,13 @@
 import "./ProjectsPage.css";
 import ProjectsOverview from "./ProjectsOverview/ProjectsOverview";
 import ProjectView from "./ProjectView/ProjectView";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectModal from "./ProjectModal/ProjectModal";
-
+import { useProjectContext } from "../../contexts/project";
 export default function ProjectsPage() {
   const [projectModal, setProjectModal] = useState(false);
-  const [projectToShow, setProjectToShow] = useState([]);
+  const { projects, setProjects, setCurrentProject, currentProject } =
+    useProjectContext();
 
   // hard coded data for now, later on will be passed in by prop
   var fakeData = [
@@ -41,8 +42,13 @@ export default function ProjectsPage() {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",
     },
   ];
+  useEffect(() => {
+    setProjects(fakeData);
+  }, [setProjects]);
+  const [projectToShow, setProjectToShow] = useState(fakeData[0].projectTitle);
 
   const handleOnProjectClick = (projectId) => {
+    setProjectToShow(projectId);
     console.log(projectId);
   };
 
@@ -51,10 +57,14 @@ export default function ProjectsPage() {
       {projectModal && <ProjectModal setModal={setProjectModal} />}
       <div className={projectModal ? "background-blur" : "background"}>
         <ProjectsOverview
-          projects={fakeData}
+          projects={projects}
           handleOnProjectClick={handleOnProjectClick}
         />
-        <ProjectView modal={projectModal} setModal={setProjectModal} />
+        <ProjectView
+          modal={projectModal}
+          setModal={setProjectModal}
+          projectToShow={projectToShow}
+        />
       </div>
     </div>
   );

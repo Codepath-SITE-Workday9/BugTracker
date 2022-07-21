@@ -1,5 +1,38 @@
 .projects-overview{
     padding: 10px;
-    max-width: 400px;
+    width: 400px;
+    min-width: 400px;
 }
 
+/* 
+.project-card-container{
+    height: 100vh;
+    overflow: scroll;
+} */
+
+.projects-overview .project-search{ 
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    
+}
+
+.projects-overview .project-search .search-input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 13px;
+    border-right: none;
+    position: relative;
+    font-size: 16px;
+    border: 1px solid gray;
+}
+.search-input:focus-visible{
+    outline: none;
+}
+
+.project-search .search-btn{
+    position: absolute;
+    right: 0;
+    background: transparent;
+}

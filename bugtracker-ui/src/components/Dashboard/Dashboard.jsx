@@ -2,11 +2,10 @@ import * as React from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
-import "../../services/charts.js"
-import { BasicTable } from "../Tables/BasicTable";
+import "../../services/charts.js";
+// import { BasicTable } from "../Tables/BasicTable";
 //import MaterialTable from 'material-table';
-import { data } from '../../sampleData'
-
+import { data } from "../../sampleData";
 
 export default function Dashboard() {
   const { isOpen } = useOpenContext();
@@ -27,14 +26,15 @@ export default function Dashboard() {
           <h>YOUR PROJECTS</h>
           <div className="project-search">
             <div className="input-group">
-              <input type="text" className="project-input" placeholder="Search . . ."/>
-              <span class="material-symbols-outlined">
-                close
-              </span>
-                <span className="material-symbols-outlined">search</span>
-              </div>
+              <input
+                type="text"
+                className="project-input"
+                placeholder="Search . . ."
+              />
+              <span class="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined">search</span>
             </div>
-
+          </div>
         </div>
         <div className="table">
           <div className="table-header-row">
@@ -70,12 +70,8 @@ export default function Dashboard() {
         </div>
 
         <div className="projects-footer">
-
           <div className="page-search">
-            <button className="back-button-double">
-                &larr;
-                &larr;
-            </button>
+            <button className="back-button-double">&larr; &larr;</button>
             <button className="back-button">&larr;</button>
             <button className="page-button-1">1</button>
             <button className="page-button-2">2</button>
@@ -84,109 +80,108 @@ export default function Dashboard() {
             <button className="forward-button-double">&rarr; &rarr;</button>
             <input className="project-table-page-search"></input>
             <button className="project-table-page-go">Go</button>
-            
           </div>
 
           <div className="create-project">
             <button className="create-project-button">Create Project</button>
           </div>
-
         </div>
-
       </div>
 
       <div className="ticket-statistics">
         <h>TICKET STATISTICS</h>
         <div className="statistics-row">
-          
-            <canvas className="donut-chart" id="category-chart" width="800" height="450"></canvas>
-            <br />
-            <canvas className="donut-chart" id="status-chart" width="800" height="450"></canvas>
-            <br />
-            <canvas className="donut-chart" id="priority-chart" width="800" height="450"></canvas>
-           
-            
-         
-
+          <canvas
+            className="donut-chart"
+            id="category-chart"
+            width="800"
+            height="450"
+          ></canvas>
+          <br />
+          <canvas
+            className="donut-chart"
+            id="status-chart"
+            width="800"
+            height="450"
+          ></canvas>
+          <br />
+          <canvas
+            className="donut-chart"
+            id="priority-chart"
+            width="800"
+            height="450"
+          ></canvas>
         </div>
       </div>
-    
 
       <div className="teams-table">
         <div className="header-row">
-            <h>YOUR TEAMS</h>
-            <div className="project-search">
-              <div className="input-group">
-                <input type="text" className="project-input" placeholder="Search . . ."/>
-                <span class="material-symbols-outlined">
-                  close
-                </span>
-                  <span className="material-symbols-outlined">search</span>
-                </div>
-              </div>
-
-          </div>
-          <div className="table">
-            <div className="table-header-row">
-              <th>TEAM NAME</th>
-              <th>COLLABORATORS</th>
-            </div>
-            <div className="table-content-row">
-              <th>Bug Tracker Project</th>
-              <th>Doug Case, Moe Elias</th>
-            </div>
-            <div className="table-content-row">
-              <th>Lifetracker</th>
-             
-              <th>Doug Case, Moe Elias</th>
-            </div>
-            <div className="table-content-row">
-              <th>Flixster</th>
-            
-              <th>Doug Case, Moe Elias</th>
-            </div>
-            <div className="table-content-row">
-              <th>Student Store</th>
-        
-              <th>Doug Case, Moe Elias</th>
-            </div>
-            <div className="table-content-row">
-              <th>Stock App</th>
-       
-              <th>Doug Case, Moe Elias</th>
+          <h>YOUR TEAMS</h>
+          <div className="project-search">
+            <div className="input-group">
+              <input
+                type="text"
+                className="project-input"
+                placeholder="Search . . ."
+              />
+              <span class="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined">search</span>
             </div>
           </div>
+        </div>
+        <div className="table">
+          <div className="table-header-row">
+            <th>TEAM NAME</th>
+            <th>COLLABORATORS</th>
+          </div>
+          <div className="table-content-row">
+            <th>Bug Tracker Project</th>
+            <th>Doug Case, Moe Elias</th>
+          </div>
+          <div className="table-content-row">
+            <th>Lifetracker</th>
 
-          <div className="projects-footer">
-            <div className="page-search">
+            <th>Doug Case, Moe Elias</th>
+          </div>
+          <div className="table-content-row">
+            <th>Flixster</th>
 
-            </div>
-            <div className="create-project"></div>
+            <th>Doug Case, Moe Elias</th>
+          </div>
+          <div className="table-content-row">
+            <th>Student Store</th>
+
+            <th>Doug Case, Moe Elias</th>
+          </div>
+          <div className="table-content-row">
+            <th>Stock App</th>
+
+            <th>Doug Case, Moe Elias</th>
+          </div>
+        </div>
+
+        <div className="projects-footer">
+          <div className="page-search"></div>
+          <div className="create-project"></div>
+        </div>
+
+        <div className="projects-footer">
+          <div className="page-search">
+            <button className="back-button-double">&larr; &larr;</button>
+            <button className="back-button">&larr;</button>
+            <button className="page-button-1">1</button>
+            <button className="page-button-2">2</button>
+            <button className="page-button-3">3</button>
+            <button className="forward-button">&rarr;</button>
+            <button className="forward-button-double">&rarr; &rarr;</button>
+            <input className="project-table-page-search"></input>
+            <button className="project-table-page-go">Go</button>
           </div>
 
-          <div className="projects-footer">
-
-            <div className="page-search">
-              <button className="back-button-double">
-                  &larr;
-                  &larr;
-              </button>
-              <button className="back-button">&larr;</button>
-              <button className="page-button-1">1</button>
-              <button className="page-button-2">2</button>
-              <button className="page-button-3">3</button>
-              <button className="forward-button">&rarr;</button>
-              <button className="forward-button-double">&rarr; &rarr;</button>
-              <input className="project-table-page-search"></input>
-              <button className="project-table-page-go">Go</button>
-              
-            </div>
-
-            <div className="create-team">
-              <button className="create-team-button">Create Team</button>
-            </div>
-
+          <div className="create-team">
+            <button className="create-team-button">Create Team</button>
           </div>
+        </div>
       </div>
       <BasicTable />
     </div>

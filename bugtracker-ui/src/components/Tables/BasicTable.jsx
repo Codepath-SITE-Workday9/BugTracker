@@ -1,4 +1,9 @@
 import MaterialTable from "material-table";
+import { Link } from "react-router-dom"
+
+const handleOnRowClick = (e) => {
+  console.log("Clicked on row!")
+}
 
 const data = [
   { name: "Mohammad", surname: "Faisal", birthYear: 1995 },
@@ -12,5 +17,5 @@ const columns = [
 ];
 
 export const BasicTable = () => {
-  return <MaterialTable title="Basic Table" columns={columns} data={data} />;
+  return <MaterialTable title="Basic Table" columns={columns} data={data} onRowClick={handleOnRowClick} />;
 };

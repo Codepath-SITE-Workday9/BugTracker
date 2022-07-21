@@ -17,7 +17,6 @@
 
 
 .developer-row {
-    
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid lightgray;
@@ -26,5 +25,4 @@
 .team-developers{
     padding: 10px;
     border-bottom: 1px solid black;
-
 }

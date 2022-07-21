@@ -53,7 +53,7 @@ export function ProjectModalForm({ setModal }) {
         </div>
         <div className="teams-search">
           <div className="modal-input">
-            <label htmlFor="search">Assing teams to your project</label>
+            <label htmlFor="search">Assign teams to your project</label>
             <input
               className="search-input"
               type="text"

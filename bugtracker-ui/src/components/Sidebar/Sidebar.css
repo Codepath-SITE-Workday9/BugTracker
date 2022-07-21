@@ -2,13 +2,14 @@
     background-color: var(--dark-blue);
     color: #a9b7d0;
     width: 90px;
-    position: absolute;
+    position: fixed;
     height: 100%;
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
     white-space: nowrap;
     box-shadow: 1px 0 20px 0 #3f4d67;
     transition: 0.5s;
+    z-index: 9;
 }
 .sidebar-logo{
     flex-direction: row;
@@ -19,7 +20,7 @@
 
 .sidebar-icon{
     position:relative;
-    display:block;
+    display:flex;
     align-items: center;
     margin-bottom: 20px;
     margin-left: 5px;
@@ -38,7 +39,7 @@
 }
 .material-symbols-outlined {
     font-size: 50px;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 .sidebar-logo{

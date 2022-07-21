@@ -15,6 +15,7 @@ export default function TeamView({ setModal, currentTeam }) {
     <div className="team-view">
       <div className="team-header">
         <h1> {currentTeam} </h1>
+        //button to open the modal to create a new team
         <button className="new-btn" onClick={() => setModal(true)}>
           New Team
         </button>

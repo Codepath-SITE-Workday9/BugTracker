@@ -19,6 +19,8 @@
     border-radius: 23px;
 }
 
+/* -------- header section ----------- */
+
 .team-modal-container .header{
     padding: 10px;
     background-color: var(--dark-blue);
@@ -39,6 +41,8 @@
     color: white;
     font-size: 20px;
 }
+
+/* ------- form section --------- */
 
 .team-modal-container .form{
     display: flex;

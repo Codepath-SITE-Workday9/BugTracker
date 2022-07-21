@@ -6,6 +6,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
   var teamsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
+  // handler function to determine what the search term is
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
     console.log(searchTerm);

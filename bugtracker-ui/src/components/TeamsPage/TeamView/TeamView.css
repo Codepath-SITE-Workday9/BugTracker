@@ -15,6 +15,7 @@
     height: 30px;
 }
 
+/* ------- developer table setion --------- */
 
 .developer-row {
     display: flex;
@@ -26,6 +27,8 @@
     padding: 10px;
     border-bottom: 1px solid black;
 }
+
+/* --------- adding a developer to the team section ---------  */
 
 .add-developer-to-team{
     display: flex;
@@ -71,6 +74,8 @@
     font-size: 30px;
     margin: 0px;
 }
+
+/*------------- teams table section ---------- */
 
 .teams-table{
     background-color: white;

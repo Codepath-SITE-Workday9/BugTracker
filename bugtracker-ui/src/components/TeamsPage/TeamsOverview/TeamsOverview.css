@@ -4,6 +4,8 @@
     min-width: 400px;
 }
 
+/* -------- search section ------------ */
+
 .teams-overview .team-search{ 
     position: relative;
     display: flex;
@@ -30,6 +32,8 @@
     right: 0;
     background: transparent;
 }
+
+/* ---------- sort by section ----------- */
 
 .teams-overview .sort-by{
     display: flex;

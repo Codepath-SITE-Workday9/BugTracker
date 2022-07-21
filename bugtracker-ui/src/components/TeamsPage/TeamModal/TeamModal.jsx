@@ -25,7 +25,7 @@ export function TeamModalForm({ setModal }) {
           className="form-input"
           name="name"
           type="text"
-          //   value={form.email}
+          //   value={form.name}
           //   onChange={handleOnInputChange}
           placeholder="team name"
         />

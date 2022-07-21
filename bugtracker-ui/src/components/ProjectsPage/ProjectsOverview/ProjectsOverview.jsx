@@ -25,14 +25,16 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
           className="search-input"
           type="text"
           name="search"
-          placeholder="search for project"
+          placeholder="search for a project"
           onChange={handleOnChange}
         />
-        <i className="material-icons">search</i>
+        <button className="search-btn">
+          <i className="material-icons">search</i>
+        </button>
       </div>
 
       <div className="sort-filter">
-        <p> Sort by: filter by: </p>
+        <p> Sort by: </p>
       </div>
 
       <div className="project-card-container">

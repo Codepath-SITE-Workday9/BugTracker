@@ -6,7 +6,8 @@ import ProjectModal from "./ProjectModal/ProjectModal";
 import { useProjectContext } from "../../contexts/project";
 export default function ProjectsPage() {
   const [projectModal, setProjectModal] = useState(false);
-  const { projects, setProjects, setCurrentProject } = useProjectContext();
+  const { projects, setProjects, setCurrentProject, currentProject } =
+    useProjectContext();
 
   // hard coded data for now, later on will be passed in by prop
   var fakeData = [
@@ -47,6 +48,7 @@ export default function ProjectsPage() {
   const [projectToShow, setProjectToShow] = useState(fakeData[0].projectTitle);
 
   const handleOnProjectClick = (projectId) => {
+    setProjectToShow(projectId);
     console.log(projectId);
   };
 

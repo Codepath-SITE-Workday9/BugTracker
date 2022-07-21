@@ -7,6 +7,8 @@
 .background, .background-blur{
     display: flex;
     flex-direction: rows;
+    height: 100%;
+    bottom: 0;
 }
 .background-blur{
     filter: blur(5px);

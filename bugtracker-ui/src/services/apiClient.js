@@ -8,6 +8,8 @@ class ApiClient {
     this.tokenName = "bugtracker_token"
   }
 
+
+  
   setToken(token) {
     this.token = token
     localStorage.setItem(this.tokenName, token)
@@ -32,6 +34,7 @@ class ApiClient {
     }
   }
   
+  //authentication
   async login(credentials) {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
@@ -39,14 +42,20 @@ class ApiClient {
   async signup(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
   }
-
   async fetchUserFromToken() {
     return await this.request({ endpoint: `auth/me`, method: `GET` })
   }
-
   logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
+  }
+
+
+  //teams
+  async createTeam(credentials){
+    return await this.request({ endpoint: 'team', method: 'POST', data: credentials })
+
+
   }
 }
 

@@ -116,6 +116,7 @@ List the API endpoints you will need to implement.
 |Create  | / | POST | Create a team  | 19 | name, members (emails), projects (names) | id, name, members (id), creator_id, projects(id) |
 |Read    | /:teamId | GET | Returns a specific team by id  | 20 | teamId from req params | id, name, members (id), creator_id, projects(id) |
 |Update  | /:teamId/add	| PATCH | Add member to team  |	5 | email | id, name, members (id), creator_id, projects(id) |
+| Read   | /1/valid | GET | Check if user in database | N/A | {email: email of user} | id |
 
 **/project**			
 | CRUD	|  endpoint    		  |HTTP verb|Description|User stories| Request Body | JSON Returns |
@@ -128,7 +129,7 @@ List the API endpoints you will need to implement.
 **/ticket**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories| Request Body | JSON Returns |
 | ----   | ----      	       |  ----  |  ------    |----        | -------- | ---------- |
-| Read	 | /          	       | GET	| Fetch tickets for project	|1,4,6,7| N/A | N/A |
+| Read	 | /          	       | GET	| Fetch tickets for project	|1,4,6,7| {projectId: project_id} |  id, creator_id, developers (array of their ids), comments (array of their ids), project_id, title, description, category, priority, status, complexity, created_at, created_by, closed_at, closed_by |
 | Create | /    	       | POST	| Create new ticket	|9| developers (array of emails), projectId, title, description, category, priority, status, complexity | id, creator_id, developers (array of their ids), comments (array of their ids), project_id, title, description, category, priority, status, complexity, created_at, created_by, closed_at, closed_by |
 | Read	 | /:ticketId          | GET	| Fetches details for specific ticket|22| N/A | N/A |
 | Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10| N/A | N/A |

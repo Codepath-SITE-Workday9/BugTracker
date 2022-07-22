@@ -129,7 +129,7 @@ List the API endpoints you will need to implement.
 | CRUD	|  endpoint |HTTP verb|	Description|User stories| Request Body | JSON Returns |
 | ----   | ----      	       |  ----  |  ------    |----        | -------- | ---------- |
 | Read	 | /          	       | GET	| Fetch tickets for project	|1,4,6,7| N/A | N/A |
-| Create | /    	       | POST	| Create new ticket	|9|  N/A | N/A |
+| Create | /    	       | POST	| Create new ticket	|9| developers (array of emails), projectId, title, description, category, priority, status, complexity | id, creator_id, developers (array of their ids), comments (array of their ids), project_id, title, description, category, priority, status, complexity, created_at, created_by, closed_at, closed_by |
 | Read	 | /:ticketId          | GET	| Fetches details for specific ticket|22| N/A | N/A |
 | Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10| N/A | N/A |
 | Create | /:ticketId/comment    | POST	| User leaves a comment on a ticket	|8| N/A | N/A |

@@ -114,8 +114,6 @@ router.patch("/:teamId/add", security.requireAuthenticatedUser, async(req,res,ne
 router.get("/1/valid", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        console.log("Enter team.authorize")
-        console.log("Body: ", req.body)
         //Run the fetchUserById function to check if user exists in database using the email provided in request body
         const validUser = await Teams.fetchUserId(req.body.email)
 

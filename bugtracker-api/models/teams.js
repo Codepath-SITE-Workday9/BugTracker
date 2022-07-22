@@ -183,7 +183,6 @@ class Teams
         const query = `SELECT id FROM users WHERE email = $1`
         const results = await db.query(query, [email])
 
-        console.log(results.rows[0].id)
         //Store the id of the user and return it
         const userId = results.rows[0].id
         return userId

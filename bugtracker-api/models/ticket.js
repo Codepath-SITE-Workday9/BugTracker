@@ -36,6 +36,7 @@ class Tickets
         //Run a separate query to find the id of the user using the email provided by the local server
         const userId = await Teams.fetchUserId(user.email)
 
+
         //Run a query to create a new tickt by first getting the ids of all the users using their email,
         //And insert all the fields provided from the ticket info (request body) using the provided values
         const results = await db.query(
@@ -48,6 +49,7 @@ class Tickets
                 RETURNING  *
             `, [ticketInfo.developers, ticketInfo.projectId, ticketInfo.title, ticketInfo.description, ticketInfo.category, ticketInfo.priority, ticketInfo.status, ticketInfo.complexity, userId])
         
+            
         //Store all the new ticket information and then run a separate query to add the ticket to the projects table 
         const ticket = results.rows[0]
         Tickets.addTicketToProject(ticket.id, ticketInfo.projectId)

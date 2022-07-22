@@ -6,17 +6,17 @@ const security = require("../middleware/security")
 
 
 
-
 //FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
+        console.log("Entered get function")
         //Retrieve the user information from the local server
         const {user} = res.locals
 
         //Call the listAllTickets function to get a list of all the tickets from a specific project
         //Request body should have the projectId
-        const ticketList = await Tickets.listAllTickets({user: user, projectId: req.body})
+        const ticketList = await Tickets.listAllTickets({user: user, projectId: req.body.projectId})
         
         //Return the list of all the tickets if successful
         return res.status(200).json({ticketList: ticketList})

@@ -5,10 +5,76 @@ const Teams = require("./teams")
 class Tickets 
 {
     //FUNCTION TO LIST ALL THE TICKETS ASSOCIATED WITH A PROJECT
-    static async listAllTickets()
+    static async listAllTickets({user, projectId})
     {
-        //Function to fetch tickets for a project
+        //ERROR CHECKING - check that a projectId has been provided in the request body; If not, throw a bad request error detailing missing field
+        if(!projectId)
+        {
+            throw new BadRequestError(`Missing the project id from request!`)
+        }
+
+        //Run a separate query to get the id of the user using the email provided by the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to check if the user is able to access project information
+        //If undefined, then throw a not found error because user is neither a creator or member of the project
+        const validAccess = await Tickets.validUserAccess(projectId, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError(`Project was not found!`)
+        }
+
+        //At this point, user should be someone with valid access to project information with a valid projectId
+        //Run a main query to get all the tickets that belong to a particular project by comparing the project id with the given id
+        const results = await db.query(
+            `
+                SELECT *
+                FROM tickets
+                WHERE project_id = $1
+                ORDER BY tickets.id ASC
+            `, [projectId])
+
+            
+        //Return a list of all the tickets associated with a project
+        return results.rows
     }
+
+
+
+
+
+
+
+
+    //FUNCTION TO CHECK IF USER IS ABLE TO ACCESS OR UPDATE PROJECT INFORMATION
+    static async validUserAccess(projectId, userId)
+    {
+        //ERROR CHECKING - Check if a projectId and userId have been provided; If not, throw a bad request error detailing missing field
+        if(!projectId)
+        {
+            throw new BadRequestError(`Whoops, Missing the projectId!`)
+        }
+        else if(!userId)
+        {
+            throw new BadRequestError(`Whoops, missing the userId!`)
+        }
+
+        //Run a separate query to check if user is able to access project information
+        //First find the project in the database by comparing the projectId;
+        //Then check if a user is the creator of the project or a member of any of the teams in the project
+        const results = await db.query(
+            `
+                SELECT *
+                FROM projects
+                    LEFT JOIN teams ON teams.id = projects.id
+                WHERE projects.id = $1 AND ((projects.creator_id = $2) 
+                OR ($2 = any(teams.members) AND teams.id = any(projects.teams)))
+            `, [projectId, userId])
+        
+        //If user is a creator or member of a project, then return project information; Else, return undefined
+        return results.rows[0]
+    }
+
 
 
 

@@ -34,51 +34,51 @@ Include the most up-to-date user roles and personas.
 
 List the current user stories you will implement.
 
-[ ] 1. As a manager, I want to be able to quickly see the status of bugs, so that I can keep track of progress without having to track down employees to ask for a status update.
+- [ ] 1. As a manager, I want to be able to quickly see the status of bugs, so that I can keep track of progress without having to track down employees to ask for a status update.
 
-[ ] 2. As a developer, I want to be able to keep track of bugs that are assigned to me and be able to mark them off as I resolve them so that my work can be more organized.
+- [ ] 2. As a developer, I want to be able to keep track of bugs that are assigned to me and be able to mark them off as I resolve them so that my work can be more organized.
 
-[ ] 3. As a manager, I want to be able to see reports on bug resolutions so that I can see the speed at which bugs are being solved in order to track time efficiency.
+- [ ] 3. As a manager, I want to be able to see reports on bug resolutions so that I can see the speed at which bugs are being solved in order to track time efficiency.
 
-[ ] 4. As a developer, I want to be able to see the priority level of different bugs so that I know which ones to target first.
+- [ ] 4. As a developer, I want to be able to see the priority level of different bugs so that I know which ones to target first.
 
-[ ] 5. As a manager, I want to be able to add new members to the team so that our new hires can start contributing to our projects.
+- [ ] 5. As a manager, I want to be able to add new members to the team so that our new hires can start contributing to our projects.
 
-[ ] 6. As a manager, I want to be able to see a brief overview of all tickets by category, status, and priority on the dashboard so that I can visualize where the team is currently at in terms of progress.
+- [ ] 6. As a manager, I want to be able to see a brief overview of all tickets by category, status, and priority on the dashboard so that I can visualize where the team is currently at in terms of progress.
 
-[ ] 7. As a developer, I want to be able to filter tickets any property (i.e name, category) so that I can find the ones I want more easily without having to search through everything.
+- [ ] 7. As a developer, I want to be able to filter tickets any property (i.e name, category) so that I can find the ones I want more easily without having to search through everything.
 
-[ ] 8. As a developer, I want to be able to leave comments on tickets so I can communicate with other developers more easily.
+- [ ] 8. As a developer, I want to be able to leave comments on tickets so I can communicate with other developers more easily.
 
-[ ] 9. As a developer, I want to be able to create new tickets if different issues arise so that the team can work on them.
+- [ ] 9. As a developer, I want to be able to create new tickets if different issues arise so that the team can work on them.
 
-[ ] 10. As a developer, I want to freely be able to update any ticket if anything needs to be changed so that I can keep them up to date and fix any potential mistakes when first creating the ticket.
+- [ ] 10. As a developer, I want to freely be able to update any ticket if anything needs to be changed so that I can keep them up to date and fix any potential mistakes when first creating the ticket.
 
-[x] 11. As a developer, I want to be able to login in to my account so I can continue my work.
+- [x] 11. As a developer, I want to be able to login in to my account so I can continue my work.
 
-[x] 12. As a developer, I want to be able to register so I can create an account and start working.
+- [x] 12. As a developer, I want to be able to register so I can create an account and start working.
 
-[ ] 13. As a manager, I want to be able to make a new project so my developers can start working
+- [ ] 13. As a manager, I want to be able to make a new project so my developers can start working
 
-[ ] 14. As a manager, I want to be able to update my project’s information so that it can be up to date if anything has to be changed
+- [ ] 14. As a manager, I want to be able to update my project’s information so that it can be up to date if anything has to be changed
 
-[ ] 15. As a developer, I want to have proper authentication so that our information can be properly secured
+- [ ] 15. As a developer, I want to have proper authentication so that our information can be properly secured
 
-[ ] 16. As a developer, I want to be able to see an overview of my project’s information so that I can stay up to date with the project details.
+- [ ] 16. As a developer, I want to be able to see an overview of my project’s information so that I can stay up to date with the project details.
 
-[ ] 17. As a developer, I want to be able to update any comment I left on a ticket so that I can fix potential mistakes I made when first creating the comment
+- [ ] 17. As a developer, I want to be able to update any comment I left on a ticket so that I can fix potential mistakes I made when first creating the comment
 
-[ ] 18. As a developer, I want to be able to see all the teams I belong to so that I can be more organized.
+- [ ] 18. As a developer, I want to be able to see all the teams I belong to so that I can be more organized.
 
-[ ] 19. As a manager, I want to be able to create a team so that my group can start working on our projects.
+- [ ] 19. As a manager, I want to be able to create a team so that my group can start working on our projects.
 
-[ ] 20. As a manager, I want to be able to access a specific team so that I can view all its content.
+- [ ] 20. As a manager, I want to be able to access a specific team so that I can view all its content.
 
-[ ] 21. As a developer, I want to be able to view all my projects on the dashboard so I know what I’m working on.
+- [ ] 21. As a developer, I want to be able to view all my projects on the dashboard so I know what I’m working on.
 
-[ ] 22. As a developer, I want to be able to view all details of a ticket so that I can understand its properties and requirements
+- [ ] 22. As a developer, I want to be able to view all details of a ticket so that I can understand its properties and requirements
 
-[ ] 23. As a developer, I want to be able to delete comments if needed so that anything unnecessary can be removed and only relevant comments will show for tickets.
+- [ ] 23. As a developer, I want to be able to delete comments if needed so that anything unnecessary can be removed and only relevant comments will show for tickets.
 
 
 

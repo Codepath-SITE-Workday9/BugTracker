@@ -24,6 +24,7 @@ class Tickets
             throw new NotFoundError(`Project was not found!`)
         }
 
+
         //At this point, user should be someone with valid access to project information with a valid projectId
         //Run a main query to get all the tickets that belong to a particular project by comparing the project id with the given id
         const results = await db.query(
@@ -34,7 +35,6 @@ class Tickets
                 ORDER BY tickets.id ASC
             `, [projectId])
 
-            
         //Return a list of all the tickets associated with a project
         return results.rows
     }

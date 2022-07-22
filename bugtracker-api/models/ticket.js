@@ -17,10 +17,6 @@ class Tickets
 
 
     //FUNCTION TO CREATE A NEW TICKET
-    //Note: developers is an array of their emails~
-    //Note: Clarify if creator_id is creator of the ticket or the project
-    //Note: Clarify if created_by is creator of the ticket or project
-    //Update the ticket to add closed_by default 0
     static async createTicket({user, ticketInfo})
     {
         //Check if all required fields to make a ticket are provided through the request body

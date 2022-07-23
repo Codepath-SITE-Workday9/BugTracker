@@ -54,5 +54,33 @@ router.post("/", security.requireAuthenticatedUser, async(req,res,next) => {
 
 
 
+
+
+//FUNCTION TO FETCH DETAILS FOR A SPECIFIC TICKET
+router.get("/:ticketId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the fetchTicketById to find specific ticket information
+        //Must provide the ticket id from the url
+        const ticket = await Tickets.fetchTicketbyId({ticketId: ticketId, user: user})
+        
+        //Return the specific ticket information if successful
+        return res.status(200).json({ticket: ticket})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
+
 //MODULE EXPORTS
 module.exports = router

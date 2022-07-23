@@ -151,6 +151,50 @@ class Tickets
     }
 
 
+
+
+
+
+    
+
+    //FUNCTION TO RETRIEVE SPECIFIC TICKET DETAILS GIVEN THE TICKET ID
+    static async fetchTicketbyId({ticketId, user})
+    {
+        //ERROR CHECKING - Check that a ticketId is provided through the req.params; If not, throw an error detailing missing field
+        if(!ticketId)
+        {
+            throw new BadRequestError(`Missing the ticket id from request!`)
+        }
+
+
+        //Run a separate query to fetch the id of the user using the email provided by the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to find the projectId assigned to the ticket by sending the ticketId
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+
+        //Check if the user is allowed access to the ticket information by running a query to check if user is a project creator or member
+        //If not, return undefined and throw a not found error detailing that the user can not access the ticket
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError("Sorry, can not access this ticket!")
+        }
+
+
+        //Run  a main query to obtain all the ticket information by comparing the id with the ticket id provided from request
+        const results = await db.query(
+            `
+                SELECT * 
+                FROM tickets
+                WHERE tickets.id = $1
+            `, [ticketId])
+        
+        //Return all the specific ticket information if successful
+        return results.rows[0]
+    }
+
+
 }
 
 

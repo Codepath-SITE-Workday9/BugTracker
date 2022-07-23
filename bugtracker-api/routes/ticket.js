@@ -110,5 +110,95 @@ router.patch("/:ticketId/update", security.requireAuthenticatedUser, async(req,r
 
 
 
+
+
+
+//FUNCTION TO CREATE A NEW COMMENT FOR A SPECIFIC TICKET
+router.post("/:ticketId/comment", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the createComment function to create a new comment on a ticket
+        //Request body must have the the comment content and ticketId from req params
+        const comment = await Tickets.createComment({ticketId: ticketId, user: user})
+
+        //Return the new comment information if successful
+        return res.status(200).json({comment: comment})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
+
+
+
+
+
+//FUNCTION TO DELETE A COMMENT FROM A TICKET
+router.delete("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the comment id from the given url
+        const {commentId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the deleteComment function to delete a comment from a ticket
+        const deleteComment = await Tickets.deleteComment({ticketId: ticketId, commentId: commentId, user: user})
+
+        return res.status(204).json()
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
+
+
+
+//FUNCTION TO UPDATE A COMMENT ON A TICKET
+router.patch("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the comment id from the given url
+        const {commentId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the updateComment function to update comment information on a ticket
+        //Request body should have the name of the field to update and the new field value
+        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, ticketInfo: req.body})
+
+        //Return the new comment information if successful
+        return res.status(200).json({comment: updatedComment})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
 //MODULE EXPORTS
 module.exports = router

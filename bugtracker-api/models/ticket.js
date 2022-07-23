@@ -198,7 +198,6 @@ class Tickets
 
 
 
-    
 
 
 
@@ -254,6 +253,22 @@ class Tickets
         //Return the ticket's updated information
         const updatedTicket = await Tickets.fetchTicketbyId({ticketId, user})
         return updatedTicket
+    }
+
+
+    static async createComment({ticketId, user})
+    {
+        //Function to create a comment
+    }
+
+    static async deleteComment()
+    {
+        //Function to delete a comment
+    }
+
+    static async updateComment()
+    {
+        //Function to update comment
     }
 
 }

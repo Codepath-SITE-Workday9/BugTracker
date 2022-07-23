@@ -155,7 +155,7 @@ class Tickets
 
 
 
-    
+
 
     //FUNCTION TO RETRIEVE SPECIFIC TICKET DETAILS GIVEN THE TICKET ID
     static async fetchTicketbyId({ticketId, user})
@@ -192,6 +192,16 @@ class Tickets
         
         //Return all the specific ticket information if successful
         return results.rows[0]
+    }
+
+
+
+
+
+    //FUNCTION TO UPDATE A TICKET'S INFORMATION
+    static async updateTicketInfo()
+    {
+
     }
 
 

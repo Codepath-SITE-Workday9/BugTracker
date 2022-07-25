@@ -411,15 +411,24 @@ class Tickets
 
 
 
+
+
+
     //FUNCTION TO UPDATE SPECIFIC COMMENT INFORMATION
     static async updateComment({ticketId, commentId, user, commentInfo})
     {
+        //ERROR CHECKING - Check if the new comment information has been provided by the user in the request body
+        //If not, throw a bad request error detailing the missing information
         if(!commentInfo)
         {
             throw new BadRequestError(`New Comment Information is missing!`)
         }
 
+        //Run a separate query to get the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to check if a user has valid access to update a comment (only if they are the creator of the comment
+        //If no information sent back (undefined), return a not found error stating that user can not access the comment information to update)
         const validAccess = await Tickets.validCommentAccess(commentId, userId)
         if(!validAccess)
         {
@@ -427,8 +436,12 @@ class Tickets
         }
 
 
+        //Get the names of all the fields the user wants to update by extracting the property names from the commentInfo object; Returned as array
         const propertyNames = Object.keys(commentInfo)
 
+        //MAIN QUERY - Loop through all the property names of the fields the user wishes to update and run an update query
+        //First, compare the id of the comment to find the comment the user wants to change and then update the value of the existing field
+        //If not successful, throw a bad request error saying that the field was invalid
         propertyNames.forEach(async(field) => {
             const results = await db.query(
                 `
@@ -445,6 +458,8 @@ class Tickets
             }
         })
 
+        //Get the new information of the comment and store it
+        //If successful, return the updated comment information back to the user
         const updatedComment = await Tickets.fetchCommentById({ticketId, commentId, user})
         return updatedComment
     }
@@ -455,9 +470,13 @@ class Tickets
 
 
 
+
+
+
     //FUNCTION TO DETERMINE IF A USER IS ABLE TO DELETE OR UPDATE A COMMENT IF THEY ARE THE CREATOR OF THE COMMENT
     static async validCommentAccess(commentId, userId)
     {
+        //ERROR CHECKING - Check if the comment id and user id has been provided by the req params; If not, throw an error stating the missing field
         if(!commentId)
         {
             throw new BadRequestError(`Missing the comment Id !`)
@@ -467,6 +486,8 @@ class Tickets
             throw new BadRequestError(`Missing the user id!`)
         }
 
+
+        //MAIN QUERY - Check that the user is the creator of the comment by finding the specific comment by id and then comparing the user id with the one provided
         const results = await db.query(
             `
                 SELECT *
@@ -474,6 +495,8 @@ class Tickets
                 WHERE id = $1 AND user_id = $2
             `, [commentId, userId])
 
+
+        //If successful, return the comment information. IF not, return undefined
         return results.rows[0]
     }
 
@@ -488,20 +511,28 @@ class Tickets
     //FUNCTION TO RETREIVE SEPCIFIC INFORMATION ABOUT A COMMMENT USING THE GIVEN COMMENT ID
     static async fetchCommentById({ticketId, commentId, user})
     {
+        //ERROR CHECKING - Check that a vlaid commentId is provided by the user through the req params
         if(!commentId)
         {
             throw new BadRequestError(`Missing the comment id from request!`)
         }
 
+        //Run a separate query to get the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
 
+        //Run a separate query to get the projectId of the ticket
         const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+
+        //Run a separate query to check whether the user has valid access to the tickets, and therefore, the comments by assuring that the user is a creator/member of the project
+        //If not, validAcess will be undefined and throw a not found errror detailing that the user does not have access to the comment 
         const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
         if(!validAccess)
         {
-            throw new NotFoundError("Sorry, can not access this ticket!")
+            throw new NotFoundError("Sorry, can not access this comment!")
         }
 
+
+        //MAIN QUERY - Get the comment information by comparing the provided id against ids for comments in the database and then return all the information associated with the comment
         const results = await db.query(
             `
                 SELECT *
@@ -509,6 +540,7 @@ class Tickets
                 WHERE id = $1
             `, [commentId])
 
+        //If successful, return the comment information 
         return results.rows[0]
     }
 

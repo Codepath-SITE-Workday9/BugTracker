@@ -176,9 +176,6 @@ router.delete("/:ticketId/:commentId", security.requireAuthenticatedUser, async(
 router.patch("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //Retrieve the ticket id from the given url
-        const {ticketId} = req.params
-
         //Retrieve the comment id from the given url
         const {commentId} = req.params
 
@@ -187,7 +184,7 @@ router.patch("/:ticketId/:commentId", security.requireAuthenticatedUser, async(r
 
         //Call the updateComment function to update comment information on a ticket
         //Request body should have the name of the field to update and the new field value
-        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, commentInfo: req.body})
+        const updatedComment = await Tickets.updateComment({commentId: commentId, user: user, commentInfo: req.body})
 
         //Return the new comment information if successful
         return res.status(200).json({comment: updatedComment})

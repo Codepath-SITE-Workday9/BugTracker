@@ -412,7 +412,7 @@ class Tickets
 
 
     //FUNCTION TO UPDATE SPECIFIC COMMENT INFORMATION
-    static async updateComment({ticketId, commentId, user, commentInfo})
+    static async updateComment({commentId, user, commentInfo})
     {
         if(!commentInfo)
         {

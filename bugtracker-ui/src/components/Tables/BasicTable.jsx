@@ -51,9 +51,9 @@ const columns = [
 
 export const BasicTable = () => {
   return <MaterialTable 
-    title="Basic Table" // The title of your table
-    columns={columns} // The columns of your table
-    data={data} // The data of your table
-    onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)} /> // Takes the data of the row that is being clicked (rowData is built-in with the library) and console.logs it. Use this data to pull id of the row for various purposes
+    title="Basic Table" // REQUIRED: The title of your table
+    columns={columns} // REQUIRED: The columns of your table
+    data={data} // REQUIRED: The data of your table
+    onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)} /> // OPTIONAL: Takes the data of the row that is being clicked (rowData is built-in with the library) and console.logs it. Use this data to pull id of the row for various purposes
     
 };

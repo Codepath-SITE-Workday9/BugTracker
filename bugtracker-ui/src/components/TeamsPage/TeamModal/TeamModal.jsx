@@ -1,36 +1,46 @@
 import "./TeamModal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import apiClient from "../../../services/apiClient";
+import { useProjectContext } from "../../../contexts/project";
+import AddProjectsDropdown from "../../Dropdown/AddProjectsDropdown/AddProjectsDropdown";
 
 export default function TeamModal({ setModal }) {
   const [name, setName] = useState("");
   const [developers, setDevelopers] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [projectsToAdd, setProjectsToAdd] = useState([]);
   const [errors, setErrors] = useState("");
+
+  const { projects } = useProjectContext();
 
   const handleOnCreateNewTeamSubmit = async () => {
     // setIsLoading(true);
     // setErrors((e) => ({ ...e, form: null }));
 
-    const { data, error } = await apiClient.createNewTeam({
-      name: name,
-      developers: developers,
-      projects: projects,
-    });
-    if (data) {
-      // if api request was successful:
-      //    popup message "team successfully created"
-      //    update teams in team overview
-    }
-    if (error) {
-      // setErrors((e) => ({ ...e, form: error }));
-    }
+    // const { data, error } = await apiClient.createNewTeam({
+    //   name: name,
+    //   developers: developers,
+    //   projects: projectsToAdd,
+    // });
+    // if (data) {
+    // if api request was successful:
+    //    popup message "team successfully created"
+    //    update teams in team overview
+    // }
+    // if (errors) {
+    // setErrors((e) => ({ ...e, form: error }));
+    // }
     // setIsLoading(false);
+    console.log(name, developers, projectsToAdd);
+    setName("");
+    setDevelopers([]);
+    setProjectsToAdd([]);
+    setModal(false);
   };
 
   return (
     <div className="team-modal-background">
       <div className="team-modal-container">
+        {/* modal header: header text & a close button */}
         <div className="header">
           <p>CREATE A NEW TEAM</p>
           <button className="close-modal-btn" onClick={() => setModal(false)}>
@@ -38,28 +48,73 @@ export default function TeamModal({ setModal }) {
           </button>
         </div>
 
+        {/* form area to create new team */}
         <div className="form">
           <div className="form-area">
+            {/* team name input area */}
             <AddName name={name} setName={setName} />
+
+            {/* split input field to show both developers and projects side by side */}
             <div className="split-input-field">
+              {/* developer area */}
               <div className="developer-area">
                 <AddDevelopers
                   setDevelopers={setDevelopers}
                   developers={developers}
                 />
-                {developers?.map((d) => (
-                  <DeveloperRow email={d} />
-                ))}
+
+                {/* conditionally display developers added, if there are any */}
+
+                <div className="rows-container">
+                  <div className="added-label">Developers added:</div>
+                  {developers.length > 0 ? (
+                    developers.map((d) => (
+                      <DeveloperRow
+                        email={d}
+                        developers={developers}
+                        setDevelopers={setDevelopers}
+                      />
+                    ))
+                  ) : (
+                    <div className="nothing-yet-label">No developers yet</div>
+                  )}
+                </div>
               </div>
-              <AddProjects setProjects={setProjects} projects={projects} />
+
+              {/* projects area  */}
+              <div className="projects-area">
+                <AddProjects
+                  setProjects={setProjectsToAdd}
+                  projects={projects}
+                />{" "}
+                {/* conditionally display projects added, if there are any */}
+                <div className="rows-container">
+                  <div className="added-label">Projects added:</div>
+                  {projectsToAdd.length > 0 ? (
+                    projectsToAdd.map((d) => (
+                      <ProjectRow
+                        email={d}
+                        projectsToAdd={projectsToAdd}
+                        setDevelopers={setDevelopers}
+                      />
+                    ))
+                  ) : (
+                    <div className="nothing-yet-label">No projects yet</div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
+          {/* cancel and submit buttons */}
           <div className="modal-buttons">
             <button className="cancel" onClick={() => setModal(false)}>
               Cancel
             </button>
-            <button className="submit"> Submit </button>
+            <button className="submit" onClick={handleOnCreateNewTeamSubmit}>
+              {" "}
+              Submit{" "}
+            </button>
           </div>
         </div>
       </div>
@@ -83,6 +138,7 @@ export function AddName({ name, setName }) {
           value={name}
           onChange={handleOnNameChange}
           placeholder="team name"
+          autoComplete="off"
         />
       </div>
     </div>
@@ -91,7 +147,7 @@ export function AddName({ name, setName }) {
 
 export function AddDevelopers({ setDevelopers }) {
   const [developer, setDeveloper] = useState("");
-
+  const [errors, setErrors] = useState("");
   const handleOnChange = (event) => {
     setDeveloper(event.target.value);
   };
@@ -99,6 +155,14 @@ export function AddDevelopers({ setDevelopers }) {
   // handler to submit developer
   const handleOnDeveloperSubmit = (dev) => {
     // if email is valid (has @ etc)
+    if (developer.indexOf("@") === -1) {
+      setErrors("Please enter a valid email.");
+      console.log("error caught");
+    } else {
+      setErrors("");
+      setDevelopers((d) => [...d, dev]);
+      setDeveloper("");
+    }
     //     if that developer exists on the backend
     //       if the developer exists
     //          add that email to the developers array in form
@@ -107,9 +171,6 @@ export function AddDevelopers({ setDevelopers }) {
     //          throw an error, developer does not exist
     // if email is not valid:
     //    throw invalid email error
-
-    setDevelopers((d) => [...d, dev]);
-    setDeveloper("");
   };
 
   return (
@@ -123,6 +184,7 @@ export function AddDevelopers({ setDevelopers }) {
           value={developer}
           placeholder="search for developers"
           onChange={handleOnChange}
+          autoComplete="off"
         />
         <button
           className="search-btn"
@@ -131,50 +193,92 @@ export function AddDevelopers({ setDevelopers }) {
           <i className="material-icons">{developer == "" ? "search" : "add"}</i>
         </button>
       </div>
+      {errors ? <p className="errors"> {errors} </p> : ""}
     </div>
   );
 }
 
-export function DeveloperRow({ email }) {
+export function DeveloperRow({ email, developers, setDevelopers }) {
+  const handleOnRemoveDeveloper = () => {
+    const newArr = developers.filter((d) => d != email);
+    setDevelopers(newArr);
+  };
   return (
-    <div className="developer-row">
-      <div>
-        <div> {email}</div>
-      </div>
+    <div className="added-row">
+      <div className="added-row-email">{email}</div>
+      <button className="added-row-btn" onClick={handleOnRemoveDeveloper}>
+        x
+      </button>
     </div>
   );
 }
 
-export function AddProjects({ projets, setProjects }) {
-  const [project, setProject] = useState("");
+export function AddProjects({ projects, setProjects }) {
+  console.log(projects);
+  const [projectSearch, setProjectSearch] = useState("");
+  const [projectsToShow, setProjectsToShow] = useState(projects);
 
-  const handleOnProjectSubmit = (event) => {};
+  const handleOnChange = (event) => {
+    setProjectSearch(event.target.value);
+    const proj = projects;
+    const temp = proj.filter((p) =>
+      p.projectTitle.toLowerCase().includes(projectSearch.toLowerCase())
+    );
+    setProjectsToShow(temp);
+    console.log(projectSearch);
+    console.log(projectsToShow);
+  };
+  const handleOnProjectClick = (p) => {
+    console.log(p);
+    setProjectSearch("");
+  };
 
   return (
     <div className="teams-form-search">
-      <label htmlFor="search"> Assign projects to this team </label>
-      <div className="search-box">
-        <input
-          className="search-input"
-          type="text"
-          name="search"
-          placeholder="search for projects"
-          //   onChange={handleOnChange}
-        />
-        <button className="search-btn">
-          <i className="material-icons">search</i>
-        </button>
+      <div className="projects-area">
+        <label htmlFor="search"> Assign projects to this team </label>
+        <div className="drop-down-search-area">
+          <div className="search-box">
+            <input
+              className="search-input"
+              type="text"
+              name="search"
+              placeholder="search for projects"
+              value={projectSearch}
+              onChange={handleOnChange}
+              autoComplete="off"
+            />
+            <button className="search-btn">
+              <i className="material-icons">search</i>
+            </button>
+          </div>
+          {projectSearch && (
+            <>
+              <div className="drop-down-search-box">
+                <AddProjectsDropdown
+                  projects={projectsToShow}
+                  onClick={handleOnProjectClick}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-export function ProjectRow() {
+export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
+  const handleOnRemoveProject = () => {
+    const newArr = projectsToAdd.filter((d) => d.projectTitle != name);
+    setProjectsToAdd(newArr);
+  };
   return (
     <div className="project-row">
-      <div>
-        <div></div>
-      </div>
+      <div className="project-row-name">{name}</div>
+      <button className="project-row-btn" onClick={handleOnRemoveProject}>
+        x
+      </button>
     </div>
   );
 }

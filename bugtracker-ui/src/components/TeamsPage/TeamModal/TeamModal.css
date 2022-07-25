@@ -8,6 +8,7 @@
     vertical-align: top;
     z-index: 1;
 }
+
 .team-modal-container{
     width: 800px;
     height: 800px;
@@ -89,7 +90,10 @@
 .teams-form-search .search-box input{
     width: 100%;
     border: 1px solid gray;
-    border-radius: 13px;
+    border-radius: 10px;
+}
+.teams-form-search .search-box input:focus-visible{
+    border: 2px solid var(--dark-blue);
 }
 
 .split-input-field{
@@ -110,6 +114,46 @@
     background: transparent;
 
 }
+
+.teams-form-search .errors{
+    font-size: 16px;
+}
+
+/* ----------- displaying developers/projects added section -------------*/
+.team-modal-container .rows-container{
+    padding-left: 10px;
+    height: 325px;
+    margin: 0px 30px 30px 30px;
+    background-color: white;
+    overflow: auto;
+    box-shadow: 0px 0 8px 0 var(--dark-blue);
+    z-index: 1;
+}
+.added-label{
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 20px;
+}
+.nothing-yet-label{
+    font-size: 20px;
+    margin: 10px;
+    text-align: center;
+}
+.team-modal-container .added-row{
+    padding: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+.team-modal-container .added-row button{
+    background-color: transparent;
+    font-size: 20px;
+}
+
+
+
+
 
 /* ----------- button styling ------------ */
 
@@ -132,3 +176,14 @@
     color: white;
     box-shadow: 0px 0 7px 0 #3f4d67;
 }
+
+
+.drop-down-search-box{
+    background-color: white;
+    margin-left: 6px;
+    margin-right: 6px;
+    display: flex;
+    box-shadow: 0px 0 3px 0 #3f4d67;
+    z-index: 3;
+}
+

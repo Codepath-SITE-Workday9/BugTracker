@@ -1,3 +1,11 @@
 .not-found{
+    margin-top: 80px;
     text-align: center;
+}
+.not-found h1{
+    font-size: 60px;
+}
+
+.not-found h2{
+    font-size: 30px;
 }

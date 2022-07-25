@@ -259,6 +259,8 @@ class Tickets
 
 
 
+    
+
 
 
     static async createComment({ticketId, user, commentInfo})
@@ -294,10 +296,33 @@ class Tickets
         return comment
     }
 
+
+
+
+
+
+
+
+
     static async addCommentToTicket(commentId, ticketId)
     {
-        //add comment
+        if(!commentId)
+        {
+            throw new BadRequestError(`Missing the comment id!`)
+        }
+        else if(!ticketId)
+        {
+            throw new BadRequestError(`Missing the ticket id!`)
+        }
+
+        const results = await db.query(
+            `
+                UPDATE tickets
+                SET comments = ARRAY_APPEND(comments, $1)
+                WHERE id = $2
+            `, [commentId, ticketId])
     }
+
 
 
 

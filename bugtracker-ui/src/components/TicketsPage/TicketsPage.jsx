@@ -1,25 +1,37 @@
-import React from "react";
+import { React , useState } from "react";
 import "./TicketsPage.css"
+import { TicketsPageCollaboratorsTable } from "../Tables/TicketsPageCollaboratorsTable";
+import { TicketsPageTicketsTable } from "../Tables/TicketsPageTicketsTable";
+import TicketInfoBox from "./TicketInfoBox/TicketInfoBox";
 
 export default function TicketsPage() {
+
+
+  const handleNewProjectClick = () => {
+    console.log("Clicked!")
+    
+  };
+
   return (
     <div className="tickets-page">
+      
       <div className="row">
-
         <div className="projects-box">
           <div className="project-box-header">
             <h1>Selected Project: Project 1</h1>
-            <button>Select Project</button>
+            <button onClick={handleNewProjectClick}>Select Project</button>
           </div>
           <div className="project-box-content">
-            
+            <TicketsPageCollaboratorsTable />
           </div>
         </div>
-
-        <div className="tickets-box">Tickets Box</div>
+        <div className="tickets-box">
+          <TicketsPageTicketsTable />
+        </div>
       </div>
+
       <div className="row">
-        <div className="ticket-info-box">Ticket Info Box</div>
+        <TicketInfoBox />
       </div>
     </div>
   )

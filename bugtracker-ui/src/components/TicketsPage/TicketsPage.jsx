@@ -8,13 +8,12 @@ export default function TicketsPage() {
 
 
   const handleNewProjectClick = () => {
-    console.log("Clicked!")
     
   };
 
   return (
     <div className="tickets-page">
-      
+
       <div className="row">
         <div className="projects-box">
           <div className="project-box-header">

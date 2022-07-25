@@ -6,8 +6,6 @@ export default function TicketInfoBox() {
     const [commentForm, setCommentForm] = useState("")
     const handleCommentSubmit = function (e) {
         e.preventDefault();
-        console.log("Comment submitted!");
-        console.log(commentForm)
         setCommentForm("")
       }
       

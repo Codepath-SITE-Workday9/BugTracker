@@ -21,8 +21,9 @@ export default function TeamModal({ setModal }) {
     //   developers: developers,
     //   projects: projectsToAdd,
     // });
-    // if (data) {
+
     // if api request was successful:
+    // if (data) {
     //    popup message "team successfully created"
     //    update teams in team overview
     // }
@@ -63,8 +64,7 @@ export default function TeamModal({ setModal }) {
                   developers={developers}
                 />
 
-                {/* conditionally display developers added, if there are any */}
-
+                {/* conditionally display the developers added to new team, if there are any */}
                 <div className="rows-container">
                   <div className="added-label">Developers added:</div>
                   {developers.length > 0 ? (
@@ -84,18 +84,18 @@ export default function TeamModal({ setModal }) {
               {/* projects area  */}
               <div className="projects-area">
                 <AddProjects
-                  setProjects={setProjectsToAdd}
+                  setProjectsToAdd={setProjectsToAdd}
                   projects={projects}
                 />{" "}
-                {/* conditionally display projects added, if there are any */}
+                {/* conditionally display projects added to team, if there are any */}
                 <div className="rows-container">
                   <div className="added-label">Projects added:</div>
                   {projectsToAdd.length > 0 ? (
-                    projectsToAdd.map((d) => (
+                    projectsToAdd.map((p) => (
                       <ProjectRow
-                        email={d}
+                        name={p}
                         projectsToAdd={projectsToAdd}
-                        setDevelopers={setDevelopers}
+                        setProjectsToAdd={setProjectsToAdd}
                       />
                     ))
                   ) : (
@@ -154,7 +154,6 @@ export function AddDevelopers({ setDevelopers }) {
 
   // handler to submit developer
   const handleOnDeveloperSubmit = (dev) => {
-    // if email is valid (has @ etc)
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
       console.log("error caught");
@@ -213,23 +212,21 @@ export function DeveloperRow({ email, developers, setDevelopers }) {
   );
 }
 
-export function AddProjects({ projects, setProjects }) {
-  console.log(projects);
+export function AddProjects({ projects, setProjectsToAdd }) {
   const [projectSearch, setProjectSearch] = useState("");
   const [projectsToShow, setProjectsToShow] = useState(projects);
 
   const handleOnChange = (event) => {
     setProjectSearch(event.target.value);
-    const proj = projects;
-    const temp = proj.filter((p) =>
-      p.projectTitle.toLowerCase().includes(projectSearch.toLowerCase())
+    setProjectsToShow(
+      projects.filter((p) =>
+        p.projectTitle.toLowerCase().includes(projectSearch.toLowerCase())
+      )
     );
-    setProjectsToShow(temp);
-    console.log(projectSearch);
-    console.log(projectsToShow);
   };
-  const handleOnProjectClick = (p) => {
-    console.log(p);
+
+  const handleOnProjectClick = (proj) => {
+    setProjectsToAdd((p) => [...p, proj.projectTitle]);
     setProjectSearch("");
   };
 
@@ -270,13 +267,14 @@ export function AddProjects({ projects, setProjects }) {
 
 export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
   const handleOnRemoveProject = () => {
-    const newArr = projectsToAdd.filter((d) => d.projectTitle != name);
+    const newArr = projectsToAdd.filter((p) => p != name);
     setProjectsToAdd(newArr);
   };
+  console.log(name);
   return (
-    <div className="project-row">
-      <div className="project-row-name">{name}</div>
-      <button className="project-row-btn" onClick={handleOnRemoveProject}>
+    <div className="added-row">
+      <div className="added-row-text">{name}</div>
+      <button className="added-row-btn" onClick={handleOnRemoveProject}>
         x
       </button>
     </div>

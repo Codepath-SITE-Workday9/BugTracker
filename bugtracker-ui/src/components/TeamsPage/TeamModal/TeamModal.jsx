@@ -156,7 +156,6 @@ export function AddDevelopers({ setDevelopers }) {
   const handleOnDeveloperSubmit = (dev) => {
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
-      console.log("error caught");
     } else {
       setErrors("");
       setDevelopers((d) => [...d, dev]);
@@ -270,7 +269,6 @@ export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
     const newArr = projectsToAdd.filter((p) => p != name);
     setProjectsToAdd(newArr);
   };
-  console.log(name);
   return (
     <div className="added-row">
       <div className="added-row-text">{name}</div>

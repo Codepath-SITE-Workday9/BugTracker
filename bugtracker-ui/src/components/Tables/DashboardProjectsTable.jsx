@@ -1,15 +1,9 @@
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom";
 
-const handleOnRowClick = (rowData) => {
-  console.log("Clicked on row!");
-  console.log(rowData.id);
-};
+const handleOnRowClick = (rowData) => {};
 
-function onRowClick(data) {
-  console.log("Row data below!");
-  console.log(data);
-}
+function onRowClick(data) {}
 
 const data = [
   {

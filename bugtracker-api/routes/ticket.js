@@ -125,7 +125,7 @@ router.post("/:ticketId/comment", security.requireAuthenticatedUser, async(req,r
 
         //Call the createComment function to create a new comment on a ticket
         //Request body must have the the comment content and ticketId from req params
-        const comment = await Tickets.createComment({ticketId: ticketId, user: user})
+        const comment = await Tickets.createComment({ticketId: ticketId, user: user, commentInfo: req.body})
 
         //Return the new comment information if successful
         return res.status(200).json({comment: comment})

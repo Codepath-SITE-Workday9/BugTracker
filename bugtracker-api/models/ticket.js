@@ -256,10 +256,56 @@ class Tickets
     }
 
 
-    static async createComment({ticketId, user})
+
+
+
+
+
+    static async createComment({ticketId, user, commentInfo})
     {
-        //Function to create a comment
+        const requiredField = "content"
+        if(!commentInfo.hasOwnProperty(requiredField))
+        {
+            throw new BadRequestError(`Required field ${requirdField} missing from request!`)
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError("Sorry, can not access this ticket!")
+        }
+
+        const results = await db.query(
+            `
+                INSERT INTO comments
+                (
+                    ticket_id, user_id, content
+                )
+                VALUES ($1, $2, $3)
+                RETURNING *
+            `, [ticketId, userId, commentInfo.content])
+
+        const comment = results.rows[0]
+        Tickets.addCommentToTicket(comment.id, ticketId)
+
+        return comment
     }
+
+    static async addCommentToTicket(commentId, ticketId)
+    {
+        //add comment
+    }
+
+
+
+
+
+
+
+
 
     static async deleteComment()
     {

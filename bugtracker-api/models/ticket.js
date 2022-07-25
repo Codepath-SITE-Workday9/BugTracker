@@ -348,10 +348,41 @@ class Tickets
 
 
 
-    static async deleteComment()
+    static async deleteComment({ticketId, commentId, user})
     {
-        //Function to delete a comment
+        if(!ticketId)
+        {
+            throw new BadRequestError(`Missing the ticket id from request!`)
+        }
+        else if(!commentId)
+        {
+            throw new BadRequestError(`Missing the comment id from the request!`)
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError(`Sorry, can not access this comment!`)
+        }
+
+
+        const results = await db.query(
+             `
+                DELETE FROM comments
+                WHERE id = $1 
+             `, [commentId])
+
+        Tickets.deleteCommentFromTicket({commentId, ticketId, user})
     }
+
+
+
+
+
+    
 
     static async updateComment()
     {

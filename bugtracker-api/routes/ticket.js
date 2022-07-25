@@ -187,7 +187,7 @@ router.patch("/:ticketId/:commentId", security.requireAuthenticatedUser, async(r
 
         //Call the updateComment function to update comment information on a ticket
         //Request body should have the name of the field to update and the new field value
-        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, ticketInfo: req.body})
+        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, commentInfo: req.body})
 
         //Return the new comment information if successful
         return res.status(200).json({comment: updatedComment})

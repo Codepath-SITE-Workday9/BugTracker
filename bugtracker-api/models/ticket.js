@@ -414,10 +414,68 @@ class Tickets
 
 
 
-
-    static async updateComment()
+    //FUNCTION TO UPDATE SPECIFIC COMMENT INFORMATION
+    static async updateComment({ticketId, commentId, user, commentInfo})
     {
-        //Function to update comment
+        if(!commentInfo)
+        {
+            throw new BadRequestError(`New Comment Information is missing!`)
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+        const validAccess = await Tickets.validCommentAccess(commentId, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError(`Can not access this comment!`)
+        }
+
+
+        const propertyNames = Object.keys(commentInfo)
+
+        propertyNames.forEach(async(field) => {
+            const results = await db.query(
+                `
+                    UPDATE comments
+                    SET ${field} = $1
+                    WHERE id = $2
+                    RETURNING *
+                `, [commentInfo[field], commentId])
+            
+            const comment = results.rows[0]
+            console.log(comment)
+            if(!comment)
+            {
+                throw new BadRequestError(`Unable to update comment! The ${field} is invalid!`)
+            }
+        })
+    }
+
+
+
+
+
+
+
+    //FUNCTION TO DETERMINE IF A USER IS ABLE TO DELETE OR UPDATE A COMMENT IF THEY ARE THE CREATOR OF THE COMMENT
+    static async validCommentAccess(commentId, userId)
+    {
+        if(!commentId)
+        {
+            throw new BadRequestError(`Missing the comment Id !`)
+        }
+        else if(!userId)
+        {
+            throw new BadRequestError(`Missing the user id!`)
+        }
+
+        const results = await db.query(
+            `
+                SELECT *
+                FROM comments
+                WHERE id = $1 AND user_id = $2
+            `, [commentId, userId])
+
+        return results.rows[0]
     }
 
 }

@@ -1,0 +1,23 @@
+.dropdown-container{
+        width: 350px;
+        position: absolute;
+        background-color: white;
+        border: 1px solid rgb(207, 207, 207);
+}
+
+.option-row p{
+        font-size: 18px;
+        text-align: left;
+        margin: 0px;        
+}
+
+.option-row{
+        padding: 10px;
+        border: 1px solid rgb(207, 207, 207);
+        width: 100%;
+}
+.option-row:hover{
+        box-shadow: 0px 0 3px 0 #3f4d67;
+        cursor: pointer;
+        color: #00379e;   
+}

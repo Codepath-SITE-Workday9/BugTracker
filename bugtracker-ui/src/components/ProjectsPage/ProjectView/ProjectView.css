@@ -1,7 +1,7 @@
 .project-view{
     width: 100%;
     padding: 10px;
-
+    padding-right: 30px;
 }
 .project-header{
     display:flex;

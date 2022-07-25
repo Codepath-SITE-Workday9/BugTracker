@@ -10,8 +10,17 @@ export default function ProjectModal({ setModal }) {
             X
           </button>
         </div>
-        <div className="form-container">
-          <ProjectModalForm setModal={setModal} />
+        <div className="content">
+          <div className="form-container">
+            <ProjectModalForm setModal={setModal} />
+          </div>
+          <div className="modal-buttons">
+            <button className="cancel" onClick={() => setModal(false)}>
+              {" "}
+              Cancel{" "}
+            </button>
+            <button className="submit"> Submit </button>
+          </div>
         </div>
       </div>
     </div>
@@ -54,23 +63,20 @@ export function ProjectModalForm({ setModal }) {
         <div className="teams-search">
           <div className="modal-input">
             <label htmlFor="search">Assign teams to your project</label>
-            <input
-              className="search-input"
-              type="text"
-              name="search"
-              placeholder="search for teams"
-              //   onChange={handleOnChange}
-            />
-            <i className="material-icons">search</i>
+            <div className="searhc-box">
+              <input
+                className="search-input"
+                type="text"
+                name="search"
+                placeholder="search for teams"
+                //   onChange={handleOnChange}
+              />
+              <button className="search-btn">
+                <i className="material-icons">search</i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="modal-buttons">
-        <button className="cancel" onClick={() => setModal(false)}>
-          {" "}
-          Cancel{" "}
-        </button>
-        <button className="submit"> Submit </button>
       </div>
     </div>
   );

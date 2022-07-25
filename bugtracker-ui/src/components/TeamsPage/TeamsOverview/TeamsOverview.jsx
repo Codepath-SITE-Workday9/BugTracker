@@ -2,18 +2,18 @@ import "./TeamsOverview.css";
 import TeamCard from "../TeamCard/TeamCard";
 import { useState } from "react";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
+
+// overview of all teams belonging to a user
 export default function TeamsOverview({ teams, handleOnTeamClick }) {
   var teamsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
-  // handler function to determine what the search term is
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
-    console.log(searchTerm);
   };
 
-  teamsToShow = teams.filter((p) =>
-    p.teamName.toLowerCase().includes(searchTerm.toLowerCase())
+  teamsToShow = teams.filter((t) =>
+    t.teamName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

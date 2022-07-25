@@ -108,6 +108,7 @@ List the API endpoints you will need to implement.
 | Read   | /login   | POST	| Log in to account	|  11 | email, password | id, email, fullname |
 | Create | /register| POST      | Register an account	|  12 | email, fullname, password | id, email, fullname |
 | Read   | /me	    | GET       | Authorize a user	|  15 | N/A | id, email, fullname |
+|Read    | /users   | GET       | Get user information by id | 15 | id | id, email, fullname |
 
 **/team**				
 | CRUD   |endpoint|	HTTP verb | Description  |	User stories | Request Body | JSON Returns |

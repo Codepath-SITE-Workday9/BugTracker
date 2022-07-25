@@ -134,6 +134,27 @@ class User {
         const user = results.rows[0]
         return user
     }
+
+
+
+
+
+
+    //FUNCTION TO MAKE A QUERY RETURNING AN EXISTING USER BY ID
+    static async fetchUserById(userId)
+    {
+        if(!userId)
+        {
+            throw new BadRequestError("No user id provided!")
+        }
+
+        const query = `SELECT * FROM users WHERE id = $1`
+        const results = await db.query(query, [userId.id])
+
+        const user = results.rows[0]
+        const publicUser = User.makePublicUser(user)
+        return publicUser
+    }
 }
 
 

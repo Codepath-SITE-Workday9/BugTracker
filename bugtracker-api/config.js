@@ -15,7 +15,9 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 
 
-//FUNCTION TO CREATE THE DATABASE URL
+
+
+//FUNCTION TO CREATE THE DATABASE URL (Takes in all environment variables from .env)
 function getDatabaseUri()
 {
     const dbUser = process.env.DATABASE_USER || 'postgres';

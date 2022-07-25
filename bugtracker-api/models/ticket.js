@@ -350,6 +350,8 @@ class Tickets
 
     static async deleteComment({ticketId, commentId, user})
     {
+        //ERROR CHECKING - Check if the ticketId and commentId has been provided by the user through the req.params
+        //If not, throw a bad request detailing the missing field
         if(!ticketId)
         {
             throw new BadRequestError(`Missing the ticket id from request!`)
@@ -359,9 +361,14 @@ class Tickets
             throw new BadRequestError(`Missing the comment id from the request!`)
         }
 
+        //Run a separate query to get the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to get the project id from a ticket using the ticketId
         const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
 
+        //Run a query to check if a user has valid access to the ticket with the comment (access granted if user is member or creator of project)
+        //If no ticket information is returned (undefined), then throw a not found error stating that the user can not access the comment info
         const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
         if(!validAccess)
         {
@@ -369,12 +376,15 @@ class Tickets
         }
 
 
+        //MAIN QUERY - Run a query to delete the comment from the database by matching the commentId to existing ids in the DB
         const results = await db.query(
              `
                 DELETE FROM comments
                 WHERE id = $1 
              `, [commentId])
 
+        //MIAIN QUERY - Run another query to delete the comment from the ticket details and update the new ticket info to reflect that deletion
+        //Return nothing back to the user except the 204 status meaning that the request was successful but no information returned
         Tickets.deleteCommentFromTicket({commentId, ticketId})
     }
 

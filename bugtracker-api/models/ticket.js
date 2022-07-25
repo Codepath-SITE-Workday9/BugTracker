@@ -412,7 +412,7 @@ class Tickets
 
 
     //FUNCTION TO UPDATE SPECIFIC COMMENT INFORMATION
-    static async updateComment({commentId, user, commentInfo})
+    static async updateComment({ticketId, commentId, user, commentInfo})
     {
         if(!commentInfo)
         {
@@ -439,12 +439,14 @@ class Tickets
                 `, [commentInfo[field], commentId])
             
             const comment = results.rows[0]
-            console.log(comment)
             if(!comment)
             {
                 throw new BadRequestError(`Unable to update comment! The ${field} is invalid!`)
             }
         })
+
+        const updatedComment = await Tickets.fetchCommentById({ticketId, commentId, user})
+        return updatedComment
     }
 
 
@@ -471,6 +473,40 @@ class Tickets
                 FROM comments
                 WHERE id = $1 AND user_id = $2
             `, [commentId, userId])
+
+        return results.rows[0]
+    }
+
+
+
+
+
+
+
+
+
+    static async fetchCommentById({ticketId, commentId, user})
+    {
+        if(!commentId)
+        {
+            throw new BadRequestError(`Missing the comment id from request!`)
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError("Sorry, can not access this ticket!")
+        }
+
+        const results = await db.query(
+            `
+                SELECT *
+                FROM comments
+                WHERE id = $1
+            `, [commentId])
 
         return results.rows[0]
     }

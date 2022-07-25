@@ -364,15 +364,12 @@ class Tickets
         //Run a separate query to get the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
 
-        //Run a separate query to get the project id from a ticket using the ticketId
-        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
-
-        //Run a query to check if a user has valid access to the ticket with the comment (access granted if user is member or creator of project)
-        //If no ticket information is returned (undefined), then throw a not found error stating that the user can not access the comment info
-        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        //Run a query to check if a user has valid access to the comment (access granted if user is the creator of the comment)
+        //If no comment information is returned (undefined), then throw a not found error stating that the user can not access the comment info
+        const validAccess = await Tickets.validCommentAccess(commentId, userId)
         if(!validAccess)
         {
-            throw new NotFoundError(`Sorry, can not access this comment!`)
+            throw new NotFoundError(`Can not access this comment!`)
         }
 
 

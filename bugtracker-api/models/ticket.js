@@ -151,6 +151,126 @@ class Tickets
     }
 
 
+
+
+
+
+
+
+    //FUNCTION TO RETRIEVE SPECIFIC TICKET DETAILS GIVEN THE TICKET ID
+    static async fetchTicketbyId({ticketId, user})
+    {
+        //ERROR CHECKING - Check that a ticketId is provided through the req.params; If not, throw an error detailing missing field
+        if(!ticketId)
+        {
+            throw new BadRequestError(`Missing the ticket id from request!`)
+        }
+
+
+        //Run a separate query to fetch the id of the user using the email provided by the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to find the projectId assigned to the ticket by sending the ticketId
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+
+        //Check if the user is allowed access to the ticket information by running a query to check if user is a project creator or member
+        //If not, return undefined and throw a not found error detailing that the user can not access the ticket
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError("Sorry, can not access this ticket!")
+        }
+
+
+        //Run  a main query to obtain all the ticket information by comparing the id with the ticket id provided from request
+        const results = await db.query(
+            `
+                SELECT * 
+                FROM tickets
+                WHERE tickets.id = $1
+            `, [ticketId])
+        
+        //Return all the specific ticket information if successful
+        return results.rows[0]
+    }
+
+
+
+
+
+
+
+
+
+    //FUNCTION TO UPDATE A TICKET'S INFORMATION
+    static async updateTicketInfo({ticketId, ticketInfo, user})
+    {
+        //ERROR CHECKING - Check if the user has provided a request body within the name and value of the field they want to update
+        //If not, throw a bad request error detailing the missing field
+        if(!ticketInfo)
+        {
+            throw new BadRequestError(`New Ticket Information is missing!`)
+        }
+
+
+        //Run a query to retrieve the id of the user using the email from the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to find the project id assigned to the ticket by sending the ticketId
+        const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
+        
+        //Check if the user is allowed access to the ticket information by running a query to check if user is a project creator or member
+        //If not, return undefined and throw a not found error detailing that the user can not access the ticket
+        const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
+        if(!validAccess)
+        {
+            throw new NotFoundError("Sorry, can not access this ticket!")
+        }
+
+
+        //Get the names of all the fields the user want to update by extracting from the object sent in request body
+        //Property names becomes an array of all those fields
+        const propertyNames = Object.keys(ticketInfo)
+
+
+        //loop through every field and run the given query to update the specific field with the new user's value
+        //Then check the validity of the update; If unable to update, ticket should be undefined and throw bad request error detailing error
+        propertyNames.forEach(async(field) => {
+            const results = await db.query(
+                `
+                    UPDATE tickets
+                    SET ${field} = $1
+                    WHERE tickets.id = $2
+                    RETURNING *
+                `, [ticketInfo[field], ticketId])
+            const ticket = results.rows[0]
+            if(!ticket)
+            {
+                throw new BadRequestError(`Unable to update ticket! The ${field} is invalid!`)
+            }
+        })
+
+        //Return the ticket's updated information
+        const updatedTicket = await Tickets.fetchTicketbyId({ticketId, user})
+        return updatedTicket
+    }
+
+
+    static async createComment({ticketId, user})
+    {
+        //Function to create a comment
+    }
+
+    static async deleteComment()
+    {
+        //Function to delete a comment
+    }
+
+    static async updateComment()
+    {
+        //Function to update comment
+    }
+
 }
 
 

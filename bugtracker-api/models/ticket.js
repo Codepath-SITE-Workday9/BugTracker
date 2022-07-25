@@ -485,6 +485,7 @@ class Tickets
 
 
 
+    //FUNCTION TO RETREIVE SEPCIFIC INFORMATION ABOUT A COMMMENT USING THE GIVEN COMMENT ID
     static async fetchCommentById({ticketId, commentId, user})
     {
         if(!commentId)

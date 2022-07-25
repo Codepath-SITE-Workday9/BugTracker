@@ -73,6 +73,6 @@ CREATE TABLE tickets
         created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
         created_by      INTEGER NOT NULL,
         closed_at       TIMESTAMP DEFAULT NOW(),
-        closed_by       INTEGER NOT NULL
+        closed_by       INTEGER NOT NULL DEFAULT 0
 );
 

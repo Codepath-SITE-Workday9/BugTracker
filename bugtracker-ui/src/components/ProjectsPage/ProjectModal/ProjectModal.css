@@ -11,14 +11,18 @@
 }
 
 .project-modal-container{
-    width: 700px;
-    height: 700px;
+    width: 800px;
+    height: 800px;
     display: flex;
     background: var(--off-white);
     flex-direction: column;
     box-shadow: 1px 0 20px 0 #3f4d67;
     border-radius: 23px;
 }
+
+
+/* ------- header area -------- */
+
 
 .project-modal-container .header{
     padding: 10px;
@@ -41,6 +45,19 @@
     font-size: 20px;
 }
 
+
+.project-modal-container .content{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ----- form area ------ */
+
+
 .project-modal-container .form{
     display: flex;
     flex-direction: column;
@@ -61,8 +78,13 @@
 }
 
 .modal-input{
+    font-size: 25px;
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    position: relative;
 }
 
 .split-input-fields{
@@ -72,12 +94,29 @@
     justify-content: space-between;
 }
 
+.project-modal-container input{
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 16px;
+        padding-right: 30px;
+}
+
+.project-modal-container .search-btn{
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    background: transparent;
+
+}
+/* --------- modal buttons area -------- */
+
 
 .modal-buttons{
     width: 50%;
     display: flex;
     justify-content: space-between;
-
 }
 
 .modal-buttons button{

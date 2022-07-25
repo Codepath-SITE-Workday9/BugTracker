@@ -3,8 +3,8 @@ import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
 import "../../services/charts.js";
- import { BasicTable } from "../Tables/BasicTable";
- import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
+import { BasicTable } from "../Tables/BasicTable";
+import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
 //import MaterialTable from 'material-table';
 import { data } from "../../sampleData";
 import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
@@ -24,8 +24,7 @@ export default function Dashboard() {
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
       {/* Renders a table for projects on the dashboard */}
-      <DashboardProjectsTable /> 
-
+      <DashboardProjectsTable />
 
       <div className="ticket-statistics">
         <h>TICKET STATISTICS</h>
@@ -52,7 +51,7 @@ export default function Dashboard() {
           ></canvas>
         </div>
       </div>
-      
+
       {/* Renders a table for teams on the dashboard */}
       <DashboardTeamsTable />
     </div>

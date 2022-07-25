@@ -7,7 +7,7 @@ class ApiClient {
     this.token = null
     this.tokenName = "bugtracker_token"
   }
-
+  
   setToken(token) {
     this.token = token
     localStorage.setItem(this.tokenName, token)
@@ -32,22 +32,36 @@ class ApiClient {
     }
   }
   
+  //authentication
   async login(credentials) {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
-
   async signup(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
   }
-
   async fetchUserFromToken() {
     return await this.request({ endpoint: `auth/me`, method: `GET` })
   }
-
   logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
   }
+  // async fetchUserByEmail() {
+  //   return await this.request({ endpoint: `auth/me`, method: `GET` })
+  // }
+
+
+  // teams
+  async createTeam(credentials){
+    return await this.request({ endpoint: 'team', method: 'POST', data: credentials })
+  }
+
+  // projects 
+  async getAllProjects(credentials){
+    return await this.request({ endpoint: 'project', method: 'GET', data: credentials })
+  }
+
+
 }
 
 // export default new ApiClient(API_BASE_URL || "http://localhost:3001")

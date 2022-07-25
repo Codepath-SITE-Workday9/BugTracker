@@ -1,6 +1,7 @@
 .team-view{
     padding: 10px;
     width: 100%;
+    padding-right: 30px;
 }
 .team-header{
     display:flex;
@@ -15,6 +16,7 @@
     height: 30px;
 }
 
+/* ------- developer table setion --------- */
 
 .developer-row {
     display: flex;
@@ -25,4 +27,70 @@
 .team-developers{
     padding: 10px;
     border-bottom: 1px solid black;
+}
+
+/* --------- adding a developer to the team section ---------  */
+
+.add-developer-to-team{
+    display: flex;
+    align-items: center;
+}
+
+.add-developer-to-team p{
+    font-size: 20px;
+}
+
+.add-developer-to-team .dev-search{
+    position: relative;
+    display: flex;
+    height: 40px;
+}
+
+.dev-search .search-input{
+        width: 100%;
+        padding: 10px;
+        border-radius: 13px;
+        border-right: none;
+        position: relative;
+        font-size: 16px;
+        border: 1px solid gray;
+        padding-right: 30px;
+}
+
+.dev-search{
+    margin-left: 20px;
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+}
+
+.dev-search .search-btn{
+    position: absolute;
+    right: 0;
+    background: transparent;
+    font-size: 10px;
+}
+
+.dev-search .search-btn .material-symbols-outlined{
+    font-size: 30px;
+    margin: 0px;
+}
+
+/*------------- teams table section ---------- */
+
+.teams-table{
+    background-color: white;
+}
+
+.developer-cell{
+    display: flex;
+    align-items: center;
+}
+
+.role-cell{
+    text-align: center;
+}
+
+.tickets-cell{
+    text-align: center;
 }

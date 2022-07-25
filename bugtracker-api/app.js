@@ -10,6 +10,7 @@ const security = require('./middleware/security')
 const authRoutes = require('./routes/auth')
 const teamRoutes = require('./routes/team')
 const projectRoutes = require('./routes/project')
+const ticketRoutes = require('./routes/ticket')
 
 
 
@@ -32,6 +33,8 @@ app.use("/auth", authRoutes)
 app.use("/team", teamRoutes)
 //APP USE - All project routes including list all projects, creating a project, getting detailings for a project, and updating project info
 app.use("/project", projectRoutes)
+//APP USE - All ticket routes including list all tickets, create a new ticket, getting ticket details, update ticket information, add comments
+app.use("/ticket", ticketRoutes)
 
 
 

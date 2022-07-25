@@ -3,11 +3,17 @@ import TeamModal from "./TeamModal/TeamModal";
 import TeamsOverview from "./TeamsOverview/TeamsOverview";
 import TeamView from "./TeamView/TeamView";
 import { useState } from "react";
+import apiClient from "../../services/apiClient";
 
 export default function TeamsPage() {
+  // state variable used to determine whether the modal for creating a new team should be displayed or not
   const [teamModal, setTeamModal] = useState(false);
-  // const [currentTeam, setCurrentTeam] = useState([]);
 
+  //Request body must have the name of the team, the members of the team, and the projects of a team
+  // const testTeamInfo = { name: "Frontend", members: [], projects: [] };
+  // apiClient.createTeam(testTeamInfo);
+
+  //placeholder data for now, will be changed once connected to backend.
   var fakeData = [
     {
       teamName: "frontend",
@@ -39,8 +45,8 @@ export default function TeamsPage() {
 
   const handleOnTeamClick = (teamId) => {
     setCurrentTeam(teamId);
-    console.log(teamId);
   };
+
   return (
     <div className="teams-page">
       {teamModal && <TeamModal setModal={setTeamModal} />}

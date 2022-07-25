@@ -119,10 +119,71 @@ class Projects
 
 
 
-    //UPDATE A PROJECT'S INFORMATION
-    static async updateProjectInfo()
+
+
+
+
+    //FUNCTION TO UPDATE SPECIFIC PROJECT INFORMATION 
+    static async updateProjectInfo({projectId, projectInfo, user})
     {
-        //Update a project's information
+        //ERROR HANDLING ------------------
+        //Check if the user inputted valid project information to change; If not, throw a bad request error detailing that info is missing
+        if(!projectInfo)
+        {
+            throw new BadRequestError(`New project information is missing!`)
+        }
+
+        //Check if the project can be accessed by the user (check if user is creator or member); If not, throw a not found error
+        const project = await Projects.fetchProjectById({projectId, user})
+        if(!project)
+        {
+            throw new NotFoundError("Project was not found! Could not update information!")
+        }
+
+
+        //MAIN QUERY TO UPDATE PROJECT -------------
+        //Run a separate query to get the id of the user using the email provided from the local server
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Get the names of all the fields the user wants to update by extracting from the object sent from frontend; 
+        //Property names becomes an array of all those fields
+        const propertyNames = Object.keys(projectInfo)
+
+
+        //Loop through every field and run a function to create the query statement to update the field
+        //Run the given query to update the specific field with the new user's value
+        //Then check the validity of the update; If unable to update, throw a bad request error detailing the field was invalid
+        propertyNames.forEach(async(field) => {
+            const query = Projects.createUpdateStatement(field)
+            const results = await db.query(query, [projectInfo[field], projectId, userId])
+            const project = results.rows[0]
+            if(!project)
+            {
+                throw new BadRequestError(`Unable to update project! The ${field} is invalid!`)
+            }
+        })
+
+        
+        //Return the project's updated information
+        const updatedProject = await Projects.fetchProjectById({projectId, user})
+        return updatedProject
+    }
+
+
+
+
+
+
+    //FUNCTION TO CREATE THE QUERY STATEMENT TO UPDATE THE USER'S SPECIFIC PROJECT FIELD WITH NEW INFORMATION
+    static createUpdateStatement(field)
+    {
+        const query = 
+        `UPDATE projects SET ${field} = $1 FROM teams ` + 
+        `WHERE projects.id = $2 AND ((projects.creator_id = $3) OR $3 = any(teams.members)) ` +
+        `RETURNING projects.id, projects.name, projects.description, projects.image_url, projects.tickets, projects.teams, projects.created_at, projects.creator_id`
+        
+        //Return the new query statement
+        return query
     }
 }
 

@@ -7,7 +7,16 @@
         "start": "vite start"
     },
     "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@material-ui/core": "^4.12.4",
+        "@mui/icons-material": "^5.8.4",
+        "@mui/material": "^5.9.1",
         "axios": "^0.27.2",
+        "chart.js": "^3.8.0",
+        "jspdf": "^2.5.1",
+        "jspdf-autotable": "^3.5.25",
+        "material-table": "^1.63.0",
         "react": "<18.0.0",
         "react-dom": "<18.0.0",
         "react-router-dom": "^6.3.0"

@@ -375,14 +375,33 @@ class Tickets
                 WHERE id = $1 
              `, [commentId])
 
-        Tickets.deleteCommentFromTicket({commentId, ticketId, user})
+        Tickets.deleteCommentFromTicket({commentId, ticketId})
     }
 
 
 
 
 
-    
+
+
+
+
+    static async deleteCommentFromTicket({commentId, ticketId})
+    {
+        const results = await db.query(
+            `
+                UPDATE tickets
+                SET comments = (SELECT ARRAY_REMOVE(comments, $2))
+                WHERE id = $1
+            `, [ticketId, commentId])
+    }
+
+
+
+
+
+
+
 
     static async updateComment()
     {

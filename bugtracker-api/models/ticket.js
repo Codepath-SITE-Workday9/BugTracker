@@ -262,7 +262,7 @@ class Tickets
 
 
 
-
+    //FUNCTION TO CREATE A NEW COMMENT ON A TICKET
     static async createComment({ticketId, user, commentInfo})
     {
         //ERROR CHECKING - Check that the content field is provided by the user; If not, throw a bad reqeust detailing that the content is missing from the request body
@@ -316,7 +316,7 @@ class Tickets
 
 
 
-
+    //FUNCTION TO ADD A COMMMENT TO THE TICKET'S COMMENT FIELD
     static async addCommentToTicket(commentId, ticketId)
     {
         //ERROR CHECKING - Check if a valid comment id and ticket id has been provided; If not, throw a bad request detailing the missing id
@@ -347,7 +347,7 @@ class Tickets
 
 
 
-
+    //FUNCTION TO DELETE A COMMENT FROM THE DATABASE AND A TICKET
     static async deleteComment({ticketId, commentId, user})
     {
         //ERROR CHECKING - Check if the ticketId and commentId has been provided by the user through the req.params
@@ -395,7 +395,7 @@ class Tickets
 
 
 
-
+    //FUNCTION TO DELETE A COMMENT FROM A TICKET
     static async deleteCommentFromTicket({commentId, ticketId})
     {
         //Using the commentId and ticketId from the req.params, run a query to update the ticket details to remove the comment from existing comments array

@@ -135,7 +135,8 @@ List the API endpoints you will need to implement.
 | Update | /:ticketId/update   | POST   | Change update ticket (status, description etc.) 	|2, 10| {name of field: field value} | id, creator_id, developers (array of their ids), comments (array of their ids), project_id, title, description, category, priority, status, complexity, created_at, created_by, closed_at, closed_by |
 | Create | /:ticketId/comment    | POST	| User leaves a comment on a ticket	|8| N/A | N/A |
 | Delete | /:ticketId/:commentId | DELETE	| User deletes a comment on a ticket| 23| N/A | N/A |
-| Update | /:ticketId/:commentId | PUT	| User updates a comment on a ticket	|17| N/A | N/A |			
+| Update | /:ticketId/:commentId | PUT	| User updates a comment on a ticket	|17| N/A | N/A |	
+| Read   | /:ticketId/:commentId | GET  | Fetch details for specific comment | 8 | N/A | N/A		
 				
 **/report - stretch feature**				
 | CRUD	|  endpoint |HTTP verb|	Description|User stories|

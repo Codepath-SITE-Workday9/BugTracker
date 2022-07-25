@@ -259,27 +259,37 @@ class Tickets
 
 
 
-    
+
 
 
 
     static async createComment({ticketId, user, commentInfo})
     {
+        //ERROR CHECKING - Check that the content field is provided by the user; If not, throw a bad reqeust detailing that the content is missing from the request body
         const requiredField = "content"
         if(!commentInfo.hasOwnProperty(requiredField))
         {
             throw new BadRequestError(`Required field ${requirdField} missing from request!`)
         }
 
+        //Run a separate query to get the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
+
+        //Run a separate query to get the project id the ticket is associated with using the given ticketId from the req.params
         const projectId = await db.query(`SELECT project_id FROM tickets WHERE tickets.id = $1`, [ticketId])
 
+        //Run a separate query to assure that user has access to the tickets if they are a member or creator of the project;
+        //If the user does not have valid access to the project, they can not comment on the ticket; Throw a not found error detailing that user has no access
         const validAccess = await Tickets.validUserAccess(projectId.rows[0].project_id, userId)
         if(!validAccess)
         {
             throw new NotFoundError("Sorry, can not access this ticket!")
         }
 
+
+
+        //MAIN QUERY - Insert a new comment into the dtabase by using the userId, ticketId, and the content provided by the user
+        //Return all the new information about the project back to the user
         const results = await db.query(
             `
                 INSERT INTO comments
@@ -290,9 +300,12 @@ class Tickets
                 RETURNING *
             `, [ticketId, userId, commentInfo.content])
 
+        //Retrieve the new comment information and store it
+        //Run a separate query to add the comment id to the ticket's comments array
         const comment = results.rows[0]
         Tickets.addCommentToTicket(comment.id, ticketId)
 
+        //If successful, return the new comment information
         return comment
     }
 
@@ -306,6 +319,7 @@ class Tickets
 
     static async addCommentToTicket(commentId, ticketId)
     {
+        //ERROR CHECKING - Check if a valid comment id and ticket id has been provided; If not, throw a bad request detailing the missing id
         if(!commentId)
         {
             throw new BadRequestError(`Missing the comment id!`)
@@ -315,6 +329,8 @@ class Tickets
             throw new BadRequestError(`Missing the ticket id!`)
         }
 
+        //MAIN QUERY - Update the ticket's informaiton with the new comment id by apppending the new comment id into the existing array of comment ids
+        //Check that the comment id is being inserted to the correct ticket by comparing the ids
         const results = await db.query(
             `
                 UPDATE tickets

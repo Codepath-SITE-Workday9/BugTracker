@@ -2,7 +2,7 @@ import * as React from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
 import { useEffect } from "react";
-import "../../services/charts.js";
+import renderCharts from "../../services/charts.js";
 import { BasicTable } from "../Tables/BasicTable";
 import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
 //import MaterialTable from 'material-table';
@@ -20,6 +20,10 @@ export default function Dashboard() {
     document.body.appendChild(script)
     
   }); */
+
+  useEffect(() => {
+    renderCharts()
+  }, [])
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>

@@ -4,7 +4,7 @@
 */
 
 
-window.onload = function() { 
+export default function renderCharts() { 
 
     //let myChart = document.getElementById("myChart")
 

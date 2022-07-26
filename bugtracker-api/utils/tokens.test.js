@@ -27,7 +27,7 @@ describe("Sign and Verify Tokens", () => {
     })
 
 
-    
+
 
     //Test whether the the tokens file will throw an error when the wrong secret key is provided to verify the token
     test("Signing token with secret key and verifying token with incorrect key throws error", () => {
@@ -35,7 +35,6 @@ describe("Sign and Verify Tokens", () => {
         const claims = {username: "test_user"}
         //Generate a token for the user for authorization pruposes
         const token = tokens.generateToken(claims)
-        console.log("Entered this test")
 
         //Verify the user's token with the wrong key
         //Check that the method throws an error that comes directly from the JWT file

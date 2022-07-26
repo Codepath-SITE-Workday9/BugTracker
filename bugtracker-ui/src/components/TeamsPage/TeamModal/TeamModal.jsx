@@ -3,35 +3,33 @@ import { useState, useEffect } from "react";
 import apiClient from "../../../services/apiClient";
 import { useProjectContext } from "../../../contexts/project";
 import AddProjectsDropdown from "../../Dropdown/AddProjectsDropdown/AddProjectsDropdown";
+import { useTeamContext } from "../../../contexts/team";
+import { useAuthContext } from "../../../contexts/auth";
 
 export default function TeamModal({ setModal }) {
+  const { user } = useAuthContext();
   const [name, setName] = useState("");
   const [developers, setDevelopers] = useState([]);
   const [projectsToAdd, setProjectsToAdd] = useState([]);
   const [errors, setErrors] = useState("");
 
   const { projects } = useProjectContext();
+  const { teams, fetchTeams } = useTeamContext();
 
   const handleOnCreateNewTeamSubmit = async () => {
-    // setIsLoading(true);
-    // setErrors((e) => ({ ...e, form: null }));
+    const { data, error } = await apiClient.createNewTeam({
+      name: name,
+      members: [...developers, user.email],
+      projects: projectsToAdd,
+    });
 
-    // const { data, error } = await apiClient.createNewTeam({
-    //   name: name,
-    //   developers: developers,
-    //   projects: projectsToAdd,
-    // });
-
-    // if api request was successful:
-    // if (data) {
-    //    popup message "team successfully created"
-    //    update teams in team overview
-    // }
-    // if (errors) {
-    // setErrors((e) => ({ ...e, form: error }));
-    // }
-    // setIsLoading(false);
-    console.log(name, developers, projectsToAdd);
+    if (data) {
+      //  popup message "team successfully created"
+      fetchTeams();
+    }
+    if (error) {
+      setErrors(error);
+    }
     setName("");
     setDevelopers([]);
     setProjectsToAdd([]);

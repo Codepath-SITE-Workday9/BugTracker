@@ -44,11 +44,11 @@ export const AuthContextProvider = ({ children }) => {
 
   const logoutUser = async () => {
     setIsProcessing(true);
-    apiClient.logoutUser();
     setUser({});
     setInitialized(true);
     setError(null);
     setIsProcessing(false);
+    apiClient.logoutUser();
   };
 
   const authValue = {

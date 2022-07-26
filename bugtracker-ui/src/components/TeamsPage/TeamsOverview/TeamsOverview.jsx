@@ -11,9 +11,8 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
   };
-
   teamsToShow = teams.filter((t) =>
-    t.teamName.toLowerCase().includes(searchTerm.toLowerCase())
+    t.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -43,11 +42,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
       <div className="team-card-container">
         {teamsToShow.map((team) => (
           <>
-            <TeamCard
-              name={team.teamName}
-              numProjects={team.projects}
-              handleOnClick={handleOnTeamClick}
-            />
+            <TeamCard team={team} handleOnClick={handleOnTeamClick} />
           </>
         ))}
       </div>

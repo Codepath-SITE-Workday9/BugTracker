@@ -74,5 +74,26 @@ router.get("/me", security.requireAuthenticatedUser, async (req,res,next) => {
 
 
 
+
+//GET REQUEST TO GET INFORMATION ABOUT A USER GIVEN THEIR ID
+router.get("/users/:userId", security.requireAuthenticatedUser, async (req,res,next) => {
+    try
+    {
+        //Extract the user id from the request parameter
+        //Post the public information of the user (info that is not pertinent to the user's identity)
+        const {userId} = req.params
+        const user = await User.fetchUserById(userId)
+        console.log("route: ", user)
+        //Return the authorized user
+        return res.status(200).json({user: user})
+    } 
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
 //Export all the login, register, and me routes
 module.exports = router

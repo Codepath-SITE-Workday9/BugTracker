@@ -13,10 +13,8 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     {
         //Retrieve the user information from the local server
         const {user} = res.locals
-
         //Call the listTeams function to get a list of all the teams a user created or is a member of
         const teamList = await Teams.listAllTeams({user})
-
         //Return the list of all the teams if successful
         return res.status(200).json({teamList: teamList})
     }
@@ -88,10 +86,8 @@ router.patch("/:teamId/add", security.requireAuthenticatedUser, async(req,res,ne
     {
         //Retrieve the team id from the given url
         const {teamId} = req.params
-
         //Retrieve the user information from the local server
         const {user} = res.locals
-
         //Call the addNewTeamMember function to update the members of a team
         //Request body must have the new member's email; If not, the request will be unsuccessful
         const updatedTeam = await Teams.addNewTeamMember({teamId: teamId, newMember: req.body, user: user})

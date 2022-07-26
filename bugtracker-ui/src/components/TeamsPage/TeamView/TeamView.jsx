@@ -1,20 +1,16 @@
 import "./TeamView.css";
 import { useProjectContext } from "../../../contexts/project";
+import { useEffect, useState } from "react";
+import apiClient from "../../../services/apiClient";
 
 //Overview of a specific team
 export default function TeamView({ setModal, currentTeam }) {
   const { projects } = useProjectContext();
 
-  var devs = [
-    { name: "doris", numTickets: 1, role: "developer" },
-    { name: "aaron", numTickets: 3, role: "developer" },
-    { name: "katherin", numTickets: 2, role: "designer" },
-  ];
-
   return (
     <div className="team-view">
       <div className="team-header">
-        <h1> {currentTeam} </h1>
+        <h1> {currentTeam.name} </h1>
         <button className="new-btn" onClick={() => setModal(true)}>
           New Team
         </button>
@@ -22,8 +18,8 @@ export default function TeamView({ setModal, currentTeam }) {
 
       <div className="team-developers">
         <h2>Developers on this team: </h2>
-        <DevelopersOnTeam devs={devs} />
-        <AddDeveloper />
+        <DevelopersOnTeam devs={currentTeam.members} />
+        <AddDeveloper currentTeam={currentTeam} />{" "}
       </div>
 
       <ProjectsAssignedToTeams projects={projects} />
@@ -50,11 +46,7 @@ export function DevelopersOnTeam({ devs }) {
         </thead>
         <tbody role="rowgroup">
           {devs?.map((dev) => (
-            <DeveloperRow
-              name={dev.name}
-              numTickets={dev.numTickets}
-              role={dev.role}
-            />
+            <DeveloperRow devId={dev} />
           ))}
         </tbody>
       </table>
@@ -62,26 +54,58 @@ export function DevelopersOnTeam({ devs }) {
   );
 }
 
-export function DeveloperRow({ name, numTickets, role }) {
+export function DeveloperRow({ devId }) {
+  const [member, setMember] = useState();
+  const getMemberInfo = async () => {
+    if (devId) {
+      const { data, error } = await apiClient.fetchUserById(devId);
+      if (data) {
+        console.log("Returning: ", data.user);
+        setMember(data.user);
+        return data.user;
+      } else if (error) {
+        console.log("ERROR:", error);
+      }
+    } else {
+      console.log("Invalid devId!");
+    }
+    return "error";
+  };
+
+  useEffect(() => {
+    getMemberInfo();
+  }, [setMember]);
+
+  console.log(member);
   return (
     <tr role="row" className="row">
       <td role="cell">
         <div className="developer-cell">
           <span className="material-symbols-outlined">face</span>
-          {name}
+          {member?.fullName}
         </div>
       </td>
       <td role="cell" className="role-cell">
-        {role}
+        developer
       </td>
       <td role="cell" className="tickets-cell">
-        {numTickets} open ticket{numTickets == 1 ? "" : "s"}
+        {/* {numTickets} open ticket{numTickets == 1 ? "" : "s"} */}
       </td>
     </tr>
   );
 }
 
-export function AddDeveloper() {
+export function AddDeveloper({ currentTeam }) {
+  const [email, setEmail] = useState();
+  const handleOnEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const handleOnAddNewMember = async () => {
+    await apiClient.addMemberToTeam({
+      teamId: currentTeam.id,
+      memberToAdd: email,
+    });
+  };
   return (
     <div className="add-developer-to-team">
       <p> Add a developer to this team: </p>
@@ -90,10 +114,15 @@ export function AddDeveloper() {
           className="search-input"
           type="text"
           name="search"
+          value={email}
           placeholder="developer email"
-          // onChange={handleOnChange}
+          onChange={handleOnEmailChange}
         />
-        <button type="submit" className="search-btn">
+        <button
+          type="submit"
+          className="search-btn"
+          onClick={handleOnAddNewMember}
+        >
           <span className="material-symbols-outlined">send</span>
         </button>
       </div>
@@ -121,13 +150,19 @@ export function ProjectsAssignedToTeams({ projects }) {
             </tr>
           </thead>
           <tbody role="rowgroup">
-            {projects?.map((p) => (
-              <ProjectRow
-                name={p.projectTitle}
-                description={p.description}
-                openTickets={p.tickets}
-              />
-            ))}
+            {projects.length > 0 ? (
+              <>
+                {projects.map((p) => (
+                  <ProjectRow
+                    name={p.projectTitle}
+                    description={p.description}
+                    openTickets={p.tickets}
+                  />
+                ))}
+              </>
+            ) : (
+              <div className="label-nothing-yet">Nothing here yet! </div>
+            )}
           </tbody>
         </table>
       </div>

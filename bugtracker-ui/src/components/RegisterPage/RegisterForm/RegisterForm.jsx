@@ -29,12 +29,12 @@ export default function RegisterForm() {
               <label htmlFor="name">Enter full name</label>
               <input
                 type="text"
-                name="firstName"
+                name="fullName"
                 placeholder="name"
-                value={form.firstName}
+                value={form.fullName}
                 onChange={handleOnInputChange}
               />
-              {errors.firstName && <p className="error">{errors.firstName}</p>}
+              {errors.fullName && <p className="error">{errors.fullName}</p>}
             </div>
           </div>
 

@@ -60,23 +60,16 @@ export function DeveloperRow({ devId }) {
     if (devId) {
       const { data, error } = await apiClient.fetchUserById(devId);
       if (data) {
-        console.log("Returning: ", data.user);
         setMember(data.user);
-        return data.user;
-      } else if (error) {
-        console.log("ERROR:", error);
       }
-    } else {
-      console.log("Invalid devId!");
     }
     return "error";
   };
 
   useEffect(() => {
     getMemberInfo();
-  }, [setMember]);
+  }, [devId]);
 
-  console.log(member);
   return (
     <tr role="row" className="row">
       <td role="cell">

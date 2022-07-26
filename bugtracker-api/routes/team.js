@@ -107,11 +107,13 @@ router.patch("/:teamId/add", security.requireAuthenticatedUser, async(req,res,ne
 
 
 //FUNCTION TO ADD A NEW MEMBER TO A TEAM
-router.get("/1/valid", security.requireAuthenticatedUser, async(req,res,next) => {
+router.get("/user/:email", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
+        //Retrieve the email param from the given url
+        const {email} = req.params;
         //Run the fetchUserById function to check if user exists in database using the email provided in request body
-        const validUser = await Teams.fetchUserId(req.body.email)
+        const validUser = await Teams.fetchUserId(email)
 
         //Return the userId if successful
         return res.status(200).json({userId: validUser})

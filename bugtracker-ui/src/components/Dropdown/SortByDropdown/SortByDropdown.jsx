@@ -6,7 +6,9 @@ export default function SortByDrowpdown({ categories }) {
     <div className="sort-by-dropdown">
       <select name="selectList" id="selectList">
         {category.map((c) => (
-          <option value="option 1">{c}</option>
+          <option value="option 1" key={c}>
+            {c}
+          </option>
         ))}
       </select>
     </div>

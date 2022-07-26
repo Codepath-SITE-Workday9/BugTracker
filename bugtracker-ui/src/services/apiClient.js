@@ -45,6 +45,9 @@ class ApiClient {
   async fetchUserById(devId) {
     return await this.request({ endpoint: `auth/users/${devId}`, method: `GET`, data: { id: devId }})
   }
+  async checkValidEmail(userEmail){
+    return await this.request({ endpoint: `team/user/${userEmail}`, method: `GET`, data: {email: userEmail} })
+  }
   logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
@@ -58,8 +61,6 @@ class ApiClient {
     return await this.request({ endpoint: 'team', method: 'POST', data: credentials })
   }
   async addMemberToTeam({ teamId, memberToAdd}){
-    console.log("running new request")
-    console.log("MEMBER TO ADD: ", memberToAdd)
     return await this.request({ endpoint: `team/${teamId}/add`, method: 'PATCH',  data: {email: memberToAdd} })
   }
 

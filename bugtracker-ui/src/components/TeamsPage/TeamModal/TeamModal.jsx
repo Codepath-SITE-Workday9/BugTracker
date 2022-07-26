@@ -60,6 +60,7 @@ export default function TeamModal({ setModal }) {
                 <AddDevelopers
                   setDevelopers={setDevelopers}
                   developers={developers}
+                  userEmail={user.email}
                 />
 
                 {/* conditionally display the developers added to new team, if there are any */}
@@ -71,6 +72,7 @@ export default function TeamModal({ setModal }) {
                         email={d}
                         developers={developers}
                         setDevelopers={setDevelopers}
+                        key={d.id}
                       />
                     ))
                   ) : (
@@ -143,7 +145,7 @@ export function AddName({ name, setName }) {
   );
 }
 
-export function AddDevelopers({ setDevelopers }) {
+export function AddDevelopers({ setDevelopers, developers, userEmail }) {
   const [developer, setDeveloper] = useState("");
   const [errors, setErrors] = useState("");
   const handleOnChange = (event) => {
@@ -151,22 +153,22 @@ export function AddDevelopers({ setDevelopers }) {
   };
 
   // handler to submit developer
-  const handleOnDeveloperSubmit = (dev) => {
+  const handleOnDeveloperSubmit = async (dev) => {
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
+    } else if (developers.indexOf(developer) >= 0 || developer == userEmail) {
+      setErrors("User already added!");
     } else {
       setErrors("");
-      setDevelopers((d) => [...d, dev]);
-      setDeveloper("");
+      const { data, error } = await apiClient.checkValidEmail(dev);
+      if (data) {
+        setDevelopers((d) => [...d, dev]);
+        setDeveloper("");
+      }
+      if (error) {
+        setErrors("No user found with that email!");
+      }
     }
-    //     if that developer exists on the backend
-    //       if the developer exists
-    //          add that email to the developers array in form
-    //          clear submission box
-    //      else the developer does not exist
-    //          throw an error, developer does not exist
-    // if email is not valid:
-    //    throw invalid email error
   };
 
   return (

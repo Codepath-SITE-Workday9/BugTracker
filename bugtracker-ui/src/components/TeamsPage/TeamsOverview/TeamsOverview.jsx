@@ -41,9 +41,11 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
 
       <div className="team-card-container">
         {teamsToShow.map((team) => (
-          <>
-            <TeamCard team={team} handleOnClick={handleOnTeamClick} />
-          </>
+          <TeamCard
+            team={team}
+            handleOnClick={handleOnTeamClick}
+            key={team.id}
+          />
         ))}
       </div>
     </div>

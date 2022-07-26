@@ -139,7 +139,6 @@ class User {
     //FUNCTION TO MAKE A QUERY RETURNING AN EXISTING USER BY ID
     static async fetchUserById(userId)
     {
-        console.log("model: ", userId)
         if(!userId)
         {
             throw new BadRequestError("No user id provided!")

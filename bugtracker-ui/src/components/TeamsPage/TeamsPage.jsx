@@ -13,7 +13,6 @@ export default function TeamsPage() {
 
   const handleOnTeamClick = (team) => {
     setCurrentTeam(team);
-    console.log("handleontemclick: ", team);
   };
 
   return (

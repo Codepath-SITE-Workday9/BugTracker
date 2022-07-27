@@ -7,7 +7,6 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
 
   const handleOnChange = (change) => {
     setSearchTerm(change.target.value);
-    console.log(searchTerm);
   };
 
   projectsToShow = projects.filter((p) =>

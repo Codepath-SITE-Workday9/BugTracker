@@ -14,29 +14,31 @@ export default function TeamModal({ setModal }) {
   const [errors, setErrors] = useState("");
 
   const { projects } = useProjectContext();
-  const { teams, fetchTeams } = useTeamContext();
+  const { fetchTeams } = useTeamContext();
 
   const handleOnCreateNewTeamSubmit = async () => {
+    // before sending request to create a new team, verify name field is not empty
     if (name == "") {
       setErrors("Please name your team before submitting!");
     } else {
+      // if name field was not empty: send request to create a new team
       const { data, error } = await apiClient.createNewTeam({
         name: name,
         members: [...developers, user.email],
         projects: projectsToAdd,
       });
 
+      // if api request to create a new team was succesful: fetchTeams to get updated list of teams, clear all input fields, and setModal to false to exit modal
       if (data) {
-        //  popup message "team successfully created"
+        // TODO: popup message "team successfully created"
         fetchTeams();
+        setName("");
+        setDevelopers([]);
+        setProjectsToAdd([]);
+        setModal(false);
+      } else if (error) {
+        setErrors("Something went wrong! Try again.");
       }
-      if (error) {
-        setErrors(error);
-      }
-      setName("");
-      setDevelopers([]);
-      setProjectsToAdd([]);
-      setModal(false);
     }
   };
 
@@ -132,6 +134,7 @@ export function AddName({ name, setName }) {
     setName(event.target.value);
   };
 
+  //search input for name
   return (
     <div className="teams-form-search">
       <label htmlFor="name">Enter team name</label>
@@ -157,20 +160,21 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
     setDeveloper(event.target.value);
   };
 
-  // handler to submit developer
+  // handler function to attempt to add a developer to the list of developers to add to the team
   const handleOnDeveloperSubmit = async (dev) => {
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
     } else if (developers.indexOf(developer) >= 0 || developer == userEmail) {
+      // if user has already been added, or a user is trying to add their own email, display error
       setErrors("User already added!");
     } else {
       setErrors("");
+      // display Not found error if user cannot be found with the email provided
       const { data, error } = await apiClient.checkValidEmail(dev);
       if (data) {
         setDevelopers((d) => [...d, dev]);
         setDeveloper("");
-      }
-      if (error) {
+      } else if (error) {
         setErrors("No user found with that email!");
       }
     }
@@ -202,10 +206,11 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
   );
 }
 
+// individual row for each developer that has been added to the team that is being created
 export function DeveloperRow({ email, developers, setDevelopers }) {
+  // handler function to remove a developer from the developers list
   const handleOnRemoveDeveloper = () => {
-    const newArr = developers.filter((d) => d != email);
-    setDevelopers(newArr);
+    setDevelopers(developers.filter((d) => d != email));
   };
   return (
     <div className="added-row">
@@ -217,11 +222,15 @@ export function DeveloperRow({ email, developers, setDevelopers }) {
   );
 }
 
+// component to add projects to the team
 export function AddProjects({ projects, setProjectsToAdd }) {
+  // projectSearch = project search term in input field
   const [projectSearch, setProjectSearch] = useState("");
+  // projectsToShow = array of list of projects depending on projectSearch term, will start of with all projects
   const [projectsToShow, setProjectsToShow] = useState(projects);
   const [errors, setErrors] = useState("");
 
+  // handler function to update projectSearch and to update projectsToShow whenever the input field value changes
   const handleOnChange = (event) => {
     setProjectSearch(event.target.value);
     setProjectsToShow(
@@ -231,6 +240,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
     );
   };
 
+  // hndler function to update the projects list when a user selects a project from the drop down list
   const handleOnProjectClick = (proj) => {
     setProjectsToAdd((p) => [...p, proj.projectTitle]);
     setProjectSearch("");
@@ -257,6 +267,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
               <i className="material-icons">search</i>
             </button>
           </div>
+          {/* conditionally display dropdown if projectSearch is not empty */}
           {projectSearch && (
             <>
               <div className="drop-down-search-box">
@@ -273,11 +284,14 @@ export function AddProjects({ projects, setProjectsToAdd }) {
   );
 }
 
+// indivual projectRow for each project that has been added to the projectsToAdd list
 export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
+  //handler function to remove a project from the projectsToAdd list on the x button click
   const handleOnRemoveProject = () => {
     const newArr = projectsToAdd.filter((p) => p != name);
     setProjectsToAdd(newArr);
   };
+
   return (
     <div className="added-row">
       <div className="added-row-text">{name}</div>

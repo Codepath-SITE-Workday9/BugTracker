@@ -31,23 +31,31 @@ export default function TeamView({ setModal, currentTeam }) {
 export function AddDeveloper({ currentTeam }) {
   const [email, setEmail] = useState();
   const [error, setError] = useState("");
+
+  // handler to update the email to add
   const handleOnEmailChange = (event) => {
     setEmail(event.target.value);
   };
+
+  // handler function to add a new member to an existsing team
   const handleOnAddNewMember = async () => {
-    console.log("handleonAddNewMember: ", currentTeam.id, email);
     const { data, error } = await apiClient.addMemberToTeam({
       teamId: currentTeam.id,
       memberToAdd: email,
     });
+
+    // if request to add a new member was successful, clear errors and clear the email, else output the error
     if (data) {
       setError("");
+      setEmail("");
     } else if (error) {
       setError("No developer found with that email. Please try again!");
     }
   };
+
   return (
     <>
+      {/* search input to add a develoepr to team */}
       <div className="add-developer-to-team">
         <p> Add a developer to this team: </p>
         <div className="dev-search">
@@ -68,11 +76,13 @@ export function AddDeveloper({ currentTeam }) {
           </button>
         </div>
       </div>
+      // display any errors
       <p className="errors"> {error}</p>
     </>
   );
 }
 
+// table header for developers on the team
 export function DevelopersOnTeam({ devs }) {
   return (
     <div className="developers-table">
@@ -100,6 +110,7 @@ export function DevelopersOnTeam({ devs }) {
   );
 }
 
+// individual rows for each developer
 export function DeveloperRow({ devId }) {
   const [member, setMember] = useState();
   const getMemberInfo = async () => {
@@ -133,6 +144,7 @@ export function DeveloperRow({ devId }) {
   );
 }
 
+// table header for projects that are assigned to the team
 export function ProjectsAssignedToTeams({ projects }) {
   return (
     <div className="team-projects">
@@ -153,6 +165,7 @@ export function ProjectsAssignedToTeams({ projects }) {
             </tr>
           </thead>
           <tbody role="rowgroup">
+            {/* conditionally render project list if there are any projects to show, otherwise display "Nothing here yet" */}
             {projects.length > 0 ? (
               <>
                 {projects.map((p) => (
@@ -173,6 +186,7 @@ export function ProjectsAssignedToTeams({ projects }) {
   );
 }
 
+// individual row for each project
 export function ProjectRow({ name, description, openTickets }) {
   return (
     <tr role="row" className="row">

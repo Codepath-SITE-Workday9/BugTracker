@@ -88,6 +88,8 @@ describe("Test Teams Models", () => {
 
 
 
+
+
     //TEST THAT LIST TEAMS FUNCTION TO CHECK THAT A USER CAN RECEIVE A LIST OF ALL THE TEAMS THEY ARE A PART OF AND AN EMPTY LIST IF THEY ARE NOT A PART OF ANY
     describe("Test List All Teams", () => {
 
@@ -133,13 +135,54 @@ describe("Test Teams Models", () => {
 
 
 
+    
+
+
+
+    //TEST THE FETCH TEAM BY ID FUNCTION TO ASSURE THAT A USER CAN ONLY ACCESS TEAM INFORMATION IF THEY ARE A MEMBER OR CREATOR OF THE REQUESTED TEAM
     describe("Fetch Team by Id Function", () => {
+
+        //Test that a user can get information about a team if they are creator/member of the requested team
         test("User can retrieve information about a specific team if they are a creator/team member", async () => {
-            
+            //Register the new test user into the database
+            const registerUser = await Users.register({...newUser, password: "pw"})
+            //Create a new team where the test user is a member of
+            const createTeam = await Teams.createTeam({user: registerUser, teamInfo: newTeam})
+
+            //Call the fetchTeamById function to get sepcific information about a team if the user is a creator/member
+            const fetchTeam = await Teams.fetchTeamById({teamId: createTeam.id, user: registerUser})
+
+
+            //JSON response should include the specific information of the newly created Team
+            expect(fetchTeam).toEqual({
+                    "id": createTeam.id,
+                    "name": "Development Team",
+                    "members": [1,2, registerUser.id],
+                    "creator_id": registerUser.id,
+                    "projects": [1]
+                })
         })
 
+
+
+        //Test that a user gets a not found error when requesting a team they are not a member or creator of
         test("Gets a not found error if they are neither a creator or member of team", async () => {
-            
+            //Register the new test user into the database and an invalid user who will not create or be a member of any team
+            const registerUser = await Users.register({...newUser, password: "pw"})
+            const invalidUser = await Users.register({email: "invalid@gmail.io", fullName: "invalid", password: "pw"})
+            //Create a new team where the test user is a member of
+            const createTeam = await Teams.createTeam({user: registerUser, teamInfo: newTeam})
+
+            //Call the fetchTeamById function to get specific information about a team if the user is a creator/member
+            //Should throw a not found error because the invalid user is neither the creator or member of the newly created Team
+            try
+            {
+                const fetchTeam = await Teams.fetchTeamById({teamId: createTeam.id, user: invalidUser})
+            }
+            catch(error)
+            {
+                expect(error instanceof NotFoundError).toBeTruthy()
+            }
         })
     })
 })

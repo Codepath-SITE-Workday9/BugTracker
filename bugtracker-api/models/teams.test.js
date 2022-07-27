@@ -135,12 +135,12 @@ describe("Test Teams Models", () => {
 
 
 
-    
+
 
 
 
     //TEST THE FETCH TEAM BY ID FUNCTION TO ASSURE THAT A USER CAN ONLY ACCESS TEAM INFORMATION IF THEY ARE A MEMBER OR CREATOR OF THE REQUESTED TEAM
-    describe("Fetch Team by Id Function", () => {
+    describe("Test Fetch Team by Id Function", () => {
 
         //Test that a user can get information about a team if they are creator/member of the requested team
         test("User can retrieve information about a specific team if they are a creator/team member", async () => {
@@ -183,6 +183,41 @@ describe("Test Teams Models", () => {
             {
                 expect(error instanceof NotFoundError).toBeTruthy()
             }
+        })
+    })
+
+
+
+
+
+
+
+    
+
+    //TEST THAT A USER CAN ADD A NEW MEMBER TO A TEAM ONLY IF THEY ARE HAVE VALID ACCESS TO THE TEAM
+    describe("Test Add New Team Member Function", () => {
+
+        //Test whether a user can add a new user to a team they are the creator/member of
+        test("Add a new member to a team that the user is a creator/member of", async() => {
+            //Register the test user into the database and register the new user that will serve as the new mmember for the team
+            const testUser = await Users.register({...newUser, password: "pw"})
+            const newTestUser = await Users.register({email: "new@gmail.io", fullName: "New User", password: "pw"})
+
+            //Create a team using the information of the test user
+            const createTeam = await Teams.createTeam({user: testUser, teamInfo: newTeam})
+
+            //Add a new memember to the existing team
+            const addMember = await Teams.addNewTeamMember({teamId: createTeam.id, newMember: newTestUser, user: testUser})
+
+
+            //Check that the new member has been added to the new team
+            expect(addMember).toEqual({
+                "id": createTeam.id,
+                "name": "Development Team",
+                "members": [1,2, testUser.id, newTestUser.id],
+                "creator_id": testUser.id,
+                "projects": [1]
+            })
         })
     })
 })

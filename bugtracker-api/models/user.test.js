@@ -67,4 +67,21 @@ describe("User Models", () => {
             }
         })
     })
+
+
+    describe("Test User Login", () => {
+        test("User can login with proper credentials", async () => {
+            const registerUser = await User.register({ ...newUser, password: "pw"})
+            const loginUser = await User.login({...newUser, password: "pw"})
+            expect(loginUser).toEqual({
+                id: expect.any(Number),
+                email: newUser.email,
+                fullName: newUser.fullName
+            })
+        })
+
+        // test("Logging in with invalid email/password combo throws unauthorized error", async () => {
+            
+        // })
+    })
 })

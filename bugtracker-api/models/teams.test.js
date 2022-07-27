@@ -114,7 +114,7 @@ describe("Test Teams Models", () => {
         })
 
 
-        
+
 
         //Test that a user retrieve an empty list of teams if they are not a member of any team
         test("User retrieves empty list of teams if they are not a member of any team", async () => {
@@ -128,6 +128,18 @@ describe("Test Teams Models", () => {
 
             //JSON response should return an empty array because user is not part of any team
             expect(listTeams).toEqual([])
+        })
+    })
+
+
+
+    describe("Fetch Team by Id Function", () => {
+        test("User can retrieve information about a specific team if they are a creator/team member", async () => {
+            
+        })
+
+        test("Gets a not found error if they are neither a creator or member of team", async () => {
+            
         })
     })
 })

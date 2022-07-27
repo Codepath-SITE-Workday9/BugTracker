@@ -76,7 +76,7 @@ export function AddDeveloper({ currentTeam }) {
           </button>
         </div>
       </div>
-      // display any errors
+      {/* display any errors */}
       <p className="errors"> {error}</p>
     </>
   );

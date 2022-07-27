@@ -45,6 +45,7 @@ describe("User Models", () => {
                 id: expect.any(Number),
                 email: newUser.email,
                 fullName: newUser.fullName,
+                imageUrl: null
             })
         })
 
@@ -85,7 +86,8 @@ describe("User Models", () => {
             expect(loginUser).toEqual({
                 id: expect.any(Number),
                 email: newUser.email,
-                fullName: newUser.fullName
+                fullName: newUser.fullName,
+                imageUrl: null
             })
         })
 

@@ -58,7 +58,7 @@ describe("Test Teams Models", () => {
             expect(createTeam).toEqual({
                 "id": expect.any(Number),
 		        "name": "Development Team",
-		        "members": [1,2, registerUser.id],
+		        "members": [1, 26, registerUser.id],
 		        "creator_id": expect.any(Number),
 		        "projects": [1]
             })
@@ -108,7 +108,7 @@ describe("Test Teams Models", () => {
                 [{
                     "id": expect.any(Number),
                     "name": "Development Team",
-                    "members": [1,2, registerUser.id],
+                    "members": [1, 26, registerUser.id],
                     "creator_id": expect.any(Number),
                     "projects": [1]
                 }]
@@ -157,7 +157,7 @@ describe("Test Teams Models", () => {
             expect(fetchTeam).toEqual({
                     "id": createTeam.id,
                     "name": "Development Team",
-                    "members": [1,2, registerUser.id],
+                    "members": [1, 26, registerUser.id],
                     "creator_id": registerUser.id,
                     "projects": [1]
                 })
@@ -214,7 +214,7 @@ describe("Test Teams Models", () => {
             expect(addMember).toEqual({
                 "id": createTeam.id,
                 "name": "Development Team",
-                "members": [1,2, testUser.id, newTestUser.id],
+                "members": [1, 26, testUser.id, newTestUser.id],
                 "creator_id": testUser.id,
                 "projects": [1]
             })

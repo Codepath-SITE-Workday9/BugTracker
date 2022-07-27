@@ -8,6 +8,7 @@ export default function ProjectView({ setModal, projectToShow }) {
       status: "in progress",
       developers: ["", "", ""],
       priority: "low",
+      id: 0,
     },
     {
       name: "Activity cards are not colorblind accessible",
@@ -15,6 +16,7 @@ export default function ProjectView({ setModal, projectToShow }) {
       status: "submitted",
       developers: ["", "", ""],
       priority: "extreme",
+      id: 1,
     },
     {
       name: "Adding nutrition does not render on screen",
@@ -22,6 +24,7 @@ export default function ProjectView({ setModal, projectToShow }) {
       status: "not started",
       developers: ["", "", ""],
       priority: "low",
+      id: 2,
     },
     {
       name: "Total calories are not calculated correctly",
@@ -29,6 +32,7 @@ export default function ProjectView({ setModal, projectToShow }) {
       status: "in progress",
       developers: ["", "", ""],
       priority: "high",
+      id: 3,
     },
   ];
   return (
@@ -84,6 +88,7 @@ export default function ProjectView({ setModal, projectToShow }) {
                 status={ticket.status}
                 devs={ticket.developers}
                 priority={ticket.priority}
+                key={ticket.id}
               />
             ))}
           </tbody>

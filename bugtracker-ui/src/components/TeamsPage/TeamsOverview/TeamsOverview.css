@@ -4,7 +4,7 @@
     min-width: 400px;
 }
 
-/* -------- search section ------------ */
+/* -------- search box section ------------ */
 
 .teams-overview .team-search{ 
     position: relative;
@@ -13,7 +13,6 @@
     align-items: center;
     
 }
-
 .teams-overview .team-search .search-input{
     width: 100%;
     padding: 10px;
@@ -26,11 +25,18 @@
 .search-input:focus-visible{
     outline: none;
 }
-
 .team-search .search-btn{
     position: absolute;
     right: 0;
     background: transparent;
+}
+.no-teams-available-label{
+    font-size: 25px;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    font-weight: bold;
+    box-shadow: 0 1px 20px 0 rgba(41, 52, 58, 0.08);
 }
 
 /* ---------- sort by section ----------- */
@@ -38,8 +44,8 @@
 .teams-overview .sort-by{
     display: flex;
     align-items: center;
+    font-size: 20px;
 }
-
 .teams-overview .sort-by p{
     margin-right: 10px;
 }

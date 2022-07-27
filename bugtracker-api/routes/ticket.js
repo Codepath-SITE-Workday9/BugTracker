@@ -10,7 +10,6 @@ const security = require("../middleware/security")
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        console.log("Entered get function")
         //Retrieve the user information from the local server
         const {user} = res.locals
 

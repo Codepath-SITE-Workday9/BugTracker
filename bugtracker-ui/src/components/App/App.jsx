@@ -21,13 +21,16 @@ import apiClient from "../../services/apiClient";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
+import { TeamContextProvider, useTeamContext } from "../../contexts/team";
 
 export default function AppContainer() {
   return (
     <AuthContextProvider>
       <OpenContextProvider>
         <ProjectContextProvider>
-          <App />
+          <TeamContextProvider>
+            <App />
+          </TeamContextProvider>
         </ProjectContextProvider>
       </OpenContextProvider>
     </AuthContextProvider>
@@ -37,13 +40,13 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-
+  const { setTeams, fetchTeams } = useTeamContext();
   useEffect(() => {
-    const fetchUser = async () => {
-      "Fetching user info";
+    const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
+        fetchTeams();
       }
       setInitialized(true);
       setIsProcessing(false);
@@ -55,11 +58,11 @@ export function App() {
       apiClient.setToken(token);
       setIsProcessing(true);
       setError(null);
-      fetchUser();
+      fetchUserInfo();
     }
     setIsProcessing(false);
     setInitialized(true);
-  }, []);
+  }, [setUser]);
 
   return (
     <div className="app">

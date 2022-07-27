@@ -140,6 +140,7 @@ class User {
 
 
 
+
     //FUNCTION TO MAKE A QUERY RETURNING AN EXISTING USER BY ID
     static async fetchUserById(userId)
     {
@@ -155,7 +156,7 @@ class User {
         const publicUser = User.makePublicUser(user)
         return publicUser
     }
-}
+
 
 
 module.exports = User

@@ -49,7 +49,6 @@ export default function ProjectsPage() {
 
   const handleOnProjectClick = (projectId) => {
     setProjectToShow(projectId);
-    console.log(projectId);
   };
 
   return (

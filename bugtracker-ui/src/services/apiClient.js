@@ -42,18 +42,26 @@ class ApiClient {
   async fetchUserFromToken() {
     return await this.request({ endpoint: `auth/me`, method: `GET` })
   }
+  async fetchUserById(devId) {
+    return await this.request({ endpoint: `auth/users/${devId}`, method: `GET`, data: { id: devId }})
+  }
+  async checkValidEmail(userEmail){
+    return await this.request({ endpoint: `team/user/${userEmail}`, method: `GET`, data: {email: userEmail} })
+  }
   logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
   }
-  // async fetchUserByEmail() {
-  //   return await this.request({ endpoint: `auth/me`, method: `GET` })
-  // }
-
 
   // teams
-  async createTeam(credentials){
+  async listAllTeams(){
+    return await this.request({ endpoint:'team', method: 'GET'})
+  }
+  async createNewTeam(credentials){
     return await this.request({ endpoint: 'team', method: 'POST', data: credentials })
+  }
+  async addMemberToTeam({ teamId, memberToAdd}){
+    return await this.request({ endpoint: `team/${teamId}/add`, method: 'PATCH',  data: {email: memberToAdd} })
   }
 
   // projects 

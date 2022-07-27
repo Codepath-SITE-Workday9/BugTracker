@@ -1,36 +1,88 @@
 import "./TeamView.css";
 import { useProjectContext } from "../../../contexts/project";
+import { useEffect, useState } from "react";
+import apiClient from "../../../services/apiClient";
 
 //Overview of a specific team
 export default function TeamView({ setModal, currentTeam }) {
   const { projects } = useProjectContext();
 
-  var devs = [
-    { name: "doris", numTickets: 1, role: "developer" },
-    { name: "aaron", numTickets: 3, role: "developer" },
-    { name: "katherin", numTickets: 2, role: "designer" },
-  ];
-
   return (
     <div className="team-view">
+      {/* header for a specific team and a button to create new team */}
       <div className="team-header">
-        <h1> {currentTeam} </h1>
+        <h1> {currentTeam?.name} </h1>
         <button className="new-btn" onClick={() => setModal(true)}>
           New Team
         </button>
       </div>
 
+      {/* an input field to add a developer to the team, and all developers listed in table form */}
       <div className="team-developers">
-        <h2>Developers on this team: </h2>
-        <DevelopersOnTeam devs={devs} />
-        <AddDeveloper />
+        <h2>Developers: </h2>
+        <AddDeveloper currentTeam={currentTeam} />
+        <DevelopersOnTeam devs={currentTeam?.members} />
       </div>
-
       <ProjectsAssignedToTeams projects={projects} />
     </div>
   );
 }
 
+export function AddDeveloper({ currentTeam }) {
+  const [email, setEmail] = useState();
+  const [error, setError] = useState("");
+
+  // handler to update the email to add
+  const handleOnEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  // handler function to add a new member to an existsing team
+  const handleOnAddNewMember = async () => {
+    const { data, error } = await apiClient.addMemberToTeam({
+      teamId: currentTeam.id,
+      memberToAdd: email,
+    });
+
+    // if request to add a new member was successful, clear errors and clear the email, else output the error
+    if (data) {
+      setError("");
+      setEmail("");
+    } else if (error) {
+      setError("No developer found with that email. Please try again!");
+    }
+  };
+
+  return (
+    <>
+      {/* search input to add a develoepr to team */}
+      <div className="add-developer-to-team">
+        <p> Add a developer to this team: </p>
+        <div className="dev-search">
+          <input
+            className="search-input"
+            type="text"
+            name="search"
+            value={email}
+            placeholder="developer email"
+            onChange={handleOnEmailChange}
+          />
+          <button
+            type="submit"
+            className="search-btn"
+            onClick={handleOnAddNewMember}
+          >
+            <span className="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+      // display any errors
+      <p className="errors"> {error}</p>
+    </>
+  );
+}
+
+// table header for developers on the team
 export function DevelopersOnTeam({ devs }) {
   return (
     <div className="developers-table">
@@ -50,11 +102,7 @@ export function DevelopersOnTeam({ devs }) {
         </thead>
         <tbody role="rowgroup">
           {devs?.map((dev) => (
-            <DeveloperRow
-              name={dev.name}
-              numTickets={dev.numTickets}
-              role={dev.role}
-            />
+            <DeveloperRow devId={dev} />
           ))}
         </tbody>
       </table>
@@ -62,45 +110,41 @@ export function DevelopersOnTeam({ devs }) {
   );
 }
 
-export function DeveloperRow({ name, numTickets, role }) {
+// individual rows for each developer
+export function DeveloperRow({ devId }) {
+  const [member, setMember] = useState();
+  const getMemberInfo = async () => {
+    if (devId) {
+      const { data, error } = await apiClient.fetchUserById(devId);
+      if (data) {
+        setMember(data.user);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getMemberInfo();
+  }, [devId]);
+
   return (
     <tr role="row" className="row">
       <td role="cell">
         <div className="developer-cell">
           <span className="material-symbols-outlined">face</span>
-          {name}
+          {member?.fullName}
         </div>
       </td>
       <td role="cell" className="role-cell">
-        {role}
+        developer
       </td>
       <td role="cell" className="tickets-cell">
-        {numTickets} open ticket{numTickets == 1 ? "" : "s"}
+        {/* {numTickets} open ticket{numTickets == 1 ? "" : "s"} */}
       </td>
     </tr>
   );
 }
 
-export function AddDeveloper() {
-  return (
-    <div className="add-developer-to-team">
-      <p> Add a developer to this team: </p>
-      <div className="dev-search">
-        <input
-          className="search-input"
-          type="text"
-          name="search"
-          placeholder="developer email"
-          // onChange={handleOnChange}
-        />
-        <button type="submit" className="search-btn">
-          <span className="material-symbols-outlined">send</span>
-        </button>
-      </div>
-    </div>
-  );
-}
-
+// table header for projects that are assigned to the team
 export function ProjectsAssignedToTeams({ projects }) {
   return (
     <div className="team-projects">
@@ -121,13 +165,20 @@ export function ProjectsAssignedToTeams({ projects }) {
             </tr>
           </thead>
           <tbody role="rowgroup">
-            {projects?.map((p) => (
-              <ProjectRow
-                name={p.projectTitle}
-                description={p.description}
-                openTickets={p.tickets}
-              />
-            ))}
+            {/* conditionally render project list if there are any projects to show, otherwise display "Nothing here yet" */}
+            {projects.length > 0 ? (
+              <>
+                {projects.map((p) => (
+                  <ProjectRow
+                    name={p.projectTitle}
+                    description={p.description}
+                    openTickets={p.tickets}
+                  />
+                ))}
+              </>
+            ) : (
+              <div className="label-nothing-yet">Nothing here yet! </div>
+            )}
           </tbody>
         </table>
       </div>
@@ -135,6 +186,7 @@ export function ProjectsAssignedToTeams({ projects }) {
   );
 }
 
+// individual row for each project
 export function ProjectRow({ name, description, openTickets }) {
   return (
     <tr role="row" className="row">

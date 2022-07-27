@@ -67,4 +67,43 @@ describe("User Models", () => {
             }
         })
     })
+
+
+
+    //Test that a user can lgoin successfully if proper credentials are provided,
+    //If wrong password and email combination is provided, test that unauthorized error is thrown
+    describe("Test User Login", () => {
+
+        //Test that a user can login with the proper credentials and the correct profile information is returned
+        test("User can login with proper credentials", async () => {
+            //Register a test user into the database
+            const registerUser = await User.register({ ...newUser, password: "pw"})
+            //Make a request to login the user with the correct email and password combo
+            const loginUser = await User.login({...newUser, password: "pw"})
+
+            //Assure that JSON response includes the user's id, email, and full name
+            expect(loginUser).toEqual({
+                id: expect.any(Number),
+                email: newUser.email,
+                fullName: newUser.fullName
+            })
+        })
+
+
+        //Test that a user will get an unauthorized error if they login with invlaid credentials
+         test("Logging in with invalid email/password combo throws unauthorized error", async () => {
+            //Make sure that there is only one assertion being received when the function executes
+            expect.assertions(1)
+
+            //Check that when a user attempts to login with the wrong password, an unauthrozied error is thrown from the request
+            try
+            {
+                const loginUser = await User.login({...newUser, password: "wrongPw"})
+            }
+            catch(error)
+            {
+                expect(error instanceof UnauthorizedError).toBeTruthy()
+            }
+         })
+    })
 })

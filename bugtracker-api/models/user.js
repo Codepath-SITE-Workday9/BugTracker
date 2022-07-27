@@ -136,6 +136,11 @@ class User {
     }
 
 
+
+
+
+
+
     //FUNCTION TO MAKE A QUERY RETURNING AN EXISTING USER BY ID
     static async fetchUserById(userId)
     {
@@ -152,9 +157,6 @@ class User {
         return publicUser
     }
 
-
-
-}
 
 
 module.exports = User

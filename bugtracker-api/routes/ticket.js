@@ -186,10 +186,40 @@ router.patch("/:ticketId/:commentId", security.requireAuthenticatedUser, async(r
 
         //Call the updateComment function to update comment information on a ticket
         //Request body should have the name of the field to update and the new field value
-        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, ticketInfo: req.body})
+        const updatedComment = await Tickets.updateComment({ticketId: ticketId, commentId: commentId, user: user, commentInfo: req.body})
 
         //Return the new comment information if successful
         return res.status(200).json({comment: updatedComment})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
+
+
+
+//FUNCTION TO FETCH SPECIFIC COMMENT INFORMATION BY ID
+router.get("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the comment id from the given url
+        const {commentId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the fetchCommentById function to fetch specific comment information on a ticket
+        const comment = await Tickets.fetchCommentById({ticketId: ticketId, commentId: commentId, user: user})
+
+        //Return the new comment information if successful
+        return res.status(200).json({comment: comment})
     }
     catch(error)
     {

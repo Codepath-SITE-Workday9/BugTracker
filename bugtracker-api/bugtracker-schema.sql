@@ -5,6 +5,7 @@ CREATE TABLE users
         email           TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
         full_name       TEXT NOT NULL,
         password        TEXT NOT NULL,
+        image_url       TEXT,
         created_at      TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
@@ -17,7 +18,7 @@ CREATE TABLE projects
         id              SERIAL PRIMARY KEY,
         name            TEXT NOT NULL,
         description     TEXT NOT NULL,
-        image_url       TEXT NOT NULL,
+        image_url       TEXT,
         tickets         INTEGER[],
         teams           INTEGER[],
         created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -72,7 +73,7 @@ CREATE TABLE tickets
         complexity      INTEGER NOT NULL,
         created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
         created_by      INTEGER NOT NULL,
-        closed_at       TIMESTAMP DEFAULT NOW(),
-        closed_by       INTEGER NOT NULL DEFAULT 0
+        closed_at       TIMESTAMP,
+        closed_by       INTEGER
 );
 

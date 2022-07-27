@@ -80,8 +80,16 @@ describe("User Models", () => {
             })
         })
 
-        // test("Logging in with invalid email/password combo throws unauthorized error", async () => {
-            
-        // })
+         test("Logging in with invalid email/password combo throws unauthorized error", async () => {
+            expect.assertions(1)
+            try
+            {
+                const loginUser = await User.login({...newUser, password: "wrongPw"})
+            }
+            catch(error)
+            {
+                expect(error instanceof UnauthorizedError).toBeTruthy()
+            }
+         })
     })
 })

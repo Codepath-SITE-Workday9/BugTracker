@@ -75,7 +75,8 @@
     font-size: 25px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px;
+    padding-bottom: 20px;
     width: 400px;
     text-align: center;
     position: relative;
@@ -85,7 +86,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .teams-form-search .search-box input{
@@ -116,8 +117,10 @@
 
 }
 
-.teams-form-search .errors{
+.team-modal-container .errors{
     font-size: 16px;
+    margin: 0px;
+    height: 25px;
 }
 
 

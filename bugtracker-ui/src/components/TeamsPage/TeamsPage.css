@@ -1,7 +1,5 @@
 .teams-page{
-    margin-left: 100px;
-    margin-top: 10px;
-    margin-right: 10px;
+    margin: 10px 10px 0px 100px;
     padding: 20px;
     height: 100vh;
 }

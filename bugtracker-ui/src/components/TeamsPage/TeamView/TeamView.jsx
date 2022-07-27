@@ -9,21 +9,67 @@ export default function TeamView({ setModal, currentTeam }) {
 
   return (
     <div className="team-view">
+      {/* header for a specific team and a button to create new team */}
       <div className="team-header">
-        <h1> {currentTeam.name} </h1>
+        <h1> {currentTeam?.name} </h1>
         <button className="new-btn" onClick={() => setModal(true)}>
           New Team
         </button>
       </div>
 
+      {/* an input field to add a developer to the team, and all developers listed in table form */}
       <div className="team-developers">
-        <h2>Developers on this team: </h2>
-        <DevelopersOnTeam devs={currentTeam.members} />
-        <AddDeveloper currentTeam={currentTeam} />{" "}
+        <h2>Developers: </h2>
+        <AddDeveloper currentTeam={currentTeam} />
+        <DevelopersOnTeam devs={currentTeam?.members} />
       </div>
-
       <ProjectsAssignedToTeams projects={projects} />
     </div>
+  );
+}
+
+export function AddDeveloper({ currentTeam }) {
+  const [email, setEmail] = useState();
+  const [error, setError] = useState("");
+  const handleOnEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const handleOnAddNewMember = async () => {
+    console.log("handleonAddNewMember: ", currentTeam.id, email);
+    const { data, error } = await apiClient.addMemberToTeam({
+      teamId: currentTeam.id,
+      memberToAdd: email,
+    });
+    if (data) {
+      setError("");
+    } else if (error) {
+      setError("No developer found with that email. Please try again!");
+    }
+  };
+  return (
+    <>
+      <div className="add-developer-to-team">
+        <p> Add a developer to this team: </p>
+        <div className="dev-search">
+          <input
+            className="search-input"
+            type="text"
+            name="search"
+            value={email}
+            placeholder="developer email"
+            onChange={handleOnEmailChange}
+          />
+          <button
+            type="submit"
+            className="search-btn"
+            onClick={handleOnAddNewMember}
+          >
+            <span className="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+      <p className="errors"> {error}</p>
+    </>
   );
 }
 
@@ -63,7 +109,6 @@ export function DeveloperRow({ devId }) {
         setMember(data.user);
       }
     }
-    return "error";
   };
 
   useEffect(() => {
@@ -85,41 +130,6 @@ export function DeveloperRow({ devId }) {
         {/* {numTickets} open ticket{numTickets == 1 ? "" : "s"} */}
       </td>
     </tr>
-  );
-}
-
-export function AddDeveloper({ currentTeam }) {
-  const [email, setEmail] = useState();
-  const handleOnEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-  const handleOnAddNewMember = async () => {
-    await apiClient.addMemberToTeam({
-      teamId: currentTeam.id,
-      memberToAdd: email,
-    });
-  };
-  return (
-    <div className="add-developer-to-team">
-      <p> Add a developer to this team: </p>
-      <div className="dev-search">
-        <input
-          className="search-input"
-          type="text"
-          name="search"
-          value={email}
-          placeholder="developer email"
-          onChange={handleOnEmailChange}
-        />
-        <button
-          type="submit"
-          className="search-btn"
-          onClick={handleOnAddNewMember}
-        >
-          <span className="material-symbols-outlined">send</span>
-        </button>
-      </div>
-    </div>
   );
 }
 

@@ -17,23 +17,27 @@ export default function TeamModal({ setModal }) {
   const { teams, fetchTeams } = useTeamContext();
 
   const handleOnCreateNewTeamSubmit = async () => {
-    const { data, error } = await apiClient.createNewTeam({
-      name: name,
-      members: [...developers, user.email],
-      projects: projectsToAdd,
-    });
+    if (name == "") {
+      setErrors("Please name your team before submitting!");
+    } else {
+      const { data, error } = await apiClient.createNewTeam({
+        name: name,
+        members: [...developers, user.email],
+        projects: projectsToAdd,
+      });
 
-    if (data) {
-      //  popup message "team successfully created"
-      fetchTeams();
+      if (data) {
+        //  popup message "team successfully created"
+        fetchTeams();
+      }
+      if (error) {
+        setErrors(error);
+      }
+      setName("");
+      setDevelopers([]);
+      setProjectsToAdd([]);
+      setModal(false);
     }
-    if (error) {
-      setErrors(error);
-    }
-    setName("");
-    setDevelopers([]);
-    setProjectsToAdd([]);
-    setModal(false);
   };
 
   return (
@@ -50,6 +54,7 @@ export default function TeamModal({ setModal }) {
         {/* form area to create new team */}
         <div className="form">
           <div className="form-area">
+            <p className="errors"> {errors} </p>
             {/* team name input area */}
             <AddName name={name} setName={setName} />
 
@@ -173,7 +178,9 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
 
   return (
     <div className="teams-form-search">
+      <p className="errors"> {errors}</p>
       <label htmlFor="search">Add developers by email </label>
+
       <div className="search-box">
         <input
           className="search-input"
@@ -191,7 +198,6 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
           <i className="material-icons">{developer == "" ? "search" : "add"}</i>
         </button>
       </div>
-      {errors ? <p className="errors"> {errors} </p> : ""}
     </div>
   );
 }
@@ -214,6 +220,7 @@ export function DeveloperRow({ email, developers, setDevelopers }) {
 export function AddProjects({ projects, setProjectsToAdd }) {
   const [projectSearch, setProjectSearch] = useState("");
   const [projectsToShow, setProjectsToShow] = useState(projects);
+  const [errors, setErrors] = useState("");
 
   const handleOnChange = (event) => {
     setProjectSearch(event.target.value);
@@ -232,6 +239,8 @@ export function AddProjects({ projects, setProjectsToAdd }) {
   return (
     <div className="teams-form-search">
       <div className="projects-area">
+        <p className="errors"> {errors}</p>
+
         <label htmlFor="search"> Assign projects to this team </label>
         <div className="drop-down-search-area">
           <div className="search-box">

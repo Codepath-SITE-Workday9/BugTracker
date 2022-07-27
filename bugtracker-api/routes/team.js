@@ -82,6 +82,7 @@ router.get("/:teamId", security.requireAuthenticatedUser, async(req,res,next) =>
 
 //FUNCTION TO ADD A NEW MEMBER TO A TEAM
 router.patch("/:teamId/add", security.requireAuthenticatedUser, async(req,res,next) => {
+    console.log("Team trying router: ", req.body)
     try
     {
         //Retrieve the team id from the given url

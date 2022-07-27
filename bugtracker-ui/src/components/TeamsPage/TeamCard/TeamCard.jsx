@@ -1,4 +1,6 @@
 import "./TeamCard.css";
+
+// card for a specific team
 export default function TeamCard({ team, handleOnClick }) {
   return (
     <div className="team-card" onClick={() => handleOnClick(team)}>

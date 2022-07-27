@@ -39,8 +39,17 @@ describe("Test Teams Models", () => {
             })
         })
 
-        // test("Creating a team with missing fields with throw a BadRequestError", async () => {
-        //     //test that user can not create a team if missing required fields
-        // })
+        test("Creating a team with missing fields with throw a BadRequestError", async () => {
+            expect.assertions(1)
+            try
+            {
+                const registerUser = await Users.register({...newUser, password: "pw"})
+                const createTeam = await Teams.createTeam({user: registerUser, teamInfo: {name: newTeam.name, members: newTeam.members}})
+            }
+            catch(error)
+            {
+                expect(error instanceof BadRequestError).toBeTruthy()
+            }
+        })
     })
 })

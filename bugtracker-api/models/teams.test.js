@@ -4,7 +4,6 @@ const {NotFoundError, BadRequestError} = require("../utils/errors")
 const Teams = require("./teams")
 const Users = require("./user")
 const {commonBeforeAll, commonBeforeEach, commonAfterAll, commonAfterEach} = require("../tests/common")
-const { validUserAccess } = require("./ticket")
 
 
 
@@ -24,7 +23,7 @@ afterEach(commonAfterEach)
 //Information to create a new team
 const newTeam = {
     name : "Development Team",
-    members : ["random@gmail.com", "user@gmail.com"],
+    members : ["random@gmail.com", "user@gmail.com", "test@gmail.io"],
     projects: [1]
 }
 
@@ -59,7 +58,7 @@ describe("Test Teams Models", () => {
             expect(createTeam).toEqual({
                 "id": expect.any(Number),
 		        "name": "Development Team",
-		        "members": [1,2],
+		        "members": [1,2, registerUser.id],
 		        "creator_id": expect.any(Number),
 		        "projects": [1]
             })
@@ -84,6 +83,34 @@ describe("Test Teams Models", () => {
             {
                 expect(error instanceof BadRequestError).toBeTruthy()
             }
+        })
+    })
+
+
+    describe("Test List All Teams", () => {
+        test("User retrieves a list of all teams they are a member of", async () => {
+            const registerUser = await Users.register({...newUser, password: "pw"})
+            const createTeam = await Teams.createTeam({user: registerUser, teamInfo: newTeam})
+
+            const listTeams = await Teams.listAllTeams({user: registerUser})
+            expect(listTeams).toEqual(
+                [{
+                    "id": expect.any(Number),
+                    "name": "Development Team",
+                    "members": [1,2, registerUser.id],
+                    "creator_id": expect.any(Number),
+                    "projects": [1]
+                }]
+            )
+        })
+
+        test("User retrieves empty list of teams if they are not a member of any team", async () => {
+            const registerUser = await Users.register({...newUser, password: "pw"})
+            const createTeam = await Teams.createTeam({user: registerUser, teamInfo: {name: newTeam.name, projects: newTeam.projects, members: ["random@gmail.com", "user@gmail.com"]}})
+
+            const listTeams = await Teams.listAllTeams({user: registerUser})
+
+            expect(listTeams).toEqual([])
         })
     })
 })

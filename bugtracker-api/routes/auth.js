@@ -82,7 +82,7 @@ router.get("/users/:userId", security.requireAuthenticatedUser, async (req,res,n
         //Extract the user id from the request parameter
         //Post the public information of the user (info that is not pertinent to the user's identity)
         const {userId} = req.params
-        const user = await User.fetchUserById(userId)
+        const user = await User.fetchUserById({id: userId})
         //Return the authorized user
         return res.status(200).json({user: user})
     } 

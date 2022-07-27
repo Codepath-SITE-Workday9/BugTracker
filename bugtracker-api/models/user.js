@@ -145,7 +145,7 @@ class User {
         }
 
         const query = `SELECT * FROM users WHERE id = $1`
-        const results = await db.query(query, [userId])
+        const results = await db.query(query, [userId.id])
 
         const user = results.rows[0]
         const publicUser = User.makePublicUser(user)

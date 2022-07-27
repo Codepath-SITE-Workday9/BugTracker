@@ -87,12 +87,21 @@ describe("Test Teams Models", () => {
     })
 
 
+
+    //TEST THAT LIST TEAMS FUNCTION TO CHECK THAT A USER CAN RECEIVE A LIST OF ALL THE TEAMS THEY ARE A PART OF AND AN EMPTY LIST IF THEY ARE NOT A PART OF ANY
     describe("Test List All Teams", () => {
+
+        //Test that a user can retrieve a list of all the teams they are a member of 
         test("User retrieves a list of all teams they are a member of", async () => {
+            //Register the new test user into the database
             const registerUser = await Users.register({...newUser, password: "pw"})
+            //Create a new team where the test user is a member of
             const createTeam = await Teams.createTeam({user: registerUser, teamInfo: newTeam})
 
+            //Call the listAllTeams function to get a list of all the teams the user is a member of
             const listTeams = await Teams.listAllTeams({user: registerUser})
+
+            //JSON response should include only one team that has the user as a member
             expect(listTeams).toEqual(
                 [{
                     "id": expect.any(Number),
@@ -104,12 +113,20 @@ describe("Test Teams Models", () => {
             )
         })
 
+
+        
+
+        //Test that a user retrieve an empty list of teams if they are not a member of any team
         test("User retrieves empty list of teams if they are not a member of any team", async () => {
+            //Register the test user into the database
             const registerUser = await Users.register({...newUser, password: "pw"})
+            //Create a new team where the test user is not a member
             const createTeam = await Teams.createTeam({user: registerUser, teamInfo: {name: newTeam.name, projects: newTeam.projects, members: ["random@gmail.com", "user@gmail.com"]}})
 
+            ///Call the listAllTeams function to get a list of all the teams a user is a part of
             const listTeams = await Teams.listAllTeams({user: registerUser})
 
+            //JSON response should return an empty array because user is not part of any team
             expect(listTeams).toEqual([])
         })
     })

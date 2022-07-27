@@ -156,6 +156,7 @@ class User {
         const publicUser = User.makePublicUser(user)
         return publicUser
     }
+}
 
 
 

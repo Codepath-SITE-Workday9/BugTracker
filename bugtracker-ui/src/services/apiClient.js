@@ -65,8 +65,11 @@ class ApiClient {
   }
 
   // projects 
-  async getAllProjects(credentials){
+  async listAllProjects(credentials){
     return await this.request({ endpoint: 'project', method: 'GET', data: credentials })
+  }
+  async createNewProject(credentials){
+    return await this.request({ endpoint: 'project', method: 'POST', data: credentials })
   }
 
 

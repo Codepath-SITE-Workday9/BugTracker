@@ -76,7 +76,7 @@ export function AddDeveloper({ currentTeam }) {
           </button>
         </div>
       </div>
-      // display any errors
+      {/* display any errors */}
       <p className="errors"> {error}</p>
     </>
   );
@@ -166,7 +166,7 @@ export function ProjectsAssignedToTeams({ projects }) {
           </thead>
           <tbody role="rowgroup">
             {/* conditionally render project list if there are any projects to show, otherwise display "Nothing here yet" */}
-            {projects.length > 0 ? (
+            {projects?.length > 0 ? (
               <>
                 {projects.map((p) => (
                   <ProjectRow

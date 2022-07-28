@@ -1,15 +1,22 @@
 .dashboard {
     position: relative;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .dashboard.open {
-    margin-left: 264px;
+    margin-left: 294px;
     transition: 0.5s;
 }
 
 .dashboard.closed {
-    margin-left: 96px;
+    margin-left: 126px;
     transition: 0.5s;
+}
+
+.dashboard .blur {
+    filter: blur(5px);
 }
 
 .dashboard .header-row {

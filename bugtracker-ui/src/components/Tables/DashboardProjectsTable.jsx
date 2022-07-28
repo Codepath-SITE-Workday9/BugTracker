@@ -1,11 +1,15 @@
+import { red } from "@material-ui/core/colors";
 import MaterialTable from "material-table";
+import { MTableToolbar } from "material-table";
 import { useNavigate } from "react-router-dom";
+import "./TableProperties.css";
 
 const handleOnRowClick = (rowData) => {};
 
 function onRowClick(data) {}
 
-const data = [
+
+const sampleData = [
   {
     id: 1,
     project_name: "Bug tracker",
@@ -38,18 +42,38 @@ const columns = [
     title: "Project Name",
     field:
       "project_name" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
+    headerStyle: {
+      color: 700
+    }
   },
   { title: "Description", field: "description" },
   { title: "Collaborators", field: "collaborators" },
 ];
 
-export const DashboardProjectsTable = () => {
+export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {
+
   return (
-    <MaterialTable
-      title="Your Projects"
-      columns={columns}
-      data={data}
-      onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
-    />
+    <div className="table-container">
+      <MaterialTable
+        title="Your Projects"
+        columns={columns}
+        data={sampleData}
+        actions={[
+          {
+            icon:()=><button className="tableCreateButton">Create New Project</button>,
+            tooltip:"Create a new project",
+            onClick: ()=> setDashboardProjectsModal(true),
+            isFreeAction:true,
+            position: "toolbar"
+          }
+        ]}
+
+        options={[
+          // headerStyle: {}
+        ]}
+
+        onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
+      />
+    </div>
   );
 };

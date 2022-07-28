@@ -14,7 +14,8 @@ class User {
         return {
             id: user.id,
             email: user.email,
-            fullName: user.full_name
+            fullName: user.full_name,
+            imageUrl: user.image_url
         }
     }
 
@@ -102,7 +103,7 @@ class User {
                 password
             )
             VALUES ($1, $2, $3)
-            RETURNING id, email, full_name, password, created_at
+            RETURNING id, email, full_name, password, image_url, created_at
         `, [lowercaseEmail, credentials.fullName, hashedPw])
 
 
@@ -157,6 +158,7 @@ class User {
         return publicUser
     }
 }
+
 
 
 

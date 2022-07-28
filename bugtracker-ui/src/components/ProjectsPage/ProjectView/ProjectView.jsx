@@ -64,10 +64,10 @@ export default function ProjectView({ currentProject, projectsAvailble }) {
       ) : (
         <>
           <div className="nothing-created-yet">
-            <h1>You have not created any teams yet!</h1>
+            <h1>You have not created any projects yet!</h1>
             <h2>
               {" "}
-              Start by clicking the Create New Team button to get started.
+              Start by clicking the Create New Project button to get started.
             </h2>{" "}
           </div>
         </>

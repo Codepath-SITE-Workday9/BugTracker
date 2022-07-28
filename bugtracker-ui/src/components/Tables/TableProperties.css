@@ -1,0 +1,18 @@
+/* Styles create buttons in tables */
+
+.tableCreateButton {
+    background-color: rgb(119, 143, 211);
+    padding: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    color: white
+    
+}
+
+/* Changes row properties in material table on hover */
+tbody tr:hover {
+    background-color: lightblue !important;
+    color:white;
+    cursor: pointer;
+  }

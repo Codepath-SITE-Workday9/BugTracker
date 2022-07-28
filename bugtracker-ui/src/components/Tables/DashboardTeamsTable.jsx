@@ -1,15 +1,21 @@
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom"
+import "./TableProperties.css";
 
 
 const handleOnRowClick = (rowData) => {
-  console.log("Clicked on row!")
-  console.log(rowData.id)
+ // console.log("Clicked on row!")
+ // console.log(rowData.id)
 }
 
 function onRowClick(data) {
-  console.log("Row data below!")
-  console.log(data)
+ // console.log("Row data below!")
+ // console.log(data)
+}
+
+function handleNewTeamClick() {
+  setDashboardTeamsModal(true)
+  //console.log("setDashboardTeamsModal ran")
 }
 
 const data = [
@@ -27,11 +33,21 @@ const columns = [
   { title: "Members", field: "members" },
 ];
 
-export const DashboardTeamsTable = () => {
+export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal}) => {
   return <MaterialTable 
     title="Your Teams" 
     columns={columns} 
     data={data} 
+    actions={[
+      {
+        icon:()=><button className="tableCreateButton">Create New Team</button>,
+        tooltip:"Create a new team",
+        onClick: ()=> setDashboardTeamsModal(true), // Revert to true when implemented
+        isFreeAction:true,
+        position: "toolbar"
+      }
+    ]}
+
     onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)} />
     
 };

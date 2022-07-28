@@ -4,7 +4,6 @@
     position: fixed;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     padding-top: 50px;
     vertical-align: top;
     z-index: 1;
@@ -16,7 +15,7 @@
     display: flex;
     background: var(--off-white);
     flex-direction: column;
-    box-shadow: 1px 0 20px 0 #3f4d67;
+    box-shadow: 1px 0 15px 0 #3f4d67;
     border-radius: 23px;
 }
 
@@ -34,6 +33,7 @@
     display: flex;
     justify-content: space-between;
     border-radius: 20px 20px 0px 0px; 
+    box-shadow: 1px 0 8px 0 #3f4d67;
 }
 .project-modal-container .header p{
     margin: 5px;
@@ -47,38 +47,32 @@
 }
 
 
-.project-modal-container .content{
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
 
 /* ----- form area ------ */
 
 
 .project-modal-container .form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
     width: 100%;
     height: 100%;
-    padding: 40px;
-}
-.project-modal-container .form-container{
-    height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.project-modal-container .form-area{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .project-modal-container .form-container label{
     font-size: 25px;
 }
 
-.modal-input{
+
+.projects-form-search{
     font-size: 25px;
     display: flex;
     flex-direction: column;
@@ -87,6 +81,17 @@
     text-align: center;
     position: relative;
 }
+.teams-form-search .search-box input{
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+.teams-form-search .search-box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
 
 .split-input-fields{
     width: 100%;
@@ -94,6 +99,20 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.search-input.description{
+   /* background-color: red; */
+   height: 400px;
+   word-wrap: break-word;
+   text-align: left;
+   width: 100%;
+   border: 1px solid gray;
+   border-radius: 10px;
+   padding: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
+
 
 .project-modal-container input{
         width: 100%;
@@ -111,15 +130,78 @@
     background: transparent;
 
 }
-/* --------- modal buttons area -------- */
+
+
+/* ----------- displaying developers/projects added section -------------*/
+
+
+.project-modal-container .rows-container{
+    padding-left: 10px;
+    height: 325px;
+    margin: 0px 30px 30px 30px;
+    background-color: white;
+    overflow: auto;
+    box-shadow: 0px 0 3px 0 var(--dark-blue);
+    z-index: 1;
+    border-radius: 5px;
+}
+.added-label{
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 20px;
+}
+.nothing-yet-label{
+    font-size: 20px;
+    margin: 10px;
+    margin-top: 40px;
+    text-align: center;
+}
+.project-modal-container .added-row{
+    padding: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+.project-modal-container .added-row button{
+    background-color: transparent;
+    font-size: 20px;
+}
+
+
+
+/* ----------- button styling ------------ */
+
 
 
 .modal-buttons{
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 40px;;
+    
 }
 
 .modal-buttons button{
-    font-size: 25px;
+    background: var(--dark-blue);
+    color: rgb(235, 235, 235);
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+    box-shadow: 0px 0 5px 0 #3f4d67;
+}
+
+.modal-buttons button:hover{
+    color: white;
+    box-shadow: 0px 0 7px 0 #3f4d67;
+}
+
+
+/* --------- drop down area ------ */
+
+
+.drop-down-search-box{
+    background-color: white;
+    margin-left: 6px;
+    margin-right: 6px;
+    display: flex;
+    box-shadow: 0px 0 3px 0 #3f4d67;
+    z-index: 3;
 }

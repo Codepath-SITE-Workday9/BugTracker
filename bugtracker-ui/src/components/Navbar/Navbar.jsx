@@ -8,7 +8,6 @@ export default function Navbar() {
   const [header, setHeader] = useState("DASHBOARD");
   useEffect(() => {
     const url = window.location.href;
-    console.log(url);
     if (url.indexOf(header) == -1) {
       if (url.indexOf("tickets") > -1) {
         setHeader("TICKETS");

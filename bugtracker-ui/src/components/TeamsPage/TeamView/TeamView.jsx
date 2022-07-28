@@ -206,15 +206,25 @@ export function ProjectRow({ projectId }) {
       setProj(data.project);
     }
   };
+
   useEffect(() => {
     fetchProject();
+    console.log("Projecct in use effect: ", proj);
   }, [projectId]);
 
   return (
-    <tr role="row" className="row">
-      <td role="cell">{proj?.name}</td>
-      <td role="cell">{proj?.description}</td>
-      <td role="cell">{proj.tickets.length}</td>
-    </tr>
+    <>
+      {Object.keys(proj).length != 0 ? (
+        <>
+          <tr role="row" className="row">
+            <td role="cell">{proj?.name}</td>
+            <td role="cell">{proj?.description}</td>
+            <td role="cell">{proj.tickets.length}</td>
+          </tr>
+        </>
+      ) : (
+        ""
+      )}
+    </>
   );
 }

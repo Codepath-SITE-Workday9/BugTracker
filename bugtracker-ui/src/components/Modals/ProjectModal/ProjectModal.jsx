@@ -59,7 +59,7 @@ export default function ProjectModal() {
               </div>
 
               {/* teams area  */}
-              <div className="temas-area">
+              <div className="teams-area">
                 <AddTeams teams={teams} setTeamsToAdd={setTeamsToAdd} />
 
                 {/* conditionally display teams added to project, if there are any */}
@@ -125,11 +125,11 @@ export function AddDescription({ projectDescription, setProjectDescription }) {
     setProjectDescription(event.target.value);
   };
   return (
-    <div className="input-field">
-      <div className="modal-input">
-        <label htmlFor="describe">Describe your project</label>
-        <input
-          className="form-input"
+    <div className="projects-form-search">
+      <label htmlFor="describe">Describe your project</label>
+      <div className="search-box">
+        <textarea
+          className="search-input description"
           name="describe"
           type="text"
           value={projectDescription}
@@ -170,8 +170,9 @@ export function AddTeams({ teams, setTeamsToAdd }) {
   };
 
   return (
-    <div className="teams-search">
-      <div className="modal-input">
+    <div className="teams-form-search">
+      <div className="teams-area">
+        {/* <p className="errors"> {errors}</p> */}
         <label htmlFor="search">Assign teams to your project</label>
         <div className="drop-down-search-area">
           <div className="search-box">

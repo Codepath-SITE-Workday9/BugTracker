@@ -1,233 +1,62 @@
 import * as React from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import renderCharts from "../../services/charts.js";
-import { BasicTable } from "../Tables/BasicTable";
 import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
 //import MaterialTable from 'material-table';
-import { data } from "../../sampleData";
 import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
+import DashboardProjectsModal from "./DashboardProjectsModal/DashboardProjectsModal";
+import DashboardTeamsModal from "./DashboardTeamsModal/DashboardTeamsModal";
 
 export default function Dashboard() {
-  const { isOpen } = useOpenContext();
-  /* useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "../../services/charts.js"
-    script.async = true;
-    script.onload = () => this.scriptLoaded()
-
-    document.body.appendChild(script)
-    
-  }); */
+  const { isOpen } = useOpenContext(); // Note: Open context is currently lagging dashboard. Fix later
+  const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
+  const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
 
   useEffect(() => {
-    renderCharts()
+     renderCharts()
   }, [])
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
-      {/* Renders a table for projects on the dashboard */}
-      <DashboardProjectsTable />
 
-      <div className="ticket-statistics">
-        <h>TICKET STATISTICS</h>
-        <div className="statistics-row">
-          <canvas // Renders a donut chart for category statistics
-            className="donut-chart"
-            id="category-chart"
-            width="800"
-            height="450"
-          ></canvas>
-          <br />
-          <canvas // Renders a donut chart for status statistics
-            className="donut-chart"
-            id="status-chart"
-            width="800"
-            height="450"
-          ></canvas>
-          <br />
-          <canvas // Renders a donut chart for priority statistics
-            className="donut-chart"
-            id="priority-chart"
-            width="800"
-            height="450"
-          ></canvas>
+      {dashboardProjectsModal && <DashboardProjectsModal setDashboardProjectsModal={setDashboardProjectsModal} />}
+      {dashboardTeamsModal && <DashboardTeamsModal setDashboardTeamsModal={setDashboardTeamsModal} />}
+      <div className={dashboardProjectsModal || dashboardTeamsModal ? "blur" : "clear"}>
+
+        {/*Renders a table for projects on the dashboard */}
+        <DashboardProjectsTable dashboardProjectsModal={dashboardProjectsModal} setDashboardProjectsModal={setDashboardProjectsModal}/> 
+
+        <div className="ticket-statistics">
+          <h>TICKET STATISTICS</h>
+          <div className="statistics-row">
+            <canvas // Renders a donut chart for category statistics
+              className="donut-chart"
+              id="category-chart"
+              width="800"
+              height="450"
+            ></canvas>
+            <br />
+            <canvas // Renders a donut chart for status statistics
+              className="donut-chart"
+              id="status-chart"
+              width="800"
+              height="450"
+            ></canvas>
+            <br />
+            <canvas // Renders a donut chart for priority statistics
+              className="donut-chart"
+              id="priority-chart"
+              width="800"
+              height="450"
+            ></canvas>
+          </div>
         </div>
-      </div>
 
-      {/* Renders a table for teams on the dashboard */}
-      <DashboardTeamsTable />
+        {/*Renders a table for teams on the dashboard */}
+        <DashboardTeamsTable dashboardTeamsModal={dashboardTeamsModal} setDashboardTeamsModal={setDashboardTeamsModal}/> 
+      </div>
     </div>
   );
 }
-
-/*
-  <div className="projects-table">
-        <div className="header-row">
-          <h>YOUR PROJECTS</h>
-          <div className="project-search">
-            <div className="input-group">
-              <input
-                type="text"
-                className="project-input"
-                placeholder="Search . . ."
-              />
-              <span class="material-symbols-outlined">close</span>
-              <span className="material-symbols-outlined">search</span>
-            </div>
-          </div>
-        </div>
-        <div className="table">
-          <div className="table-header-row">
-            <th>PROJECT NAME</th>
-            <th>DESCRIPTION</th>
-            <th>COLLABORATORS</th>
-          </div>
-          <div className="table-content-row">
-            <th>Bug Tracker Project</th>
-            <th>A project for making a bug tracker</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Lifetracker</th>
-            <th>A project for making a life tracker</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Flixster</th>
-            <th>A project for making a movie finder app</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Student Store</th>
-            <th>A project for making a simple student store</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Stock App</th>
-            <th>A project for tracking different stocks</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-        </div>
-
-        <div className="projects-footer">
-          <div className="page-search">
-            <button className="back-button-double">&larr; &larr;</button>
-            <button className="back-button">&larr;</button>
-            <button className="page-button-1">1</button>
-            <button className="page-button-2">2</button>
-            <button className="page-button-3">3</button>
-            <button className="forward-button">&rarr;</button>
-            <button className="forward-button-double">&rarr; &rarr;</button>
-            <input className="project-table-page-search"></input>
-            <button className="project-table-page-go">Go</button>
-          </div>
-
-          <div className="create-project">
-            <button className="create-project-button">Create Project</button>
-          </div>
-        </div>
-      </div>
-
-*/
-
-/*
-<div className="ticket-statistics">
-        <h>TICKET STATISTICS</h>
-        <div className="statistics-row">
-          <canvas
-            className="donut-chart"
-            id="category-chart"
-            width="800"
-            height="450"
-          ></canvas>
-          <br />
-          <canvas
-            className="donut-chart"
-            id="status-chart"
-            width="800"
-            height="450"
-          ></canvas>
-          <br />
-          <canvas
-            className="donut-chart"
-            id="priority-chart"
-            width="800"
-            height="450"
-          ></canvas>
-        </div>
-      </div>
-*/
-
-/*
-<div className="teams-table">
-        <div className="header-row">
-          <h>YOUR TEAMS</h>
-          <div className="project-search">
-            <div className="input-group">
-              <input
-                type="text"
-                className="project-input"
-                placeholder="Search . . ."
-              />
-              <span class="material-symbols-outlined">close</span>
-              <span className="material-symbols-outlined">search</span>
-            </div>
-          </div>
-        </div>
-        <div className="table">
-          <div className="table-header-row">
-            <th>TEAM NAME</th>
-            <th>COLLABORATORS</th>
-          </div>
-          <div className="table-content-row">
-            <th>Bug Tracker Project</th>
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Lifetracker</th>
-
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Flixster</th>
-
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Student Store</th>
-
-            <th>Doug Case, Moe Elias</th>
-          </div>
-          <div className="table-content-row">
-            <th>Stock App</th>
-
-            <th>Doug Case, Moe Elias</th>
-          </div>
-        </div>
-
-        <div className="projects-footer">
-          <div className="page-search"></div>
-          <div className="create-project"></div>
-        </div>
-
-        <div className="projects-footer">
-          <div className="page-search">
-            <button className="back-button-double">&larr; &larr;</button>
-            <button className="back-button">&larr;</button>
-            <button className="page-button-1">1</button>
-            <button className="page-button-2">2</button>
-            <button className="page-button-3">3</button>
-            <button className="forward-button">&rarr;</button>
-            <button className="forward-button-double">&rarr; &rarr;</button>
-            <input className="project-table-page-search"></input>
-            <button className="project-table-page-go">Go</button>
-          </div>
-
-          <div className="create-team">
-            <button className="create-team-button">Create Team</button>
-          </div>
-        </div>
-      </div>
-*/

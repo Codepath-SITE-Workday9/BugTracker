@@ -36,7 +36,8 @@ describe("Checking Auth Routes", () => {
             expect(res.body.user).toEqual({
                 id: expect.any(Number),
                 email: "testuser@gmail.com",
-                fullName: "Test User"
+                fullName: "Test User",
+                imageUrl: null
             })
         })
 

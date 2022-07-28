@@ -40,7 +40,7 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  const { setTeams, fetchTeams } = useTeamContext();
+  const { fetchTeams } = useTeamContext();
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();

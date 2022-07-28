@@ -57,7 +57,7 @@ class ApiClient {
   async listAllTeams(){
     return await this.request({ endpoint:'team', method: 'GET'})
   }
-  async fetchTeamById(){
+  async fetchTeamById(teamId){
     return await this.request({ endpoint:`team/${teamId}`, method: 'GET'})
   }
 

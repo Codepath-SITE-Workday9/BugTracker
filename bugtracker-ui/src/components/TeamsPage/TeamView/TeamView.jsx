@@ -6,7 +6,18 @@ import { useTeamContext } from "../../../contexts/team";
 //Overview of a specific team
 export default function TeamView({ currentTeam }) {
   const { setTeamModal } = useTeamContext();
-  console.log("CRRUENT TEMA: ", currentTeam);
+
+  useEffect(() => {
+    console.log("Use effect in TeamView");
+    const fetchTeam = async () => {
+      const { data, error } = await apiClient.fetchTeamById(currentTeam.id);
+      if (data) {
+        console.log("{Use effect data: ", data);
+      }
+    };
+    fetchTeam();
+  }, [currentTeam]);
+
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
@@ -193,8 +204,6 @@ export function ProjectRow({ projectId }) {
   };
   useEffect(() => {
     fetchProject();
-
-    console.log("current project:", proj);
   }, [projectId]);
 
   return (

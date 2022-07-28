@@ -1,16 +1,15 @@
 import "./TeamModal.css";
-import { useState, useEffect } from "react";
-import apiClient from "../../../services/apiClient";
-import { useProjectContext } from "../../../contexts/project";
 import AddProjectsDropdown from "../../Dropdown/AddProjectsDropdown/AddProjectsDropdown";
+import apiClient from "../../../services/apiClient";
+import { useState, useEffect } from "react";
+import { useProjectContext } from "../../../contexts/project";
 import { useTeamContext } from "../../../contexts/team";
 import { useAuthContext } from "../../../contexts/auth";
 import { useTeamForm } from "../../../hooks/useTeamForm";
 
 export default function TeamModal() {
-  const { user } = useAuthContext();
-  const { projects } = useProjectContext();
   const { fetchTeams, setTeamModal } = useTeamContext();
+  const { projects } = useProjectContext();
 
   const {
     name,
@@ -50,9 +49,8 @@ export default function TeamModal() {
               {/* developer area */}
               <div className="developer-area">
                 <AddDevelopers
-                  setDevelopers={setDevelopers}
                   developers={developers}
-                  userEmail={user.email}
+                  setDevelopers={setDevelopers}
                 />
 
                 {/* conditionally display the developers added to new team, if there are any */}
@@ -78,14 +76,14 @@ export default function TeamModal() {
                 <AddProjects
                   setProjectsToAdd={setProjectsToAdd}
                   projects={projects}
-                />{" "}
+                />
+
                 {/* conditionally display projects added to team, if there are any */}
                 <div className="rows-container">
                   <div className="added-label">Projects added:</div>
                   {projectsToAdd.length > 0 ? (
                     projectsToAdd.map((p) => (
                       <>
-                        {console.log(p)}
                         <ProjectRow
                           projectId={p}
                           projectsToAdd={projectsToAdd}
@@ -140,7 +138,8 @@ export function AddName({ name, setName }) {
   );
 }
 
-export function AddDevelopers({ setDevelopers, developers, userEmail }) {
+export function AddDevelopers({ setDevelopers, developers }) {
+  const { user } = useAuthContext();
   const [developer, setDeveloper] = useState("");
   const [errors, setErrors] = useState("");
   const handleOnChange = (event) => {
@@ -151,7 +150,7 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
   const handleOnDeveloperSubmit = async (dev) => {
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
-    } else if (developers.indexOf(developer) >= 0 || developer == userEmail) {
+    } else if (developers.indexOf(developer) >= 0 || developer == user.email) {
       // if user has already been added, or a user is trying to add their own email, display error
       setErrors("User already added!");
     } else {
@@ -294,7 +293,7 @@ export function ProjectRow({ projectId, projectsToAdd, setProjectsToAdd }) {
   useEffect(() => {
     getProjectInfo();
   }, [projectId]);
-  console.log("Project row: ", proj);
+
   return (
     <div className="added-row">
       <div className="added-row-text">{proj?.name}</div>

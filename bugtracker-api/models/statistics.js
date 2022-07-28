@@ -7,15 +7,18 @@ class Statistics
     static async fetchTicketStatistics({user})
     {
         const userId = await Teams.fetchUserId(user.email)
-        const projects = await db.query(
+        const projectList = await db.query(
             `
-                SELECT projects.id
+                SELECT pro.id
                 FROM projects as pro
                     LEFT JOIN teams on teams.id = pro.id
                 WHERE $1 = any(teams.members) OR (pro.creator_id = $1)
             `, [userId])
+        let projectIds = projectList.rows.map(project => project.id)
 
-        console.log(projects)
+        //Check the categories of every ticket who's project id is equal to the projects above
+        //Check the priority of every ticket who's project id is equal to the projects above
+        //Check the status of every ticket who's project id is equal to the projects above
     }
 
     static async fetchStatisticsByProject()

@@ -2,17 +2,18 @@ import "./TeamView.css";
 import { useProjectContext } from "../../../contexts/project";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
+import { useTeamContext } from "../../../contexts/team";
 
 //Overview of a specific team
-export default function TeamView({ setModal, currentTeam }) {
+export default function TeamView({ currentTeam }) {
   const { projects } = useProjectContext();
-
+  const { setTeamModal } = useTeamContext();
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
       <div className="team-header">
         <h1> {currentTeam?.name} </h1>
-        <button className="new-btn" onClick={() => setModal(true)}>
+        <button className="new-btn" onClick={() => setTeamModal(true)}>
           New Team
         </button>
       </div>

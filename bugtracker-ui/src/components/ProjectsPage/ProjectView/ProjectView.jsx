@@ -1,54 +1,17 @@
+import { useProjectContext } from "../../../contexts/project";
 import "./ProjectView.css";
-import ProjectModal from "../ProjectModal/ProjectModal";
-export default function ProjectView({ setModal, projectToShow }) {
-  const fakeData = [
-    {
-      name: "Live chat feature",
-      description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
-      status: "in progress",
-      developers: ["", "", ""],
-      priority: "low",
-      id: 0,
-    },
-    {
-      name: "Activity cards are not colorblind accessible",
-      description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
-      status: "submitted",
-      developers: ["", "", ""],
-      priority: "extreme",
-      id: 1,
-    },
-    {
-      name: "Adding nutrition does not render on screen",
-      description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
-      status: "not started",
-      developers: ["", "", ""],
-      priority: "low",
-      id: 2,
-    },
-    {
-      name: "Total calories are not calculated correctly",
-      description: "Lorem ipsum dolor sit amet, sectetur adipiscing elit",
-      status: "in progress",
-      developers: ["", "", ""],
-      priority: "high",
-      id: 3,
-    },
-  ];
+export default function ProjectView({ currentProject }) {
+  const { setProjectModal } = useProjectContext();
   return (
     <div className="project-view">
       <div className="project-header">
-        <h1> {projectToShow} </h1>
-        <button className="new-btn" onClick={() => setModal(true)}>
+        <h1> {currentProject.name} </h1>
+        <button className="new-btn" onClick={() => setProjectModal(true)}>
           New Project
         </button>
       </div>
       <div className="project-description">
-        <p>
-          Lorem ipsum dolor sit amet, sectetur adipiscing elit, sed do eiusmod
-          tempor consecr adipiscing elit ipsum dolor sit amet, sectetur
-          adipiscing elit, sed do eiusmod tempor consecr adipiscing elit
-        </p>
+        <p>{currentProject.description}</p>
       </div>
 
       <div className="table">
@@ -81,7 +44,7 @@ export default function ProjectView({ setModal, projectToShow }) {
             </tr>
           </thead>
           <tbody role="rowgroup">
-            {fakeData.map((ticket) => (
+            {currentProject?.tickets?.map((ticket) => (
               <TicketsTableRow
                 name={ticket.name}
                 description={ticket.description}

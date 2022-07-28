@@ -98,7 +98,7 @@ router.patch("/:teamId/add", security.requireAuthenticatedUser, async (req, res,
 
 
 
-//FUNCTION TO ADD A NEW MEMBER TO A TEAM
+//FUNCTION TO CHECK IF A MEMBER IS VALID AND RETURN THE USERID
 router.get("/user/:email", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         //Retrieve the email param from the given url

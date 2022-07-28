@@ -2,53 +2,25 @@ import "./ProjectsPage.css";
 import ProjectsOverview from "./ProjectsOverview/ProjectsOverview";
 import ProjectView from "./ProjectView/ProjectView";
 import { useEffect, useState } from "react";
-import ProjectModal from "./ProjectModal/ProjectModal";
+import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import { useProjectContext } from "../../contexts/project";
 export default function ProjectsPage() {
-  const [projectModal, setProjectModal] = useState(false);
-  const { projects, setProjects, setCurrentProject, currentProject } =
-    useProjectContext();
+  const {
+    projects,
+    setProjects,
+    setCurrentProject,
+    currentProject,
+    projectModal,
+    setProjectModal,
+    fetchProjects,
+  } = useProjectContext();
 
-  // hard coded data for now, later on will be passed in by prop
-  var fakeData = [
-    {
-      projectTitle: "Student Store",
-      tickets: 3,
-      description:
-        "Lorem ipsum dolor sit amet, sectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit",
-    },
-    {
-      projectTitle: "Lifetracker",
-      tickets: 5,
-      description:
-        "vLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .",
-    },
-    {
-      projectTitle: "Flixster",
-      tickets: 2,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . . ",
-    },
-    {
-      projectTitle: "Stock App",
-      tickets: 7,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .. ",
-    },
-    {
-      projectTitle: "Bug Tracker Project",
-      tickets: 4,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit . . .e. ",
-    },
-  ];
   useEffect(() => {
-    setProjects(fakeData);
+    fetchProjects();
   }, [setProjects]);
-  const [projectToShow, setProjectToShow] = useState(fakeData[0].projectTitle);
 
   const handleOnProjectClick = (projectId) => {
-    setProjectToShow(projectId);
+    setCurrentProject(projectId);
   };
 
   return (
@@ -59,11 +31,7 @@ export default function ProjectsPage() {
           projects={projects}
           handleOnProjectClick={handleOnProjectClick}
         />
-        <ProjectView
-          modal={projectModal}
-          setModal={setProjectModal}
-          projectToShow={projectToShow}
-        />
+        <ProjectView currentProject={currentProject} />
       </div>
     </div>
   );

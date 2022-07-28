@@ -43,7 +43,7 @@ class ApiClient {
     return await this.request({ endpoint: `auth/me`, method: `GET` })
   }
   async fetchUserById(devId) {
-    return await this.request({ endpoint: `auth/users/${devId}`, method: `GET`, data: { id: devId }})
+    return await this.request({ endpoint: `auth/users/${devId}`, method: `GET`})
   }
   async checkValidEmail(userEmail){
     return await this.request({ endpoint: `team/user/${userEmail}`, method: `GET`, data: {email: userEmail} })
@@ -57,6 +57,9 @@ class ApiClient {
   async listAllTeams(){
     return await this.request({ endpoint:'team', method: 'GET'})
   }
+  async fetchTeamById(){
+    return await this.request({ endpoint:`team/${teamId}`, method: 'GET'})
+  }
   async createNewTeam(credentials){
     return await this.request({ endpoint: 'team', method: 'POST', data: credentials })
   }
@@ -64,14 +67,19 @@ class ApiClient {
     return await this.request({ endpoint: `team/${teamId}/add`, method: 'PATCH',  data: {email: memberToAdd} })
   }
 
-  // projects 
+  // project requests 
   async listAllProjects(credentials){
     return await this.request({ endpoint: 'project', method: 'GET', data: credentials })
   }
   async createNewProject(credentials){
     return await this.request({ endpoint: 'project', method: 'POST', data: credentials })
   }
-
+  async fetchProjectById(projectId){
+    return await this.request({ endpoint: `project/:${projectId}`, method: 'GET'})
+  }
+  async updateProject({ projectId, projectInfo}){
+    return await this.request({ endpoint: `project/${projectId}/update`, method: 'PATCH',  data: projectInfo })
+  }
 
 }
 

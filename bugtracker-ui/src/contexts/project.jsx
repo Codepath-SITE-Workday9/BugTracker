@@ -5,14 +5,15 @@ const ProjectContext = createContext(null);
 
 export const ProjectContextProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
-  const [currentProject, setCurrentProject] = useState([]);
+  const [projectModal, setProjectModal] = useState(false);
+  const [currentProject, setCurrentProject] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const fetchProjects = async () => {
     setIsLoading(true);
     setError(null);
-    const { data, error } = await apiClient.listAllTeams();
+    const { data, error } = await apiClient.listAllProjects();
     if (data) {
       setProjects(data.projectList);
     }
@@ -32,6 +33,8 @@ export const ProjectContextProvider = ({ children }) => {
     currentProject,
     setCurrentProject,
     fetchProjects,
+    projectModal,
+    setProjectModal,
   };
 
   return (

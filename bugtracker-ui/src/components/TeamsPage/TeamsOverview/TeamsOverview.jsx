@@ -36,7 +36,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
           className="search-input"
           type="text"
           name="search"
-          placeholder="search for team"
+          placeholder="search for a team"
           value={searchTerm}
           onChange={handleOnSearchChange}
         />

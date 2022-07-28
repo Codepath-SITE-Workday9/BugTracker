@@ -1,7 +1,7 @@
 import "./TeamsPage.css";
 import { useState, useEffect } from "react";
 import { useTeamContext } from "../../contexts/team";
-import TeamModal from "./TeamModal/TeamModal";
+import TeamModal from "../Modals/TeamModal/TeamModal";
 import TeamsOverview from "./TeamsOverview/TeamsOverview";
 import TeamView from "./TeamView/TeamView";
 
@@ -34,11 +34,7 @@ export default function TeamsPage() {
       {/* conditionally blur background depending on if modal is open */}
       <div className={teamModal ? "background-blur" : "background"}>
         <TeamsOverview teams={teams} handleOnTeamClick={handleOnTeamClick} />
-        <TeamView
-          modal={teamModal}
-          setModal={setTeamModal}
-          currentTeam={currentTeam}
-        />
+        <TeamView currentTeam={currentTeam} />
       </div>
     </div>
   );

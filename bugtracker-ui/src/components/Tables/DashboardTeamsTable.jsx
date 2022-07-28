@@ -4,18 +4,18 @@ import "./TableProperties.css";
 
 
 const handleOnRowClick = (rowData) => {
-  console.log("Clicked on row!")
-  console.log(rowData.id)
+ // console.log("Clicked on row!")
+ // console.log(rowData.id)
 }
 
 function onRowClick(data) {
-  console.log("Row data below!")
-  console.log(data)
+ // console.log("Row data below!")
+ // console.log(data)
 }
 
 function handleNewTeamClick() {
   setDashboardTeamsModal(true)
-  console.log("setDashboardTeamsModal ran")
+  //console.log("setDashboardTeamsModal ran")
 }
 
 const data = [

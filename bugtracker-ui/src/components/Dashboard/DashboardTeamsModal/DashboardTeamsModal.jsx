@@ -31,7 +31,7 @@ export default function TeamModal({ setDashboardTeamsModal }) {
     // setErrors((e) => ({ ...e, form: error }));
     // }
     // setIsLoading(false);
-    console.log(name, developers, projectsToAdd);
+    //console.log(name, developers, projectsToAdd);
     setName("");
     setDevelopers([]);
     setProjectsToAdd([]);

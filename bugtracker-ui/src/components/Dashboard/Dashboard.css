@@ -132,10 +132,18 @@
     justify-content: space-between;
 }
 
+.dashboard .chart-container {
+    width: 30%;
+    height: 35vh;
+    position: relative
+}
+
 .dashboard .statistics-row { /* TODO: Add responsiveness to page sizes, If page is small it should be column not row*/
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .donut-chart {
@@ -147,10 +155,10 @@
                 user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
 
-        display: flex;
+        /*display: flex;
           width: 25%;
           max-height: 400px;
-          max-width: 600px;
+          max-width: 600px; */
 }
 
 .dashboard .page-search {

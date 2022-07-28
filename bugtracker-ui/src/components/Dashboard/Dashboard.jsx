@@ -8,14 +8,19 @@ import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
 import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
 import DashboardProjectsModal from "./DashboardProjectsModal/DashboardProjectsModal";
 import DashboardTeamsModal from "./DashboardTeamsModal/DashboardTeamsModal";
+import { useProjectContext } from "../../contexts/project";
+import apiClient from "../../services/apiClient";
 
 export default function Dashboard() {
-  const { isOpen } = useOpenContext(); // Note: Open context is currently lagging dashboard. Fix later
+  const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
+  const { projects, setProjects } = useProjectContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
 
   useEffect(() => {
      renderCharts()
+     setProjects(apiClient.getAllProjects())
+     console.log(projects)
   }, [])
 
   return (
@@ -31,26 +36,41 @@ export default function Dashboard() {
         <div className="ticket-statistics">
           <h>TICKET STATISTICS</h>
           <div className="statistics-row">
-            <canvas // Renders a donut chart for category statistics
-              className="donut-chart"
-              id="category-chart"
-              width="800"
-              height="450"
-            ></canvas>
+            <div className="chart-container">
+              <canvas // Renders a donut chart for category statistics
+                className="donut-chart"
+                id="category-chart"
+                //width="20%"
+                //height="auto"
+                //maintainAspectRatio={false}
+                //width="800"
+                //height="450"
+              ></canvas>
+            </div>
             <br />
-            <canvas // Renders a donut chart for status statistics
-              className="donut-chart"
-              id="status-chart"
-              width="800"
-              height="450"
-            ></canvas>
+            <div className="chart-container">
+              <canvas // Renders a donut chart for status statistics
+                className="donut-chart"
+                id="status-chart"
+                //maintainAspectRatio={false}
+                //width="20%"
+                //height="auto"
+                //width="800"
+                //height="450"
+              ></canvas>
+            </div>
             <br />
-            <canvas // Renders a donut chart for priority statistics
-              className="donut-chart"
-              id="priority-chart"
-              width="800"
-              height="450"
-            ></canvas>
+            <div className="chart-container">
+              <canvas // Renders a donut chart for priority statistics
+                className="donut-chart"
+                id="priority-chart"
+                //maintainAspectRatio={false}
+                //width="20%"
+                //height="auto"
+                //width="800"
+                //height="450"
+              ></canvas>
+            </div>
           </div>
         </div>
 

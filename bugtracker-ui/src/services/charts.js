@@ -26,7 +26,8 @@ export default function renderCharts() {
       title: {
         display: true,
         text: 'Priority chart'
-      }
+      },
+      maintainAspectRatio: false
     }
     })
 
@@ -46,7 +47,8 @@ export default function renderCharts() {
           title: {
             display: true,
             text: 'Category chart'
-          }
+          },
+          maintainAspectRatio: false
         }
         })
 
@@ -66,7 +68,8 @@ export default function renderCharts() {
             title: {
             display: true,
             text: 'Status chart'
-            }
+            },
+            maintainAspectRatio: false
         }
         })
         /*

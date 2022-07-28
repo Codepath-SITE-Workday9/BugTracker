@@ -64,7 +64,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
             ))}
           </>
         ) : (
-          <div className="no-projects-available-label">No teams available </div>
+          <div className="nothing-available-label">No projects available </div>
         )}
       </div>
     </div>

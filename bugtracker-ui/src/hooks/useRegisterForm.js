@@ -11,6 +11,7 @@ export const useRegisterForm = ({ user, setUser}) => {
       email: "",
       password: "",
       passwordConfirm: "",
+      imageUrl: "",
     });
 
     useEffect(() => {

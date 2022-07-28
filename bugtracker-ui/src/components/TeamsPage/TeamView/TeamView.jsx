@@ -4,7 +4,7 @@ import apiClient from "../../../services/apiClient";
 import { useTeamContext } from "../../../contexts/team";
 
 //Overview of a specific team
-export default function TeamView({ currentTeam }) {
+export default function TeamView({ currentTeam, teamsAvailable }) {
   const { setTeamModal } = useTeamContext();
 
   return (
@@ -13,17 +13,32 @@ export default function TeamView({ currentTeam }) {
       <div className="team-header">
         <h1> {currentTeam?.name} </h1>
         <button className="new-btn" onClick={() => setTeamModal(true)}>
-          New Team
+          Create New Team
         </button>
       </div>
 
-      {/* an input field to add a developer to the team, and all developers listed in table form */}
-      <div className="team-developers">
-        <h2>Developers: </h2>
-        <AddDeveloper currentTeam={currentTeam} />
-        <DevelopersOnTeam devs={currentTeam?.members} />
-      </div>
-      <ProjectsAssignedToTeams projects={currentTeam.projects} />
+      {/* Conditionally render the specific team's information, or display "Nothing yet" if no teams have been created */}
+      {teamsAvailable ? (
+        <>
+          {/* an input field to add a developer to the team, and all developers listed in table form */}
+          <div className="team-developers">
+            {/* <h2>Developers: </h2> */}
+            <AddDeveloper currentTeam={currentTeam} />
+            <DevelopersOnTeam devs={currentTeam?.members} />
+          </div>
+          <ProjectsAssignedToTeams projects={currentTeam.projects} />
+        </>
+      ) : (
+        <>
+          <div className="nothing-created-yet">
+            <h1>You have not created any teams yet!</h1>
+            <h2>
+              {" "}
+              Start by clicking the Create New Team button to get started.
+            </h2>{" "}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -199,7 +214,7 @@ export function ProjectRow({ projectId }) {
     <tr role="row" className="row">
       <td role="cell">{proj?.name}</td>
       <td role="cell">{proj?.description}</td>
-      <td role="cell">{proj?.tickets.length}</td>
+      <td role="cell">{proj.tickets.length}</td>
     </tr>
   );
 }

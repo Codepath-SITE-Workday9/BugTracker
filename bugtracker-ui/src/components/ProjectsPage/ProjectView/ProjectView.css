@@ -9,11 +9,25 @@
     justify-content: space-between;
     border-bottom: 1px solid black;
     align-items: center;
+    
 }
 
 .project-header button {
-    height: 30px;
+    color: whitesmoke;
+    background-color: var(--dark-blue);
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding: 15px;
+    margin: 10px;
 }
+
+.project-header button:hover{
+    color: white;
+    box-shadow: 0px 0 3px 0 #3f4d67;
+}
+
+
 .project-description{
     border-bottom: 1px solid black;
 }

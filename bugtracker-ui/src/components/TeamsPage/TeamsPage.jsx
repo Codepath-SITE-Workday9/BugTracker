@@ -34,7 +34,7 @@ export default function TeamsPage() {
       {/* conditionally blur background depending on if modal is open */}
       <div className={teamModal ? "background-blur" : "background"}>
         <TeamsOverview teams={teams} handleOnTeamClick={handleOnTeamClick} />
-        <TeamView currentTeam={currentTeam} />
+        <TeamView currentTeam={currentTeam} teamsAvailable={teams.length > 0} />
       </div>
     </div>
   );

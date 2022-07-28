@@ -1,6 +1,7 @@
 import "./ProjectModal.css";
 import { useState } from "react";
 import apiClient from "../../../services/apiClient";
+import AddTeamsDropdown from "../../Dropdown/AddTeamsDropdown/AddTeamsDropdown";
 import { useTeamContext } from "../../../contexts/team";
 import { useProjectContext } from "../../../contexts/project";
 import { useProjectForm } from "../../../hooks/useProjectForm";
@@ -143,9 +144,9 @@ export function AddTeams({ teams, setTeamsToAdd }) {
           {teamSearch && (
             <>
               <div className="drop-down-search-box">
-                <AddProjectsDropdown
-                // teams={teamsToShow}
-                // onClick={handleOnTeamClick}
+                <AddTeamsDropdown
+                  teams={teamsToShow}
+                  onClick={handleOnTeamClick}
                 />
               </div>
             </>

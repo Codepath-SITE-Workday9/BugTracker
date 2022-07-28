@@ -1,13 +1,12 @@
 import "./TeamView.css";
-import { useProjectContext } from "../../../contexts/project";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
 import { useTeamContext } from "../../../contexts/team";
 
 //Overview of a specific team
 export default function TeamView({ currentTeam }) {
-  const { projects } = useProjectContext();
   const { setTeamModal } = useTeamContext();
+  console.log("CRRUENT TEMA: ", currentTeam);
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
@@ -24,7 +23,7 @@ export default function TeamView({ currentTeam }) {
         <AddDeveloper currentTeam={currentTeam} />
         <DevelopersOnTeam devs={currentTeam?.members} />
       </div>
-      <ProjectsAssignedToTeams projects={projects} />
+      <ProjectsAssignedToTeams projects={currentTeam.projects} />
     </div>
   );
 }
@@ -170,11 +169,7 @@ export function ProjectsAssignedToTeams({ projects }) {
             {projects?.length > 0 ? (
               <>
                 {projects.map((p) => (
-                  <ProjectRow
-                    name={p.projectTitle}
-                    description={p.description}
-                    openTickets={p.tickets}
-                  />
+                  <ProjectRow projectId={p} />
                 ))}
               </>
             ) : (
@@ -188,12 +183,25 @@ export function ProjectsAssignedToTeams({ projects }) {
 }
 
 // individual row for each project
-export function ProjectRow({ name, description, openTickets }) {
+export function ProjectRow({ projectId }) {
+  const [proj, setProj] = useState({});
+  const fetchProject = async () => {
+    const { data, error } = await apiClient.fetchProjectById(projectId);
+    if (data) {
+      setProj(data.project);
+    }
+  };
+  useEffect(() => {
+    fetchProject();
+
+    console.log("current project:", proj);
+  }, [projectId]);
+
   return (
     <tr role="row" className="row">
-      <td role="cell">{name}</td>
-      <td role="cell">{description}</td>
-      <td role="cell">{openTickets}</td>
+      <td role="cell">{proj?.name}</td>
+      <td role="cell">{proj?.description}</td>
+      <td role="cell">{proj?.tickets.length}</td>
     </tr>
   );
 }

@@ -87,7 +87,7 @@ export default function TeamModal() {
                       <>
                         {console.log(p)}
                         <ProjectRow
-                          name={p}
+                          projectId={p}
                           projectsToAdd={projectsToAdd}
                           setProjectsToAdd={setProjectsToAdd}
                         />
@@ -233,7 +233,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
 
   // handler function to update the projects list when a user selects a project from the drop down list
   const handleOnProjectClick = (proj) => {
-    setProjectsToAdd((p) => [...p, proj.name]);
+    setProjectsToAdd((p) => [...p, proj.id]);
     setProjectSearch("");
   };
 
@@ -276,15 +276,28 @@ export function AddProjects({ projects, setProjectsToAdd }) {
 }
 
 // indivual projectRow for each project that has been added to the projectsToAdd list
-export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
+export function ProjectRow({ projectId, projectsToAdd, setProjectsToAdd }) {
   //handler function to remove a project from the projectsToAdd list on the x button click
+  const [proj, setProj] = useState();
+
   const handleOnRemoveProject = () => {
-    setProjectsToAdd(projectsToAdd.filter((p) => p != name));
+    setProjectsToAdd(projectsToAdd.filter((p) => p != projectId));
   };
 
+  const getProjectInfo = async () => {
+    const { data, error } = await apiClient.fetchProjectById(projectId);
+    if (data) {
+      setProj(data.project);
+    }
+  };
+
+  useEffect(() => {
+    getProjectInfo();
+  }, [projectId]);
+  console.log("Project row: ", proj);
   return (
     <div className="added-row">
-      <div className="added-row-text">{name}</div>
+      <div className="added-row-text">{proj?.name}</div>
       <button className="added-row-btn" onClick={handleOnRemoveProject}>
         x
       </button>

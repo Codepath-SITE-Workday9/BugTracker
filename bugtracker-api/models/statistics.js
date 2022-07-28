@@ -19,6 +19,32 @@ class Statistics
         //Check the categories of every ticket who's project id is equal to the projects above
         //Check the priority of every ticket who's project id is equal to the projects above
         //Check the status of every ticket who's project id is equal to the projects above
+        const perCategory = await db.query(
+            `
+                SELECT category, COUNT(*) as totalTickets
+                FROM tickets
+                WHERE project_id = any($1)
+                GROUP BY category
+            `, [projectIds])
+
+        const perPriority = await db.query(
+            `
+                SELECT priority, COUNT(*) as totalTickets
+                FROM tickets
+                WHERE project_id = any($1)
+                GROUP BY priority
+            `, [projectIds])
+
+        const perStatus = await db.query(
+            `
+                SELECT status, COUNT(*) as totalTickets
+                FROM tickets
+                WHERE project_id = any($1)
+                GROUP BY status
+            `, [projectIds])
+
+        const statistics = {perCategory: perCategory.rows, perPriority: perPriority.rows, perStatus: perStatus.rows}
+        console.log(statistics)
     }
 
     static async fetchStatisticsByProject()

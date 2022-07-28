@@ -69,9 +69,37 @@ class Projects
                 VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id, name, description, image_url, tickets, teams, created_at, creator_id
             `, [projectInfo.name, projectInfo.description, projectInfo.imageUrl, projectInfo.tickets, projectInfo.teams, userId])
+        
+        //Run a separate query to add the new project id to all the teams associated with the new project
+        await Projects.addProjectToTeams(results.rows[0].id, results.rows[0].teams)
 
         //Return the new project information
         return results.rows[0]
+    }
+
+
+
+
+
+    static async addProjectToTeams(projectId, teams)
+    {
+        //ERROR CHECKING - Ensure that a project id and the an array of team is provided; If not, throw a bad request error stating the missing field
+        if(!projectId)
+        {
+            throw new BadRequestError(`Missing the projectId from your request!`)
+        }
+        else if(!teams)
+        {
+            throw new BadRequestError(`Missing the teams from your request!`)
+        }
+
+        //Run a separate query to append the new project id to all the teams in the provided teams array
+        const results = db.query(
+            `
+            UPDATE teams
+            SET projects = ARRAY_APPEND(projects, $1)
+            WHERE id = any($2) 
+            `, [projectId, teams])
     }
 
 

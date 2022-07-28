@@ -3,11 +3,13 @@ import apiClient from "../services/apiClient";
 
 const TeamContext = createContext(null);
 
+// context to keep track of a users teams, the current team selected, and whether or not the teamModal should be displayed.
 export const TeamContextProvider = ({ children }) => {
   const [teams, setTeams] = useState([]);
   const [currentTeam, setCurrentTeam] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [teamModal, setTeamModal] = useState(false);
 
   const fetchTeams = async () => {
     setIsLoading(true);
@@ -24,15 +26,17 @@ export const TeamContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchTeams();
-  }, [setTeams]);
+  }, [setTeams, currentTeam]);
 
   const teamValue = {
     teams,
     setTeams,
-    fetchTeams,
     currentTeam,
     setCurrentTeam,
     isLoading,
+    fetchTeams,
+    teamModal,
+    setTeamModal,
   };
 
   return (

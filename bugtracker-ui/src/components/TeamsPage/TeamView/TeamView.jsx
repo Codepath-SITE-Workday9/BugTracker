@@ -1,18 +1,18 @@
 import "./TeamView.css";
-import { useProjectContext } from "../../../contexts/project";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
+import { useTeamContext } from "../../../contexts/team";
 
 //Overview of a specific team
-export default function TeamView({ setModal, currentTeam }) {
-  const { projects } = useProjectContext();
+export default function TeamView({ currentTeam }) {
+  const { setTeamModal } = useTeamContext();
 
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
       <div className="team-header">
         <h1> {currentTeam?.name} </h1>
-        <button className="new-btn" onClick={() => setModal(true)}>
+        <button className="new-btn" onClick={() => setTeamModal(true)}>
           New Team
         </button>
       </div>
@@ -23,7 +23,7 @@ export default function TeamView({ setModal, currentTeam }) {
         <AddDeveloper currentTeam={currentTeam} />
         <DevelopersOnTeam devs={currentTeam?.members} />
       </div>
-      <ProjectsAssignedToTeams projects={projects} />
+      <ProjectsAssignedToTeams projects={currentTeam.projects} />
     </div>
   );
 }
@@ -166,14 +166,10 @@ export function ProjectsAssignedToTeams({ projects }) {
           </thead>
           <tbody role="rowgroup">
             {/* conditionally render project list if there are any projects to show, otherwise display "Nothing here yet" */}
-            {projects.length > 0 ? (
+            {projects?.length > 0 ? (
               <>
                 {projects.map((p) => (
-                  <ProjectRow
-                    name={p.projectTitle}
-                    description={p.description}
-                    openTickets={p.tickets}
-                  />
+                  <ProjectRow projectId={p} />
                 ))}
               </>
             ) : (
@@ -187,12 +183,23 @@ export function ProjectsAssignedToTeams({ projects }) {
 }
 
 // individual row for each project
-export function ProjectRow({ name, description, openTickets }) {
+export function ProjectRow({ projectId }) {
+  const [proj, setProj] = useState({});
+  const fetchProject = async () => {
+    const { data, error } = await apiClient.fetchProjectById(projectId);
+    if (data) {
+      setProj(data.project);
+    }
+  };
+  useEffect(() => {
+    fetchProject();
+  }, [projectId]);
+
   return (
     <tr role="row" className="row">
-      <td role="cell">{name}</td>
-      <td role="cell">{description}</td>
-      <td role="cell">{openTickets}</td>
+      <td role="cell">{proj?.name}</td>
+      <td role="cell">{proj?.description}</td>
+      <td role="cell">{proj?.tickets.length}</td>
     </tr>
   );
 }

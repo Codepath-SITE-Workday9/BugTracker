@@ -1,46 +1,27 @@
 import "./TeamModal.css";
-import { useState, useEffect } from "react";
-import apiClient from "../../../services/apiClient";
-import { useProjectContext } from "../../../contexts/project";
 import AddProjectsDropdown from "../../Dropdown/AddProjectsDropdown/AddProjectsDropdown";
+import apiClient from "../../../services/apiClient";
+import { useState, useEffect } from "react";
+import { useProjectContext } from "../../../contexts/project";
 import { useTeamContext } from "../../../contexts/team";
 import { useAuthContext } from "../../../contexts/auth";
+import { useTeamForm } from "../../../hooks/useTeamForm";
 
-export default function TeamModal({ setModal }) {
-  const { user } = useAuthContext();
-  const [name, setName] = useState("");
-  const [developers, setDevelopers] = useState([]);
-  const [projectsToAdd, setProjectsToAdd] = useState([]);
-  const [errors, setErrors] = useState("");
-
+export default function TeamModal() {
+  const { fetchTeams, setTeamModal } = useTeamContext();
   const { projects } = useProjectContext();
-  const { fetchTeams } = useTeamContext();
 
-  const handleOnCreateNewTeamSubmit = async () => {
-    // before sending request to create a new team, verify name field is not empty
-    if (name == "") {
-      setErrors("Please name your team before submitting!");
-    } else {
-      // if name field was not empty: send request to create a new team
-      const { data, error } = await apiClient.createNewTeam({
-        name: name,
-        members: [...developers, user.email],
-        projects: projectsToAdd,
-      });
-
-      // if api request to create a new team was succesful: fetchTeams to get updated list of teams, clear all input fields, and setModal to false to exit modal
-      if (data) {
-        // TODO: popup message "team successfully created"
-        fetchTeams();
-        setName("");
-        setDevelopers([]);
-        setProjectsToAdd([]);
-        setModal(false);
-      } else if (error) {
-        setErrors("Something went wrong! Try again.");
-      }
-    }
-  };
+  const {
+    name,
+    setName,
+    developers,
+    setDevelopers,
+    projectsToAdd,
+    setProjectsToAdd,
+    errors,
+    setErrors,
+    handleOnCreateNewTeamSubmit,
+  } = useTeamForm();
 
   return (
     <div className="team-modal-background">
@@ -48,7 +29,10 @@ export default function TeamModal({ setModal }) {
         {/* modal header: header text & a close button */}
         <div className="header">
           <p>CREATE A NEW TEAM</p>
-          <button className="close-modal-btn" onClick={() => setModal(false)}>
+          <button
+            className="close-modal-btn"
+            onClick={() => setTeamModal(false)}
+          >
             X
           </button>
         </div>
@@ -65,9 +49,8 @@ export default function TeamModal({ setModal }) {
               {/* developer area */}
               <div className="developer-area">
                 <AddDevelopers
-                  setDevelopers={setDevelopers}
                   developers={developers}
-                  userEmail={user.email}
+                  setDevelopers={setDevelopers}
                 />
 
                 {/* conditionally display the developers added to new team, if there are any */}
@@ -93,17 +76,20 @@ export default function TeamModal({ setModal }) {
                 <AddProjects
                   setProjectsToAdd={setProjectsToAdd}
                   projects={projects}
-                />{" "}
+                />
+
                 {/* conditionally display projects added to team, if there are any */}
                 <div className="rows-container">
                   <div className="added-label">Projects added:</div>
                   {projectsToAdd.length > 0 ? (
                     projectsToAdd.map((p) => (
-                      <ProjectRow
-                        name={p}
-                        projectsToAdd={projectsToAdd}
-                        setProjectsToAdd={setProjectsToAdd}
-                      />
+                      <>
+                        <ProjectRow
+                          projectId={p}
+                          projectsToAdd={projectsToAdd}
+                          setProjectsToAdd={setProjectsToAdd}
+                        />
+                      </>
                     ))
                   ) : (
                     <div className="nothing-yet-label">No projects yet</div>
@@ -115,12 +101,11 @@ export default function TeamModal({ setModal }) {
 
           {/* cancel and submit buttons */}
           <div className="modal-buttons">
-            <button className="cancel" onClick={() => setModal(false)}>
+            <button className="cancel" onClick={() => setTeamModal(false)}>
               Cancel
             </button>
             <button className="submit" onClick={handleOnCreateNewTeamSubmit}>
-              {" "}
-              Submit{" "}
+              Submit
             </button>
           </div>
         </div>
@@ -153,7 +138,8 @@ export function AddName({ name, setName }) {
   );
 }
 
-export function AddDevelopers({ setDevelopers, developers, userEmail }) {
+export function AddDevelopers({ setDevelopers, developers }) {
+  const { user } = useAuthContext();
   const [developer, setDeveloper] = useState("");
   const [errors, setErrors] = useState("");
   const handleOnChange = (event) => {
@@ -164,7 +150,7 @@ export function AddDevelopers({ setDevelopers, developers, userEmail }) {
   const handleOnDeveloperSubmit = async (dev) => {
     if (developer.indexOf("@") === -1) {
       setErrors("Please enter a valid email.");
-    } else if (developers.indexOf(developer) >= 0 || developer == userEmail) {
+    } else if (developers.indexOf(developer) >= 0 || developer == user.email) {
       // if user has already been added, or a user is trying to add their own email, display error
       setErrors("User already added!");
     } else {
@@ -226,23 +212,27 @@ export function DeveloperRow({ email, developers, setDevelopers }) {
 export function AddProjects({ projects, setProjectsToAdd }) {
   // projectSearch = project search term in input field
   const [projectSearch, setProjectSearch] = useState("");
-  // projectsToShow = array of list of projects depending on projectSearch term, will start of with all projects
+  // projectsToShow = array of projects depending on projectSearch term, will start of with all projects
   const [projectsToShow, setProjectsToShow] = useState(projects);
   const [errors, setErrors] = useState("");
 
   // handler function to update projectSearch and to update projectsToShow whenever the input field value changes
   const handleOnChange = (event) => {
     setProjectSearch(event.target.value);
-    setProjectsToShow(
-      projects.filter((p) =>
-        p.projectTitle.toLowerCase().includes(projectSearch.toLowerCase())
-      )
-    );
   };
 
-  // hndler function to update the projects list when a user selects a project from the drop down list
+  // useEffect hook to update projectsToShow whenever projectSearch changes
+  useEffect(() => {
+    setProjectsToShow(
+      projects.filter((p) =>
+        p.name.toLowerCase().includes(projectSearch.toLowerCase())
+      )
+    );
+  }, [projectSearch]);
+
+  // handler function to update the projects list when a user selects a project from the drop down list
   const handleOnProjectClick = (proj) => {
-    setProjectsToAdd((p) => [...p, proj.projectTitle]);
+    setProjectsToAdd((p) => [...p, proj.id]);
     setProjectSearch("");
   };
 
@@ -285,16 +275,28 @@ export function AddProjects({ projects, setProjectsToAdd }) {
 }
 
 // indivual projectRow for each project that has been added to the projectsToAdd list
-export function ProjectRow({ name, projectsToAdd, setProjectsToAdd }) {
+export function ProjectRow({ projectId, projectsToAdd, setProjectsToAdd }) {
   //handler function to remove a project from the projectsToAdd list on the x button click
+  const [proj, setProj] = useState();
+
   const handleOnRemoveProject = () => {
-    const newArr = projectsToAdd.filter((p) => p != name);
-    setProjectsToAdd(newArr);
+    setProjectsToAdd(projectsToAdd.filter((p) => p != projectId));
   };
+
+  const getProjectInfo = async () => {
+    const { data, error } = await apiClient.fetchProjectById(projectId);
+    if (data) {
+      setProj(data.project);
+    }
+  };
+
+  useEffect(() => {
+    getProjectInfo();
+  }, [projectId]);
 
   return (
     <div className="added-row">
-      <div className="added-row-text">{name}</div>
+      <div className="added-row-text">{proj?.name}</div>
       <button className="added-row-btn" onClick={handleOnRemoveProject}>
         x
       </button>

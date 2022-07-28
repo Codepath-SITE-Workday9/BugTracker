@@ -5,7 +5,7 @@ export default function AddProjectsDrowpdown({ projects, onClick }) {
     <div className="dropdown-container">
       {projects.map((p) => (
         <div className="option-row" onClick={() => onClick(p)}>
-          <p>{p.projectTitle}</p>
+          <p>{p.name}</p>
         </div>
       ))}
     </div>

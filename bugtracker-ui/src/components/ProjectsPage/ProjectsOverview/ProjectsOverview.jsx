@@ -1,52 +1,71 @@
 import "./ProjectsOverview.css";
-import ProjectCard from "../ProjectCard/ProjectCard";
 import { useState } from "react";
+import ProjectCard from "../ProjectCard/ProjectCard";
+import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
+
 export default function ProjectsOverview({ projects, handleOnProjectClick }) {
   var projectsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleOnChange = (change) => {
+  // handler function to set search term as a user types
+  const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
   };
 
-  projectsToShow = projects.filter((p) =>
-    p.projectTitle.toLowerCase().includes(searchTerm.toLowerCase())
+  // handler function to clear search term if close button is clicked
+  const handleOnClickSearchBtn = () => {
+    setSearchTerm("");
+  };
+
+  projectsToShow = projects?.filter((p) =>
+    p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   return (
     <div className="projects-overview">
+      {/* projects overview header  */}
       <div className="header">
         <h1>Projects Overview</h1>
       </div>
 
+      {/* search for projects  */}
       <div className="project-search">
         <input
           className="search-input"
           type="text"
           name="search"
           placeholder="search for a project"
-          onChange={handleOnChange}
+          onChange={handleOnSearchChange}
         />
-        <button className="search-btn">
-          <i className="material-icons">search</i>
+        <button className="search-btn" onClick={handleOnClickSearchBtn}>
+          <i className="material-icons">
+            {/* conditionally render search or close icon depending on search terms */}
+            {searchTerm == "" ? "search" : "close"}
+          </i>
         </button>
       </div>
 
+      {/* sort by component to sort the project results */}
       <div className="sort-filter">
         <p> Sort by: </p>
+        <SortByDrowpdown categories={["Most tickets", "Least tickets"]} />
       </div>
 
+      {/* container that will hold all ProjectCard components*/}
       <div className="project-card-container">
-        {projectsToShow.map((project) => (
+        {/* conditionally display project cards if teamsToShow is not empty, otherwise "No teams available" */}
+        {projectsToShow.length > 0 ? (
           <>
-            <ProjectCard
-              title={project.projectTitle}
-              description={project.description}
-              numOpenTickets={project.tickets}
-              handleOnClick={handleOnProjectClick}
-            />
+            {projectsToShow?.map((project) => (
+              <ProjectCard
+                project={project}
+                handleOnClick={handleOnProjectClick}
+              />
+            ))}
           </>
-        ))}
+        ) : (
+          <div className="no-projects-available-label">No teams available </div>
+        )}
       </div>
     </div>
   );

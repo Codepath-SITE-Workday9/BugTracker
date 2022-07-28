@@ -7,17 +7,6 @@ import { useTeamContext } from "../../../contexts/team";
 export default function TeamView({ currentTeam }) {
   const { setTeamModal } = useTeamContext();
 
-  useEffect(() => {
-    console.log("Use effect in TeamView");
-    const fetchTeam = async () => {
-      const { data, error } = await apiClient.fetchTeamById(currentTeam.id);
-      if (data) {
-        console.log("{Use effect data: ", data);
-      }
-    };
-    fetchTeam();
-  }, [currentTeam]);
-
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}

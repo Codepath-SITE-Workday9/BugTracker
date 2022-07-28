@@ -52,6 +52,12 @@ class Statistics
         //Function to get the average statistics about tickets within a specific project
     }
 
+    static async constructQuery()
+    {
+        //Function create a generalized query for getting the category, priority, and status statistics for either an individual or multiple projects
+        //Take in the field to filter by (category, status, or priority, and take in projectIds)
+    }
+
     static async fetchTeamVelocity()
     {
         //Function to get the total ticket closing velocity of a team 

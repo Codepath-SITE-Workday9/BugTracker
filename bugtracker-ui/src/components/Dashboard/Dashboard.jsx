@@ -10,17 +10,24 @@ import DashboardProjectsModal from "./DashboardProjectsModal/DashboardProjectsMo
 import DashboardTeamsModal from "./DashboardTeamsModal/DashboardTeamsModal";
 import { useProjectContext } from "../../contexts/project";
 import apiClient from "../../services/apiClient";
+import { useTeamContext } from "../../contexts/team";
 
 export default function Dashboard() {
   const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects } = useProjectContext()
+  const {teams, setTeams } = useTeamContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
 
   useEffect(() => {
      renderCharts()
      setProjects(apiClient.getAllProjects())
+     setTeams(apiClient.listAllTeams())
+     /*console.log("Projects below")
      console.log(projects)
+     console.log("Teams below")
+     console.log(teams) */
+
   }, [])
 
   return (

@@ -26,7 +26,6 @@ export const TeamContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchTeams();
-    console.log("Team use effect: ", currentTeam);
   }, [setTeams, currentTeam]);
 
   const teamValue = {

@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth')
 const teamRoutes = require('./routes/team')
 const projectRoutes = require('./routes/project')
 const ticketRoutes = require('./routes/ticket')
+const reportRoutes = require('./routes/report')
 
 
 
@@ -35,6 +36,8 @@ app.use("/team", teamRoutes)
 app.use("/project", projectRoutes)
 //APP USE - All ticket routes including list all tickets, create a new ticket, getting ticket details, update ticket information, add comments
 app.use("/ticket", ticketRoutes)
+//APP USE - All report routes including obtaining statistics about all projects, a single project, and team velocity
+app.use("/report", reportRoutes)
 
 
 

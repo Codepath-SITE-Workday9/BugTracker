@@ -209,7 +209,6 @@ export function ProjectRow({ projectId }) {
 
   useEffect(() => {
     fetchProject();
-    console.log("Projecct in use effect: ", proj);
   }, [projectId]);
 
   return (

@@ -1,14 +1,21 @@
 const db = require("../db")
 const {BadRequestError, NotFoundError} = require("../utils/errors")
+const Teams = require("./teams")
 
 class Statistics 
 {
-    static async fetchTicketStatistics()
+    static async fetchTicketStatistics({user})
     {
-        //Function to get the average statistics about tickets within all the projects
-        //Number of tickets per category
-        //Number of tickets per status
-        //Number of tickets per priority etc.
+        const userId = await Teams.fetchUserId(user.email)
+        const projects = await db.query(
+            `
+                SELECT projects.id
+                FROM projects as pro
+                    LEFT JOIN teams on teams.id = pro.id
+                WHERE $1 = any(teams.members) OR (pro.creator_id = $1)
+            `, [userId])
+
+        console.log(projects)
     }
 
     static async fetchStatisticsByProject()

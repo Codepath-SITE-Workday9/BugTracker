@@ -23,8 +23,9 @@ router.get("/velocity", security.requireAuthenticatedUser, async(req,res,next) =
 router.get("/statistics", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
-        //Take in the user information
-        //Return average statistics about the tickets a user completes on projects in general
+        const {user} = res.locals
+        const statistics = await Statistics.fetchTicketStatistics({user: user})
+        return res.status(200).json({statistics: statistics})
     }
     catch(error)
     {

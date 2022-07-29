@@ -1,21 +1,18 @@
 .projects-overview{
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
     width: 400px;
-    min-width: 400px;
+    min-width: 400px; 
+    background-color: white;
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
-/* 
-.project-card-container{
-    height: 100vh;
-    overflow: scroll;
-} */
+/* -------- search box section ------------ */
 
 .projects-overview .project-search{ 
     position: relative;
     display: flex;
     width: 100%;
     align-items: center;
-    
 }
 
 .projects-overview .project-search .search-input{
@@ -27,12 +24,23 @@
     font-size: 16px;
     border: 1px solid gray;
 }
-.search-input:focus-visible{
-    outline: none;
-}
 
 .project-search .search-btn{
     position: absolute;
     right: 0;
     background: transparent;
+}
+.search-input:focus-visible{
+    outline: none;
+}
+
+/* ---------- sort by section ----------- */
+
+.projects-overview .sort-by{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+.projects-overview .sort-by p{
+    margin-right: 10px;
 }

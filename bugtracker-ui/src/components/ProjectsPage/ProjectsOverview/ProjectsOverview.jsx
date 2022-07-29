@@ -17,6 +17,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
     setSearchTerm("");
   };
 
+  // update projectsToShow array depending on searchTerm
   if (projects) {
     projectsToShow = projects?.filter((p) =>
       p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
@@ -27,7 +28,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
     <div className="projects-overview">
       {/* projects overview header  */}
       <div className="header">
-        <h1>Projects Overview</h1>
+        <h1> Your Projects</h1>
       </div>
 
       {/* search for projects  */}
@@ -48,7 +49,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
       </div>
 
       {/* sort by component to sort the project results */}
-      <div className="sort-filter">
+      <div className="sort-by">
         <p> Sort by: </p>
         <SortByDrowpdown categories={["Most tickets", "Least tickets"]} />
       </div>

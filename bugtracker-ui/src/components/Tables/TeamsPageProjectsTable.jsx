@@ -41,18 +41,6 @@ const columns = [
   { title: "Description", field: "description" },
   { title: "Collaborators", field: "collaborators" },
 ];
-// const columns = [
-//   { title: "Id", field: "id", hidden: true },
-//   {
-//     title: "Project Name",
-//     field: "name",
-//     headerStyle: {
-//       color: 700,
-//     },
-//   },
-//   { title: "Description", field: "description" },
-//   { title: "Number of Open Tickets", field: "tickets" },
-// ];
 
 export const TeamsPageProjectsTable = ({ currentTeam }) => {
   const [projects, setProjects] = useState([]);
@@ -66,6 +54,7 @@ export const TeamsPageProjectsTable = ({ currentTeam }) => {
   useEffect(() => {
     if (currentTeam) {
       fetchProjects();
+      console.log(projects);
     }
   }, [currentTeam]);
 

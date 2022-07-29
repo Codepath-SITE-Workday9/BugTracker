@@ -44,7 +44,10 @@
 .project-developers{
     padding: 10px;
 }
+
+
 /* --------- adding a developer to the team section ---------  */
+
 
 .add-developer-to-team{
     display: flex;
@@ -102,8 +105,34 @@
 }
 .project-developers .table {
     padding: 3% 3% 1% 3%;
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .label-nothing-yet{

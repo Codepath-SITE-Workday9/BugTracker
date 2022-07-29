@@ -13,8 +13,8 @@
     display: flex;
     width: 100%;
     align-items: center;
-    
 }
+
 .teams-overview .team-search .search-input{
     width: 100%;
     padding: 10px;
@@ -38,7 +38,8 @@
     background-color: white;
     padding: 20px;
     font-weight: bold;
-    box-shadow: 0 1px 20px 0 rgba(41, 52, 58, 0.08);
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
+    border: 0.1px solid #e9e9e9;
 }
 
 /* ---------- sort by section ----------- */

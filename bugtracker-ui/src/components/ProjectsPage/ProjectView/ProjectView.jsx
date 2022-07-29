@@ -28,10 +28,7 @@ export default function ProjectView({ currentProject, projectsAvailable }) {
         <>
           <div className="nothing-created-yet">
             <h1>You have not created any projects yet!</h1>
-            <h2>
-              {" "}
-              Start by clicking the Create New Project button to get started.
-            </h2>{" "}
+            <h2>To get started, click the Create New Project button.</h2>
           </div>
         </>
       )}

@@ -21,8 +21,8 @@ export default function Dashboard() {
 
   useEffect(() => {
      renderCharts()
-     setProjects(apiClient.listAllProjects())
-     setTeams(apiClient.listAllTeams())
+     //setProjects(apiClient.listAllProjects())
+     //setTeams(apiClient.listAllTeams())
      /*console.log("Projects below")
      console.log(projects)
      console.log("Teams below")

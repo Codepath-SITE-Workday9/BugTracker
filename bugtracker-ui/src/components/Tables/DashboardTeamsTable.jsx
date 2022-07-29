@@ -1,5 +1,6 @@
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom"
+import { useTeamContext } from "../../contexts/team";
 import "./TableProperties.css";
 
 
@@ -29,20 +30,33 @@ const data = [
 
 const columns = [
   { title: "Id", field: "id", hidden: true},
-  { title: "Team Name", field: "team_name"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
+  { title: "Team Name", field: "name"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
   { title: "Members", field: "members" },
 ];
 
 export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal}) => {
+  const { teams, setTeamModal } = useTeamContext()
+  /* let tableData = []
+  let teamMembers = []
+  teams.map((team) => (
+
+    team.members.map((member) => {
+      apiClient.fetchUserById(member)
+      teamMembers.push(apiClient.fetchUserById(member).full_name)
+    })
+    let obj = {name}
+    tableData.push({name: team.name, members: })
+  )) */
+
   return <MaterialTable 
     title="Your Teams" 
     columns={columns} 
-    data={data} 
+    data={teams} 
     actions={[
       {
         icon:()=><button className="tableCreateButton">Create New Team</button>,
         tooltip:"Create a new team",
-        onClick: ()=> setDashboardTeamsModal(true), // Revert to true when implemented
+        onClick: ()=> setTeamModal(true),
         isFreeAction:true,
         position: "toolbar"
       }

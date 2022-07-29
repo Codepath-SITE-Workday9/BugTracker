@@ -5,7 +5,7 @@
     color: #FFFFFF;
     background: linear-gradient(to bottom, rgba(0, 0, 0, .60), rgba(0, 0, 0, .60)), url(https://www.teamcomputers.com/uploads/casestudy/case_study_thumbnail_thumbnailimage_1522319537.jpg);
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100vw 100vh;
 }
 
 .hero-content{

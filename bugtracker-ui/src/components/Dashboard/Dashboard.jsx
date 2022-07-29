@@ -29,10 +29,10 @@ export default function Dashboard() {
      fetchTeams()
      //setProjects(apiClient.getAllProjects())
      //setTeams(apiClient.listAllTeams())
-     console.log("Projects below")
+     /*console.log("Projects below")
      console.log(projects)
      console.log("Teams below")
-     console.log(teams) 
+     console.log(teams) */
   }, [])
 
   return (

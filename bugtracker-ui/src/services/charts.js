@@ -9,8 +9,8 @@ export default function renderCharts() {
 
     //let myChart = document.getElementById("myChart")
     const statistics = apiClient.getAllStatistics()
-    console.log("statistics below")
-    console.log(statistics)
+    //console.log("statistics below")
+    //console.log(statistics)
     
 
     let myChart = new Chart(document.getElementById("priority-chart").getContext('2d'), {

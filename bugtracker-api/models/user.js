@@ -100,11 +100,12 @@ class User {
             (
                 email,
                 full_name,
-                password
+                password,
+                image_url
             )
-            VALUES ($1, $2, $3)
+            VALUES ($1, $2, $3, $4)
             RETURNING id, email, full_name, password, image_url, created_at
-        `, [lowercaseEmail, credentials.fullName, hashedPw])
+        `, [lowercaseEmail, credentials.fullName, hashedPw, credentials.imageUrl])
 
 
         //Return the only the user's email and fullname

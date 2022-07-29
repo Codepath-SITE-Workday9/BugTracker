@@ -1,3 +1,4 @@
+/* -----------------------------USER PROFILE CARDS GENERAL FORMATTING --------------------------------------*/
 body
 {
     font-family: Montserrat, Century-Gothic, sans-serif;
@@ -17,6 +18,10 @@ body
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
 
+
+
+
+/* -----------------------------USER PROFILE PHOTO BANNERS GENERAL FORMATTING --------------------------------------*/
 .photo-banner
 {
     background: url(https://images.unsplash.com/photo-1540228232483-1b64a7024923?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80);
@@ -36,6 +41,10 @@ body
     background: #2f3c53;
 }
 
+
+
+
+/* -----------------------------USER PROFILE INFORMATION GENERAL FORMATTING --------------------------------------*/
 .profile-info
 {
     margin-top: 140px
@@ -66,15 +75,4 @@ button
     margin-bottom: 15px;
     border-radius: 10px;
     color: white;
-}
-
-.profile-statistics
-{
-    margin-top: 10px;
-}
-
-.ticket-info-header
-{
-    font-size: 35px;
-    margin-top: 10px;
 }

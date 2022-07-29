@@ -13,32 +13,38 @@ import apiClient from "../../services/apiClient";
 import { useTeamContext } from "../../contexts/team";
 
 export default function Dashboard() {
-  const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
-  const { projects, setProjects } = useProjectContext()
-  const {teams, setTeams } = useTeamContext()
-  const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
-  const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
+  const { isOpen } = useOpenContext(); // Note: Open context is currently lagging dashboard. Fix later
+  const { projects, setProjects } = useProjectContext();
+  const { teams, setTeams } = useTeamContext();
+  const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false);
+  const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false);
 
   useEffect(() => {
-     renderCharts()
-     setProjects(apiClient.getAllProjects())
-     setTeams(apiClient.listAllTeams())
-     /*console.log("Projects below")
-     console.log(projects)
-     console.log("Teams below")
-     console.log(teams) */
-
-  }, [])
+    renderCharts();
+    setProjects(apiClient.listAllProjects());
+    setTeams(apiClient.listAllTeams());
+  }, []);
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
-
-      {dashboardProjectsModal && <DashboardProjectsModal setDashboardProjectsModal={setDashboardProjectsModal} />}
-      {dashboardTeamsModal && <DashboardTeamsModal setDashboardTeamsModal={setDashboardTeamsModal} />}
-      <div className={dashboardProjectsModal || dashboardTeamsModal ? "blur" : "clear"}>
-
+      {dashboardProjectsModal && (
+        <DashboardProjectsModal
+          setDashboardProjectsModal={setDashboardProjectsModal}
+        />
+      )}
+      {dashboardTeamsModal && (
+        <DashboardTeamsModal setDashboardTeamsModal={setDashboardTeamsModal} />
+      )}
+      <div
+        className={
+          dashboardProjectsModal || dashboardTeamsModal ? "blur" : "clear"
+        }
+      >
         {/*Renders a table for projects on the dashboard */}
-        <DashboardProjectsTable dashboardProjectsModal={dashboardProjectsModal} setDashboardProjectsModal={setDashboardProjectsModal}/> 
+        <DashboardProjectsTable
+          dashboardProjectsModal={dashboardProjectsModal}
+          setDashboardProjectsModal={setDashboardProjectsModal}
+        />
 
         <div className="ticket-statistics">
           <h>TICKET STATISTICS</h>
@@ -82,7 +88,10 @@ export default function Dashboard() {
         </div>
 
         {/*Renders a table for teams on the dashboard */}
-        <DashboardTeamsTable dashboardTeamsModal={dashboardTeamsModal} setDashboardTeamsModal={setDashboardTeamsModal}/> 
+        <DashboardTeamsTable
+          dashboardTeamsModal={dashboardTeamsModal}
+          setDashboardTeamsModal={setDashboardTeamsModal}
+        />
       </div>
     </div>
   );

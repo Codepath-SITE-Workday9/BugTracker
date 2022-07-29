@@ -17,9 +17,11 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
     setSearchTerm("");
   };
 
-  projectsToShow = projects?.filter((p) =>
-    p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
-  );
+  if (projects) {
+    projectsToShow = projects?.filter((p) =>
+      p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
+    );
+  }
 
   return (
     <div className="projects-overview">

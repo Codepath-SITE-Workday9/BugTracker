@@ -1,7 +1,6 @@
 .login-form{
     display: flex;
     flex-direction: column;
-    
 }
 
 .login-form h2{

@@ -1,0 +1,80 @@
+body
+{
+    font-family: Montserrat, Century-Gothic, sans-serif;
+    background: #28223f;
+}
+
+.profile-page
+{
+    margin-left: 100px;
+    margin-top: 10px;
+    background-color: #2f3c53;
+    color: #b3b8cd;
+    border-radius: 5px;
+    width: 30%;
+    height: 88vh;
+    text-align: center;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+.photo-banner
+{
+    background: url(https://images.unsplash.com/photo-1540228232483-1b64a7024923?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80);
+    height: 160px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.profile-image
+{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    margin-top: 50px;
+    border: 1px solid #2f3c53;
+    padding: 7px;
+    background: #2f3c53;
+}
+
+.profile-info
+{
+    margin-top: 140px
+}
+
+.profile-name
+{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.email
+{
+    margin-top: 35px;
+    font-size: 25px
+}
+
+button
+{
+    margin: 10px 0 40px 0;
+}
+
+.edit-btn
+{
+    background-color: rgb(119, 143, 211);
+    padding: 15px 30px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    color: white;
+}
+
+.profile-statistics
+{
+    margin-top: 10px;
+}
+
+.ticket-info-header
+{
+    font-size: 35px;
+    margin-top: 10px;
+}

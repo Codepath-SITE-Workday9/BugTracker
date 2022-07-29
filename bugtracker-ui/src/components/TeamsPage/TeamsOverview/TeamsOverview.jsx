@@ -2,6 +2,9 @@ import "./TeamsOverview.css";
 import { useState } from "react";
 import TeamCard from "../TeamCard/TeamCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
+import { useEffect } from "react";
+import apiClient from "../../../services/apiClient";
+import { useTeamContext } from "../../../contexts/team";
 
 // overview of all teams a user is apart of
 export default function TeamsOverview({ teams, handleOnTeamClick }) {
@@ -27,7 +30,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
     <div className="teams-overview">
       {/* teams overview header  */}
       <div className="header">
-        <h1>Teams Overview</h1>
+        <h1>Your Teams</h1>
       </div>
 
       {/* search for teams  */}
@@ -68,7 +71,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
             ))}{" "}
           </>
         ) : (
-          <div className="no-teams-available-label">No teams available</div>
+          <div className="nothing-available-label">No teams available</div>
         )}
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useTeamContext } from "../../contexts/team";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 import TeamsOverview from "./TeamsOverview/TeamsOverview";
 import TeamView from "./TeamView/TeamView";
+import apiClient from "../../services/apiClient";
 
 // page where a user can see all teams they are apart of and where a user can create a new team
 export default function TeamsPage() {
@@ -34,7 +35,7 @@ export default function TeamsPage() {
       {/* conditionally blur background depending on if modal is open */}
       <div className={teamModal ? "background-blur" : "background"}>
         <TeamsOverview teams={teams} handleOnTeamClick={handleOnTeamClick} />
-        <TeamView currentTeam={currentTeam} />
+        <TeamView currentTeam={currentTeam} teamsAvailable={teams.length > 0} />
       </div>
     </div>
   );

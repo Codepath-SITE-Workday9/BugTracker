@@ -10,7 +10,6 @@ const handleOnRowClick = (rowData) => {};
 
 
 
-
 const sampleData = [
   {
     id: 1,
@@ -48,8 +47,8 @@ const columns = [
     field:
       "name" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
     headerStyle: {
-      color: 700
-    }
+      color: 700,
+    },
   },
   { title: "Description", field: "description" },
   { title: "Collaborators", field: "collaborators" },
@@ -79,11 +78,11 @@ export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProj
             position: "toolbar"
           }
         ]}
-
-        options={[
-          // headerStyle: {}
-        ]}
-
+        options={
+          [
+            // headerStyle: {}
+          ]
+        }
         onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
       />
     </div>

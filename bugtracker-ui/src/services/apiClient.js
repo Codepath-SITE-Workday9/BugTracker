@@ -69,6 +69,10 @@ class ApiClient {
   async addMemberToTeam({ teamId, memberToAdd}){
     return await this.request({ endpoint: `team/${teamId}/add`, method: 'PATCH',  data: {email: memberToAdd} })
   }
+  //function to get an array of users who are apart of a specific team
+  async fetchMemberList(teamId){
+    return await this.request({endpoint: `team/${teamId}/members`, method: 'GET' })
+  }
 
   // project requests 
   async listAllProjects(credentials){

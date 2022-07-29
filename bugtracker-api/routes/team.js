@@ -115,6 +115,27 @@ router.get("/user/:email", security.requireAuthenticatedUser, async (req, res, n
 })
 
 
+//FUNCTION TO RETURN AN ARRAY OF USER OBJECTS FOR A SPECIFIC TEAM 
+router.get("/:teamId/members", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        // Retrieve the teamId param from the given URL 
+        const { teamId } = req.params;
+
+        //Retrieve the user information from the local server
+        const { user } = res.locals
+
+        //Run the fetchMembersForATeam function 
+        const members = await Teams.fetchMembersForATeam({teamId: teamId, user: user });
+
+        // Return the user array if successful
+        return res.status(200).json(members)
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
+
 
 
 //MODULE EXPORTS

@@ -8,7 +8,7 @@ export const useProjectForm = () => {
     const [projectName, setProjectName] = useState("");
     const [teamsToAdd, setTeamsToAdd] = useState([]);
     const [projectDescription, setProjectDescription] = useState("");
-    const {fetchProjects, setProjectModal, projects} = useProjectContext();
+    const {fetchProjects, setProjectModal, projects, setCurrentProject} = useProjectContext();
     const [errors, setErrors] = useState({
       name: "",
       description: "",
@@ -54,6 +54,7 @@ export const useProjectForm = () => {
           setProjectDescription("");
           setTeamsToAdd([]);
           setProjectModal(false);
+          setCurrentProject(data.project);
         } else if (error) {
           setErrors("Something went wrong! Try again.");
         }

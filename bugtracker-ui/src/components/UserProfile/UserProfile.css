@@ -1,3 +1,10 @@
+/* -----------------------------USER PROFILE PAGE GENERAL FORMATTING --------------------------------------*/
+.user-profile-page
+{
+    display: flex;
+}
+
+
 /* -----------------------------USER PROFILE CARDS GENERAL FORMATTING --------------------------------------*/
 body
 {
@@ -75,4 +82,52 @@ button
     margin-bottom: 15px;
     border-radius: 10px;
     color: white;
+}
+
+/* -----------------------------USER PROFILE TABLES GENERAL FORMATTING --------------------------------------*/
+.user-tables
+{
+    margin-left: 50px;
+    margin-top: 10px
+}
+
+/* -----------------------------USER TICKET STATISTICS GENERAL FORMATTING --------------------------------------*/
+.ticket-statistics
+{
+    display: grid;
+    justify-content: space-evenly;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-evenly;
+}
+
+.ticket-cards
+{
+    border-radius: 10px;
+    width: 300px;
+    background-color: #FFFFFF;
+}
+
+.ticket-statistics :hover 
+{
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.25);
+}
+
+.stats-text
+{
+    margin-left: 20px;
+    line-height: 1.0em
+}
+
+.stats-text > p
+{
+    font-weight: bold;
+    font-size: 3em;
+    color: #32325f;
+}
+
+.stats-text > h2
+{
+    color: #8898aa;
+    text-transform: uppercase
 }

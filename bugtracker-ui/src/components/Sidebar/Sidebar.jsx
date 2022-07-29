@@ -5,7 +5,7 @@ import { useOpenContext } from "../../contexts/open";
 import { useAuthContext } from "../../contexts/auth";
 
 export default function Sidebar() {
-  const { isOpen, setIsOpen } = useOpenContext();
+  const { setIsOpen } = useOpenContext();
   return (
     <div
       className="sidebar"

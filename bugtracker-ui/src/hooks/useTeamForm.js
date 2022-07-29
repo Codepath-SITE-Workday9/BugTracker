@@ -5,11 +5,12 @@ import { useTeamContext } from "../contexts/team.jsx";
 // hook to use when creating new teams 
 export const useTeamForm = () => {
     const { user } = useAuthContext();
-    const { fetchTeams, setTeamModal } = useTeamContext();
+    const { fetchTeams, setTeamModal,setCurrentTeam } = useTeamContext();
     const [name, setName] = useState("");
     const [developers, setDevelopers] = useState([]);
     const [projectsToAdd, setProjectsToAdd] = useState([]);
     const [errors, setErrors] = useState("");
+    
 
     const handleOnCreateNewTeamSubmit = async () => {
         // before sending request to create a new team, verify name field is not empty
@@ -31,6 +32,7 @@ export const useTeamForm = () => {
             setDevelopers([]);
             setProjectsToAdd([]);
             setTeamModal(false);
+            setCurrentTeam(data.team)
           } else if (error) {
             setErrors("Something went wrong! Try again.");
           }

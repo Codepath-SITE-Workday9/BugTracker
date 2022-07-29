@@ -8,7 +8,6 @@ const handleOnRowClick = (rowData) => {};
 
 function onRowClick(data) {}
 
-
 const sampleData = [
   {
     id: 1,
@@ -40,18 +39,19 @@ const columns = [
   { title: "Id", field: "id", hidden: true },
   {
     title: "Project Name",
-    field:
-      "project_name" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
+    field: "project_name",
     headerStyle: {
-      color: 700
-    }
+      color: 700,
+    },
   },
   { title: "Description", field: "description" },
   { title: "Collaborators", field: "collaborators" },
 ];
 
-export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {
-
+export const DashboardProjectsTable = ({
+  dashboardProjectsModal,
+  setDashboardProjectsModal,
+}) => {
   return (
     <div className="table-container">
       <MaterialTable
@@ -60,18 +60,20 @@ export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProj
         data={sampleData}
         actions={[
           {
-            icon:()=><button className="tableCreateButton">Create New Project</button>,
-            tooltip:"Create a new project",
-            onClick: ()=> setDashboardProjectsModal(true),
-            isFreeAction:true,
-            position: "toolbar"
-          }
+            icon: () => (
+              <button className="tableCreateButton">Create New Project</button>
+            ),
+            tooltip: "Create a new project",
+            onClick: () => setDashboardProjectsModal(true),
+            isFreeAction: true,
+            position: "toolbar",
+          },
         ]}
-
-        options={[
-          // headerStyle: {}
-        ]}
-
+        options={
+          [
+            // headerStyle: {}
+          ]
+        }
         onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
       />
     </div>

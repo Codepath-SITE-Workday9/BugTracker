@@ -1,7 +1,7 @@
 .teams-page{
     margin: 10px 10px 0px 100px;
     padding: 20px;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .background, .background-blur{
     display: flex;

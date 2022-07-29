@@ -73,6 +73,10 @@ class ApiClient {
   async fetchMemberList(teamId){
     return await this.request({endpoint: `team/${teamId}/members`, method: 'GET' })
   }
+  //function to get an array of projects for a specific team
+  async fetchProjectList(teamId){
+    return await this.request({endpoint: `team/${teamId}/projects`, method: 'GET' })
+  }
 
   // project requests 
   async listAllProjects(credentials){

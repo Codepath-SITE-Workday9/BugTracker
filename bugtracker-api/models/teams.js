@@ -222,7 +222,7 @@ class Teams
     //FUNCTION TO RETURN AN ARRAY OF USERS FROM A TEAM
     static async fetchMembersForATeam(teamId, user)
     {
-        //If no member id is provided, then throw a bad request error
+        //If no team id is provided, then throw a bad request error
         if(!teamId)
         {
             throw new BadRequestError("No team id provided!")
@@ -239,6 +239,28 @@ class Teams
             `,[team.members])
         
         //Return all the users that are apart of a team 
+        return results.rows
+    }
+
+    //FUNCTION TO RETURN AN ARRAY OF PROJECTS THAT A TEAM HAS
+    static async fetchProjectsForATeam({teamId})
+    {
+        //If no team id is provided, then throw a bad request error
+        if(!teamId)
+        {
+            throw new BadRequestError("No team id provided!")
+        }
+
+        // // Fetch the team information 
+
+        //Runs a query to find all projects that a team is apart of
+        //If successful, returns all the projects as an array
+        const results = await db.query(
+            `
+                SELECT * FROM projects WHERE $1 = any(projects.teams) 
+            `,[teamId])
+        
+        //Return all the projects that a team is working on
         return results.rows
     }
 }

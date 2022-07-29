@@ -1,25 +1,35 @@
 import MaterialTable from "material-table";
-
-const data = [
-  { id: 1, name: "John Doe", role: "Developer", numtickets: 4 },
-  { id: 2, name: "Jane Doe", role: "Developer", numtickets: 1 },
-  { id: 3, name: "David Smith", role: "Developer", numtickets: 6 },
-  { id: 4, name: "Emma Rodriguez", role: "Developer", numtickets: 3 },
-];
+import { useEffect, useState } from "react";
+import apiClient from "../../services/apiClient";
 
 const columns = [
   { title: "Id", field: "id", hidden: "true" },
-  { title: "Name", field: "name" },
+  { title: "Name", field: "full_name" },
   { title: "Role", field: "role" },
   { title: "Number of open tickets", field: "numtickets" },
 ];
 
-export const TeamsPageDevelopersTable = () => {
+export const TeamsPageDevelopersTable = ({ currentTeam }) => {
+  const [members, setMembers] = useState([]);
+
+  const fetchMembers = async () => {
+    const { data, error } = await apiClient.fetchMemberList(currentTeam.id);
+    if (data) {
+      setMembers(data);
+    }
+  };
+
+  useEffect(() => {
+    if (currentTeam) {
+      fetchMembers();
+    }
+  }, [currentTeam]);
+
   return (
     <MaterialTable
       title="Developers on the team"
       columns={columns}
-      data={data}
+      data={members.members}
     />
   );
 };

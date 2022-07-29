@@ -2,9 +2,6 @@ import "./TeamsOverview.css";
 import { useState } from "react";
 import TeamCard from "../TeamCard/TeamCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
-import { useEffect } from "react";
-import apiClient from "../../../services/apiClient";
-import { useTeamContext } from "../../../contexts/team";
 
 // overview of all teams a user is apart of
 export default function TeamsOverview({ teams, handleOnTeamClick }) {

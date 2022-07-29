@@ -36,7 +36,7 @@ export default function TeamView({ currentTeam, teamsAvailable }) {
             </div>
             <div className="project-developers">
               <div className="table">
-                <TeamsPageProjectsTable projects={projects} />
+                <TeamsPageProjectsTable currentTeam={currentTeam} />
               </div>
             </div>
           </>

@@ -13,25 +13,6 @@ export default function TeamModal({ setDashboardTeamsModal }) {
   const { projects } = useProjectContext();
 
   const handleOnCreateNewTeamSubmit = async () => {
-    // setIsLoading(true);
-    // setErrors((e) => ({ ...e, form: null }));
-
-    // const { data, error } = await apiClient.createNewTeam({
-    //   name: name,
-    //   developers: developers,
-    //   projects: projectsToAdd,
-    // });
-
-    // if api request was successful:
-    // if (data) {
-    //    popup message "team successfully created"
-    //    update teams in team overview
-    // }
-    // if (errors) {
-    // setErrors((e) => ({ ...e, form: error }));
-    // }
-    // setIsLoading(false);
-    //console.log(name, developers, projectsToAdd);
     setName("");
     setDevelopers([]);
     setProjectsToAdd([]);
@@ -44,7 +25,10 @@ export default function TeamModal({ setDashboardTeamsModal }) {
         {/* modal header: header text & a close button */}
         <div className="header">
           <p>CREATE A NEW TEAM</p>
-          <button className="close-modal-btn" onClick={() => setDashboardTeamsModal(false)}>
+          <button
+            className="close-modal-btn"
+            onClick={() => setDashboardTeamsModal(false)}
+          >
             X
           </button>
         </div>
@@ -108,7 +92,10 @@ export default function TeamModal({ setDashboardTeamsModal }) {
 
           {/* cancel and submit buttons */}
           <div className="modal-buttons">
-            <button className="cancel" onClick={() => setDashboardTeamsModal(false)}>
+            <button
+              className="cancel"
+              onClick={() => setDashboardTeamsModal(false)}
+            >
               Cancel
             </button>
             <button className="submit" onClick={handleOnCreateNewTeamSubmit}>

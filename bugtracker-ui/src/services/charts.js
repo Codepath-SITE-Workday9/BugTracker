@@ -2,12 +2,15 @@
     Note: For some very weird reason, the last chart that gets rendered on the dashboard MUST be the first chart listed here. Otherwise it won't load on the page.
     No idea why, but that's how it is.
 */
+import apiClient from "./apiClient"
 
 
 export default function renderCharts() { 
 
     //let myChart = document.getElementById("myChart")
-
+    const statistics = apiClient.getAllStatistics()
+    //console.log("statistics below")
+    //console.log(statistics)
     
 
     let myChart = new Chart(document.getElementById("priority-chart").getContext('2d'), {

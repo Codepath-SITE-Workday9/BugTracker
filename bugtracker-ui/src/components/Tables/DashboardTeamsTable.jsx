@@ -1,5 +1,7 @@
 import MaterialTable from "material-table";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { useTeamContext } from "../../contexts/team";
+
 import "./TableProperties.css";
 
 function handleNewTeamClick() {
@@ -16,32 +18,38 @@ const data = [
 ];
 
 const columns = [
-  { title: "Id", field: "id", hidden: true },
-  { title: "Team Name", field: "team_name" },
+  { title: "Id", field: "id", hidden: true},
+  { title: "Team Name", field: "name"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
   { title: "Members", field: "members" },
 ];
 
-export const DashboardTeamsTable = ({
-  dashboardTeamsModal,
-  setDashboardTeamsModal,
-}) => {
-  return (
-    <MaterialTable
-      title="Your Teams"
-      columns={columns}
-      data={data}
-      actions={[
-        {
-          icon: () => (
-            <button className="tableCreateButton">Create New Team</button>
-          ),
-          tooltip: "Create a new team",
-          onClick: () => setDashboardTeamsModal(true), // Revert to true when implemented
-          isFreeAction: true,
-          position: "toolbar",
-        },
-      ]}
-      onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
-    />
-  );
+export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal}) => {
+  const { teams, setTeamModal } = useTeamContext()
+  /* let tableData = []
+  let teamMembers = []
+  teams.map((team) => (
+
+    team.members.map((member) => {
+      apiClient.fetchUserById(member)
+      teamMembers.push(apiClient.fetchUserById(member).full_name)
+    })
+    let obj = {name}
+    tableData.push({name: team.name, members: })
+  )) */
+
+  return <MaterialTable 
+    title="Your Teams" 
+    columns={columns} 
+    data={teams} 
+    actions={[
+      {
+        icon:()=><button className="tableCreateButton">Create New Team</button>,
+        tooltip:"Create a new team",
+        onClick: ()=> setTeamModal(true),
+        isFreeAction:true,
+        position: "toolbar"
+      }
+    ]}
+
+    onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)} />
 };

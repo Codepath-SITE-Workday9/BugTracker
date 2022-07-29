@@ -95,6 +95,11 @@ class ApiClient {
     return await this.request({ endpoint: `project/${projectId}/update`, method: 'PATCH',  data: projectInfo })
   }
 
+  // statistics
+  async getAllStatistics() {
+    return await this.request({ endpoint: `report/statistics`, method: 'GET'})
+  }
+
 }
 
 // export default new ApiClient(API_BASE_URL || "http://localhost:3001")

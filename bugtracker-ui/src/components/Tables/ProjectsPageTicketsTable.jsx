@@ -1,23 +1,4 @@
-/**
- * USE THIS AS A TEMPLATE FOR CREATING NEW TABLES
- *
- *
- */
-
 import MaterialTable from "material-table";
-import { MTableToolbar } from "material-table";
-import { useNavigate } from "react-router-dom";
-
-/**
- * Gets called when a row is clicked.
- * Takes the data of the row and console logs it.
- * You can use this data to pull id or anything else you want,
- * and use it for other purposes.
- */
-function onRowClick(data) {
-  console.log("Row data below!");
-  console.log(data);
-}
 
 const data = [
   {
@@ -48,8 +29,7 @@ const columns = [
   { title: "Id", field: "id", hidden: true },
   {
     title: "Ticket name",
-    field:
-      "ticket_name" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
+    field: "ticket_name",
   },
   { title: "Description", field: "description" },
   { title: "Priority", field: "priority" },
@@ -62,14 +42,6 @@ export const ProjectsPageTicketsTable = () => {
       title="Tickets"
       columns={columns}
       data={data}
-      // components={{
-      //   Toolbar: (props) => (
-      //     <div style={{ backgroundColor: "#e8eaf5" }}>
-      //       <MTableToolbar {...props} />
-      //       <button>Create Ticket</button>
-      //     </div>
-      //   ),
-      // }}
       actions={[
         {
           icon: () => (

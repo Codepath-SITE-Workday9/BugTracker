@@ -1,14 +1,18 @@
 .landing-page{
-    height: 100%;
     display:flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 75px;
+    color: #FFFFFF;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .60), rgba(0, 0, 0, .60)), url(https://www.teamcomputers.com/uploads/casestudy/case_study_thumbnail_thumbnailimage_1522319537.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .hero-content{
     max-width: 720px;
     justify-content: center;
     text-align: center;
+    padding: 50px;
 }
 
 .hero-logo span{

@@ -1,8 +1,12 @@
 .team-view{
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
+    margin-left: 20px;
     width: 100%;
-    padding-right: 30px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
+
 .team-header{
     display:flex;
     flex-direction: row;
@@ -14,12 +18,13 @@
 
 .team-header button {
     color: whitesmoke;
-    background-color: var(--dark-blue);
+    background-color: var(--lighter-blue);
     border-radius: 10px;
     outline: none;
     border: none;
     padding: 15px;
     margin: 10px;
+    font-size: 20px;
 }
 
 .team-header button:hover{
@@ -32,19 +37,13 @@
 }
 
 
-/* ------- developer table setion --------- */
-
-.developer-row {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid lightgray;
-}
-
 .team-developers{
     padding: 10px;
     border-bottom: 1px solid black;
 }
-
+.project-developers{
+    padding: 10px;
+}
 /* --------- adding a developer to the team section ---------  */
 
 .add-developer-to-team{
@@ -54,6 +53,7 @@
 
 .add-developer-to-team p{
     font-size: 20px;
+    margin: 0px;
 }
 
 .add-developer-to-team .dev-search{
@@ -92,24 +92,19 @@
     margin: 0px;
 }
 
-/*------------- teams table section ---------- */
-
-.teams-table{
-    background-color: white;
+.team-developers .table {
+    padding: 1% 3% 3% 3%;
 }
 
-.developer-cell{
-    display: flex;
-    align-items: center;
+.team-developers .table .MuiPaper-elevation2{
+    border: 0.1px solid #e9e9e9;
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
+}
+.project-developers .table {
+    padding: 3% 3% 1% 3%;
+
 }
 
-.role-cell{
-    text-align: center;
-}
-
-.tickets-cell{
-    text-align: center;
-}
 
 .label-nothing-yet{
     font-size: 20px;

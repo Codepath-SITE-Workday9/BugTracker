@@ -33,7 +33,7 @@ export default function ProjectsPage() {
         />
         <ProjectView
           currentProject={currentProject}
-          projectsAvailble={projects.length > 0}
+          projectsAvailable={projects.length > 0}
         />
       </div>
     </div>

@@ -2,16 +2,19 @@ import "./TeamView.css";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
 import { useTeamContext } from "../../../contexts/team";
+import { TeamsPageDevelopersTable } from "../../Tables/TeamsPageDevelopersTable";
+import { TeamsPageProjectsTable } from "../../Tables/TeamsPageProjectsTable";
+import { useProjectContext } from "../../../contexts/project";
 
 //Overview of a specific team
 export default function TeamView({ currentTeam, teamsAvailable }) {
-  const { setTeamModal } = useTeamContext();
-
+  const { setTeamModal, getMemberArray } = useTeamContext();
+  const { projects } = useProjectContext();
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
       <div className="team-header">
-        <h1> {currentTeam?.name} </h1>
+        <h1> {teamsAvailable && currentTeam?.name} </h1>
         <button className="new-btn" onClick={() => setTeamModal(true)}>
           Create New Team
         </button>
@@ -19,15 +22,25 @@ export default function TeamView({ currentTeam, teamsAvailable }) {
 
       {/* Conditionally render the specific team's information, or display "Nothing yet" if no teams have been created */}
       {teamsAvailable ? (
-        <>
-          {/* an input field to add a developer to the team, and all developers listed in table form */}
-          <div className="team-developers">
-            {/* <h2>Developers: </h2> */}
-            <AddDeveloper currentTeam={currentTeam} />
-            <DevelopersOnTeam devs={currentTeam?.members} />
-          </div>
-          <ProjectsAssignedToTeams projects={currentTeam.projects} />
-        </>
+        currentTeam && (
+          <>
+            {/* an input field to add a developer to the team, and all developers listed in table form */}
+            <div className="team-developers">
+              <AddDeveloper currentTeam={currentTeam} />
+              <div className="table">
+                <TeamsPageDevelopersTable
+                  currentTeam={currentTeam}
+                  className="dev-table"
+                />
+              </div>
+            </div>
+            <div className="project-developers">
+              <div className="table">
+                <TeamsPageProjectsTable projects={projects} />
+              </div>
+            </div>
+          </>
+        )
       ) : (
         <>
           <div className="nothing-created-yet">
@@ -93,137 +106,6 @@ export function AddDeveloper({ currentTeam }) {
       </div>
       {/* display any errors */}
       <p className="errors"> {error}</p>
-    </>
-  );
-}
-
-// table header for developers on the team
-export function DevelopersOnTeam({ devs }) {
-  return (
-    <div className="developers-table">
-      <table role="table" className="teams-table">
-        <thead>
-          <tr role="row">
-            <th colSpan="1" role="columnheader">
-              Developer
-            </th>
-            <th colSpan="1" role="columnheader">
-              Role
-            </th>
-            <th colSpan="1" role="columnheader">
-              Number of open tickets
-            </th>
-          </tr>
-        </thead>
-        <tbody role="rowgroup">
-          {devs?.map((dev) => (
-            <DeveloperRow devId={dev} />
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-// individual rows for each developer
-export function DeveloperRow({ devId }) {
-  const [member, setMember] = useState();
-  const getMemberInfo = async () => {
-    if (devId) {
-      const { data, error } = await apiClient.fetchUserById(devId);
-      if (data) {
-        setMember(data.user);
-      }
-    }
-  };
-
-  useEffect(() => {
-    getMemberInfo();
-  }, [devId]);
-
-  return (
-    <tr role="row" className="row">
-      <td role="cell">
-        <div className="developer-cell">
-          <span className="material-symbols-outlined">face</span>
-          {member?.fullName}
-        </div>
-      </td>
-      <td role="cell" className="role-cell">
-        developer
-      </td>
-      <td role="cell" className="tickets-cell">
-        {/* {numTickets} open ticket{numTickets == 1 ? "" : "s"} */}
-      </td>
-    </tr>
-  );
-}
-
-// table header for projects that are assigned to the team
-export function ProjectsAssignedToTeams({ projects }) {
-  return (
-    <div className="team-projects">
-      <h2>Projects assigned to this team: </h2>
-      <div className="team-projects-table">
-        <table role="table" className="table">
-          <thead>
-            <tr role="row">
-              <th colSpan="1" role="columnheader">
-                Project Name
-              </th>
-              <th colSpan="1" role="columnheader">
-                Description
-              </th>
-              <th colSpan="1" role="columnheader">
-                Total tickets
-              </th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            {/* conditionally render project list if there are any projects to show, otherwise display "Nothing here yet" */}
-            {projects?.length > 0 ? (
-              <>
-                {projects.map((p) => (
-                  <ProjectRow projectId={p} />
-                ))}
-              </>
-            ) : (
-              <div className="label-nothing-yet">Nothing here yet! </div>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-// individual row for each project
-export function ProjectRow({ projectId }) {
-  const [proj, setProj] = useState({});
-  const fetchProject = async () => {
-    const { data, error } = await apiClient.fetchProjectById(projectId);
-    if (data) {
-      setProj(data.project);
-    }
-  };
-
-  useEffect(() => {
-    fetchProject();
-  }, [projectId]);
-
-  return (
-    <>
-      {Object.keys(proj).length != 0 ? (
-        <>
-          <tr role="row" className="row">
-            <td role="cell">{proj?.name}</td>
-            <td role="cell">{proj?.description}</td>
-            <td role="cell">{proj.tickets.length}</td>
-          </tr>
-        </>
-      ) : (
-        ""
-      )}
     </>
   );
 }

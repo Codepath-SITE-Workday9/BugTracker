@@ -4,6 +4,7 @@ import { useTeamContext } from "../../contexts/team";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 import TeamsOverview from "./TeamsOverview/TeamsOverview";
 import TeamView from "./TeamView/TeamView";
+import apiClient from "../../services/apiClient";
 
 // page where a user can see all teams they are apart of and where a user can create a new team
 export default function TeamsPage() {

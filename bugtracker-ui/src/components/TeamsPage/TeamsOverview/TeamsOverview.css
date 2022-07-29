@@ -1,7 +1,9 @@
-.teams-overview{
-    padding: 10px;
+.teams-overview{    
+    padding: 10px 30px 10px 30px;
     width: 400px;
-    min-width: 400px;
+    min-width: 400px; 
+    background-color: white;
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
 /* -------- search box section ------------ */

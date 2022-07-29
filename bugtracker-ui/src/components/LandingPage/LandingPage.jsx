@@ -7,7 +7,7 @@ export default function LandingPage() {
       <div className="landing-page">
         <Hero />
       </div>
-      <ContentNavigation />
+      {/* <ContentNavigation /> */}
     </div>
   );
 }

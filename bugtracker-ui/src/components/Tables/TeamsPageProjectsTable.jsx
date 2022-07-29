@@ -54,7 +54,6 @@ export const TeamsPageProjectsTable = ({ currentTeam }) => {
   useEffect(() => {
     if (currentTeam) {
       fetchProjects();
-      console.log(projects);
     }
   }, [currentTeam]);
 

@@ -46,6 +46,7 @@ export function UserTables()
 {
     return(
         <div className="user-tables">
+          {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
             <h1> Your Ticket Statistics </h1>
             <div className="ticket-statistics">
                 <div className="ticket-cards">
@@ -71,11 +72,6 @@ export function UserTables()
               <canvas // Renders a donut chart for category statistics
                 className="donut-chart"
                 id="category-chart"
-                //width="20%"
-                //height="auto"
-                //maintainAspectRatio={false}
-                //width="800"
-                //height="450"
               ></canvas>
             </div>
         </div>

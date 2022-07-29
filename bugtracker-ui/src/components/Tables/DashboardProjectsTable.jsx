@@ -60,7 +60,7 @@ export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProj
   const navigate = useNavigate()
 
   function onRowClick(data) {
-    console.log("clicked row")
+    //console.log("clicked row")
     navigate('/tickets')
   }
 

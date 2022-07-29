@@ -20,7 +20,6 @@ body
     color: #b3b8cd;
     border-radius: 5px;
     width: 30%;
-    height: 88vh;
     text-align: center;
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
@@ -63,7 +62,7 @@ body
     font-weight: bold;
 }
 
-.email
+.email, .role
 {
     margin-top: 35px;
     font-size: 25px

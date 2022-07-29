@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/auth";
 import { DashboardProjectsTable } from "../Tables/DashboardProjectsTable";
 import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
+import renderCharts from "../../services/charts.js";
 import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
@@ -32,6 +33,8 @@ export function ProfileCard()
           <div className="profile-info">
               <h1 class="profile-name">{user.fullName}</h1>
               <p class="email">Email: {user.email}</p>
+              <p class="role">Role: Developer</p>
+              <p class="email">Organization: A Place</p>
               <button class="edit-btn">Edit Profile</button>
           </div>
     </div>
@@ -63,6 +66,17 @@ export function UserTables()
                     <p> 0 </p>
                   </div>
                 </div>
+            </div>
+            <div className="chart-container">
+              <canvas // Renders a donut chart for category statistics
+                className="donut-chart"
+                id="category-chart"
+                //width="20%"
+                //height="auto"
+                //maintainAspectRatio={false}
+                //width="800"
+                //height="450"
+              ></canvas>
             </div>
         </div>
     )

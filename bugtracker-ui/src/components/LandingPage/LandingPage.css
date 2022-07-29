@@ -1,3 +1,4 @@
+/* ----------------------------GENERAL LANDING PAGE FORMATTING ---------------------------*/
 .landing-page{
     display:flex;
     justify-content: center;
@@ -8,6 +9,8 @@
     background-size: 100vw 100vh;
 }
 
+
+/* ------------------------- HERO BANNER SECTION -------------------------------------------*/
 .hero-content{
     max-width: 720px;
     justify-content: center;
@@ -25,6 +28,8 @@
     padding-bottom: 20px;
 }
 
+
+/* ------------------------------- REGISTRATION BUTTONS STYLING SECTION -------------------------------------------*/
 .register-btn{
     margin-top: 20px;
     font-size: 24px;

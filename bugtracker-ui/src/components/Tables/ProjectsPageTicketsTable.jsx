@@ -1,11 +1,4 @@
-/**
- * USE THIS AS A TEMPLATE FOR CREATING NEW TABLES
- *
- *
- */
-
 import MaterialTable from "material-table";
-import { MTableToolbar } from "material-table";
 
 const data = [
   {
@@ -34,26 +27,31 @@ const data = [
 
 const columns = [
   { title: "Id", field: "id", hidden: true },
-  { title: "Ticket name", field: "ticket_name" },
+  {
+    title: "Ticket name",
+    field: "ticket_name",
+  },
   { title: "Description", field: "description" },
   { title: "Priority", field: "priority" },
   { title: "Complexity", field: "complexity", type: "numeric" },
 ];
 
-export const TicketsPageTicketsTable = () => {
+export const ProjectsPageTicketsTable = () => {
   return (
     <MaterialTable
       title="Tickets"
       columns={columns}
       data={data}
-      components={{
-        Toolbar: (props) => (
-          <div style={{ backgroundColor: "#e8eaf5" }}>
-            <MTableToolbar {...props} />
-            <button>Create Ticket</button>
-          </div>
-        ),
-      }}
+      actions={[
+        {
+          icon: () => (
+            <button className="tableCreateButton">Open A New Ticket</button>
+          ),
+          tooltip: "Create a new ticket",
+          isFreeAction: true,
+          position: "toolbar",
+        },
+      ]}
       onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
     />
   );

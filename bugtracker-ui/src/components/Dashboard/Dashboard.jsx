@@ -1,44 +1,52 @@
 import * as React from "react";
 import "./Dashboard.css";
 import { useOpenContext } from "../../contexts/open";
+import { useProjectContext } from "../../contexts/project";
 import { useEffect, useState } from "react";
 import renderCharts from "../../services/charts.js";
 import { DashboardProjectsTable } from "../Tables/dashboardProjectsTable";
-//import MaterialTable from 'material-table';
 import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
 import DashboardProjectsModal from "./DashboardProjectsModal/DashboardProjectsModal";
 import DashboardTeamsModal from "./DashboardTeamsModal/DashboardTeamsModal";
-import { useProjectContext } from "../../contexts/project";
 import apiClient from "../../services/apiClient";
 import { useTeamContext } from "../../contexts/team";
+import ProjectModal from "../Modals/ProjectModal/ProjectModal";
+import TeamModal from "../Modals/TeamModal/TeamModal";
 
 export default function Dashboard() {
+
   const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
-  const { projects, setProjects } = useProjectContext()
-  const {teams, setTeams } = useTeamContext()
+  const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
+  const {teams, setTeams, fetchTeams, teamModal, setTeamModal } = useTeamContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
 
+  //fetchProjects()
+
   useEffect(() => {
      renderCharts()
+     fetchProjects()
+     fetchTeams()
      //setProjects(apiClient.listAllProjects())
      //setTeams(apiClient.listAllTeams())
      /*console.log("Projects below")
      console.log(projects)
      console.log("Teams below")
      console.log(teams) */
-
   }, [])
 
   return (
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
 
-      {dashboardProjectsModal && <DashboardProjectsModal setDashboardProjectsModal={setDashboardProjectsModal} />}
-      {dashboardTeamsModal && <DashboardTeamsModal setDashboardTeamsModal={setDashboardTeamsModal} />}
-      <div className={dashboardProjectsModal || dashboardTeamsModal ? "blur" : "clear"}>
+      {projectModal && <ProjectModal setDashboardProjectsModal={setDashboardProjectsModal} />}
+      {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} />}
+      <div className={projectModal|| teamModal ? "blur" : "clear"}>
 
         {/*Renders a table for projects on the dashboard */}
-        <DashboardProjectsTable dashboardProjectsModal={dashboardProjectsModal} setDashboardProjectsModal={setDashboardProjectsModal}/> 
+        <DashboardProjectsTable
+          dashboardProjectsModal={dashboardProjectsModal}
+          setDashboardProjectsModal={setDashboardProjectsModal}
+        />
 
         <div className="ticket-statistics">
           <h>TICKET STATISTICS</h>
@@ -82,7 +90,10 @@ export default function Dashboard() {
         </div>
 
         {/*Renders a table for teams on the dashboard */}
-        <DashboardTeamsTable dashboardTeamsModal={dashboardTeamsModal} setDashboardTeamsModal={setDashboardTeamsModal}/> 
+        <DashboardTeamsTable
+          dashboardTeamsModal={dashboardTeamsModal}
+          setDashboardTeamsModal={setDashboardTeamsModal}
+        />
       </div>
     </div>
   );

@@ -69,6 +69,14 @@ class ApiClient {
   async addMemberToTeam({ teamId, memberToAdd}){
     return await this.request({ endpoint: `team/${teamId}/add`, method: 'PATCH',  data: {email: memberToAdd} })
   }
+  //function to get an array of users who are apart of a specific team
+  async fetchMemberList(teamId){
+    return await this.request({endpoint: `team/${teamId}/members`, method: 'GET' })
+  }
+  //function to get an array of projects for a specific team
+  async fetchProjectList(teamId){
+    return await this.request({endpoint: `team/${teamId}/projects`, method: 'GET' })
+  }
 
   // project requests 
   async listAllProjects(credentials){
@@ -85,6 +93,11 @@ class ApiClient {
   }
   async updateProject({ projectId, projectInfo}){
     return await this.request({ endpoint: `project/${projectId}/update`, method: 'PATCH',  data: projectInfo })
+  }
+
+  // statistics
+  async getAllStatistics() {
+    return await this.request({ endpoint: `report/statistics`, method: 'GET'})
   }
 
 }

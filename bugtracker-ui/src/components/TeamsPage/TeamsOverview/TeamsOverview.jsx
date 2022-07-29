@@ -27,7 +27,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
     <div className="teams-overview">
       {/* teams overview header  */}
       <div className="header">
-        <h1>Teams Overview</h1>
+        <h1>Your Teams</h1>
       </div>
 
       {/* search for teams  */}
@@ -68,7 +68,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
             ))}{" "}
           </>
         ) : (
-          <div className="no-teams-available-label">No teams available</div>
+          <div className="nothing-available-label">No teams available</div>
         )}
       </div>
     </div>

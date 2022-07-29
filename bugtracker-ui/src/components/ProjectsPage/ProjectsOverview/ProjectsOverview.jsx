@@ -17,9 +17,11 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
     setSearchTerm("");
   };
 
-  projectsToShow = projects?.filter((p) =>
-    p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
-  );
+  if (projects) {
+    projectsToShow = projects?.filter((p) =>
+      p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
+    );
+  }
 
   return (
     <div className="projects-overview">
@@ -64,7 +66,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
             ))}
           </>
         ) : (
-          <div className="no-projects-available-label">No teams available </div>
+          <div className="nothing-available-label">No projects available </div>
         )}
       </div>
     </div>

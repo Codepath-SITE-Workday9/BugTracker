@@ -18,6 +18,7 @@ body {
   :root {
     --dark-blue: #3f4d67;
     --off-white: #f4f7fa;
+    --lighter-blue: hsl(221, 25%, 46%);
   }
   
   i,

@@ -1,5 +1,6 @@
 const db = require("../db")
 const {BadRequestError, NotFoundError} = require("../utils/errors")
+const User = require("./user")
 
 class Teams
 {
@@ -212,6 +213,55 @@ class Teams
         
         //If a member is found, return the team information
         return results.rows[0]
+    }
+
+
+
+
+
+    //FUNCTION TO RETURN AN ARRAY OF USERS FROM A TEAM
+    static async fetchMembersForATeam(teamId, user)
+    {
+        //If no team id is provided, then throw a bad request error
+        if(!teamId)
+        {
+            throw new BadRequestError("No team id provided!")
+        }
+
+        // Fetch the team information 
+        const team = await Teams.fetchTeamById(teamId, user)
+
+        //Runs a query to find all users from the team 
+        //If successful, returns all the users as an array
+        const results = await db.query(
+            `
+                SELECT * FROM users WHERE id = any($1) 
+            `,[team.members])
+        
+        //Return all the users that are apart of a team 
+        return results.rows
+    }
+
+    //FUNCTION TO RETURN AN ARRAY OF PROJECTS THAT A TEAM HAS
+    static async fetchProjectsForATeam({teamId})
+    {
+        //If no team id is provided, then throw a bad request error
+        if(!teamId)
+        {
+            throw new BadRequestError("No team id provided!")
+        }
+
+        // // Fetch the team information 
+
+        //Runs a query to find all projects that a team is apart of
+        //If successful, returns all the projects as an array
+        const results = await db.query(
+            `
+                SELECT * FROM projects WHERE $1 = any(projects.teams) 
+            `,[teamId])
+        
+        //Return all the projects that a team is working on
+        return results.rows
     }
 }
 

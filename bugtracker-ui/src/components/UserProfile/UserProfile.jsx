@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/auth";
-import { DashboardProjectsTable } from "../Tables/DashboardProjectsTable";
-import { DashboardTeamsTable } from "../Tables/DashboardTeamsTable";
-import renderCharts from "../../services/charts.js";
+import renderUserCharts from "../../services/userCharts.js";
 import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
-
+   useEffect(() => {
+     renderUserCharts()
+   }, [])
+  
   return (
-      <div className="user-profile-page"> 
+      <div className="user-profile-page">
           <ProfileCard />
           <UserTables />
       </div>
@@ -24,18 +25,18 @@ export function ProfileCard()
     <div className="profile-page">
           {/* Creates a photo banner with background image and user profile photo
               Conditionally render the image; If no image provided, add a default image for the user */}
-          <div class="photo-banner">
+          <div className="photo-banner">
             {user?.imageUrl === null ? (<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwhgREKJpawVaEkD5aRXudpG-Q3gec7qWcSA&usqp=CAU" className="profile-image" ></img>) 
                        : (<img src={user.imageUrl} className="profile-image" ></img>)}
           </div>
 
           {/* All the User Information including their name and email and edit profile button to change user profile information*/}
           <div className="profile-info">
-              <h1 class="profile-name">{user.fullName}</h1>
-              <p class="email">Email: {user.email}</p>
-              <p class="role">Role: Developer</p>
-              <p class="email">Organization: A Place</p>
-              <button class="edit-btn">Edit Profile</button>
+              <h1 className="profile-name">{user.fullName}</h1>
+              <p className="email">Email: {user.email}</p>
+              <p className="role">Role: Developer</p>
+              <p className="email">Organization: A Place</p>
+              <button className="edit-btn">Edit Profile</button>
           </div>
     </div>
 
@@ -44,6 +45,7 @@ export function ProfileCard()
 
 export function UserTables()
 {
+
     return(
         <div className="user-tables">
           {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
@@ -69,9 +71,14 @@ export function UserTables()
                 </div>
             </div>
             <div className="chart-container">
-              <canvas // Renders a donut chart for category statistics
+              <canvas // Renders a donut chart for priority statistics
                 className="donut-chart"
-                id="category-chart"
+                id="user-statistics-chart"
+                //maintainAspectRatio={false}
+                //width="20%"
+                //height="auto"
+                //width="800"
+                //height="450"
               ></canvas>
             </div>
         </div>

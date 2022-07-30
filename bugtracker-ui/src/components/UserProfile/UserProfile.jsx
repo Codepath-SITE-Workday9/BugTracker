@@ -72,7 +72,7 @@ export function UserTables()
             </div>
             <div className="chart-container">
               <canvas // Renders a donut chart for priority statistics
-                className="donut-chart"
+                className="bar-chart"
                 id="user-statistics-chart"
                 //maintainAspectRatio={false}
                 //width="20%"

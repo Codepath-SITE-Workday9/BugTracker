@@ -9,7 +9,7 @@
     background-color: hsl(221, 25%, 46%);
     color: #a9b7d0;
     /* width: calc(100% - 264px); */
-    width: 100%;
+    width: 100vw;
     /* margin-left: 264px; */
     -webkit-transition: all 0.3s ease-in-out;
     box-shadow: 1px 0 20px 0 #3f4d67;

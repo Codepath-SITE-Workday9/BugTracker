@@ -130,3 +130,9 @@ body
     color: #8898aa;
     text-transform: uppercase
 }
+
+/* -----------------------------USER STATISTICS BAR CHART GENERAL FORMATTING --------------------------------------*/
+.chart-container
+{
+    margin-top: 20px
+}

@@ -3,8 +3,8 @@ import "./LandingPage.css";
 import { Link } from "react-router-dom";
 export default function LandingPage() {
   return (
-    <div>
-      <div className="landing-page">
+    <div className="landing-page">
+      <div className="hero-page">
         <Hero />
       </div>
       <ContentNavigation />

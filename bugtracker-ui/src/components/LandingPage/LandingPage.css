@@ -1,5 +1,11 @@
 /* ----------------------------GENERAL LANDING PAGE FORMATTING ---------------------------*/
-.landing-page{
+.landing-page
+{
+    background-color: var(--off-white);
+}
+
+/* ----------------------------GENERAL HERO PAGE FORMATTING ---------------------------*/
+.hero-page{
     display:flex;
     justify-content: center;
     margin-top: 70px;

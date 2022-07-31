@@ -7,7 +7,7 @@ export default function LandingPage() {
       <div className="landing-page">
         <Hero />
       </div>
-      {/* <ContentNavigation /> */}
+      <ContentNavigation />
     </div>
   );
 }
@@ -38,6 +38,18 @@ export function Hero() {
 export function ContentNavigation()
 {
     return (
-      <h1>Here goes the content navigation</h1>
+      <div className="content-nav">
+          <h1>Everything You Need For Seemless Workflow</h1>
+          <button>TEAMS</button>
+          <button>PROJECTS</button>
+          <button>TICKETS</button>
+          <button>STATISTICS</button>
+          <h2>SECTION NAME</h2>
+          <p>Section description blah blah blah</p>
+          <img src=""></img>
+          <br></br>
+          <br></br>
+          <br></br>
+      </div>
     )
 }

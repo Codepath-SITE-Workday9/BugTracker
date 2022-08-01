@@ -10,7 +10,6 @@ class Projects
     {
         //First, runs a query to find the id of the user given the user's email from the local server
         const userId = await Teams.fetchUserId(user.email)
-        console.log(user.email)
         //Runs a query to find all the projects a user is a creator or member of:
         //First, the query combines the information from both the projects and teams table
         //Then finds the project's teams where a user is a member and then checks whether the user is a creator of the project

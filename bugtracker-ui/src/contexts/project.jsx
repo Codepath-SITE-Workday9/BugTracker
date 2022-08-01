@@ -16,7 +16,6 @@ export const ProjectContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllProjects();
     if (data) {
       setProjects(data.projectList);
-      console.log("Project list?: ", data.projectList);
     }
     if (error) {
       setError(error);

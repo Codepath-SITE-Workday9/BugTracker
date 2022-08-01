@@ -4,7 +4,6 @@ import { ProjectsPageTicketsTable } from "../../Tables/ProjectsPageTicketsTable"
 
 export default function ProjectView({ projectsAvailable }) {
   const { setProjectModal, currentProject } = useProjectContext();
-  console.log("Current project:", currentProject);
   return (
     <div className="project-view">
       <div className="project-header">

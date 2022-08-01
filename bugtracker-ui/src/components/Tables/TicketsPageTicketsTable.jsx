@@ -6,6 +6,7 @@
 
 import MaterialTable from "material-table";
 import { MTableToolbar } from "material-table";
+import { useTicketContext } from "../../contexts/ticket";
 
 const data = [
   {
@@ -41,19 +42,23 @@ const columns = [
 ];
 
 export const TicketsPageTicketsTable = () => {
+  const { setTicketModal } = useTicketContext();
   return (
     <MaterialTable
       title="Tickets"
       columns={columns}
       data={data}
-      components={{
-        Toolbar: (props) => (
-          <div style={{ backgroundColor: "#e8eaf5" }}>
-            <MTableToolbar {...props} />
-            <button>Create Ticket</button>
-          </div>
-        ),
-      }}
+      actions={[
+        {
+          icon: () => (
+            <button className="tableCreateButton">Create New Ticket</button>
+          ),
+          tooltip: "Create a new ticket",
+          onClick: () => setTicketModal(true),
+          isFreeAction: true,
+          position: "toolbar",
+        },
+      ]}
       onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
     />
   );

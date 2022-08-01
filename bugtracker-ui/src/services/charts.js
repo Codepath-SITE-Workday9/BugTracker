@@ -5,11 +5,6 @@
 
 
 export default function renderCharts() { 
-  console.log("entered")
-
-    //let myChart = document.getElementById("myChart")
-
-    
 
     let myChart = new Chart(document.getElementById("priority-chart"), {
     type: 'doughnut',

@@ -77,5 +77,31 @@ router.get("/statistics/:projectId", security.requireAuthenticatedUser, async(re
 
 
 
+
+
+
+
+router.get("/statistics/1/progress", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the fetchTicketStatistics function and send in the user information to get ticket statistics for all projects
+        //IF successful, will return an object containing all the tickets filtered by category, priority, and status
+        //If the user is not part of any project, will return an empty array for each category
+        const statistics = await Statistics.fetchProgressOvertime({user: user})
+
+        //If successful, returns an array object containing ticket statistics for category, priority, and status for all projects
+        return res.status(200).json({statistics: statistics})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
 //MODULE EXPORTS
 module.exports = router

@@ -154,6 +154,66 @@ class Statistics
 
 
 
+    //FUNCTION TO FIND THE AMOUNT OF TICKETS OPENED AND CLOSED OVER TIME
+    static async fetchProgressOvertime({user})
+    {
+        if(!user)
+        {
+            throw new BadRequestError("No user information was provided!")
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+
+        const projectList = await db.query(
+            `
+                SELECT pro.id
+                FROM projects as pro
+                WHERE $1 = any(SELECT UNNEST(members) FROM teams) OR (pro.creator_id = $1)
+            `, [userId])
+        const projectIds = projectList.rows.map(project => project.id)
+
+        let query = await Statistics.constructProgressQuery(`created_by`)
+        const openedByUser = await db.query(query, [projectIds, userId])
+
+        query = await Statistics.constructProgressQuery(`closed_by`)
+        const closedByUser = await db.query(query, [projectIds, userId])
+
+        return {openedByUser: openedByUser.rows, closedByUser: closedByUser.rows}
+    }
+
+
+
+
+
+
+
+
+    static async constructProgressQuery(qualifier)
+    {
+        if(!qualifier)
+        {
+            throw new BadRequestError("Missing a qualifier to determine if user wants open and closed tickets over time!")
+        }
+        console.log(qualifier)
+
+        const query = 
+            `SELECT SUBSTRING (cast(tickets.created_at AS TEXT), 1, 7) as date, COUNT(*) as totalTickets ` +
+            `FROM tickets ` +
+            `WHERE project_id = any($1) AND ` + qualifier + ` = $2 ` +
+            `GROUP BY date`
+
+        return query
+    }
+
+
+
+
+
+
+
+
+
+
 
     static async fetchTeamVelocity()
     {

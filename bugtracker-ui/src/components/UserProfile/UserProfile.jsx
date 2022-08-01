@@ -11,7 +11,6 @@ export default function UserProfile() {
   {
       const statistics = await apiClient.getAllStatistics()
       setUserStats(statistics.data.statistics.perStatus)
-      console.log(userStats)
   }
 
    useEffect(() => {

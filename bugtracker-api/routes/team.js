@@ -115,6 +115,11 @@ router.get("/user/:email", security.requireAuthenticatedUser, async (req, res, n
 })
 
 
+
+
+
+
+
 //FUNCTION TO RETURN AN ARRAY OF USER OBJECTS FOR A SPECIFIC TEAM 
 router.get("/:teamId/members", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
@@ -135,6 +140,11 @@ router.get("/:teamId/members", security.requireAuthenticatedUser, async (req, re
     }
 })
 
+
+
+
+
+
 //FUNCTION TO RETURN AN ARRAY OF PROJECT OBJECTS FOR A SPECIFIC TEAM 
 router.get("/:teamId/projects", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
@@ -154,6 +164,28 @@ router.get("/:teamId/projects", security.requireAuthenticatedUser, async (req, r
         next(error)
     }
 })
+
+
+
+
+
+
+router.get("/teams/users", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        //Retrieve the user information from the local server
+        const { user } = res.locals
+
+        //Run the fetchMembersForATeam function 
+        const members = await Teams.fetchMembersFromMultipleTeams({teamIds: req.body, user: user });
+
+        // Return the user array if successful
+        return res.status(200).json({members: members})
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 
 
 

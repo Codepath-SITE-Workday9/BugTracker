@@ -253,6 +253,11 @@ class Teams
         return results.rows
     }
 
+
+
+
+
+
     //FUNCTION TO RETURN AN ARRAY OF PROJECTS THAT A TEAM HAS
     static async fetchProjectsForATeam({teamId})
     {
@@ -272,6 +277,45 @@ class Teams
             `,[teamId])
         
         //Return all the projects that a team is working on
+        return results.rows
+    }
+
+
+
+
+
+
+    static async fetchMembersFromMultipleTeams({teamIds, user})
+    {
+        if(!teamIds.teams)
+        {
+            throw new BadRequestError("Missing an array of team ids!")
+        }
+
+        const userId = await Teams.fetchUserId(user.email)
+
+        const results = await db.query(
+            `
+                SELECT teams.id as team_id, teams.name, users.full_name, users.id as user_id
+                FROM teams
+                    JOIN users ON users.id = any(teams.members)
+                WHERE users.id = any(SELECT UNNEST(teams.members) FROM teams WHERE teams.id = any($1))
+                GROUP BY teams.id, users.full_name, users.id
+            `, [teamIds.teams])
+
+        // const results2 = await db.query(
+        //     `
+        //         SELECT teams.id, teams.name, SELECT ARRAY(
+        //             SELECT full_name 
+        //             FROM users 
+        //             WHERE id = any(SELECT UNNEST(members) FROM teams WHERE id = any($1))
+        //         ) as names
+        //         FROM teams
+        //         WHERE id =
+        //     `, [teamIds.teams])
+
+                
+        
         return results.rows
     }
 }

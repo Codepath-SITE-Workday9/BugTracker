@@ -47,7 +47,25 @@
 }
 
 /* ------------------------------- CONTENT NAVIGATION STYLING SECTION -------------------------------------------*/
-/* .content-nav
+.content-nav-title
 {
-    background-color: red;
-} */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.content-buttons
+{
+    text-align: center;
+}
+
+.content-nav-buttons
+{
+    margin-right: 10px;
+    background-color: rgb(119, 143, 211);
+    padding: 15px 30px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    color: white;
+}

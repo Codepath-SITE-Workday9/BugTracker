@@ -39,11 +39,14 @@ export function ContentNavigation()
 {
     return (
       <div className="content-nav">
-          <h1>Everything You Need For Seemless Workflow</h1>
-          <button>TEAMS</button>
-          <button>PROJECTS</button>
-          <button>TICKETS</button>
-          <button>STATISTICS</button>
+          <h1 className="content-nav-title">Everything You Need For Seemless Workflow</h1>
+          <div className="content-buttons">
+              <button className="content-nav-buttons">Teams</button>
+              <button className="content-nav-buttons">Projects</button>
+              <button className="content-nav-buttons">Tickets</button>
+              <button className="content-nav-buttons">Statistics</button>
+          </div>
+
           <h2>SECTION NAME</h2>
           <p>Section description blah blah blah</p>
           <img src=""></img>

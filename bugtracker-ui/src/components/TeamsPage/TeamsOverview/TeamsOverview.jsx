@@ -19,9 +19,11 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
   };
 
   // update teamsToShow array depending on searchTerm
-  teamsToShow = teams.filter((t) =>
-    t.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  if (teams) {
+    teamsToShow = teams.filter((t) =>
+      t.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   return (
     <div className="teams-overview">
@@ -59,7 +61,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
         {/* conditionally display team cards if teamsToShow is not empty, otherwise "No teams available" */}
         {teamsToShow.length > 0 ? (
           <>
-            {teamsToShow.map((team) => (
+            {teamsToShow?.map((team) => (
               <TeamCard
                 team={team}
                 handleOnClick={handleOnTeamClick}

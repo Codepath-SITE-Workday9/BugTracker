@@ -29,15 +29,13 @@ export function SideBarIcons() {
           </div>
         </Link>
       </div>
-      <div className="top-sidebar">
+      <div className="middle-sidebar">
         <Link to="/dashboard">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">desktop_windows</span>
             <span className="icon-text"> Dashboard </span>
           </div>
         </Link>
-      </div>
-      <div className="middle-sidebar">
         <Link to="/tickets">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">

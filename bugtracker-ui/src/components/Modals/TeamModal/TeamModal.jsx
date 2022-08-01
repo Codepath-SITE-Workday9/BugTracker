@@ -8,7 +8,7 @@ import { useAuthContext } from "../../../contexts/auth";
 import { useTeamForm } from "../../../hooks/useTeamForm";
 
 export default function TeamModal() {
-  const { fetchTeams, setTeamModal } = useTeamContext();
+  const { setTeamModal } = useTeamContext();
   const { projects } = useProjectContext();
 
   const {
@@ -19,7 +19,6 @@ export default function TeamModal() {
     projectsToAdd,
     setProjectsToAdd,
     errors,
-    setErrors,
     handleOnCreateNewTeamSubmit,
   } = useTeamForm();
 
@@ -216,6 +215,11 @@ export function AddProjects({ projects, setProjectsToAdd }) {
   const [projectsToShow, setProjectsToShow] = useState(projects);
   const [errors, setErrors] = useState("");
 
+  // focused will be true if the projects search input field is clicked on, and false when a user clicks off of the input field
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   // handler function to update projectSearch and to update projectsToShow whenever the input field value changes
   const handleOnChange = (event) => {
     setProjectSearch(event.target.value);
@@ -234,6 +238,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
   const handleOnProjectClick = (proj) => {
     setProjectsToAdd((p) => [...p, proj.id]);
     setProjectSearch("");
+    setFocused(false);
   };
 
   return (
@@ -252,13 +257,15 @@ export function AddProjects({ projects, setProjectsToAdd }) {
               value={projectSearch}
               onChange={handleOnChange}
               autoComplete="off"
+              onFocus={onFocus}
+              // onBlur={onBlur}  NOTE: using onBlur prevents the drop down from having click ability.
             />
             <button className="search-btn">
               <i className="material-icons">search</i>
             </button>
           </div>
-          {/* conditionally display dropdown if projectSearch is not empty */}
-          {projectSearch && (
+          {/* conditionally display dropdown if the input field has been clicked on/user has searched for  project*/}
+          {projectSearch || focused ? (
             <>
               <div className="drop-down-search-box">
                 <AddProjectsDropdown
@@ -267,6 +274,8 @@ export function AddProjects({ projects, setProjectsToAdd }) {
                 />
               </div>
             </>
+          ) : (
+            ""
           )}
         </div>
       </div>

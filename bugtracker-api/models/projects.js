@@ -14,21 +14,20 @@ class Projects
         //First, the query combines the information from both the projects and teams table
         //Then finds the project's teams where a user is a member and then checks whether the user is a creator of the project
         //If successful, return all the project information
-        const results = await db.query(
-            `
-                SELECT pro.id,
-                       pro.name,
-                       pro.description,
-                       pro.image_url,
-                       pro.tickets,
-                       pro.teams,
-                       pro.created_at,
-                       pro.creator_id
-                FROM projects as pro
-                    LEFT JOIN teams on teams.id = pro.id
-                WHERE $1 = any(teams.members) OR (pro.creator_id = $1)
-                ORDER BY pro.id ASC
-            `, [userId])
+            const results = await db.query(
+                `
+                    SELECT pro.id,
+                           pro.name,
+                           pro.description,
+                           pro.image_url,
+                           pro.tickets,
+                           pro.teams,
+                           pro.created_at,
+                           pro.creator_id
+                    FROM projects as pro
+                    WHERE $1 = any(SELECT UNNEST(members) FROM teams) OR (pro.creator_id = $1)
+                    ORDER BY pro.id ASC
+                `, [userId])
         
         //Return all the projects a user is a part of
         return results.rows

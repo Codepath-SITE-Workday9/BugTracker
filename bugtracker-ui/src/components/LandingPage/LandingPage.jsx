@@ -3,11 +3,11 @@ import "./LandingPage.css";
 import { Link } from "react-router-dom";
 export default function LandingPage() {
   return (
-    <div>
-      <div className="landing-page">
+    <div className="landing-page">
+      <div className="hero-page">
         <Hero />
       </div>
-      {/* <ContentNavigation /> */}
+      <ContentNavigation />
     </div>
   );
 }
@@ -35,6 +35,25 @@ export function Hero() {
   );
 }
 
-export function ContentNavigation() {
-  return <h1> Here goes the content navigation </h1>;
+
+export function ContentNavigation()
+{
+    return (
+      <div className="content-nav">
+          <h1 className="content-nav-title">Everything You Need For Seemless Workflow</h1>
+          <div className="content-buttons">
+              <button className="content-nav-buttons">Teams</button>
+              <button className="content-nav-buttons">Projects</button>
+              <button className="content-nav-buttons">Tickets</button>
+              <button className="content-nav-buttons">Statistics</button>
+          </div>
+
+          <h2>SECTION NAME</h2>
+          <p>Section description blah blah blah</p>
+          <img src=""></img>
+          <br></br>
+          <br></br>
+          <br></br>
+      </div>
+    )
 }

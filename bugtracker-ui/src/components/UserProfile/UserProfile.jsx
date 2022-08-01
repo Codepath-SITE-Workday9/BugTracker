@@ -1,17 +1,28 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/auth";
+import apiClient from "../../services/apiClient";
 import renderUserCharts from "../../services/userCharts.js";
 import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
+  const [userStats, setUserStats] = useState([])
+
+  async function getUserStatistics()
+  {
+      const statistics = await apiClient.getAllStatistics()
+      setUserStats(statistics.data.statistics.perStatus)
+      console.log(userStats)
+  }
+
    useEffect(() => {
      renderUserCharts()
+     getUserStatistics()
    }, [])
   
   return (
       <div className="user-profile-page">
           <ProfileCard />
-          <UserTables />
+          <UserTables userStats={userStats} />
       </div>
   )
 }
@@ -43,42 +54,30 @@ export function ProfileCard()
   )
 }
 
-export function UserTables()
+export function UserTables(props)
 {
+  console.log(props.userStats)
 
     return(
         <div className="user-tables">
           {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
             <h1> Your Ticket Statistics </h1>
             <div className="ticket-statistics">
-                <div className="ticket-cards">
-                  <div className="stats-text">
-                    <h2>Tickets Open</h2>
-                    <p> 0 </p>
-                  </div>
-                </div>
-                <div className="ticket-cards">
-                  <div className="stats-text">
-                    <h2>Tickets In Progress</h2>
-                    <p> 0 </p>
-                  </div>
-                </div>
-                <div className="ticket-cards">
-                  <div className="stats-text">
-                    <h2>Tickets Closed</h2>
-                    <p> 0 </p>
-                  </div>
-                </div>
+                {props.userStats?.map((stat) => {
+                    return(
+                    <div className="ticket-cards">
+                      <div className="stats-text">
+                        <h2>Tickets {stat.status}</h2>
+                        <p> {stat.totaltickets} </p>
+                      </div>
+                    </div>)
+                })}
             </div>
+
             <div className="chart-container">
-              <canvas // Renders a donut chart for priority statistics
+              <canvas // Renders a bar chart for user statistics
                 className="bar-chart"
                 id="user-statistics-chart"
-                //maintainAspectRatio={false}
-                //width="20%"
-                //height="auto"
-                //width="800"
-                //height="450"
               ></canvas>
             </div>
         </div>

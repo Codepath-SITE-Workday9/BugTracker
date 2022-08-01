@@ -66,7 +66,18 @@ class Teams
                 VALUES($1, (SELECT ARRAY(SELECT id FROM users WHERE email = any($2))), $3, $4)
                 RETURNING id, name, members, creator_id, projects
             `, [teamInfo.name, teamInfo.members, teamInfo.projects, userId])
-        
+
+
+        //Run a query to update the projects by appending the new team id to the existing array of teams 
+        const updateResults = await db.query(
+            `
+                UPDATE projects
+                SET teams = ARRAY_APPEND(teams, $1)
+                WHERE id = any($2)
+                RETURNING *
+            `, [results.rows[0].id, teamInfo.projects])
+
+
         //Return the new team information
         return results.rows[0]
     }

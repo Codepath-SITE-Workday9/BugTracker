@@ -32,7 +32,7 @@ export default function ProjectsPage() {
           handleOnProjectClick={handleOnProjectClick}
         />
         <ProjectView
-          currentProject={currentProject}
+          // currentProject={currentProject}
           projectsAvailable={projects.length > 0}
         />
       </div>

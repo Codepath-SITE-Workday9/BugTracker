@@ -1,15 +1,14 @@
 import "./TeamView.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiClient from "../../../services/apiClient";
 import { useTeamContext } from "../../../contexts/team";
 import { TeamsPageDevelopersTable } from "../../Tables/TeamsPageDevelopersTable";
 import { TeamsPageProjectsTable } from "../../Tables/TeamsPageProjectsTable";
-import { useProjectContext } from "../../../contexts/project";
 
 //Overview of a specific team
 export default function TeamView({ currentTeam, teamsAvailable }) {
-  const { setTeamModal, getMemberArray } = useTeamContext();
-  const { projects } = useProjectContext();
+  const { setTeamModal } = useTeamContext();
+
   return (
     <div className="team-view">
       {/* header for a specific team and a button to create new team */}
@@ -45,10 +44,7 @@ export default function TeamView({ currentTeam, teamsAvailable }) {
         <>
           <div className="nothing-created-yet">
             <h1>You have not created any teams yet!</h1>
-            <h2>
-              {" "}
-              Start by clicking the Create New Team button to get started.
-            </h2>{" "}
+            <h2>To get started, click the Create New Team button.</h2>
           </div>
         </>
       )}

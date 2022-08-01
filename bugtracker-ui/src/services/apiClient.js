@@ -25,7 +25,6 @@ class ApiClient {
       const res = await axios({ url, method, data, headers })
       return { data: res.data, error: null }
     } catch (error) {
-      console.error("APIclient.makeRequest.error:")
       console.error({ errorResponse: error.response })
       const message = error?.response?.data?.error?.message
       return { data: null, error: message || String(error) }
@@ -61,7 +60,7 @@ class ApiClient {
     return await this.request({ endpoint:`team/${teamId}`, method: 'GET'})
   }
 
-  // to create a new team credentials must have:
+  // to create a new team, credentials must have:
     //  name, members (array of userIds), projects (array of projectIds)
   async createNewTeam(credentials){
     return await this.request({ endpoint: 'team', method: 'POST', data: credentials })

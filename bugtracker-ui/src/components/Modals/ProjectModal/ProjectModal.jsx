@@ -7,7 +7,7 @@ import { useProjectContext } from "../../../contexts/project";
 import { useProjectForm } from "../../../hooks/useProjectForm";
 
 export default function ProjectModal() {
-  const { fetchProjects, setProjectModal } = useProjectContext();
+  const { setProjectModal } = useProjectContext();
   const { teams } = useTeamContext();
 
   const {
@@ -17,8 +17,6 @@ export default function ProjectModal() {
     setTeamsToAdd,
     projectDescription,
     setProjectDescription,
-    errors,
-    setErrors,
     handleOnCreateNewProjectSubmit,
   } = useProjectForm();
 
@@ -149,6 +147,11 @@ export function AddTeams({ teams, setTeamsToAdd }) {
   // teamsToShow = array of teams depending on teamSearch term, will start of with all teams
   const [teamsToShow, setTeamsToShow] = useState(teams);
 
+  // focused will be true if the projects search input field is clicked on, and false when a user clicks off of the input field
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   // handler function to update teamSearch and to update teamsToShow whenever the input field value changes
   const handleOnTeamChange = (event) => {
     setTeamSearch(event.target.value);
@@ -184,12 +187,15 @@ export function AddTeams({ teams, setTeamsToAdd }) {
               value={teamSearch}
               onChange={handleOnTeamChange}
               autoComplete="off"
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
             <button className="search-btn">
               <i className="material-icons">search</i>
             </button>
           </div>
-          {teamSearch && (
+          {/* conditionally render the dropdown list if a user has clicked on the input field */}
+          {focused && (
             <>
               <div className="drop-down-search-box">
                 <AddTeamsDropdown

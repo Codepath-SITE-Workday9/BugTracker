@@ -60,7 +60,7 @@ class ApiClient {
     return await this.request({ endpoint:`team/${teamId}`, method: 'GET'})
   }
 
-  // to create a new team credentials must have:
+  // to create a new team, credentials must have:
     //  name, members (array of userIds), projects (array of projectIds)
   async createNewTeam(credentials){
     return await this.request({ endpoint: 'team', method: 'POST', data: credentials })

@@ -181,35 +181,11 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
 
     
   
-
-  return <MaterialTable 
-    title="Your Teams" 
-    columns={columns} 
-    data={teamsTableData} 
-    actions={[
-      {
-        icon:()=><button className="tableCreateButton">Create New Team</button>,
-        tooltip:"Create a new team",
-        onClick: ()=> setTeamModal(true),
-        isFreeAction:true,
-        position: "toolbar"
-      }
-    });
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    memberArray();
-  }, [teams]);
-
-  return isLoading ? (
-    <></>
-  ) : (
+  return (
     <MaterialTable
       title="Your Teams"
       columns={columns}
-      data={teams}
+      data={teamsTableData}
       actions={[
         {
           icon: () => (

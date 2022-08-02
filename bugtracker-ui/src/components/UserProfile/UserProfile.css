@@ -91,7 +91,7 @@ body
 }
 
 /* -----------------------------USER TICKET STATISTICS GENERAL FORMATTING --------------------------------------*/
-.ticket-statistics
+.users-tables.ticket-statistics
 {
     display: grid;
     justify-content: space-evenly;

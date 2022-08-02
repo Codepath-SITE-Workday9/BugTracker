@@ -48,6 +48,32 @@ export default function renderUserCharts() {
                }
            }}
          })
+
+        let chart5 = new Chart(document.getElementById("user-statistics-line-chart"), {
+            type: 'line',
+            data: {
+              labels: ["January", "February", "March", "April", "May", "June", "July", "August","September", "October", "November", "December"],
+              datasets: 
+              [
+                {
+                  label: 'Tickets Opened',
+                  data: [65, 59, 80, 81, 56, 55, 40],
+                  fill: 'start',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0
+                },
+                {
+                  label: 'Tickets Closed',
+                  data: [70, 20, 45, 81, 57, 90, 40],
+                  fill: 'start',
+                  backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                  borderColor: 'rgb(153, 102, 255)',
+                  tension: 0
+                }
+              ]
+            }
+        })
   };
   
   

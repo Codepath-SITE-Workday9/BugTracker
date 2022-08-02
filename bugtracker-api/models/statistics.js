@@ -180,15 +180,53 @@ class Statistics
 
         //MAIN QUERIES
         //Run a query to get the amount of tickets that were opened by the user given all the projectIds
+        //Run a separate function to store the just the totaltickets for each month in an array
         let query = await Statistics.constructProgressQuery(`created_by`)
         const openedByUser = await db.query(query, [projectIds, userId])
+        let monthlyStatsOpened = await Statistics.createMonthlyStatsArray(openedByUser.rows)
+
 
         //Run a query to get the amount of tickets that were closed by the user given all the projectIds
+        //Run a separate function to store the just the totaltickets for each month in an array
         query = await Statistics.constructProgressQuery(`closed_by`)
         const closedByUser = await db.query(query, [projectIds, userId])
+        let monthlyStatsClosed = await Statistics.createMonthlyStatsArray(closedByUser.rows)
 
-        //Return an object containing the amount of tickets opened and closed by the user
-        return {openedByUser: openedByUser.rows, closedByUser: closedByUser.rows}
+
+
+        //Return an object containing the amount of tickets opened and closed by the user both as objects and arrays of monthly data
+        return {openedByUser: openedByUser.rows, closedByUser: closedByUser.rows, monthlyStatsOpened: monthlyStatsOpened, monthlyStatsClosed: monthlyStatsClosed}
+    }
+
+
+
+
+
+
+
+    //FUNCTION  TO CREATE AN ARRAY OF TOTALTICKETS PER MONTH
+    static createMonthlyStatsArray(monthsArray)
+    {
+        //ERROR-CHECKING: Check that an object with the months and totaltickets per month as provided
+        //If not, throw a bad request error detailing that the array of objects is missing
+        if(!monthsArray)
+        {
+            throw new BadRequestError(`No information of totaltickets per month was provided!`)
+        }
+
+        //Create a new array to represent all the months in a year
+        let monthlyStats = new Array(12).fill(0)
+
+        //Iterate through the array of objects containing the month and totaltickets for that month
+        //Extract the month from the given substring in date and make sure that it is stored as a number
+        //Find the index in the array corresponding to that month and update the value to the totaltickets
+        monthsArray?.map((month) => {
+            let numOfMonth = parseInt(month.date.substring(5,7))
+            monthlyStats[numOfMonth - 1] = parseInt(month.totaltickets)
+        })
+
+        //Return an array containing all the tickets per month
+        return monthlyStats
     }
 
 

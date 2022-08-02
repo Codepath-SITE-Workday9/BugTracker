@@ -99,6 +99,10 @@ class ApiClient {
     return await this.request({ endpoint: `report/statistics`, method: 'GET'})
   }
 
+  async getProgressStatsOverTime() {
+    return await this.request({ endpoint: `report/statistics/1/progress`, method: 'GET'})
+  }
+
 }
 
 // export default new ApiClient(API_BASE_URL || "http://localhost:3001")

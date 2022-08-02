@@ -6,11 +6,15 @@ import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
   const [userStats, setUserStats] = useState([])
+  const [statsPerMonth, setStatsPerMonth] = useState([])
 
   async function getUserStatistics()
   {
       const statistics = await apiClient.getAllStatistics()
       setUserStats(statistics.data.statistics.perStatus)
+
+      const progress = await apiClient.getProgressStatsOverTime()
+      console.log(progress.data)
   }
 
    useEffect(() => {
@@ -28,8 +32,8 @@ export default function UserProfile() {
 
 export function ProfileCard()
 {
-      //Pulls the user from the auth context information of the logged in user
-  const { user } = useAuthContext();
+    //Pulls the user from the auth context information of the logged in user
+    const { user } = useAuthContext();
 
   return (
     <div className="profile-page">
@@ -76,6 +80,10 @@ export function UserTables(props)
               <canvas // Renders a bar chart for user statistics
                 className="bar-chart"
                 id="user-statistics-chart"
+              ></canvas>
+              <canvas // Renders a line chart for user statistics
+                className="bar-chart"
+                id="user-statistics-line-chart"
               ></canvas>
             </div>
         </div>

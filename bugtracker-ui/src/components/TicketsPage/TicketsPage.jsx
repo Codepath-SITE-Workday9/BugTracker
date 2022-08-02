@@ -1,39 +1,43 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./TicketsPage.css";
-import { TicketsPageCollaboratorsTable } from "../Tables/TicketsPageCollaboratorsTable";
-import { TicketsPageTicketsTable } from "../Tables/TicketsPageTicketsTable";
-import TicketInfoBox from "./TicketInfoBox/TicketInfoBox";
 import TicketModal from "../Modals/TicketModal/TicketModal";
+import { useTicketContext } from "../../contexts/ticket";
+import TicketsOverview from "./TicketsOverview/TicketsOverview";
+import TicketView from "./TicketView/TicketView";
 
+// page where a user can see all tickets they belong to and where  user can create a new Ticket
 export default function TicketsPage() {
-  const { ticketModal } = useTicketContext();
+  // variables from useTeamContext() to keep track of what tickets a user belongs to, and which ticket should be displayed in detail, and a function to fetch all tickets.
+  const {
+    tickets,
+    currentTicket,
+    setCurrentTicket,
+    fetchAllTickets,
+    ticketModal,
+  } = useTicketContext();
 
-  const handleNewProjectClick = () => {};
+  useEffect(() => {
+    fetchAllTickets();
+  }, [ticketModal]);
+
+  const handleOnTicketClick = (ticket) => {
+    setCurrentTicket(ticket);
+  };
 
   return (
     <div className="tickets-page">
       {/* conditionally render the Modal to create a new ticket  */}
       {ticketModal && <TicketModal />}
       {/* conditionally blur background depending on if modal is open */}
-      <div className={ticket ? "background-blur" : "background"}>
-        <div className="row">
-          <div className="projects-box">
-            <div className="project-box-header">
-              <h1>Selected Project: Project 1</h1>
-              <button onClick={handleNewProjectClick}>Select Project</button>
-            </div>
-            <div className="project-box-content">
-              <TicketsPageCollaboratorsTable />
-            </div>
-          </div>
-          <div className="tickets-box">
-            <TicketsPageTicketsTable />
-          </div>
-        </div>
-
-        <div className="row">
-          <TicketInfoBox />
-        </div>
+      <div className={ticketModal ? "background-blur" : "background"}>
+        <TicketsOverview
+          tickets={tickets}
+          handleOnTicketClick={handleOnTicketClick}
+        />
+        <TicketView
+          currentTicket={currentTicket}
+          ticketsAvailable={tickets.length > 0}
+        />
       </div>
     </div>
   );

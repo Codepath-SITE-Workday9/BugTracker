@@ -4,8 +4,37 @@ const Teams = require("./teams")
 
 class Tickets 
 {
+    
+    //FUNCTION TO LIST ALL THE TICKETS ASSOCIATED WITH A USER
+    static async listAllTickets({user})
+    {
+    //Run a separate query to get the id of the user using the email provided by the local server
+    const userId = await Teams.fetchUserId(user.email)
+
+
+    //At this point, user should be someone with valid access to project information with a valid projectId
+    //Run a main query to get all the tickets that belong to a particular project by comparing the project id with the given id
+    const results = await db.query(
+        `
+            SELECT *
+            FROM tickets
+            WHERE $1 = any(tickets.developers) OR $1 = tickets.creator_id
+            ORDER BY tickets.id ASC
+        `, [userId])
+
+    //Return a list of all the tickets associated with a project
+    return results.rows
+}
+
+
+
+
+
+
+
+
     //FUNCTION TO LIST ALL THE TICKETS ASSOCIATED WITH A PROJECT
-    static async listAllTickets({user, projectId})
+    static async listAllProjectTickets({user, projectId})
     {
         //ERROR CHECKING - check that a projectId has been provided in the request body; If not, throw a bad request error detailing missing field
         if(!projectId)
@@ -58,7 +87,6 @@ class Tickets
         {
             throw new BadRequestError(`Whoops, missing the userId!`)
         }
-
         //Run a separate query to check if user is able to access project information
         //First find the project in the database by comparing the projectId;
         //Then check if a user is the creator of the project or a member of any of the teams in the project
@@ -68,7 +96,7 @@ class Tickets
                 FROM projects
                     LEFT JOIN teams ON teams.id = projects.id
                 WHERE projects.id = $1 AND ((projects.creator_id = $2) 
-                OR ($2 = any(teams.members) AND teams.id = any(projects.teams)))
+                OR ($2 = any(teams.members)))
             `, [projectId, userId])
         
         //If user is a creator or member of a project, then return project information; Else, return undefined

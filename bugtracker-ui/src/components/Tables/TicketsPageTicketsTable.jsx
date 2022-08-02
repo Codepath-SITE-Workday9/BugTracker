@@ -6,6 +6,7 @@
 
 import MaterialTable from "material-table";
 import { MTableToolbar } from "material-table";
+import { useEffect } from "react";
 import { useTicketContext } from "../../contexts/ticket";
 
 const data = [
@@ -35,19 +36,34 @@ const data = [
 
 const columns = [
   { title: "Id", field: "id", hidden: true },
-  { title: "Ticket name", field: "ticket_name" },
+  { title: "Ticket name", field: "title" },
   { title: "Description", field: "description" },
   { title: "Priority", field: "priority" },
   { title: "Complexity", field: "complexity", type: "numeric" },
 ];
 
 export const TicketsPageTicketsTable = () => {
-  const { setTicketModal } = useTicketContext();
+  const {
+    setTicketModal,
+    tickets,
+    fetchTickets,
+    currentTicket,
+    setCurrentTicket,
+  } = useTicketContext();
+
+  useEffect(() => {
+    fetchTickets();
+  }, [currentTicket]);
+
+  const onRowClick = (rowData) => {
+    setCurrentTicket(rowData);
+  };
+
   return (
     <MaterialTable
       title="Tickets"
       columns={columns}
-      data={data}
+      data={tickets}
       actions={[
         {
           icon: () => (

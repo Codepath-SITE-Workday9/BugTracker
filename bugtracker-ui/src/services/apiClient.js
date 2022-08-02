@@ -94,11 +94,16 @@ class ApiClient {
   }
 
   // ----------------------- tickets requests -----------------------
-  async listAllTickets(credentials){
-    return await this.request({ endpoint: 'ticket', method: 'GET', data: credentials })
+    // list all the tickets for a user  
+    async listAllTickets(){
+      return await this.request({ endpoint: `ticket`, method: 'GET' })
+    }
+  // list all the tickets for  selected project  
+  async listAllProjectTickets(projectId){
+    return await this.request({ endpoint: `ticket/${projectId}`, method: 'GET' })
   }
-  // to create a new team credentials must have: 
-    //name, description, imageUrl, tickets, teams 
+  // to create a new tickets credentials must have: 
+  // the developers (array of emails), projectId, title, description, category, priority, status, complexity
   async createNewTicket(credentials){
     return await this.request({ endpoint: 'ticket', method: 'POST', data: credentials })
   }

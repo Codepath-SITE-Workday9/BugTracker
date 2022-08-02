@@ -55,7 +55,6 @@ export function ProfileCard()
 
 export function UserTables(props)
 {
-  console.log(props.userStats)
 
     return(
         <div className="user-tables">

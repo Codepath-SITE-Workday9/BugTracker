@@ -38,7 +38,7 @@ export const TeamContextProvider = ({ children }) => {
     fetchTeams();
     newFetchTeamsTableData()
     setIsLoading(false);
-  }, [currentTeam]);
+  }, []);
 
   const fetchTeamsTableData = async (recievedTeams) => {
     //const tableData = []

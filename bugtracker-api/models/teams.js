@@ -287,13 +287,13 @@ class Teams
 
     static async fetchMembersFromMultipleTeams({teamIds, user})
     {
+        //ERROR CHECKING - Check that an id of teams has been provided by the user
         if(!teamIds.teams)
         {
             throw new BadRequestError("Missing an array of team ids!")
         }
 
-        const userId = await Teams.fetchUserId(user.email)
-
+        //Run a query to obtain the team id, team name, and full names of all the members of a team
         const results = await db.query(
             `
                 SELECT teams.id as team_id, teams.name, users.full_name, users.id as user_id
@@ -303,19 +303,8 @@ class Teams
                 GROUP BY teams.id, users.full_name, users.id
             `, [teamIds.teams])
 
-        // const results2 = await db.query(
-        //     `
-        //         SELECT teams.id, teams.name, SELECT ARRAY(
-        //             SELECT full_name 
-        //             FROM users 
-        //             WHERE id = any(SELECT UNNEST(members) FROM teams WHERE id = any($1))
-        //         ) as names
-        //         FROM teams
-        //         WHERE id =
-        //     `, [teamIds.teams])
-
                 
-        
+        //Return the id, name, and members' fullname of every team in the array of teams
         return results.rows
     }
 }

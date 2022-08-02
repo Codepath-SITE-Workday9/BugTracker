@@ -175,10 +175,11 @@ router.get("/teams/users", security.requireAuthenticatedUser, async (req, res, n
         //Retrieve the user information from the local server
         const { user } = res.locals
 
-        //Run the fetchMembersForATeam function 
+        //Run the fetchMembersFromMultipleTeams function to get all the id, name, and members' fullname of a team
+        //Req body should have a field called teams: i.e. {teams: [1,2,3,4]}
         const members = await Teams.fetchMembersFromMultipleTeams({teamIds: req.body, user: user });
 
-        // Return the user array if successful
+        // Return the teams array if successful
         return res.status(200).json({members: members})
     }
     catch (error) {

@@ -17,20 +17,83 @@ export default function Dashboard() {
 
   const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
-  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams} = useTeamContext()
+  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData} = useTeamContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
+  const [teamsTableData, setTeamsTableData] = useState([])
 
   //fetchProjects()
 
+
+  async function getTeamsTable() {
+    // console.log("Teams length:", teams.length)
+    setTeamsTableData([])
+    
+    
+    let teamIds = []
+    teams.map(async (team) => {
+      const memberList = await apiClient.fetchMemberList(team.id)
+      teamIds.push(team.id)
+      // console.log("Inside memberList")
+      // console.log(memberList.data.members);
+      let memberNames = []
+      memberList?.data?.members.map((member) => {
+        memberNames.push(member.full_name)
+      }) 
+      
+      //let new_team = {id: team.id, name: team.name, members: memberNames.join(", ")}
+      //console.log("old_team", tableData)
+      //console.log("new_team", new_team)
+      
+      /*let id = 1
+      var exists = false //tableData.find(check.id === id)
+      ids.forEach((id) => {
+        if (teamsTableData.find(exists.id === id) !== undefined) {
+          exists = true
+        }
+      }) */
+      //let exists = idExists(team.id)
+      //console.log("exists", exists)
+      /* teamsTableData.some(element => {
+        if (element.id === team.id) {
+          exists = true;
+        }
+    
+        exists = false;
+      }); */
+
+      //if (!exists) {
+        //let fillerData = () => [...teamsTableData, {id: team.id, name: team.name, members: memberNames.join(", ")}]
+        //console.log(fillerData)
+        setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}]);
+        //setIds(prev => [...prev, team.id])
+      //} 
+    })
+    //console.log("teamIds:", teamIds)
+    //const teamData = await apiClient.fetchTeamMembers(teamIds)
+    //console.log("teamData:", teamData)
+
+    //console.log("tableData below")
+    //console.log(tableData)
+    //setIsLoading(false) 
+  }
+
+  window.onload = function () {
+    getTeamsTable()
+  }
+
   useEffect(() => {
-     clearTeams()
+     //clearTeams()
      renderCharts()
      fetchProjects()
-     fetchTeams()
+     //fetchTeams()
+     //getTeamsTable()
+     //getData()
      //fetchTeamsTableData()
      //setProjects(apiClient.listAllProjects())
      //setTeams(apiClient.listAllTeams())
+
+
      //console.log("Projects below")
      //console.log(projects)
      //console.log("Teams below")
@@ -41,7 +104,7 @@ export default function Dashboard() {
     <div className={isOpen ? "dashboard open" : "dashboard closed"}>
 
       {projectModal && <ProjectModal setDashboardProjectsModal={setDashboardProjectsModal} />}
-      {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} />}
+      {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} getTeamsTable={getTeamsTable} />}
       <div className={projectModal|| teamModal ? "blur" : "clear"}>
 
         {/*Renders a table for projects on the dashboard */}
@@ -95,6 +158,10 @@ export default function Dashboard() {
         <DashboardTeamsTable
           dashboardTeamsModal={dashboardTeamsModal}
           setDashboardTeamsModal={setDashboardTeamsModal}
+          teamsTableData={teamsTableData}
+          setTeamsTableData={setTeamsTableData}
+          getTeamsTable={getTeamsTable}
+          teams={teams}
         />
       </div>
     </div>

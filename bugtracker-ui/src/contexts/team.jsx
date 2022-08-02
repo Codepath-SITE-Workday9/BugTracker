@@ -10,6 +10,15 @@ export const TeamContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [teamModal, setTeamModal] = useState(false);
+  const [teamsTableData, setTeamsTableData] = useState([])
+  const [ids, setIds] = useState([])
+
+  //const [ids, setIds] = useState([])
+  //const [tableData, setTableData] = useState([])
+
+  const clearTeams = () => {
+    setTeams([])
+  }
 
   const fetchTeams = async () => {
     setIsLoading(true);
@@ -24,8 +33,100 @@ export const TeamContextProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+
+
+  const fetchTeamsTableData = async () => {
+    console.log("Inside fetchTeamsTableData")
+    console.log(teams)
+    //const tableData = []
+    setTeamsTableData([])
+    teams.map(async (team) => {
+      const memberList = await apiClient.fetchMemberList(team.id)
+      console.log("memberList below")
+      console.log(memberList)
+      //let memberNames = [];
+      
+        console.log("Inside memberList")
+        console.log(memberList.data.members);
+        let memberNames = []
+        memberList?.data?.members.map((member) => {
+          memberNames.push(member.full_name)
+        })
+        console.log("MemberNames below")
+        console.log(memberNames)
+        console.log(memberNames.join(", "))
+
+        //tableData.push({id: team.id, name: team.name, members: "testMembers"/*memberNames.join(", ")*/ }
+        await setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}])
+        console.log("Teamstabledata below")
+        console.log(teamsTableData)
+    
+      //tableData.push({id: team.id, name: team.name, members: memberNames.join(", ") })
+      /*let memberNames = []
+      memberList.map((member) => {
+        memberNames.push(member.name)
+      }) 
+      /*tableData.push({id: team.id, name: team.name/*, members: memberNames.join(", ") }) */
+    })
+   
+  }
+
+  function idExists(passedId) {
+    return teamsTableData.some( function (el) {
+      return el.id = passedId
+    });
+  }
+
+  function getData() {
+    // console.log("Teams length:", teams.length)
+    setTeamsTableData([])
+    
+    teams.map(async (team) => {
+      const memberList = await apiClient.fetchMemberList(team.id)
+      // console.log("Inside memberList")
+      // console.log(memberList.data.members);
+      let memberNames = []
+      memberList?.data?.members.map((member) => {
+        memberNames.push(member.full_name)
+      }) 
+      
+      //let new_team = {id: team.id, name: team.name, members: memberNames.join(", ")}
+      //console.log("old_team", tableData)
+      //console.log("new_team", new_team)
+      
+      /*let id = 1
+      var exists = false //tableData.find(check.id === id)
+      ids.forEach((id) => {
+        if (teamsTableData.find(exists.id === id) !== undefined) {
+          exists = true
+        }
+      }) */
+      //let exists = idExists(team.id)
+      //console.log("exists", exists)
+      /* teamsTableData.some(element => {
+        if (element.id === team.id) {
+          exists = true;
+        }
+    
+        exists = false;
+      }); */
+
+      //if (!exists) {
+        setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}]);
+        //setIds(prev => [...prev, team.id])
+      //} 
+    })
+
+    //console.log("tableData below")
+    //console.log(tableData)
+    //setIsLoading(false) 
+  }
+
   useEffect(() => {
     fetchTeams();
+    getData()
+    //fetchTeamsTableData();
+
   }, [setTeams, currentTeam]);
 
   const teamValue = {
@@ -35,8 +136,13 @@ export const TeamContextProvider = ({ children }) => {
     setCurrentTeam,
     isLoading,
     fetchTeams,
+    fetchTeamsTableData,
     teamModal,
     setTeamModal,
+    teamsTableData,
+    setTeamsTableData,
+    clearTeams,
+    getData
   };
 
   return (

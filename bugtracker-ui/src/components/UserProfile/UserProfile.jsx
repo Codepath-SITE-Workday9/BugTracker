@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../contexts/auth";
 import apiClient from "../../services/apiClient";
 import renderUserCharts from "../../services/userCharts.js";
@@ -6,16 +6,21 @@ import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
   const [userStats, setUserStats] = useState([])
-  const [statsPerMonth, setStatsPerMonth] = useState([])
+  // const [statsPerMonth, setStatsPerMonth] = useState([])
 
   async function getUserStatistics()
   {
+    console.log("before stats")
       const statistics = await apiClient.getAllStatistics()
       setUserStats(statistics.data.statistics.perStatus)
 
-      const progress = await apiClient.getProgressStatsOverTime()
-      console.log(progress.data)
+      // console.log("before progress")
+      // const progress = await apiClient.getProgressStatsOverTime()
+      // setStatsPerMonth(progress.data.statistics)
+      // console.log(statsPerMonth)
   }
+
+  
 
    useEffect(() => {
      renderUserCharts()

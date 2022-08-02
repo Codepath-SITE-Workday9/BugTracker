@@ -77,7 +77,7 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
 
   
     useEffect(() => {
-      console.log("Inside teams table useEffect")
+      //console.log("Inside teams table useEffect")
       //setTableData([])
       //if (tableData.length < 1) {
 

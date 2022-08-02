@@ -5,33 +5,34 @@ import renderUserCharts from "../../services/userCharts.js";
 import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
-  const [userStats, setUserStats] = useState([])
-   const [statsPerMonth, setStatsPerMonth] = useState([])
+   const [userStats, setUserStats] = useState([])
+   const [statsPerMonth, setStatsPerMonth] = useState()
 
-  async function getUserStatistics()
-  {
-    console.log("before stats")
-      const statistics = await apiClient.getAllStatistics()
-      console.log(statistics)
-      setUserStats(statistics.data.statistics.perStatus)
-      console.log(userStats)
+   //FUNCTION TO GET ALL USER STATISTICS OF TICKETS OPENED/CLOSED
+   async function getUserStatistics()
+   {
+       const statistics = await apiClient.getAllStatistics()
+       setUserStats(statistics.data.statistics.perStatus)
 
-       console.log("before progress")
-       const progress = await apiClient.getProgressStatsOverTime()
-        setStatsPerMonth(progress.data.statistics)
-        //handleStats(progress.data.statistics, statsPerMonth)
-  }
+      const progress = await apiClient.getProgressStatsOverTime()
+      setStatsPerMonth(progress.data.statistics)
+   }
 
-   useEffect(() => {
-     getUserStatistics()
-     renderUserCharts(statsPerMonth)
-   }, [])
+    useEffect(() => {
+      getUserStatistics()
+    }, [])
+
+    if(statsPerMonth)
+    {
+        renderUserCharts(statsPerMonth)
+    }
   
   return (
-      <div className="user-profile-page">
+      userStats ? 
+        (<div className="user-profile-page">
           <ProfileCard />
           <UserTables userStats={userStats} statsPerMonth={statsPerMonth}/>
-      </div>
+      </div>) : (<div></div>)
   )
 }
 
@@ -64,13 +65,12 @@ export function ProfileCard()
 
 export function UserTables(props)
 {
-  // console.log(props.statsPerMonth)
-  // renderUserCharts(props?.statsPerMonth)
+
     return(
         <div className="user-tables">
           {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
             <h1> Your Ticket Statistics </h1>
-            <div className="ticket-statistics">
+            <div className="ticket-stats">
                 {props.userStats?.map((stat, index) => {
                     return(
                     <div className="ticket-cards" key={index}>
@@ -83,11 +83,13 @@ export function UserTables(props)
             </div>
 
             <div className="chart-container">
-              <canvas // Renders a bar chart for user statistics
+              {/* Renders a bar chart for tickets completed over time based on complexity */}
+              <canvas
                 className="bar-chart"
                 id="user-statistics-chart"
               ></canvas>
-              <canvas // Renders a line chart for user statistics
+              {/* Renders a line chart for tickets opened and closed over time */}
+              <canvas
                 className="bar-chart"
                 id="user-statistics-line-chart"
               ></canvas>

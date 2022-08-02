@@ -1,21 +1,8 @@
 /* Note: Another chart.js file had to be created for the user profile statistics table because
     website will crash if all charts are not used. Will result in null error from chart.min.js. Created
     a new */
-    import { useState, useEffect, useRef } from "react";
     
 export default function renderUserCharts(statsPerMonth) { 
-  // const [statsPerMonth, setStatsPerMonth] = useState([])
-  // async function getUserStatistics()
-  // {
-  //     console.log("in render charts")
-  //     const progress = await apiClient.getProgressStatsOverTime()
-  //     setStatsPerMonth(progress.data.statistics)
-  //     console.log(statsPerMonth)
-  // }
-  
-  // useEffect(() => {
-  //   getUserStatistics()
-  // })
 
          let myChart4 = new Chart(document.getElementById("user-statistics-chart"), {
            type: 'bar',

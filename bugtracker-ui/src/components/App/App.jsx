@@ -22,6 +22,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
 import { TeamContextProvider, useTeamContext } from "../../contexts/team";
+import { TicketContextProvider } from "../../contexts/ticket";
 
 export default function AppContainer() {
   return (
@@ -29,7 +30,9 @@ export default function AppContainer() {
       <OpenContextProvider>
         <ProjectContextProvider>
           <TeamContextProvider>
-            <App />
+            <TicketContextProvider>
+              <App />
+            </TicketContextProvider>
           </TeamContextProvider>
         </ProjectContextProvider>
       </OpenContextProvider>

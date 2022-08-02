@@ -3,10 +3,10 @@
     padding: 20px;
     /* height: 100vh; */
 }
-.background, .background-blur{
+.teams-page.background, .teams-page.background-blur{
     display: flex;
     flex-direction: rows;
 }
-.background-blur{
+.teams-pge.background-blur{
     filter: blur(5px);
 }

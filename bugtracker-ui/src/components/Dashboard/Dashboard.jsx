@@ -14,7 +14,6 @@ import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 
 export default function Dashboard() {
-
   //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
   const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
@@ -44,7 +43,7 @@ export default function Dashboard() {
       //let new_team = {id: team.id, name: team.name, members: memberNames.join(", ")}
       //console.log("old_team", tableData)
       //console.log("new_team", new_team)
-      
+
       /*let id = 1
       var exists = false //tableData.find(check.id === id)
       ids.forEach((id) => {
@@ -63,6 +62,7 @@ export default function Dashboard() {
       }); */
 
       //if (!exists) {
+
         //let fillerData = () => [...teamsTableData, {id: team.id, name: team.name, members: memberNames.join(", ")}]
         //console.log(fillerData)
         setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}]);
@@ -75,6 +75,7 @@ export default function Dashboard() {
 
     //console.log("tableData below")
     //console.log(tableData)
+
     //setIsLoading(false) 
   }
 

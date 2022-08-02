@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 import { useTeamContext } from "../../contexts/team";
 import apiClient from "../../services/apiClient";
-
 import "./TableProperties.css";
 
 function handleNewTeamClick() {
@@ -195,7 +194,34 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
         isFreeAction:true,
         position: "toolbar"
       }
-    ]}
+    });
 
-    onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)} />
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    memberArray();
+  }, [teams]);
+
+  return isLoading ? (
+    <></>
+  ) : (
+    <MaterialTable
+      title="Your Teams"
+      columns={columns}
+      data={teams}
+      actions={[
+        {
+          icon: () => (
+            <button className="tableCreateButton">Create New Team</button>
+          ),
+          tooltip: "Create a new team",
+          onClick: () => setTeamModal(true),
+          isFreeAction: true,
+          position: "toolbar",
+        },
+      ]}
+      onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
+    />
+  );
 };

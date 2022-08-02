@@ -1,4 +1,4 @@
-.team-view{
+.ticket-view{
     padding: 10px 30px 10px 30px;
     margin-left: 20px;
     width: 100%;
@@ -7,16 +7,15 @@
     box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
-.team-header{
+.ticket-header{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid black;
     align-items: center;
     text-transform: uppercase;
 }
 
-.team-header button {
+.ticket-header button {
     color: whitesmoke;
     background-color: var(--lighter-blue);
     border-radius: 10px;
@@ -26,18 +25,39 @@
     margin: 10px;
     font-size: 20px;
 }
+.ticket-priority{
+    width: 100px;
+    text-align: center;
+    border-radius: 7px;
+    font-size: 18px;
+}
 
-.team-header button:hover{
+.ticket-priority.low{
+    background-color:green  ;
+}
+.ticket-priority.medium{
+    background-color:yellow  ;
+}
+.ticket-priority.high{
+    background-color:orange  ;
+}
+.ticket-priority.critical{
+    background-color:red;
+}
+.ticket-header button:hover{
     color: white;
     box-shadow: 0px 0 3px 0 #3f4d67;
 }
-
-.nothing-created-yet{
+.ticket-description{
+    border-bottom: 1px solid black;
+}
+.ticket-view .nothing-created-yet{
+    border-top: 1px solid black;
     text-align: center
 }
 
 
-.team-developers{
+.ticket-developers{
     padding: 10px;
     border-bottom: 1px solid black;
 }
@@ -46,20 +66,20 @@
 }
 
 
-/* --------- adding a developer to the team section ---------  */
+/* --------- adding a developer to the ticket section ---------  */
 
 
-.add-developer-to-team{
+.add-developer-to-ticket{
     display: flex;
     align-items: center;
 }
 
-.add-developer-to-team p{
+.add-developer-to-ticket p{
     font-size: 20px;
     margin: 0px;
 }
 
-.add-developer-to-team .dev-search{
+.add-developer-to-ticket .dev-search{
     position: relative;
     display: flex;
     height: 40px;
@@ -95,11 +115,11 @@
     margin: 0px;
 }
 
-.team-developers .table {
+.ticket-developers .table {
     padding: 1% 3% 3% 3%;
 }
 
-.team-developers .table .MuiPaper-elevation2{
+.ticket-developers .table .MuiPaper-elevation2{
     border: 0.1px solid #e9e9e9;
     box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }

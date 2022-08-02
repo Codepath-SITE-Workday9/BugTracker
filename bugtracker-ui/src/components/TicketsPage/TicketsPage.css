@@ -4,6 +4,9 @@
     margin-right: 10px;
     padding: 20px;
 }
+.background-blur{
+    filter: blur(5px);
+}
 
 .tickets-page .row {
     display: flex;

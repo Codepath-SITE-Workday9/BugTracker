@@ -5,18 +5,33 @@ const Tickets = require("../models/ticket")
 const security = require("../middleware/security")
 
 
-
-//FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
+//FUNCTION TO LIST ALL THE TICKETS FOR A USER  
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
         //Retrieve the user information from the local server
         const {user} = res.locals
-
         //Call the listAllTickets function to get a list of all the tickets from a specific project
         //Request body should have the projectId
-        const ticketList = await Tickets.listAllTickets({user: user, projectId: req.body.projectId})
-        
+        const ticketList = await Tickets.listAllTickets ({user: user})
+        //Return the list of all the tickets if successful
+        return res.status(200).json({ticketList: ticketList})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+//FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
+router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+        //Call the listAllTickets function to get a list of all the tickets from a specific project
+        //Request body should have the projectId
+        const ticketList = await Tickets.listAllProjectTickets({user: user, projectId: req.params.projectId})
         //Return the list of all the tickets if successful
         return res.status(200).json({ticketList: ticketList})
     }

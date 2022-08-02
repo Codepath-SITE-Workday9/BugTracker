@@ -31,7 +31,7 @@ class ApiClient {
     }
   }
   
-  //authentication
+  // ----------------------- authentication -----------------------
   async login(credentials) {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
@@ -52,7 +52,7 @@ class ApiClient {
     localStorage.setItem(this.tokenName, "")
   }
 
-  // teams
+  // ----------------------- teams requests -----------------------
   async listAllTeams(){
     return await this.request({ endpoint:'team', method: 'GET'})
   }
@@ -82,12 +82,11 @@ class ApiClient {
     return await this.request({endpoint: `team/teams/users`, method: 'GET', data: {teamIds}})
   }
 
-  // project requests 
+  // ----------------------- project requests -----------------------
   async listAllProjects(credentials){
     return await this.request({ endpoint: 'project', method: 'GET', data: credentials })
   }
-
-  // to create a new team credentials must have: 
+  // to create a new project: credentials must have: 
     //name, description, imageUrl, tickets, teams 
   async createNewProject(credentials){
     return await this.request({ endpoint: 'project', method: 'POST', data: credentials })
@@ -99,7 +98,33 @@ class ApiClient {
     return await this.request({ endpoint: `project/${projectId}/update`, method: 'PATCH',  data: projectInfo })
   }
 
-  // statistics
+  // ----------------------- tickets requests -----------------------
+    // list all the tickets for a user  
+    async listAllTickets(){
+      return await this.request({ endpoint: `ticket`, method: 'GET' })
+    }
+  // list all the tickets for  selected project  
+  async listAllProjectTickets(projectId){
+    return await this.request({ endpoint: `ticket/${projectId}`, method: 'GET' })
+  }
+  // to create a new tickets credentials must have: 
+  // the developers (array of emails), projectId, title, description, category, priority, status, complexity
+  async createNewTicket(credentials){
+    return await this.request({ endpoint: 'ticket', method: 'POST', data: credentials })
+  }
+  async fetchTicketById(ticketId){
+    return await this.request({ endpoint: `ticket/${ticketId}`, method: 'GET'})
+  }
+  async updateTicket({ ticketId, ticketInfo}){
+    return await this.request({ endpoint: `ticket/${ticketId}/update`, method: 'PATCH',  data: ticketInfo })
+  }
+
+  // ----------------------- comments requests -----------------------
+
+
+
+
+  // ----------------------- statistics -----------------------
   async getAllStatistics() {
     return await this.request({ endpoint: `report/statistics`, method: 'GET'})
   }

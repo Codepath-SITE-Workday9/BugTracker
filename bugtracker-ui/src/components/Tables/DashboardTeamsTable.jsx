@@ -20,20 +20,17 @@ const data = [
 ];
 
 const columns = [
-  { title: "Id", field: "id", hidden: true},
-  { title: "Team Name", field: "name"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
+  { title: "Id", field: "teamId", hidden: true},
+  { title: "Team Name", field: "teamName"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
   { title: "Members", field: "members" },
 ];
 
-export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal, teamsTableData, setTeamsTableData, getTeamsTable}) => {
-  const { teams, setTeams, setTeamModal,  fetchTeamsTableData, getData} = useTeamContext()
+export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal, setTeamsTableData, getTeamsTable}) => {
+  const { teams, setTeams, setTeamModal, fetchTeamsTableData, teamsTableData, getData} = useTeamContext()
   //const [tableData, setTableData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [ids, setIds] = useState([])
   const didMount = useRef(false)
-
-  console.log("teamsTableData:", teamsTableData)
-  console.log(teams)
 
     // 3 steps to fix:
     // 1. move work to backend api if we can
@@ -76,7 +73,7 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
 
     window.onload = function () {
       //getData()
-      getTeamsTable()
+      //getTeamsTable()
     }
 
 
@@ -85,7 +82,7 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
       //console.log("Inside teams table useEffect")
       //setTableData([])
 
-      getTeamsTable()
+      //getTeamsTable()
 
       // if (!didMount.current) {
       //   return didMount.current = true

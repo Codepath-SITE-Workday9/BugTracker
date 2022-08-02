@@ -5,7 +5,7 @@ import { useTeamContext } from "../contexts/team.jsx";
 // hook to use when creating new teams 
 export const useTeamForm = () => {
     const { user } = useAuthContext();
-    const { fetchTeams, setTeamModal, setCurrentTeam, getData } = useTeamContext();
+    const { teams, fetchTeams, setTeamModal, setCurrentTeam, getData, newFetchTeamsTableData } = useTeamContext();
     const [name, setName] = useState("");
     const [developers, setDevelopers] = useState([]);
     const [projectsToAdd, setProjectsToAdd] = useState([]);
@@ -28,6 +28,7 @@ export const useTeamForm = () => {
           if (data) {
             // TODO: popup message "team successfully created"
             fetchTeams();
+            newFetchTeamsTableData(teams);
             setName("");
             setDevelopers([]);
             setProjectsToAdd([]);

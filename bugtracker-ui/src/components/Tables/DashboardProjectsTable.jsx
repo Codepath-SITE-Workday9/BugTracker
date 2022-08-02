@@ -51,7 +51,7 @@ const columns = [
     },
   },
   { title: "Description", field: "description" },
-  { title: "Collaborators", field: "collaborators" },
+  { title: "Assigned Teams", field: "collaborators" },
 ];
 
 export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {

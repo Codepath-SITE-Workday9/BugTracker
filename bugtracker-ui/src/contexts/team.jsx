@@ -35,7 +35,7 @@ export const TeamContextProvider = ({ children }) => {
 
 
 
-  const fetchTeamsTableData = async () => {
+  const fetchTeamsTableData = async (recievedTeams) => {
     console.log("Inside fetchTeamsTableData")
     console.log(teams)
     //const tableData = []
@@ -69,6 +69,24 @@ export const TeamContextProvider = ({ children }) => {
       /*tableData.push({id: team.id, name: team.name/*, members: memberNames.join(", ") }) */
     })
    
+  }
+
+  const getTeamIds = (recievedTeams) => {
+    let teamIds = []
+    recievedTeams.map((team) => {
+      teamIds.push(team.id)
+    })
+    return teamIds
+  }
+
+  const newFetchTeamsTableData = async (recievedTeams) => {
+    const { data, error } = await apiClient.fetchTeamMembers(getTeamIds(recievedTeams))
+    if (data) {
+      setTeamsTableData(data.members)
+    }
+    if (error) {
+      setError(error)
+    }
   }
 
   function idExists(passedId) {
@@ -131,6 +149,7 @@ export const TeamContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchTeams();
+    newFetchTeamsTableData()
     //getData()
     //fetchTeamsTableData();
 
@@ -144,6 +163,7 @@ export const TeamContextProvider = ({ children }) => {
     isLoading,
     fetchTeams,
     fetchTeamsTableData,
+    newFetchTeamsTableData,
     teamModal,
     setTeamModal,
     teamsTableData,

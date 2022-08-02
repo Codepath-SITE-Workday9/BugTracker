@@ -292,8 +292,16 @@ class Teams
 
 
     //FUNCTION TO GET THE TEAM ID, NAME, AND NAMES OF MEMBERS FOR MULTIPLE TEAMS
-    static async fetchMembersFromMultipleTeams({teamIds, user})
+    static async fetchMembersFromMultipleTeams({user})
     {
+        const teamList = await Teams.listAllTeams({user: user})
+        
+        
+        const teamIds = []
+        teamList.map((team) => {
+            teamIds.push(team.id)
+        })
+        
         //Create an array to store all the team information (id, name, members)
         let teamsTableData = []
 
@@ -302,7 +310,7 @@ class Teams
         //Ensure that all the asynchronous functions are being completed before returning any statement using Promise.all
         return Promise.all(
             //Map through the ids of all the teams
-            teamIds.teams?.map(async(team) => {
+            teamIds?.map(async(team) => {
 
             //For every team, get the list of all the members and the team information 
             const memberList = await Teams.fetchMembersForATeam({teamId: team, user: user})

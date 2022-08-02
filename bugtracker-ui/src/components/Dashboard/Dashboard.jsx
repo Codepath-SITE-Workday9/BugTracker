@@ -15,9 +15,9 @@ import TeamModal from "../Modals/TeamModal/TeamModal";
 
 export default function Dashboard() {
 
-  const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
+  //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
-  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData} = useTeamContext()
+  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
   const [teamsTableData, setTeamsTableData] = useState([])
@@ -79,13 +79,14 @@ export default function Dashboard() {
   }
 
   window.onload = function () {
-    getTeamsTable()
+    //getTeamsTable()
   }
 
   useEffect(() => {
      //clearTeams()
      renderCharts()
      fetchProjects()
+     newFetchTeamsTableData(teams)
      //fetchTeams()
      //getTeamsTable()
      //getData()
@@ -101,7 +102,8 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className={isOpen ? "dashboard open" : "dashboard closed"}>
+    // <div className={isOpen ? "dashboard open" : "dashboard closed"}>
+    <div className="dashboard closed">
 
       {projectModal && <ProjectModal setDashboardProjectsModal={setDashboardProjectsModal} />}
       {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} getTeamsTable={getTeamsTable} />}
@@ -158,8 +160,8 @@ export default function Dashboard() {
         <DashboardTeamsTable
           dashboardTeamsModal={dashboardTeamsModal}
           setDashboardTeamsModal={setDashboardTeamsModal}
-          teamsTableData={teamsTableData}
-          setTeamsTableData={setTeamsTableData}
+          //teamsTableData={teamsTableData}
+          //setTeamsTableData={setTeamsTableData}
           getTeamsTable={getTeamsTable}
           teams={teams}
         />

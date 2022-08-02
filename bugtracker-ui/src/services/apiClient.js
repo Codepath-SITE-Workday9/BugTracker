@@ -78,7 +78,8 @@ class ApiClient {
   }
   // Gets all the team members from multiple teams. Pass in array of all team ids we want to do this for
   async fetchTeamMembers(teamIds) {
-    return await this.request({endpoint: `team/teams/users`, method: 'GET', data: {teams: teamIds}})
+    console.log("apiClient teamIds:", teamIds)
+    return await this.request({endpoint: `team/teams/users`, method: 'GET', data: {teamIds}})
   }
 
   // project requests 

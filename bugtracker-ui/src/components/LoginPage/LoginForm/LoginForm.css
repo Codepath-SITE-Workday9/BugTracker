@@ -41,8 +41,8 @@
     align-items: center;
     justify-content: center;
     height: 70px;
-    color: black;
-    background: whitesmoke;
+    color: #FFFFFF;
+    background: rgb(119, 143, 211);
     font-size: 20px;
     border: none;
     cursor: pointer;

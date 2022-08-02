@@ -14,45 +14,32 @@ import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 
 export default function Dashboard() {
-  const { isOpen } = useOpenContext(); // Note: Open context is currently lagging dashboard. Fix later
-  const {
-    projects,
-    setProjects,
-    fetchProjects,
-    projectModal,
-    setProjectModal,
-  } = useProjectContext();
-  const {
-    teams,
-    setTeams,
-    fetchTeams,
-    fetchTeamsTableData,
-    teamModal,
-    setTeamModal,
-    clearTeams,
-    getData,
-  } = useTeamContext();
-  const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false);
-  const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false);
-  const [teamsTableData, setTeamsTableData] = useState([]);
+  //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
+  const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
+  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
+  const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
+  const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
+  const [teamsTableData, setTeamsTableData] = useState([])
 
   //fetchProjects()
 
+
   async function getTeamsTable() {
     // console.log("Teams length:", teams.length)
-    setTeamsTableData([]);
-
-    let teamIds = [];
+    setTeamsTableData([])
+    
+    
+    let teamIds = []
     teams.map(async (team) => {
-      const memberList = await apiClient.fetchMemberList(team.id);
-      teamIds.push(team.id);
+      const memberList = await apiClient.fetchMemberList(team.id)
+      teamIds.push(team.id)
       // console.log("Inside memberList")
       // console.log(memberList.data.members);
-      let memberNames = [];
+      let memberNames = []
       memberList?.data?.members.map((member) => {
-        memberNames.push(member.full_name);
-      });
-
+        memberNames.push(member.full_name)
+      }) 
+      
       //let new_team = {id: team.id, name: team.name, members: memberNames.join(", ")}
       //console.log("old_team", tableData)
       //console.log("new_team", new_team)
@@ -75,57 +62,54 @@ export default function Dashboard() {
       }); */
 
       //if (!exists) {
-      //let fillerData = () => [...teamsTableData, {id: team.id, name: team.name, members: memberNames.join(", ")}]
-      //console.log(fillerData)
-      setTeamsTableData((prev) => [
-        ...prev,
-        { id: team.id, name: team.name, members: memberNames.join(", ") },
-      ]);
-      //setIds(prev => [...prev, team.id])
-      //}
-    });
+
+        //let fillerData = () => [...teamsTableData, {id: team.id, name: team.name, members: memberNames.join(", ")}]
+        //console.log(fillerData)
+        setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}]);
+        //setIds(prev => [...prev, team.id])
+      //} 
+    })
     //console.log("teamIds:", teamIds)
     //const teamData = await apiClient.fetchTeamMembers(teamIds)
     //console.log("teamData:", teamData)
 
     //console.log("tableData below")
     //console.log(tableData)
-    //setIsLoading(false)
+
+    //setIsLoading(false) 
   }
 
   window.onload = function () {
-    getTeamsTable();
-  };
+    //getTeamsTable()
+  }
 
   useEffect(() => {
-    //clearTeams()
-    renderCharts();
-    fetchProjects();
-    //fetchTeams()
-    //getTeamsTable()
-    //getData()
-    //fetchTeamsTableData()
-    //setProjects(apiClient.listAllProjects())
-    //setTeams(apiClient.listAllTeams())
+     //clearTeams()
+     renderCharts()
+     fetchProjects()
+     newFetchTeamsTableData(teams)
+     //fetchTeams()
+     //getTeamsTable()
+     //getData()
+     //fetchTeamsTableData()
+     //setProjects(apiClient.listAllProjects())
+     //setTeams(apiClient.listAllTeams())
 
-    //console.log("Projects below")
-    //console.log(projects)
-    //console.log("Teams below")
-    //console.log(teams)
-  }, []);
+
+     //console.log("Projects below")
+     //console.log(projects)
+     //console.log("Teams below")
+     //console.log(teams) 
+  }, [])
 
   return (
-    <div className={isOpen ? "dashboard open" : "dashboard closed"}>
-      {projectModal && (
-        <ProjectModal setDashboardProjectsModal={setDashboardProjectsModal} />
-      )}
-      {teamModal && (
-        <TeamModal
-          setDashboardTeamsModal={setDashboardTeamsModal}
-          getTeamsTable={getTeamsTable}
-        />
-      )}
-      <div className={projectModal || teamModal ? "blur" : "clear"}>
+    // <div className={isOpen ? "dashboard open" : "dashboard closed"}>
+    <div className="dashboard closed">
+
+      {projectModal && <ProjectModal setDashboardProjectsModal={setDashboardProjectsModal} />}
+      {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} getTeamsTable={getTeamsTable} />}
+      <div className={projectModal|| teamModal ? "blur" : "clear"}>
+
         {/*Renders a table for projects on the dashboard */}
         <DashboardProjectsTable
           dashboardProjectsModal={dashboardProjectsModal}
@@ -177,8 +161,8 @@ export default function Dashboard() {
         <DashboardTeamsTable
           dashboardTeamsModal={dashboardTeamsModal}
           setDashboardTeamsModal={setDashboardTeamsModal}
-          teamsTableData={teamsTableData}
-          setTeamsTableData={setTeamsTableData}
+          //teamsTableData={teamsTableData}
+          //setTeamsTableData={setTeamsTableData}
           getTeamsTable={getTeamsTable}
           teams={teams}
         />

@@ -252,6 +252,14 @@ class Teams
         //Return all the users that are apart of a team 
         return results.rows
     }
+    
+
+
+
+
+    
+
+
 
     //FUNCTION TO RETURN AN ARRAY OF PROJECTS THAT A TEAM HAS
     static async fetchProjectsForATeam({teamId})
@@ -273,6 +281,54 @@ class Teams
         
         //Return all the projects that a team is working on
         return results.rows
+    }
+
+
+
+
+
+
+
+
+
+    //FUNCTION TO GET THE TEAM ID, NAME, AND NAMES OF MEMBERS FOR MULTIPLE TEAMS
+    static async fetchMembersFromMultipleTeams({user})
+    {
+        const teamList = await Teams.listAllTeams({user: user})
+        
+        
+        const teamIds = []
+        teamList.map((team) => {
+            teamIds.push(team.id)
+        })
+        
+        //Create an array to store all the team information (id, name, members)
+        let teamsTableData = []
+
+
+
+        //Ensure that all the asynchronous functions are being completed before returning any statement using Promise.all
+        return Promise.all(
+            //Map through the ids of all the teams
+            teamIds?.map(async(team) => {
+
+            //For every team, get the list of all the members and the team information 
+            const memberList = await Teams.fetchMembersForATeam({teamId: team, user: user})
+            const teamInfo = await Teams.fetchTeamById({teamId: team, user: user})
+
+            //Iterate through the member objects in member List and extract the full name, then store it in an array
+            let memberNames = []
+            memberList?.forEach((member) => {
+                memberNames.push(member.full_name)
+            })
+
+            //Push the new object information into the teamsTableData
+            teamsTableData.push({teamId: team, teamName: teamInfo.name, members: memberNames.join(", ")})
+        })
+        ).then(() => {
+            //Return all the teams information (array of objects)
+            return teamsTableData
+        })
     }
 }
 

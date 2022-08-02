@@ -154,6 +154,79 @@ class Statistics
 
 
 
+    //FUNCTION TO FIND THE AMOUNT OF TICKETS OPENED AND CLOSED OVER TIME
+    static async fetchProgressOvertime({user})
+    {
+        //ERROR CHECKING - Ensuring that user information is being provided to function
+        if(!user)
+        {
+            throw new BadRequestError("No user information was provided!")
+        }
+
+        //Run a separate query to get the id of the user from the user's email
+        const userId = await Teams.fetchUserId(user.email)
+
+        //Run a query to get a list of all the projects a user is a member or creator of
+        //And extract only the project ids
+        const projectList = await db.query(
+            `
+                SELECT pro.id
+                FROM projects as pro
+                WHERE $1 = any(SELECT UNNEST(members) FROM teams) OR (pro.creator_id = $1)
+            `, [userId])
+        const projectIds = projectList.rows.map(project => project.id)
+
+
+
+        //MAIN QUERIES
+        //Run a query to get the amount of tickets that were opened by the user given all the projectIds
+        let query = await Statistics.constructProgressQuery(`created_by`)
+        const openedByUser = await db.query(query, [projectIds, userId])
+
+        //Run a query to get the amount of tickets that were closed by the user given all the projectIds
+        query = await Statistics.constructProgressQuery(`closed_by`)
+        const closedByUser = await db.query(query, [projectIds, userId])
+
+        //Return an object containing the amount of tickets opened and closed by the user
+        return {openedByUser: openedByUser.rows, closedByUser: closedByUser.rows}
+    }
+
+
+
+
+
+
+
+
+    //FUNCTION TO CONSTRUCT A QUERY TO EITHER GET TICKET STATISTICS THAT WERE CREATED OR CLOSED BY THE USER
+    static async constructProgressQuery(qualifier)
+    {
+        //Check if function was provided with either the key word "created_by" or "closed_by"
+        if(!qualifier)
+        {
+            throw new BadRequestError("Missing a qualifier to determine if user wants open and closed tickets over time!")
+        }
+
+        //Construct the query to reflect that qualifier
+        const query = 
+            `SELECT SUBSTRING (cast(tickets.created_at AS TEXT), 1, 7) as date, COUNT(*) as totalTickets ` +
+            `FROM tickets ` +
+            `WHERE project_id = any($1) AND ` + qualifier + ` = $2 ` +
+            `GROUP BY date`
+
+        //Return the newly constructed query containing either information for created by or closed by
+        return query
+    }
+
+
+
+
+
+
+
+
+
+
 
     static async fetchTeamVelocity()
     {

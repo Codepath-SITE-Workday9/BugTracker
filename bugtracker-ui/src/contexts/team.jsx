@@ -10,7 +10,8 @@ export const TeamContextProvider = ({ children }) => {
   const [currentTeam, setCurrentTeam] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  //const [ids, setIds] = useState([])
+  const [teamsTableData, setTeamsTableData] = useState([]);
+  const [ids, setIds] = useState([]);
   //const [tableData, setTableData] = useState([])
 
   const clearTeams = () => {

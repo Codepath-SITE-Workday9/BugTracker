@@ -17,22 +17,24 @@ export default function Dashboard() {
 
   const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
-  const {teams, setTeams, fetchTeams, teamModal, setTeamModal } = useTeamContext()
+  const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams} = useTeamContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
 
   //fetchProjects()
 
   useEffect(() => {
+     clearTeams()
      renderCharts()
      fetchProjects()
      fetchTeams()
+     //fetchTeamsTableData()
      //setProjects(apiClient.listAllProjects())
      //setTeams(apiClient.listAllTeams())
-     /*console.log("Projects below")
-     console.log(projects)
-     console.log("Teams below")
-     console.log(teams) */
+     //console.log("Projects below")
+     //console.log(projects)
+     //console.log("Teams below")
+     //console.log(teams) 
   }, [])
 
   return (

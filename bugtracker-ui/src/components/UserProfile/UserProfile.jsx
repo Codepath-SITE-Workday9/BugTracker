@@ -6,31 +6,31 @@ import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
   const [userStats, setUserStats] = useState([])
-  // const [statsPerMonth, setStatsPerMonth] = useState([])
+   const [statsPerMonth, setStatsPerMonth] = useState([])
 
   async function getUserStatistics()
   {
     console.log("before stats")
       const statistics = await apiClient.getAllStatistics()
+      console.log(statistics)
       setUserStats(statistics.data.statistics.perStatus)
+      console.log(userStats)
 
-      // console.log("before progress")
-      // const progress = await apiClient.getProgressStatsOverTime()
-      // setStatsPerMonth(progress.data.statistics)
-      // console.log(statsPerMonth)
+       console.log("before progress")
+       const progress = await apiClient.getProgressStatsOverTime()
+        setStatsPerMonth(progress.data.statistics)
+        //handleStats(progress.data.statistics, statsPerMonth)
   }
 
-  
-
    useEffect(() => {
-     renderUserCharts()
      getUserStatistics()
+     renderUserCharts(statsPerMonth)
    }, [])
   
   return (
       <div className="user-profile-page">
           <ProfileCard />
-          <UserTables userStats={userStats} />
+          <UserTables userStats={userStats} statsPerMonth={statsPerMonth}/>
       </div>
   )
 }
@@ -64,15 +64,16 @@ export function ProfileCard()
 
 export function UserTables(props)
 {
-
+  // console.log(props.statsPerMonth)
+  // renderUserCharts(props?.statsPerMonth)
     return(
         <div className="user-tables">
           {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
             <h1> Your Ticket Statistics </h1>
             <div className="ticket-statistics">
-                {props.userStats?.map((stat) => {
+                {props.userStats?.map((stat, index) => {
                     return(
-                    <div className="ticket-cards">
+                    <div className="ticket-cards" key={index}>
                       <div className="stats-text">
                         <h2>Tickets {stat.status}</h2>
                         <p> {stat.totaltickets} </p>

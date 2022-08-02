@@ -96,10 +96,14 @@ class ApiClient {
 
   // statistics
   async getAllStatistics() {
-    return await this.request({ endpoint: `report/statistics`, method: 'GET'})
+    console.log("entered get all statistics")
+    const stats = await this.request({ endpoint: `report/statistics`, method: 'GET'})
+    console.log(stats)
+    return stats
   }
 
   async getProgressStatsOverTime() {
+    console.log("Entered progress stats")
     return await this.request({ endpoint: `report/statistics/1/progress`, method: 'GET'})
   }
 

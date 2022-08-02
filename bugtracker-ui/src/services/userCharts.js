@@ -3,19 +3,19 @@
     a new */
     import { useState, useEffect, useRef } from "react";
     
-export default function renderUserCharts() { 
-  const [statsPerMonth, setStatsPerMonth] = useState([])
-  async function getUserStatistics()
-  {
-      console.log("in render charts")
-      const progress = await apiClient.getProgressStatsOverTime()
-      setStatsPerMonth(progress.data.statistics)
-      console.log(statsPerMonth)
-  }
+export default function renderUserCharts(statsPerMonth) { 
+  // const [statsPerMonth, setStatsPerMonth] = useState([])
+  // async function getUserStatistics()
+  // {
+  //     console.log("in render charts")
+  //     const progress = await apiClient.getProgressStatsOverTime()
+  //     setStatsPerMonth(progress.data.statistics)
+  //     console.log(statsPerMonth)
+  // }
   
-  useEffect(() => {
-    getUserStatistics()
-  })
+  // useEffect(() => {
+  //   getUserStatistics()
+  // })
 
          let myChart4 = new Chart(document.getElementById("user-statistics-chart"), {
            type: 'bar',

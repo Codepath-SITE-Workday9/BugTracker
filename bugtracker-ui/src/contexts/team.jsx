@@ -78,13 +78,13 @@ export const TeamContextProvider = ({ children }) => {
   }
 
   function getData() {
-    console.log("Teams length:", teams.length)
+    // console.log("Teams length:", teams.length)
     setTeamsTableData([])
     
     teams.map(async (team) => {
       const memberList = await apiClient.fetchMemberList(team.id)
-      console.log("Inside memberList")
-      console.log(memberList.data.members);
+      // console.log("Inside memberList")
+      // console.log(memberList.data.members);
       let memberNames = []
       memberList?.data?.members.map((member) => {
         memberNames.push(member.full_name)

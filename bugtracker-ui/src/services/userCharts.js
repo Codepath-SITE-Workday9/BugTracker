@@ -72,8 +72,10 @@ export default function renderUserCharts(statsPerMonth) {
                   borderColor: 'rgb(153, 102, 255)',
                   tension: 0
                 }
-              ]
-            }
+              ]},
+              options: {
+                responsive: true
+              }
         })
   };
   

@@ -50,8 +50,8 @@ const columns = [
       color: 700,
     },
   },
-  { title: "Description", field: "description" },
-  { title: "Assigned Teams", field: "collaborators" },
+  { title: "Description", field: "description" }
+  //{ title: "Assigned Teams", field: "collaborators" },
 ];
 
 export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {

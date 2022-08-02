@@ -7,7 +7,7 @@ import { useTeamContext } from "../../../contexts/team";
 import { useAuthContext } from "../../../contexts/auth";
 import { useTeamForm } from "../../../hooks/useTeamForm";
 
-export default function TeamModal() {
+export default function TeamModal({getTeamsTable}) {
   const { setTeamModal } = useTeamContext();
   const { projects } = useProjectContext();
 
@@ -21,6 +21,11 @@ export default function TeamModal() {
     errors,
     handleOnCreateNewTeamSubmit,
   } = useTeamForm();
+
+  function createNewTeam() {
+    handleOnCreateNewTeamSubmit()
+    getTeamsTable()
+  }
 
   return (
     <div className="team-modal-background">
@@ -103,7 +108,7 @@ export default function TeamModal() {
             <button className="cancel" onClick={() => setTeamModal(false)}>
               Cancel
             </button>
-            <button className="submit" onClick={handleOnCreateNewTeamSubmit}>
+            <button className="submit" onClick={createNewTeam}>
               Submit
             </button>
           </div>

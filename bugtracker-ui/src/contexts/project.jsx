@@ -23,6 +23,10 @@ export const ProjectContextProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  const getProjectData = async () => {
+    
+  }
+
   useEffect(() => {
     fetchProjects();
   }, [setProjects]);

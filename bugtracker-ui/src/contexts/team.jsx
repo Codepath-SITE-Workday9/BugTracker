@@ -77,12 +77,16 @@ export const TeamContextProvider = ({ children }) => {
     });
   }
 
-  function getData() {
+  async function getData() {
     // console.log("Teams length:", teams.length)
     setTeamsTableData([])
     
+    
+    let teamIds = []
     teams.map(async (team) => {
       const memberList = await apiClient.fetchMemberList(team.id)
+      console.log("memberList", memberList)
+      teamIds.push(team.id)
       // console.log("Inside memberList")
       // console.log(memberList.data.members);
       let memberNames = []
@@ -116,6 +120,9 @@ export const TeamContextProvider = ({ children }) => {
         //setIds(prev => [...prev, team.id])
       //} 
     })
+    //console.log("teamIds:", teamIds)
+    //const teamData = await apiClient.fetchTeamMembers(teamIds)
+    //console.log("teamData:", teamData)
 
     //console.log("tableData below")
     //console.log(tableData)
@@ -124,7 +131,7 @@ export const TeamContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchTeams();
-    getData()
+    //getData()
     //fetchTeamsTableData();
 
   }, [setTeams, currentTeam]);

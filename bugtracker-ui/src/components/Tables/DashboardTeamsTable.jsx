@@ -1,6 +1,6 @@
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTeamContext } from "../../contexts/team";
 import apiClient from "../../services/apiClient";
 
@@ -25,11 +25,15 @@ const columns = [
   { title: "Members", field: "members" },
 ];
 
-export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal}) => {
-  const { teams, setTeams, setTeamModal, teamsTableData, fetchTeamsTableData, setTeamsTableData, getData} = useTeamContext()
+export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal, teamsTableData, setTeamsTableData, getTeamsTable}) => {
+  const { teams, setTeams, setTeamModal,  fetchTeamsTableData, getData} = useTeamContext()
   //const [tableData, setTableData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [ids, setIds] = useState([])
+  const didMount = useRef(false)
+
+  console.log("teamsTableData:", teamsTableData)
+  console.log(teams)
 
     // 3 steps to fix:
     // 1. move work to backend api if we can
@@ -71,7 +75,8 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
     } */
 
     window.onload = function () {
-      getData()
+      //getData()
+      getTeamsTable()
     }
 
 
@@ -79,9 +84,17 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
     useEffect(() => {
       //console.log("Inside teams table useEffect")
       //setTableData([])
+
+      getTeamsTable()
+
+      // if (!didMount.current) {
+      //   return didMount.current = true
+      // }
+
+
       //if (tableData.length < 1) {
 
-        getData() 
+        //getData() 
 
       //}
       /*console.log("Inside useEffect")

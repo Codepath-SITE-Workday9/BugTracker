@@ -133,7 +133,7 @@ router.get("/:teamId/members", security.requireAuthenticatedUser, async (req, re
         const members = await Teams.fetchMembersForATeam({teamId: teamId, user: user });
 
         // Return the user array if successful
-        return res.status(200).json({members})
+        return res.status(200).json({teamsData: members})
     }
     catch (error) {
         next(error)

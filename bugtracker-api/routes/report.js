@@ -103,5 +103,27 @@ router.get("/statistics/1/progress", security.requireAuthenticatedUser, async(re
 
 
 
+
+
+
+
+router.get("/complexity", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        const complexity = await Statistics.fetchComplexityOvertime({user: user})
+
+        return res.status(200).json({complexity: complexity})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
 //MODULE EXPORTS
 module.exports = router

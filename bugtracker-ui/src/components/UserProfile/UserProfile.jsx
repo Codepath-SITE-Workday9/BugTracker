@@ -7,6 +7,7 @@ import "../UserProfile/UserProfile.css"
 export default function UserProfile() {
    const [userStats, setUserStats] = useState([])
    const [statsPerMonth, setStatsPerMonth] = useState()
+   const [complexityPerMonth, setComplexityPerMonth] = useState()
 
    //FUNCTION TO GET ALL USER STATISTICS OF TICKETS OPENED/CLOSED
    async function getUserStatistics()
@@ -16,15 +17,19 @@ export default function UserProfile() {
 
       const progress = await apiClient.getProgressStatsOverTime()
       setStatsPerMonth(progress.data.statistics)
+
+      const complexity = await apiClient.getComplexityOverTime()
+      setComplexityPerMonth(complexity.data.complexity)
+
    }
 
     useEffect(() => {
       getUserStatistics()
     }, [])
 
-    if(statsPerMonth)
+    if(statsPerMonth && complexityPerMonth)
     {
-        renderUserCharts(statsPerMonth)
+        renderUserCharts(statsPerMonth, complexityPerMonth)
     }
   
   return (

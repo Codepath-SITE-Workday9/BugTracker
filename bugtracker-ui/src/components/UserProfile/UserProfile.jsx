@@ -89,13 +89,14 @@ export function UserTables(props)
 
             <div className="chart-container">
               {/* Renders a bar chart for tickets completed over time based on complexity */}
+              <h1></h1>
               <canvas
                 className="bar-chart"
                 id="user-statistics-chart"
               ></canvas>
               {/* Renders a line chart for tickets opened and closed over time */}
               <canvas
-                className="bar-chart"
+                className="line-chart"
                 id="user-statistics-line-chart"
               ></canvas>
             </div>

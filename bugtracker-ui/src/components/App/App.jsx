@@ -16,7 +16,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import apiClient from "../../services/apiClient";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NotFound from "../NotFound/NotFound";
@@ -66,6 +66,8 @@ export function App() {
     setIsProcessing(false);
     setInitialized(true);
   }, [setUser]);
+
+
 
   return (
     <div className="app">

@@ -9,7 +9,7 @@
 export default function renderCharts(dashboardStatistics) { 
 
     
-    console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
+    //console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
 
 
     
@@ -36,7 +36,6 @@ export default function renderCharts(dashboardStatistics) {
         statusData[4] = parseInt(statusType.totaltickets)
       }
     })
-    console.log("statusData: ", statusData)
 
     // Retrieve priority data
     let priorityData = [0, 0, 0, 0]

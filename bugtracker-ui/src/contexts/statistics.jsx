@@ -12,14 +12,14 @@ export const StatisticsContextProvider = ({ children }) => {
   const fetchDashboardStatistics = async () => {
     setIsLoading(true);
     let stats = await apiClient.getAllStatistics()
-    console.log("fetchDashboardStatistics stats:", stats)
+    //console.log("fetchDashboardStatistics stats:", stats)
     setDashboardStatistics(stats)
-    console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+    //console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
     setIsLoading(false);
   };
 
   useEffect(() => {
-    console.log("Enter statistics useEffect")
+    //console.log("Enter statistics useEffect")
     fetchDashboardStatistics();
   }, []); // setTickets dependency removed
 

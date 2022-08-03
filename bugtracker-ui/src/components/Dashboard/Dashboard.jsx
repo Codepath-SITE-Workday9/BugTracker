@@ -94,9 +94,9 @@ export default function Dashboard() {
 
   window.onload = function () {
     //getTeamsTable()
-    console.log("Inside window.onload")
+    //console.log("Inside window.onload")
     fetchDashboardStatistics()
-    console.log("Fetched dashboard statistics onload complete")
+    //console.log("Fetched dashboard statistics onload complete")
     //renderCharts(dashboardStatistics)
   }
 
@@ -104,9 +104,9 @@ export default function Dashboard() {
      //clearTeams()
 
      fetchDashboardStatistics()
-     console.log("dashboard statistics:", dashboardStatistics)
+     //console.log("dashboard statistics:", dashboardStatistics)
      renderCharts(dashboardStatistics)
-     console.log("dashboard statistics:", dashboardStatistics)
+     //console.log("dashboard statistics:", dashboardStatistics)
      //renderCharts(dashboardStatistics)
 
     //  if (dashboardStatistics) {

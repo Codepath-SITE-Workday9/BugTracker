@@ -40,7 +40,6 @@ export const TeamContextProvider = ({ children }) => {
     setIsLoading(false);
   }, []); // currentTeam was removed as a dependency to fix infinite loading
 
-
   const fetchTeamsTableData = async (recievedTeams) => {
     //const tableData = []
     setTeamsTableData([]);
@@ -61,7 +60,7 @@ export const TeamContextProvider = ({ children }) => {
 
   const getTeamIds = (recievedTeams) => {
     let teamIds = [];
-    recievedTeams.map((team) => {
+    recievedTeams?.map((team) => {
       teamIds.push(team.id);
     });
     return teamIds;

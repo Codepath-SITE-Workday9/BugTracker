@@ -5,7 +5,7 @@ import AddDevelopersDropdown from "../../Dropdown/AddDevelopersDropdown/AddDevel
 import "./TicketModal.css";
 import { useAuthContext } from "../../../contexts/auth";
 import { useProjectContext } from "../../../contexts/project";
-export default function TicketModal() {
+export default function TicketModal({ availableMembers }) {
   const {
     handleOnCreateNewTicketSubmit,
     title,
@@ -39,17 +39,21 @@ export default function TicketModal() {
 
   const { projects } = useProjectContext();
 
+  // useEffect hook to set ticket's information based on if a user has clicked on edit or create a new ticket
   useEffect(() => {
-    if (Object.keys(ticketToEdit).length === 0) {
+    if (editing && Object.keys(ticketToEdit).length === 0) {
+      //if a user is editing a ticket, prepopulte the form with the specificed ticket's information
       setComplexity(ticketToEdit.complexity);
       setStatus(ticketToEdit.status);
       setPriority(ticketToEdit.priority);
       setTitle(ticketToEdit.title);
       setDescription(ticketToEdit.description);
       setCategory(ticketToEdit.category);
-
-      // setDevelopersToAdd(ticketToEdit.developers);
+      setDevelopersToAdd(ticketToEdit.developers);
     } else {
+      // if  user is creating a ticket, set the form values to a default value
+      setTitle("");
+      setDescription("");
       setDevelopersToAdd([user.email]);
       setComplexity("1");
       setStatus("unassigned");
@@ -100,7 +104,6 @@ export default function TicketModal() {
                   {/* conditionally display the developers added to new ticket, if there are any */}
                   <div className="rows-container">
                     <div className="added-label">Developers added:</div>
-                    {console.log("Devs:", developersToAdd)}
                     {developersToAdd?.length > 0 ? (
                       developersToAdd.map((d) => (
                         <DeveloperRow

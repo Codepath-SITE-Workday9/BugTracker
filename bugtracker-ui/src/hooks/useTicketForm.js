@@ -16,7 +16,6 @@ export const useTicketForm = () => {
     const [ticketProject, setTicketProject] = useState({});
     
     const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit, editing, ticketToEdit} = useTicketContext();
-    const devs = ["a@b"]
     
     const handleOnCreateNewTicketSubmit = async () => {
         // before sending request to create a new ticket, verify title & description is not empty
@@ -26,7 +25,7 @@ export const useTicketForm = () => {
             setErrors("Please add a brief description to your ticket!")
         }else{
           if(!editing){
-            // send request to create a new ticket
+            // send request to create new a ticket
               // must send: 
               // title, description, category, priority, status, complexity, the developers (array of emails), projectId
               const { data, error } = await apiClient.createNewTicket({
@@ -57,8 +56,8 @@ export const useTicketForm = () => {
             } else if (errors) {
               setErrors("Something went wrong! Try again.");
             }
+            // else, send request to update ticket info
           } else{
-            console.log("updating,", ticketToEdit)
             const { data, error } = await apiClient.updateTicket(ticketToEdit.id,{
               title: title,
               description: description,
@@ -88,11 +87,7 @@ export const useTicketForm = () => {
               setErrors("Something went wrong! Try again.");
             } 
           }
-
-      
-           
-          }
-        
+        }
     };
 
     return {

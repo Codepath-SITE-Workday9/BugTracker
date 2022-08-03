@@ -34,7 +34,7 @@ export default function TicketModal() {
   } = useTicketContext();
 
   useEffect(() => {
-    if (ticketToEdit) {
+    if (Object.keys(ticketToEdit).length === 0) {
       setComplexity(ticketToEdit.complexity);
       setStatus(ticketToEdit.status);
       setPriority(ticketToEdit.priority);
@@ -43,6 +43,12 @@ export default function TicketModal() {
       setCategory(ticketToEdit.category);
 
       // setDevelopersToAdd(ticketToEdit.developers);
+    } else {
+      setDevelopersToAdd(user.email);
+      setComplexity("1");
+      setStatus("unassigned");
+      setPriority("low");
+      setCategory("bug");
     }
   }, []);
 
@@ -78,10 +84,30 @@ export default function TicketModal() {
               </div>
 
               <div className="column">
-                <AddDevelopers
-                  developers={["user1", "user2", "user3"]}
-                  setDevelopersToAdd={setDevelopersToAdd}
-                />
+                {/* developer area */}
+                <div className="developer-area">
+                  <AddDevelopers
+                    developers={["user1", "user2", "user3"]}
+                    setDevelopersToAdd={setDevelopersToAdd}
+                  />
+
+                  {/* conditionally display the developers added to new ticket, if there are any */}
+                  <div className="rows-container">
+                    <div className="added-label">Developers added:</div>
+                    {developersToAdd.length > 0 ? (
+                      developersToAdd.map((d) => (
+                        <DeveloperRow
+                          email={d}
+                          developersToAdd={developersToAdd}
+                          setDevelopersToAdd={setDevelopersToAdd}
+                          key={d.id}
+                        />
+                      ))
+                    ) : (
+                      <div className="nothing-yet-label">No developers yet</div>
+                    )}
+                  </div>
+                </div>
                 <AddComplexity
                   setComplexity={setComplexity}
                   complexity={complexity}
@@ -121,7 +147,7 @@ export function AddTitle({ title, setTitle }) {
 
   //search input for name
   return (
-    <div className="teams-form-search">
+    <div className="tickets-form-search">
       <label htmlFor="title">Enter ticket title</label>
       <div className="search-box">
         <input
@@ -143,7 +169,7 @@ export function AddDescription({ description, setDescription }) {
     setDescription(event.target.value);
   };
   return (
-    <div className="projects-form-search">
+    <div className="tickets-form-search">
       <label htmlFor="describe">Describe the ticket</label>
       <div className="search-box">
         <textarea
@@ -165,7 +191,7 @@ export function AddDescription({ description, setDescription }) {
 export function AddDevelopers({ developers, setDevelopersToAdd }) {
   // developerSearch = developer search term in input field
   const [developerSearch, setDeveloperSearch] = useState("");
-  // projectsToShow = array of projects depending on projectSearch term, will start of with all projects
+  // ticketsToShow = array of projects depending on projectSearch term, will start of with all projects
   const [developersToShow, setDevelopersToShow] = useState(developers);
   const [errors, setErrors] = useState("");
 
@@ -188,7 +214,7 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
   //     );
   //   }, [developerSearch]);
 
-  // handler function to update the projects list when a user selects a project from the drop down list
+  // handler function to update the developers list when a user selects a developer from the drop down list
   const handleOnDeveloperClick = (dev) => {
     setDevelopersToAdd((p) => [...p, dev.id]);
     setDeveloperSearch("");
@@ -196,7 +222,7 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
   };
 
   return (
-    <div className="teams-form-search">
+    <div className="tickets-form-search">
       <div className="developers-area">
         <p className="errors"> {errors}</p>
 
@@ -218,7 +244,7 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
               <i className="material-icons">search</i>
             </button>
           </div>
-          {/* conditionally display dropdown if the input field has been clicked on/user has searched for  project*/}
+          {/* conditionally display dropdown if the input field has been clicked on/user has searched for  developer*/}
           {developerSearch || focused ? (
             <>
               <div className="drop-down-search-box">
@@ -233,6 +259,21 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
           )}
         </div>
       </div>
+    </div>
+  );
+}
+// individual row for each developer that has been added to the ticket that is being created
+export function DeveloperRow({ email, developersToAdd, setDevelopersToAdd }) {
+  // handler function to remove a developer from the developers list
+  const handleOnRemoveDeveloper = () => {
+    setDevelopersToAdd(developersToAdd.filter((d) => d != email));
+  };
+  return (
+    <div className="added-row">
+      <div className="added-row-email">{email}</div>
+      <button className="added-row-btn" onClick={handleOnRemoveDeveloper}>
+        x
+      </button>
     </div>
   );
 }

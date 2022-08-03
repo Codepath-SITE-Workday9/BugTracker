@@ -150,7 +150,7 @@ export function AddTeams({ teams, setTeamsToAdd }) {
   // focused will be true if the projects search input field is clicked on, and false when a user clicks off of the input field
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
+  // const onBlur = () => setFocused(false);
 
   // handler function to update teamSearch and to update teamsToShow whenever the input field value changes
   const handleOnTeamChange = (event) => {
@@ -169,6 +169,7 @@ export function AddTeams({ teams, setTeamsToAdd }) {
   // handler function to update the projects list when a user selects a project from the drop down list
   const handleOnTeamClick = (team) => {
     setTeamsToAdd((t) => [...t, team.id]);
+    setFocused(false);
     setTeamSearch("");
   };
 
@@ -188,7 +189,7 @@ export function AddTeams({ teams, setTeamsToAdd }) {
               onChange={handleOnTeamChange}
               autoComplete="off"
               onFocus={onFocus}
-              onBlur={onBlur}
+              // onBlur={onBlur}
             />
             <button className="search-btn">
               <i className="material-icons">search</i>

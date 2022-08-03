@@ -114,7 +114,7 @@ class ApiClient {
   async fetchTicketById(ticketId){
     return await this.request({ endpoint: `ticket/${ticketId}`, method: 'GET'})
   }
-  async updateTicket({ ticketId, ticketInfo}){
+  async updateTicket(ticketId, ticketInfo){
     return await this.request({ endpoint: `ticket/${ticketId}/update`, method: 'PATCH',  data: ticketInfo })
   }
 

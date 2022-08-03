@@ -17,9 +17,9 @@ export default function TicketsPage() {
     isLoading,
   } = useTicketContext();
 
-  useEffect(() => {
-    fetchAllTickets();
-  }, [ticketModal]);
+  // useEffect(() => {
+  //   fetchAllTickets();
+  // }, [ticketModal]);
 
   const handleOnTicketClick = (ticket) => {
     setCurrentTicket(ticket);

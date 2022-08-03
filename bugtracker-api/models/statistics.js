@@ -266,12 +266,17 @@ class Statistics
     //FUNCTION TO GET AMOUNT OF COMPLEXITY POINTS OF OPENED TICKETS OVER MONTHS
     static async fetchComplexityOvertime({user})
     {
+        //ERROR-CHECKING: Ensure that user information is provided as a valid parameter
         if(!user)
         {
             throw new BadRequestError("Missing an user information from your request!")
         }
+
+        //Run a separate query to get the id of the user using their email from the local server
         const userId = await Teams.fetchUserId(user.email)
 
+        //Run this main query to obtain the date, and total complexity points of tickets opened in that month
+        //Only if a user is assigned as a developer to that ticket
         const results = await db.query(
             `
                 SELECT SUBSTRING (cast(created_at AS TEXT), 1, 7) as date, SUM(complexity) as total_complexity
@@ -280,12 +285,16 @@ class Statistics
                 GROUP BY date
             `, [userId])
 
+        //Create an array representing the months of the year and initialize with 0's
+        //Map through the object containing dates and total complexity and store this information into its assigned month index
         let monthlyStats = new Array(12).fill(0)
         results.rows.map((month) => {
             let numOfMonth = parseInt(month.date.substring(5,7))
             monthlyStats[numOfMonth - 1] = parseInt(month.total_complexity)
         })
 
+
+        //Return an object containing all the complexity points per month and an array representation of this information
         return {complexityPerMonth: results.rows, complexityArray: monthlyStats}
     }
 

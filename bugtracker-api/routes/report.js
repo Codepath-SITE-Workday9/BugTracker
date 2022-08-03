@@ -113,8 +113,11 @@ router.get("/complexity", security.requireAuthenticatedUser, async(req,res,next)
         //Retrieve the user information from the local server
         const {user} = res.locals
 
+        //Call the fetchComplexityOvertime function using only the user information from local server
+        //And obtain an object containing all the complexity points per month, and complexity points stored into an array
         const complexity = await Statistics.fetchComplexityOvertime({user: user})
 
+        //Return the array of complexity points if successful
         return res.status(200).json({complexity: complexity})
     }
     catch(error)

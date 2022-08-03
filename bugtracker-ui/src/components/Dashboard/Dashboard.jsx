@@ -22,11 +22,19 @@ export default function Dashboard() {
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
   const [teamsTableData, setTeamsTableData] = useState([])
-  //const [statistics, setStatistics] = useState({})
+  //const [dashboardStatistics, setDashboardStatistics] = useState({})
 
   //fetchProjects()
   
 
+  // const fetchDashboardStatistics = async () => {
+  //   //setIsLoading(true);
+  //   let stats = await apiClient.getAllStatistics()
+  //   console.log("fetchDashboardStatistics stats:", stats)
+  //   setDashboardStatistics(stats)
+  //   console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+  //   //setIsLoading(false);
+  // };
 
   async function getTeamsTable() {
     // console.log("Teams length:", teams.length)
@@ -83,11 +91,13 @@ export default function Dashboard() {
     //setIsLoading(false) 
   }
 
+
   window.onload = function () {
     //getTeamsTable()
     console.log("Inside window.onload")
     fetchDashboardStatistics()
-    renderCharts(dashboardStatistics)
+    console.log("Fetched dashboard statistics onload complete")
+    //renderCharts(dashboardStatistics)
   }
 
   useEffect(() => {
@@ -96,9 +106,17 @@ export default function Dashboard() {
      fetchDashboardStatistics()
      console.log("dashboard statistics:", dashboardStatistics)
      renderCharts(dashboardStatistics)
+     console.log("dashboard statistics:", dashboardStatistics)
+     //renderCharts(dashboardStatistics)
 
-     fetchProjects()
-     newFetchTeamsTableData(teams)
+    //  if (dashboardStatistics) {
+    //   fetchDashboardStatistics()
+    //   console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+    //   renderCharts(dashboardStatistics)
+    // }
+
+     //fetchProjects()
+     //newFetchTeamsTableData(teams)
      //fetchTeams()
      //getTeamsTable()
      //getData()
@@ -112,6 +130,15 @@ export default function Dashboard() {
      //console.log("Teams below")
      //console.log(teams) 
   }, [])
+
+  //  if (dashboardStatistics) {
+  //    //fetchDashboardStatistics()
+  //    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+  //    renderCharts(dashboardStatistics)
+  //  }
+ 
+
+
 
   return (
     // <div className={isOpen ? "dashboard open" : "dashboard closed"}>

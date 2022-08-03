@@ -8,7 +8,7 @@ export const TicketContextProvider = ({ children }) => {
   const [tickets, setTickets] = useState([]);
   const [ticketModal, setTicketModal] = useState(false);
   const [currentTicket, setCurrentTicket] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   // const fetchTicketsForProject = async (projectId) => {
@@ -25,7 +25,7 @@ export const TicketContextProvider = ({ children }) => {
   // };
 
   const fetchAllTickets = async () => {
-    setIsLoading(true);
+    //setIsLoading(true);
     setError(null);
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
@@ -34,7 +34,7 @@ export const TicketContextProvider = ({ children }) => {
     if (error) {
       setError(error);
     }
-    setIsLoading(false);
+    //setIsLoading(false);
   };
 
   useEffect(() => {

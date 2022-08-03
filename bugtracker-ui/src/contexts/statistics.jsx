@@ -14,6 +14,7 @@ export const StatisticsContextProvider = ({ children }) => {
     let stats = await apiClient.getAllStatistics()
     console.log("fetchDashboardStatistics stats:", stats)
     setDashboardStatistics(stats)
+    console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
     setIsLoading(false);
   };
 
@@ -21,6 +22,10 @@ export const StatisticsContextProvider = ({ children }) => {
     console.log("Enter statistics useEffect")
     fetchDashboardStatistics();
   }, []); // setTickets dependency removed
+
+  // window.onload = function () {
+  //   fetchDashboardStatistics()
+  // }
 
   const statisticsValue = {
     dashboardStatistics,

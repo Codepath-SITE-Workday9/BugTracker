@@ -4,7 +4,11 @@
 */
 
 
+
+
 export default function renderCharts(dashboardStatistics) { 
+
+    
     console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
 
 
@@ -12,11 +16,10 @@ export default function renderCharts(dashboardStatistics) {
     // dashboardStatistics.data.statistics.perStatus.find(
     //   (item) => 
     // )
-    console.log("renderCharts dashboardStatistics:", dashboardStatistics)
 
     // Get data of the status table, if it does not exist it defaults to 0
     let statusData = [0, 0, 0, 0, 0]
-    dashboardStatistics.data?.statistics?.perStatus?.map((statusType) => {
+    dashboardStatistics?.data?.statistics?.perStatus?.map((statusType) => {
       if (statusType.status === 'unassigned') {
         statusData[0] = parseInt(statusType.totaltickets)
       }
@@ -37,7 +40,7 @@ export default function renderCharts(dashboardStatistics) {
 
     // Retrieve priority data
     let priorityData = [0, 0, 0, 0]
-    dashboardStatistics.data?.statistics?.perPriority?.map((type) => {
+    dashboardStatistics?.data?.statistics?.perPriority?.map((type) => {
       if (type.priority === 'low') {
         priorityData[0] = parseInt(type.totaltickets)
       }
@@ -54,7 +57,7 @@ export default function renderCharts(dashboardStatistics) {
 
     // Retrieve category data
     let categoryData = [0, 0]
-    dashboardStatistics.data?.statistics?.perCategory?.map((type) => {
+    dashboardStatistics?.data?.statistics?.perCategory?.map((type) => {
       if (type.category === 'bug') {
         categoryData[0] = parseInt(type.totaltickets)
       }

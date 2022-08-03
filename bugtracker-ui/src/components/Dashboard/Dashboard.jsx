@@ -85,6 +85,9 @@ export default function Dashboard() {
 
   window.onload = function () {
     //getTeamsTable()
+    console.log("Inside window.onload")
+    fetchDashboardStatistics()
+    renderCharts(dashboardStatistics)
   }
 
   useEffect(() => {

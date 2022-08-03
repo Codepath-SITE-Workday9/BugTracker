@@ -44,7 +44,7 @@ export default function TicketView({
             </div>
 
             <button className="new-btn" onClick={() => handleOnEditClick()}>
-              <span class="material-symbols-outlined">edit_document</span>
+              <span className="material-symbols-outlined">edit_document</span>
             </button>
           </div>
 

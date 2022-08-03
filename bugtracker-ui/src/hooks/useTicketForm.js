@@ -14,7 +14,7 @@ export const useTicketForm = () => {
     const [category, setCategory] = useState("bug");
     const [errors, setErrors] = useState("");
     
-    const {setCurrentTicket, setTicketModal} = useTicketContext();
+    const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit} = useTicketContext();
     const devs = ["a@b"]
     
     const handleOnCreateNewTicketSubmit = async () => {
@@ -51,6 +51,8 @@ export const useTicketForm = () => {
               setCategory("bug");
               setTicketModal(false);
               setCurrentTicket(data.ticket)
+              setEditing(false);
+              setTicketToEdit({})
             } else if (error) {
               setErrors("Something went wrong! Try again.");
             }

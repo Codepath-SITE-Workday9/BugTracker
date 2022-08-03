@@ -8,6 +8,8 @@ export const TicketContextProvider = ({ children }) => {
   const [tickets, setTickets] = useState([]);
   const [ticketModal, setTicketModal] = useState(false);
   const [currentTicket, setCurrentTicket] = useState({});
+  const [ticketToEdit, setTicketToEdit] = useState({});
+  const [editing, setEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -50,10 +52,14 @@ export const TicketContextProvider = ({ children }) => {
     setTickets,
     currentTicket,
     setCurrentTicket,
+    editing,
+    setEditing,
     fetchAllTickets,
     ticketModal,
     setTicketModal,
     isLoading,
+    ticketToEdit,
+    setTicketToEdit,
   };
 
   return (

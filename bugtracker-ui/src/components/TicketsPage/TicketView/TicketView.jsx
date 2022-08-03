@@ -11,7 +11,7 @@ export default function TicketView({
   ticketsAvailable,
   isLoading,
 }) {
-  const { setTicketModal } = useTicketContext();
+  const { setTicketModal, setEditing, setTicketToEdit } = useTicketContext();
   const [creator, setCreator] = useState("");
 
   const fetchCreator = async () => {
@@ -21,6 +21,12 @@ export default function TicketView({
     if (data) {
       setCreator(data.user.fullName);
     }
+  };
+
+  const handleOnEditClick = () => {
+    setTicketToEdit(currentTicket);
+    setEditing(true);
+    setTicketModal(true);
   };
 
   useEffect(() => {
@@ -35,21 +41,9 @@ export default function TicketView({
           <div className="ticket-header">
             <div className="ticket-title">
               <h1> {ticketsAvailable && currentTicket?.title} </h1>
-
-              <div className="ticket-info">
-                <div className={`ticket-priority ${currentTicket.priority}`}>
-                  {currentTicket.priority}
-                </div>
-                <div className={`ticket-category ${currentTicket.category}`}>
-                  {currentTicket.category}
-                </div>
-                <div className={`ticket-status ${currentTicket.status}`}>
-                  {currentTicket.status}
-                </div>
-              </div>
             </div>
 
-            <button className="new-btn" onClick={() => setTicketModal(true)}>
+            <button className="new-btn" onClick={() => handleOnEditClick()}>
               <span class="material-symbols-outlined">edit_document</span>
             </button>
           </div>
@@ -59,7 +53,17 @@ export default function TicketView({
             currentTicket && (
               <>
                 {/* an input field to add a developer to the ticket, and all developers listed in table form */}
-
+                <div className="ticket-info">
+                  <div className={`ticket-priority ${currentTicket.priority}`}>
+                    {currentTicket.priority}
+                  </div>
+                  <div className={`ticket-category ${currentTicket.category}`}>
+                    {currentTicket.category}
+                  </div>
+                  <div className={`ticket-status ${currentTicket.status}`}>
+                    {currentTicket.status}
+                  </div>
+                </div>
                 <div className="ticket-description">
                   <p>{currentTicket.description}</p>
                 </div>

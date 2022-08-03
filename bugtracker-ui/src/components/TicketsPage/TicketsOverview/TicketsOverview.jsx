@@ -2,7 +2,7 @@ import "./TicketsOverview.css";
 import { useState } from "react";
 import TicketCard from "../TicketCard/TicketCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
-
+import { useTicketContext } from "../../../contexts/ticket";
 // overview of all Tickets a user is apart of
 export default function TicketsOverview({
   tickets,
@@ -11,6 +11,7 @@ export default function TicketsOverview({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const { setTicketModal } = useTicketContext();
   // const { projects } = useProjectContext();
   // const dropdownCategories = [...]
   const categories = [

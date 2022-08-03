@@ -17,14 +17,36 @@ export default function TicketModal() {
     setComplexity,
     status,
     setStatus,
-    priortiy,
+    priority,
     setPriority,
     errors,
     setErrors,
     category,
     setCategory,
   } = useTicketForm();
-  const { setTicketModal } = useTicketContext();
+  const {
+    setTicketModal,
+    editing,
+    setEditing,
+    ticketToEdit,
+    currentTicket,
+    setTicketToEdit,
+  } = useTicketContext();
+  console.log("currentTicket:", currentTicket);
+  console.log("Ticket to edit:", ticketToEdit);
+
+  useEffect(() => {
+    if (ticketToEdit) {
+      setComplexity(ticketToEdit.complexity);
+      setStatus(ticketToEdit.status);
+      setPriority(ticketToEdit.priority);
+      setTitle(ticketToEdit.title);
+      setDescription(ticketToEdit.description);
+      setCategory(ticketToEdit.category);
+
+      // setDevelopersToAdd(ticketToEdit.developers);
+    }
+  }, []);
 
   return (
     <div className="ticket-modal-background">
@@ -34,7 +56,11 @@ export default function TicketModal() {
           <p>CREATE A NEW TICKET</p>
           <button
             className="close-modal-btn"
-            onClick={() => setTicketModal(false)}
+            onClick={() => {
+              setTicketModal(false);
+              setEditing(false);
+              setTicketToEdit({});
+            }}
           >
             X
           </button>
@@ -58,20 +84,30 @@ export default function TicketModal() {
                   developers={["user1", "user2", "user3"]}
                   setDevelopersToAdd={setDevelopersToAdd}
                 />
-                <AddComplexity setComplexity={setComplexity} />
-                <AddStatus setStatus={setStatus} />
-                <AddPriority setPriority={setPriority} />
-                <AddCategory setCategory={setCategory} />
+                <AddComplexity
+                  setComplexity={setComplexity}
+                  complexity={complexity}
+                />
+                <AddStatus setStatus={setStatus} status={status} />
+                <AddPriority setPriority={setPriority} priority={priority} />
+                <AddCategory setCategory={setCategory} category={category} />
               </div>
             </div>
           </div>
           {/* cancel and submit buttons */}
           <div className="modal-buttons">
-            <button className="cancel" onClick={() => setTicketModal(false)}>
+            <button
+              className="cancel"
+              onClick={() => {
+                setTicketToEdit({});
+                setEditing(false);
+                setTicketModal(false);
+              }}
+            >
               Cancel
             </button>
             <button className="submit" onClick={handleOnCreateNewTicketSubmit}>
-              Submit
+              {editing ? "Confirm edits" : "Submit"}
             </button>
           </div>
         </div>
@@ -233,14 +269,19 @@ export function ProjectRow({ projectId, projectsToAdd, setProjectsToAdd }) {
   );
 }
 
-export function AddComplexity({ setComplexity }) {
+export function AddComplexity({ setComplexity, complexity }) {
   const handleOnChange = (event) => {
     setComplexity(event.target.value);
   };
   return (
     <div className="add-complexity">
       <label htmlFor="status">Choose the complexity:</label>
-      <select name="complexity" id="complexity" onChange={handleOnChange}>
+      <select
+        name="complexity"
+        id="complexity"
+        onChange={handleOnChange}
+        value={complexity}
+      >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -256,14 +297,19 @@ export function AddComplexity({ setComplexity }) {
   );
 }
 
-export function AddPriority({ setPriority }) {
+export function AddPriority({ setPriority, priority }) {
   const handleOnChange = (event) => {
     setPriority(event.target.value);
   };
   return (
     <div className="add-priority">
       <label htmlFor="status">Choose the priority:</label>
-      <select name="priority" id="priority" onChange={handleOnChange}>
+      <select
+        name="priority"
+        id="priority"
+        onChange={handleOnChange}
+        value={priority}
+      >
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
@@ -273,14 +319,19 @@ export function AddPriority({ setPriority }) {
   );
 }
 
-export function AddStatus({ setStatus }) {
+export function AddStatus({ setStatus, status }) {
   const handleOnChange = (event) => {
     setStatus(event.target.value);
   };
   return (
     <div className="add-status">
       <label htmlFor="status">Choose the status:</label>
-      <select name="status" id="status" onChange={handleOnChange}>
+      <select
+        name="status"
+        id="status"
+        onChange={handleOnChange}
+        value={status}
+      >
         <option value="unassigned">Unassigned</option>
         <option value="not started">Not Started</option>
         <option value="in progress">In Progress</option>
@@ -291,14 +342,20 @@ export function AddStatus({ setStatus }) {
   );
 }
 
-export function AddCategory({ setCategory }) {
+export function AddCategory({ setCategory, category }) {
+  console.log("Category:", category);
   const handleOnChange = (event) => {
     setCategory(event.target.value);
   };
   return (
     <div className="add-category">
       <label htmlFor="status">Choose the category:</label>
-      <select name="category" id="category" onChange={handleOnChange}>
+      <select
+        name="category"
+        id="category"
+        onChange={handleOnChange}
+        value={category}
+      >
         <option value="bug">Bug</option>
         <option value="new feature">New Feature</option>
       </select>

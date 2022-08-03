@@ -47,7 +47,7 @@ export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
   const { fetchTeams } = useTeamContext();
-  const { fetchDashboardStatistics } = useStatisticsContext()
+  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();
@@ -59,7 +59,7 @@ export function App() {
       setInitialized(true);
       setIsProcessing(false);
     };
-
+    //console.log("App dashboardStatistics:", dashboardStatistics)
     const token = localStorage.getItem("bugtracker_token");
 
     if (token) {

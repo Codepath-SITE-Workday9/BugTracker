@@ -80,8 +80,8 @@ export function UserTables(props)
                     return(
                     <div className="ticket-cards" key={index}>
                       <div className="stats-text">
-                        <h2>Tickets {stat.status}</h2>
-                        <p> {stat.totaltickets} </p>
+                        <h2 id="stats-title">Tickets {stat.status}</h2>
+                        <p id="stats-value"> {stat.totaltickets} </p>
                       </div>
                     </div>)
                 })}

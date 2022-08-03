@@ -100,7 +100,7 @@ body
     justify-content: space-evenly;
 }
 
-.profile-page .ticket-cards
+.ticket-cards
 {
     border-radius: 10px;
     width: 300px;
@@ -112,20 +112,20 @@ body
     box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.25);
 }
 
-.profile-page .stats-text
+.stats-text
 {
     margin-left: 20px;
     line-height: 1.0em
 }
 
-.profile-page .stats-text > p
+#stats-value
 {
     font-weight: bold;
     font-size: 3em;
     color: #32325f;
 }
 
-.profile-page .stats-text > h2
+#stats-title
 {
     color: #8898aa;
     text-transform: uppercase

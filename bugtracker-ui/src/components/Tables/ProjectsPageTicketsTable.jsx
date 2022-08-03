@@ -20,6 +20,7 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
   const navigate = useNavigate();
 
   const fetchTickets = async () => {
+    console.log("current project", currentProject);
     if (currentProject) {
       const { data, error } = await apiClient.listAllProjectTickets(
         currentProject.id
@@ -37,6 +38,7 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
 
   useEffect(() => {
     fetchTickets();
+    console.log("Tickets:", tickets);
   }, [currentProject]);
 
   return (

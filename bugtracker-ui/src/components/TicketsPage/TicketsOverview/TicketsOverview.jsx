@@ -109,9 +109,7 @@ export default function TicketsOverview({
             value={selectedProject}
           >
             {dropdownCategories?.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.name}
-              </option>
+              <option value={c.id}>{c.name}</option>
             ))}
           </select>
         </div>{" "}

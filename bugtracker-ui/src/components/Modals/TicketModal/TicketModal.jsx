@@ -3,7 +3,8 @@ import { useTicketContext } from "../../../contexts/ticket";
 import { useTicketForm } from "../../../hooks/useTicketForm";
 import AddDevelopersDropdown from "../../Dropdown/AddDevelopersDropdown/AddDevelopersDropdown";
 import "./TicketModal.css";
-
+import { useAuthContext } from "../../../contexts/auth";
+import { useProjectContext } from "../../../contexts/project";
 export default function TicketModal() {
   const {
     handleOnCreateNewTicketSubmit,
@@ -23,6 +24,8 @@ export default function TicketModal() {
     setErrors,
     category,
     setCategory,
+    selectedProject,
+    setSelectedProject,
   } = useTicketForm();
   const {
     setTicketModal,
@@ -32,6 +35,9 @@ export default function TicketModal() {
     currentTicket,
     setTicketToEdit,
   } = useTicketContext();
+  const { user } = useAuthContext();
+
+  const { projects } = useProjectContext();
 
   useEffect(() => {
     if (Object.keys(ticketToEdit).length === 0) {
@@ -44,7 +50,7 @@ export default function TicketModal() {
 
       // setDevelopersToAdd(ticketToEdit.developers);
     } else {
-      setDevelopersToAdd(user.email);
+      setDevelopersToAdd([user.email]);
       setComplexity("1");
       setStatus("unassigned");
       setPriority("low");
@@ -94,7 +100,8 @@ export default function TicketModal() {
                   {/* conditionally display the developers added to new ticket, if there are any */}
                   <div className="rows-container">
                     <div className="added-label">Developers added:</div>
-                    {developersToAdd.length > 0 ? (
+                    {console.log("Devs:", developersToAdd)}
+                    {developersToAdd?.length > 0 ? (
                       developersToAdd.map((d) => (
                         <DeveloperRow
                           email={d}
@@ -115,6 +122,24 @@ export default function TicketModal() {
                 <AddStatus setStatus={setStatus} status={status} />
                 <AddPriority setPriority={setPriority} priority={priority} />
                 <AddCategory setCategory={setCategory} category={category} />
+                <div>
+                  {/* sort by component to sort the ticket results */}
+                  <div className="sort-by">
+                    <p> Creating ticket for project: </p>
+                    <div className="sort-by-dropdown">
+                      <select
+                        name="selectList"
+                        id="selectList"
+                        // onChange={handleOnProjectChange}
+                        value={selectedProject}
+                      >
+                        {projects?.map((c) => (
+                          <option value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>{" "}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

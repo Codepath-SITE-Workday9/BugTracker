@@ -5,15 +5,15 @@ import { useTicketContext } from "../contexts/ticket.jsx";
 
 // hook to use when creating new tickets 
 export const useTicketForm = () => {
-    const {user} = useAuthContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [developersToAdd, setDevelopersToAdd] = useState(user.email);
+    const [developersToAdd, setDevelopersToAdd] = useState(["Katherin@codepath.com"]);
     const [complexity, setComplexity] = useState("1");
     const [status, setStatus] = useState("unassigned");
     const [priority, setPriority] = useState("low");
     const [category, setCategory] = useState("bug");
     const [errors, setErrors] = useState("");
+    const [ticketProject, setTicketProject] = useState({});
     
     const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit, editing, ticketToEdit} = useTicketContext();
     const devs = ["a@b"]
@@ -36,8 +36,8 @@ export const useTicketForm = () => {
                 priority: priority,
                 status: status,
                 complexity:complexity,
-                developers: devs,
-                projectId: 7, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
+                developers: ["z@a"],
+                projectId: 10, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
               });
                // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
             if (data) {
@@ -58,6 +58,7 @@ export const useTicketForm = () => {
               setErrors("Something went wrong! Try again.");
             }
           } else{
+            console.log("updating,", ticketToEdit)
             const { data, error } = await apiClient.updateTicket(ticketToEdit.id,{
               title: title,
               description: description,
@@ -65,8 +66,8 @@ export const useTicketForm = () => {
               priority: priority,
               status: status,
               complexity:complexity,
-              developers: [7],
-              project_id: 7, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
+              // developers: [7],
+              // project_id: 7, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
             })
              // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
              if (data) {
@@ -96,6 +97,6 @@ export const useTicketForm = () => {
 
     return {
         handleOnCreateNewTicketSubmit,
-        title, setTitle, description, setDescription, developersToAdd, setDevelopersToAdd, complexity,setComplexity, status, setStatus, priority,setPriority,category,setCategory,errors,setErrors
+        title, setTitle, description, setDescription, developersToAdd, setDevelopersToAdd, complexity,setComplexity, status, setStatus, priority,setPriority,category,setCategory,errors,setErrors, ticketProject, setTicketProject
     }
 }

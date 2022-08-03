@@ -3,8 +3,9 @@ import { useTicketContext } from "../../../contexts/ticket";
 import { useTicketForm } from "../../../hooks/useTicketForm";
 import AddDevelopersDropdown from "../../Dropdown/AddDevelopersDropdown/AddDevelopersDropdown";
 import "./TicketModal.css";
-
-export default function TicketModal() {
+import { useAuthContext } from "../../../contexts/auth";
+import { useProjectContext } from "../../../contexts/project";
+export default function TicketModal({ availableMembers }) {
   const {
     handleOnCreateNewTicketSubmit,
     title,
@@ -23,6 +24,8 @@ export default function TicketModal() {
     setErrors,
     category,
     setCategory,
+    selectedProject,
+    setSelectedProject,
   } = useTicketForm();
   const {
     setTicketModal,
@@ -32,19 +35,26 @@ export default function TicketModal() {
     currentTicket,
     setTicketToEdit,
   } = useTicketContext();
+  const { user } = useAuthContext();
 
+  const { projects } = useProjectContext();
+
+  // useEffect hook to set ticket's information based on if a user has clicked on edit or create a new ticket
   useEffect(() => {
-    if (Object.keys(ticketToEdit).length === 0) {
+    if (editing && Object.keys(ticketToEdit).length === 0) {
+      //if a user is editing a ticket, prepopulte the form with the specificed ticket's information
       setComplexity(ticketToEdit.complexity);
       setStatus(ticketToEdit.status);
       setPriority(ticketToEdit.priority);
       setTitle(ticketToEdit.title);
       setDescription(ticketToEdit.description);
       setCategory(ticketToEdit.category);
-
-      // setDevelopersToAdd(ticketToEdit.developers);
+      setDevelopersToAdd(ticketToEdit.developers);
     } else {
-      setDevelopersToAdd(user.email);
+      // if  user is creating a ticket, set the form values to a default value
+      setTitle("");
+      setDescription("");
+      setDevelopersToAdd([user.email]);
       setComplexity("1");
       setStatus("unassigned");
       setPriority("low");
@@ -94,7 +104,7 @@ export default function TicketModal() {
                   {/* conditionally display the developers added to new ticket, if there are any */}
                   <div className="rows-container">
                     <div className="added-label">Developers added:</div>
-                    {developersToAdd.length > 0 ? (
+                    {developersToAdd?.length > 0 ? (
                       developersToAdd.map((d) => (
                         <DeveloperRow
                           email={d}
@@ -115,6 +125,24 @@ export default function TicketModal() {
                 <AddStatus setStatus={setStatus} status={status} />
                 <AddPriority setPriority={setPriority} priority={priority} />
                 <AddCategory setCategory={setCategory} category={category} />
+                <div>
+                  {/* sort by component to sort the ticket results */}
+                  <div className="sort-by">
+                    <p> Creating ticket for project: </p>
+                    <div className="sort-by-dropdown">
+                      <select
+                        name="selectList"
+                        id="selectList"
+                        // onChange={handleOnProjectChange}
+                        value={selectedProject}
+                      >
+                        {projects?.map((c) => (
+                          <option value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>{" "}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -32,8 +32,6 @@ export default function TicketModal() {
     currentTicket,
     setTicketToEdit,
   } = useTicketContext();
-  console.log("currentTicket:", currentTicket);
-  console.log("Ticket to edit:", ticketToEdit);
 
   useEffect(() => {
     if (ticketToEdit) {
@@ -343,7 +341,6 @@ export function AddStatus({ setStatus, status }) {
 }
 
 export function AddCategory({ setCategory, category }) {
-  console.log("Category:", category);
   const handleOnChange = (event) => {
     setCategory(event.target.value);
   };

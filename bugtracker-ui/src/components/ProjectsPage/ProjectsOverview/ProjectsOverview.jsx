@@ -3,7 +3,12 @@ import { useState } from "react";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 
-export default function ProjectsOverview({ projects, handleOnProjectClick }) {
+// overview of all projects a user is apart of
+export default function ProjectsOverview({
+  projects,
+  handleOnProjectClick,
+  isLoading,
+}) {
   var projectsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -38,6 +43,7 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
           type="text"
           name="search"
           placeholder="search for a project"
+          value={searchTerm}
           onChange={handleOnSearchChange}
         />
         <button className="search-btn" onClick={handleOnClickSearchBtn}>
@@ -55,21 +61,28 @@ export default function ProjectsOverview({ projects, handleOnProjectClick }) {
       </div>
 
       {/* container that will hold all ProjectCard components*/}
-      <div className="project-card-container">
-        {/* conditionally display project cards if teamsToShow is not empty, otherwise "No teams available" */}
-        {projectsToShow.length > 0 ? (
-          <>
-            {projectsToShow?.map((project) => (
-              <ProjectCard
-                project={project}
-                handleOnClick={handleOnProjectClick}
-              />
-            ))}
-          </>
-        ) : (
-          <div className="nothing-available-label">No projects available </div>
-        )}
-      </div>
+      {isLoading ? (
+        <div>Loding ...</div>
+      ) : (
+        <div className="project-card-container">
+          {/* conditionally display project cards if teamsToShow is not empty, otherwise "No teams available" */}
+          {projectsToShow.length > 0 ? (
+            <>
+              {projectsToShow?.map((project) => (
+                <ProjectCard
+                  project={project}
+                  handleOnClick={handleOnProjectClick}
+                  key={project.id}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="nothing-available-label">
+              No projects available{" "}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

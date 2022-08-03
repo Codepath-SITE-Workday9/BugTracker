@@ -1,12 +1,11 @@
 import "./TeamsPage.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTeamContext } from "../../contexts/team";
-import TeamModal from "../Modals/TeamModal/TeamModal";
 import TeamsOverview from "./TeamsOverview/TeamsOverview";
 import TeamView from "./TeamView/TeamView";
-import apiClient from "../../services/apiClient";
+import TeamModal from "../Modals/TeamModal/TeamModal";
 
-// page where a user can see all teams they are apart of and where a user can create a new team
+// page where a user can see all teams they are apart of(TeamsOverview component) and where a user can view specific details about a team + create a new team(TeamView component)
 export default function TeamsPage() {
   // variables from useTeamContext() to keep track of what teams a user belongs to, and which team should be displayed in detail, and a function to fetch all teams.
   const {
@@ -15,10 +14,10 @@ export default function TeamsPage() {
     setCurrentTeam,
     fetchTeams,
     teamModal,
-    setTeamModal,
+    isLoading,
   } = useTeamContext();
 
-  // useEffect hook to fetch update list of teams a user is apart of after creating a new team
+  // useEffect hook to fetch updated list of teams a user is apart of after creating a new team
   useEffect(() => {
     fetchTeams();
   }, [teamModal]);
@@ -34,8 +33,16 @@ export default function TeamsPage() {
       {teamModal && <TeamModal />}
       {/* conditionally blur background depending on if modal is open */}
       <div className={teamModal ? "background-blur" : "background"}>
-        <TeamsOverview teams={teams} handleOnTeamClick={handleOnTeamClick} />
-        <TeamView currentTeam={currentTeam} teamsAvailable={teams.length > 0} />
+        <TeamsOverview
+          teams={teams}
+          handleOnTeamClick={handleOnTeamClick}
+          isLoading={isLoading}
+        />
+        <TeamView
+          currentTeam={currentTeam}
+          teamsAvailable={teams.length > 0}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );

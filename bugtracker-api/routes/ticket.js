@@ -5,18 +5,33 @@ const Tickets = require("../models/ticket")
 const security = require("../middleware/security")
 
 
-
-//FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
+//FUNCTION TO LIST ALL THE TICKETS FOR A USER  
 router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
         //Retrieve the user information from the local server
         const {user} = res.locals
-
         //Call the listAllTickets function to get a list of all the tickets from a specific project
         //Request body should have the projectId
-        const ticketList = await Tickets.listAllTickets({user: user, projectId: req.body.projectId})
-        
+        const ticketList = await Tickets.listAllTickets ({user: user})
+        //Return the list of all the tickets if successful
+        return res.status(200).json({ticketList: ticketList})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+//FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
+router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+        //Call the listAllTickets function to get a list of all the tickets from a specific project
+        //Request body should have the projectId
+        const ticketList = await Tickets.listAllProjectTickets({user: user, projectId: req.params.projectId})
         //Return the list of all the tickets if successful
         return res.status(200).json({ticketList: ticketList})
     }
@@ -220,6 +235,35 @@ router.get("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req
 
         //Return the new comment information if successful
         return res.status(200).json({comment: comment})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
+
+
+
+
+
+//FUNCTION TO GET ALL THE MEMBERS NAMES FOR A TICKET
+router.get("/:ticketId/team/members", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the fetchTicketMembersById function to fetch the names of all the members of a ticket
+        const members = await Tickets.fetchTicketMembersById({ticketId: ticketId, user: user})
+
+        //Return the member information if successful
+        return res.status(200).json({ticketMembers: members})
     }
     catch(error)
     {

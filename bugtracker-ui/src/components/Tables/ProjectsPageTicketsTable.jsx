@@ -1,58 +1,62 @@
 import MaterialTable from "material-table";
-
-const data = [
-  {
-    id: 1,
-    ticket_name: "Fix margins",
-    description: "Make everything more spaced out",
-    priority: "low",
-    complexity: 2,
-  },
-  {
-    id: 2,
-    ticket_name: "Fix connection error",
-    description: "The server isn't loading properly, please fix",
-    priority: "high",
-    complexity: 6,
-  },
-  {
-    id: 3,
-    ticket_name: "Finish landing page",
-    description:
-      "Make the styling nice and add some cool gifs sayudhuiwahdh  asidhwiuhadhui",
-    priority: "low",
-    complexity: 3,
-  },
-];
+import { useTicketContext } from "../../contexts/ticket";
+import { useProjectContext } from "../../contexts/project";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import apiClient from "../../services/apiClient";
 
 const columns = [
   { title: "Id", field: "id", hidden: true },
-  {
-    title: "Ticket name",
-    field: "ticket_name",
-  },
+  { title: "Ticket name", field: "title" },
   { title: "Description", field: "description" },
   { title: "Priority", field: "priority" },
   { title: "Complexity", field: "complexity", type: "numeric" },
 ];
 
-export const ProjectsPageTicketsTable = () => {
+export const ProjectsPageTicketsTable = ({ currentProject }) => {
+  const [tickets, setTickets] = useState([]);
+  const { setCurrentTicket } = useTicketContext();
+
+  const navigate = useNavigate();
+
+  const fetchTickets = async () => {
+    if (currentProject) {
+      const { data, error } = await apiClient.listAllProjectTickets(
+        currentProject.id
+      );
+      if (data) {
+        setTickets(data.ticketList);
+      }
+    }
+  };
+
+  const onRowClick = (rowData) => {
+    setCurrentTicket(rowData);
+    navigate("/tickets");
+  };
+
+  useEffect(() => {
+    fetchTickets();
+  }, [currentProject]);
+
   return (
-    <MaterialTable
-      title="Tickets"
-      columns={columns}
-      data={data}
-      actions={[
-        {
-          icon: () => (
-            <button className="tableCreateButton">Open A New Ticket</button>
-          ),
-          tooltip: "Create a new ticket",
-          isFreeAction: true,
-          position: "toolbar",
-        },
-      ]}
-      onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
-    />
+    tickets && (
+      <MaterialTable
+        title="Tickets"
+        columns={columns}
+        data={tickets}
+        actions={[
+          {
+            icon: () => (
+              <button className="tableCreateButton">Open A New Ticket</button>
+            ),
+            tooltip: "Create a new ticket",
+            isFreeAction: true,
+            position: "toolbar",
+          },
+        ]}
+        onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
+      />
+    )
   );
 };

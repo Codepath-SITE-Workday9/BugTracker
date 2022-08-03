@@ -4,7 +4,7 @@ import TeamCard from "../TeamCard/TeamCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 
 // overview of all teams a user is apart of
-export default function TeamsOverview({ teams, handleOnTeamClick }) {
+export default function TeamsOverview({ teams, handleOnTeamClick, isLoading }) {
   var teamsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -20,8 +20,8 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
 
   // update teamsToShow array depending on searchTerm
   if (teams) {
-    teamsToShow = teams.filter((t) =>
-      t.name.toLowerCase().includes(searchTerm.toLowerCase())
+    teamsToShow = teams?.filter((t) =>
+      t?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
   }
 
@@ -56,7 +56,10 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
         <SortByDrowpdown categories={["Most projects", "Least projects"]} />
       </div>
 
-      {/* container that will hold team cards */}
+      {/* container that will hold TeamCard components */}
+      {/* {isLoading ? (
+        <div>Loading ...</div>
+      ) : ( */}
       <div className="team-card-container">
         {/* conditionally display team cards if teamsToShow is not empty, otherwise "No teams available" */}
         {teamsToShow.length > 0 ? (
@@ -73,6 +76,7 @@ export default function TeamsOverview({ teams, handleOnTeamClick }) {
           <div className="nothing-available-label">No teams available</div>
         )}
       </div>
+      {/* )} */}
     </div>
   );
 }

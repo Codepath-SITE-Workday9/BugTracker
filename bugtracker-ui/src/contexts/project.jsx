@@ -3,6 +3,7 @@ import apiClient from "../services/apiClient";
 
 const ProjectContext = createContext(null);
 
+// context to keep track of a users projects, the current project selected, and whether or not the projectModal should be displayed.
 export const ProjectContextProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [projectModal, setProjectModal] = useState(false);
@@ -16,6 +17,9 @@ export const ProjectContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllProjects();
     if (data) {
       setProjects(data.projectList);
+      if (data.projectList.length > 0) {
+        setCurrentProject(data.projectList[0]);
+      }
     }
     if (error) {
       setError(error);
@@ -23,9 +27,10 @@ export const ProjectContextProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  // useEffect to fetch projects on initial load
   useEffect(() => {
     fetchProjects();
-  }, [setProjects]);
+  }, []);
 
   const projectValue = {
     projects,
@@ -35,6 +40,7 @@ export const ProjectContextProvider = ({ children }) => {
     fetchProjects,
     projectModal,
     setProjectModal,
+    isLoading,
   };
 
   return (

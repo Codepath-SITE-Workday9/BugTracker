@@ -133,7 +133,7 @@ router.get("/:teamId/members", security.requireAuthenticatedUser, async (req, re
         const members = await Teams.fetchMembersForATeam({teamId: teamId, user: user });
 
         // Return the user array if successful
-        return res.status(200).json({members})
+        return res.status(200).json({teamsData: members})
     }
     catch (error) {
         next(error)
@@ -177,7 +177,7 @@ router.get("/teams/users", security.requireAuthenticatedUser, async (req, res, n
 
         //Run the fetchMembersFromMultipleTeams function to get all the id, name, and members' fullname of a team
         //Req body should have a field called teams: i.e. {teams: [1,2,3,4]}
-        const members = await Teams.fetchMembersFromMultipleTeams({teamIds: req.body, user: user });
+        const members = await Teams.fetchMembersFromMultipleTeams({ user: user });
 
         // Return the teams array if successful
         return res.status(200).json({members: members})

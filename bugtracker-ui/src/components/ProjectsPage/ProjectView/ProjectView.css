@@ -39,11 +39,6 @@
     background-color: #e2e2e2;
     cursor: pointer;
 }
-tbody tr:nth-child(odd){
-    background-color: #f3f3f3;
-}
-
-
 
 .project-view .table {
     padding: 1% 3% 3% 3%;

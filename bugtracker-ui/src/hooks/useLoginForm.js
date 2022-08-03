@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import apiClient from "../services/apiClient"
 import { useTeamContext } from "../contexts/team";
+import { useProjectContext } from "../contexts/project";
 
 
 export const useLoginForm = ({user, setUser}) => {
   const navigate = useNavigate();
   const { fetchTeams } = useTeamContext();
+  const { fetchProjects } = useProjectContext();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
@@ -38,6 +40,7 @@ export const useLoginForm = ({user, setUser}) => {
         setUser(data.user);
         apiClient.setToken(data.token);
         fetchTeams();
+        fetchProjects();
       }
       if (error) {
         setErrors((e) => ({ ...e, form: error }));

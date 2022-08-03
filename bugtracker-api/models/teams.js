@@ -252,9 +252,12 @@ class Teams
         //Return all the users that are apart of a team 
         return results.rows
     }
+    
 
 
 
+
+    
 
 
 
@@ -285,27 +288,47 @@ class Teams
 
 
 
-    static async fetchMembersFromMultipleTeams({teamIds, user})
+
+
+
+    //FUNCTION TO GET THE TEAM ID, NAME, AND NAMES OF MEMBERS FOR MULTIPLE TEAMS
+    static async fetchMembersFromMultipleTeams({user})
     {
-        //ERROR CHECKING - Check that an id of teams has been provided by the user
-        if(!teamIds.teams)
-        {
-            throw new BadRequestError("Missing an array of team ids!")
-        }
+        const teamList = await Teams.listAllTeams({user: user})
+        
+        
+        const teamIds = []
+        teamList.map((team) => {
+            teamIds.push(team.id)
+        })
+        
+        //Create an array to store all the team information (id, name, members)
+        let teamsTableData = []
 
-        //Run a query to obtain the team id, team name, and full names of all the members of a team
-        const results = await db.query(
-            `
-                SELECT teams.id as team_id, teams.name, users.full_name, users.id as user_id
-                FROM teams
-                    JOIN users ON users.id = any(teams.members)
-                WHERE users.id = any(SELECT UNNEST(teams.members) FROM teams WHERE teams.id = any($1))
-                GROUP BY teams.id, users.full_name, users.id
-            `, [teamIds.teams])
 
-                
-        //Return the id, name, and members' fullname of every team in the array of teams
-        return results.rows
+
+        //Ensure that all the asynchronous functions are being completed before returning any statement using Promise.all
+        return Promise.all(
+            //Map through the ids of all the teams
+            teamIds?.map(async(team) => {
+
+            //For every team, get the list of all the members and the team information 
+            const memberList = await Teams.fetchMembersForATeam({teamId: team, user: user})
+            const teamInfo = await Teams.fetchTeamById({teamId: team, user: user})
+
+            //Iterate through the member objects in member List and extract the full name, then store it in an array
+            let memberNames = []
+            memberList?.forEach((member) => {
+                memberNames.push(member.full_name)
+            })
+
+            //Push the new object information into the teamsTableData
+            teamsTableData.push({teamId: team, teamName: teamInfo.name, members: memberNames.join(", ")})
+        })
+        ).then(() => {
+            //Return all the teams information (array of objects)
+            return teamsTableData
+        })
     }
 }
 

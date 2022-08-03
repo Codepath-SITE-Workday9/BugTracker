@@ -6,6 +6,8 @@
 
 import MaterialTable from "material-table";
 import { MTableToolbar } from "material-table";
+import { useEffect } from "react";
+import { useTicketContext } from "../../contexts/ticket";
 
 const data = [
   {
@@ -34,26 +36,45 @@ const data = [
 
 const columns = [
   { title: "Id", field: "id", hidden: true },
-  { title: "Ticket name", field: "ticket_name" },
+  { title: "Ticket name", field: "title" },
   { title: "Description", field: "description" },
   { title: "Priority", field: "priority" },
   { title: "Complexity", field: "complexity", type: "numeric" },
 ];
 
 export const TicketsPageTicketsTable = () => {
+  const {
+    setTicketModal,
+    tickets,
+    fetchTickets,
+    currentTicket,
+    setCurrentTicket,
+  } = useTicketContext();
+
+  useEffect(() => {
+    fetchTickets();
+  }, [currentTicket]);
+
+  const onRowClick = (rowData) => {
+    setCurrentTicket(rowData);
+  };
+
   return (
     <MaterialTable
       title="Tickets"
       columns={columns}
-      data={data}
-      components={{
-        Toolbar: (props) => (
-          <div style={{ backgroundColor: "#e8eaf5" }}>
-            <MTableToolbar {...props} />
-            <button>Create Ticket</button>
-          </div>
-        ),
-      }}
+      data={tickets}
+      actions={[
+        {
+          icon: () => (
+            <button className="tableCreateButton">Create New Ticket</button>
+          ),
+          tooltip: "Create a new ticket",
+          onClick: () => setTicketModal(true),
+          isFreeAction: true,
+          position: "toolbar",
+        },
+      ]}
       onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
     />
   );

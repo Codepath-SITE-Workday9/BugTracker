@@ -100,7 +100,7 @@ body
     justify-content: space-evenly;
 }
 
-.ticket-cards
+.profile-page .ticket-cards
 {
     border-radius: 10px;
     width: 300px;
@@ -112,27 +112,27 @@ body
     box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.25);
 }
 
-.stats-text
+.profile-page .stats-text
 {
     margin-left: 20px;
     line-height: 1.0em
 }
 
-.stats-text > p
+.profile-page .stats-text > p
 {
     font-weight: bold;
     font-size: 3em;
     color: #32325f;
 }
 
-.stats-text > h2
+.profile-page .stats-text > h2
 {
     color: #8898aa;
     text-transform: uppercase
 }
 
 /* -----------------------------USER STATISTICS BAR CHART GENERAL FORMATTING --------------------------------------*/
-.chart-container
+.profile-page .chart-container
 {
     margin-top: 20px
 }

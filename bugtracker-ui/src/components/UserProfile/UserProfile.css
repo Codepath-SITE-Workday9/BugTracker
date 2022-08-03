@@ -91,7 +91,7 @@ body
 }
 
 /* -----------------------------USER TICKET STATISTICS GENERAL FORMATTING --------------------------------------*/
-.profile-page .ticket-statistics
+.ticket-stats
 {
     display: grid;
     justify-content: space-evenly;
@@ -107,7 +107,7 @@ body
     background-color: #FFFFFF;
 }
 
-.profile-page .ticket-statistics :hover 
+.ticket-stats :hover 
 {
     box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.25);
 }

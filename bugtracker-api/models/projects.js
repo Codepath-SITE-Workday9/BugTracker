@@ -25,7 +25,8 @@ class Projects
                            pro.created_at,
                            pro.creator_id
                     FROM projects as pro
-                    WHERE $1 = any(SELECT UNNEST(members) FROM teams) OR (pro.creator_id = $1)
+                        INNER JOIN teams ON teams.id = any(pro.teams)
+                    WHERE $1 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams)) OR (pro.creator_id = $1)
                     ORDER BY pro.id ASC
                 `, [userId])
         

@@ -48,15 +48,39 @@ export function ContentNavigation()
               <button className="content-nav-buttons">Statistics</button>
           </div>
 
-          <h2>SECTION NAME</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat</p>
-          <img src=""></img>
-          <br></br>
-          <br></br>
-          <br></br>
+          <div className="content-nav-sections">
+              <div className="content-section-info">
+                  <h2 id="section-name">SECTION NAME</h2>
+                  <p id="section-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+
+                  
+                  <div className="section-checks">
+                      <span class="material-symbols-outlined">
+                          check_circle
+                      </span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                  </div>
+                  <div className="section-checks">
+                      <span class="material-symbols-outlined">
+                          check_circle
+                      </span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                  </div>
+                  <div className="section-checks">
+                      <span class="material-symbols-outlined">
+                          check_circle
+                      </span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                  </div>
+              </div>
+              <div className="content-section-img">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8yV7X25H2CyiqP-JiWnSN2FBqv51m96rMsQ&usqp=CAU" id="content-section-gifs"></img>
+              </div>
+          </div>
       </div>
     )
 }

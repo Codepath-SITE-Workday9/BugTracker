@@ -1,35 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../contexts/auth";
 import apiClient from "../../services/apiClient";
 import renderUserCharts from "../../services/userCharts.js";
 import "../UserProfile/UserProfile.css"
 
 export default function UserProfile() {
-  const [userStats, setUserStats] = useState([])
+   const [userStats, setUserStats] = useState([])
+   const [statsPerMonth, setStatsPerMonth] = useState()
+   const [complexityPerMonth, setComplexityPerMonth] = useState()
 
-  async function getUserStatistics()
-  {
-      const statistics = await apiClient.getAllStatistics()
-      setUserStats(statistics.data.statistics.perStatus)
-  }
+   //FUNCTION TO GET ALL USER STATISTICS OF TICKETS OPENED/CLOSED
+   async function getUserStatistics()
+   {
+       const statistics = await apiClient.getAllStatistics()
+       setUserStats(statistics.data.statistics.perStatus)
 
-   useEffect(() => {
-     renderUserCharts()
-     getUserStatistics()
-   }, [])
+      const progress = await apiClient.getProgressStatsOverTime()
+      setStatsPerMonth(progress.data.statistics)
+
+      const complexity = await apiClient.getComplexityOverTime()
+      setComplexityPerMonth(complexity.data.complexity)
+
+   }
+
+    useEffect(() => {
+      getUserStatistics()
+    }, [])
+
+    if(statsPerMonth && complexityPerMonth)
+    {
+        renderUserCharts(statsPerMonth, complexityPerMonth)
+    }
   
   return (
-      <div className="user-profile-page">
+      userStats ? 
+        (<div className="user-profile-page">
           <ProfileCard />
-          <UserTables userStats={userStats} />
-      </div>
+          <UserTables userStats={userStats} statsPerMonth={statsPerMonth}/>
+      </div>) : (<div></div>)
   )
 }
 
 export function ProfileCard()
 {
-      //Pulls the user from the auth context information of the logged in user
-  const { user } = useAuthContext();
+    //Pulls the user from the auth context information of the logged in user
+    const { user } = useAuthContext();
 
   return (
     <div className="profile-page">
@@ -60,10 +75,10 @@ export function UserTables(props)
         <div className="user-tables">
           {/* Renders User Statistics Cards To show Tickets open, in progress, and closed */}
             <h1> Your Ticket Statistics </h1>
-            <div className="ticket-statistics">
-                {props.userStats?.map((stat) => {
+            <div className="ticket-stats">
+                {props.userStats?.map((stat, index) => {
                     return(
-                    <div className="ticket-cards">
+                    <div className="ticket-cards" key={index}>
                       <div className="stats-text">
                         <h2>Tickets {stat.status}</h2>
                         <p> {stat.totaltickets} </p>
@@ -73,9 +88,15 @@ export function UserTables(props)
             </div>
 
             <div className="chart-container">
-              <canvas // Renders a bar chart for user statistics
+              {/* Renders a bar chart for tickets completed over time based on complexity */}
+              <canvas
                 className="bar-chart"
                 id="user-statistics-chart"
+              ></canvas>
+              {/* Renders a line chart for tickets opened and closed over time */}
+              <canvas
+                className="bar-chart"
+                id="user-statistics-line-chart"
               ></canvas>
             </div>
         </div>

@@ -29,7 +29,7 @@ export const TeamsPageDevelopersTable = ({ currentTeam }) => {
     <MaterialTable
       title="Developers on the team"
       columns={columns}
-      data={members.members}
+      data={members.teamsData}
     />
   );
 };

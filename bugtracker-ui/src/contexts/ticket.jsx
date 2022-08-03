@@ -8,7 +8,9 @@ export const TicketContextProvider = ({ children }) => {
   const [tickets, setTickets] = useState([]);
   const [ticketModal, setTicketModal] = useState(false);
   const [currentTicket, setCurrentTicket] = useState({});
-  //const [isLoading, setIsLoading] = useState(false);
+  const [ticketToEdit, setTicketToEdit] = useState({});
+  const [editing, setEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   // const fetchTicketsForProject = async (projectId) => {
@@ -30,6 +32,9 @@ export const TicketContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
       setTickets(data.ticketList);
+      if (data.ticketList.length > 0) {
+        setCurrentTicket(data.ticketList[0]);
+      }
     }
     if (error) {
       setError(error);
@@ -37,18 +42,24 @@ export const TicketContextProvider = ({ children }) => {
     //setIsLoading(false);
   };
 
+  // useEffect to fetch tickets on initial load
   useEffect(() => {
     fetchAllTickets();
-  }, [setTickets]);
+  }, []);
 
   const ticketValue = {
     tickets,
     setTickets,
     currentTicket,
     setCurrentTicket,
+    editing,
+    setEditing,
     fetchAllTickets,
     ticketModal,
     setTicketModal,
+    isLoading,
+    ticketToEdit,
+    setTicketToEdit,
   };
 
   return (

@@ -244,5 +244,34 @@ router.get("/:ticketId/:commentId", security.requireAuthenticatedUser, async(req
 
 
 
+
+
+
+
+
+//FUNCTION TO GET ALL THE MEMBERS NAMES FOR A TICKET
+router.get("/:ticketId/team/members", security.requireAuthenticatedUser, async(req,res,next) => {
+    try
+    {
+        //Retrieve the ticket id from the given url
+        const {ticketId} = req.params
+
+        //Retrieve the user information from the local server
+        const {user} = res.locals
+
+        //Call the fetchTicketMembersById function to fetch the names of all the members of a ticket
+        const members = await Tickets.fetchTicketMembersById({ticketId: ticketId, user: user})
+
+        //Return the member information if successful
+        return res.status(200).json({ticketMembers: members})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+})
+
+
+
 //MODULE EXPORTS
 module.exports = router

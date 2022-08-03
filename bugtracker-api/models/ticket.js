@@ -572,6 +572,43 @@ class Tickets
         return results.rows[0]
     }
 
+
+
+
+
+
+    //FUNCTION TO FETCH ALL THE MEMBER NAMES FOR A SPECIFIC TICKET
+    static async fetchTicketMembersById({ticketId})
+    {
+        //ERROR CHECKING - Ensure that a ticketId is provided
+        if(!ticketId)
+        {
+            throw new BadRequestError("No ticket id was provided!")
+        }
+
+        //Run a query to get the names of all the developers assigned to a ticket
+        const results = await db.query(
+            `
+                SELECT full_name
+                FROM users
+                WHERE id = any((SELECT UNNEST(developers) FROM tickets WHERE id = $1))
+            `, [ticketId])
+
+        
+        //Create an empty array to store all the member's names
+        //Map through the results of the query (object of fullNames) and check if there are duplicates before adding the name to the memberNames
+        let memberNames = []
+        results.rows.map((member) => {
+            if(!memberNames.includes(member.full_name))
+            {
+                memberNames.push(member.full_name)
+            }
+        })
+
+        //Return a string of all the member names
+        return memberNames.join(", ")
+    }
+
 }
 
 

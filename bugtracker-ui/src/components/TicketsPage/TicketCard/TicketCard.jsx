@@ -10,6 +10,10 @@ export default function TicketCard({ ticket, handleOnClick }) {
       <div className="ticket-card-tickets">
         <p> Developers assigned: {ticket.developers.length}</p>
       </div>
+      <div className={`ticket-priority ${ticket.priority}`}>
+        {ticket.priority}
+      </div>
+      <div className={`ticket-status ${ticket.status}`}>{ticket.status}</div>
     </div>
   );
 }

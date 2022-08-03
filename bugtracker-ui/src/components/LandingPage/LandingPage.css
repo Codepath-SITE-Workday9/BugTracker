@@ -51,6 +51,7 @@
 {
     text-align: center;
     text-transform: uppercase;
+    font-size: 40px
 }
 
 .content-buttons
@@ -68,4 +69,54 @@
     margin-bottom: 15px;
     border-radius: 10px;
     color: white;
+}
+
+.content-nav-sections
+{
+    display: flex;
+    width: 90%;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 500px;
+    justify-content: center;
+}
+
+.content-section-info
+{
+    width: 50%;
+    margin-right: 25px;
+}
+
+#section-name
+{
+    font-size: 40px;
+}
+
+#section-description
+{
+    font-size: 20px;
+}
+
+#content-section-gifs
+{
+    width: 700px;
+    height: 500px;
+}
+
+.section-checks
+{
+    display: inline-block;
+}
+
+.section-checks span
+{
+    float:left;
+    vertical-align: center;
+}
+
+.section-checks p
+{
+    float:right;
+    vertical-align: center
 }

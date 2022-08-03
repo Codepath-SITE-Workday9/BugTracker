@@ -24,10 +24,22 @@ export const useTicketForm = () => {
         }else if(description == "")  {
             setErrors("Please add a brief description to your ticket!")
         }else{
+          if(!editing){
             // send request to create a new ticket
               // must send: 
               // title, description, category, priority, status, complexity, the developers (array of emails), projectId
-            const { data, error } = await apiClient.createNewTicket({
+              const { data, error } = await apiClient.createNewTicket({
+                title: title,
+                description: description,
+                category: category,
+                priority: priority,
+                status: status,
+                complexity:complexity,
+                developers: devs,
+                projectId: 3, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
+              });
+          } else{
+            const { data, error } = await apiClient.updateTicket({
               title: title,
               description: description,
               category: category,
@@ -36,7 +48,9 @@ export const useTicketForm = () => {
               complexity:complexity,
               developers: devs,
               projectId: 3, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
-            });
+            })
+          }
+
       
             // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
             if (data) {

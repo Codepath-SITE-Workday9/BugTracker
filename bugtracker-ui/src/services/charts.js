@@ -4,7 +4,11 @@
 */
 
 
-export default function renderCharts() { 
+export default function renderCharts(dashboardStatistics) { 
+
+    
+
+    console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
 
     let myChart = new Chart(document.getElementById("priority-chart"), {
     type: 'doughnut',

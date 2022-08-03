@@ -12,16 +12,20 @@ import apiClient from "../../services/apiClient";
 import { useTeamContext } from "../../contexts/team";
 import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
+import { useStatisticsContext } from "../../contexts/statistics";
 
 export default function Dashboard() {
   //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
   const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
+  const { dashboardStatistics, setDashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
   const [teamsTableData, setTeamsTableData] = useState([])
+  //const [statistics, setStatistics] = useState({})
 
   //fetchProjects()
+  
 
 
   async function getTeamsTable() {
@@ -85,7 +89,11 @@ export default function Dashboard() {
 
   useEffect(() => {
      //clearTeams()
-     renderCharts()
+
+     fetchDashboardStatistics()
+     console.log("dashboard statistics:", dashboardStatistics)
+     renderCharts(dashboardStatistics)
+
      fetchProjects()
      newFetchTeamsTableData(teams)
      //fetchTeams()

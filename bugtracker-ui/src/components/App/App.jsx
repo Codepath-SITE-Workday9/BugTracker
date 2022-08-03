@@ -23,18 +23,21 @@ import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
 import { TeamContextProvider, useTeamContext } from "../../contexts/team";
 import { TicketContextProvider } from "../../contexts/ticket";
+import { StatisticsContextProvider } from "../../contexts/statistics";
 
 export default function AppContainer() {
   return (
     <AuthContextProvider>
       <OpenContextProvider>
-        <ProjectContextProvider>
-          <TeamContextProvider>
-            <TicketContextProvider>
-              <App />
-            </TicketContextProvider>
-          </TeamContextProvider>
-        </ProjectContextProvider>
+        <StatisticsContextProvider>
+          <ProjectContextProvider>
+            <TeamContextProvider>
+              <TicketContextProvider>
+                <App />
+              </TicketContextProvider>
+            </TeamContextProvider>
+          </ProjectContextProvider>
+        </StatisticsContextProvider>
       </OpenContextProvider>
     </AuthContextProvider>
   );

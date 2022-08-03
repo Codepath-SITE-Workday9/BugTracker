@@ -12,7 +12,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    text-transform: uppercase;
+    text-transform: uppercase;    
+    border-bottom: 1px solid black;
 }
 
 .ticket-header button {
@@ -25,6 +26,11 @@
     margin: 10px;
     font-size: 20px;
 }
+
+.ticket-title{
+    width: 100%; 
+}
+
 .ticket-priority{
     width: 100px;
     text-align: center;
@@ -48,12 +54,17 @@
     color: white;
     box-shadow: 0px 0 3px 0 #3f4d67;
 }
-.ticket-description{
-    border-bottom: 1px solid black;
-}
+
 .ticket-view .nothing-created-yet{
     border-top: 1px solid black;
     text-align: center
+}
+
+.ticket-info {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-between;
 }
 
 

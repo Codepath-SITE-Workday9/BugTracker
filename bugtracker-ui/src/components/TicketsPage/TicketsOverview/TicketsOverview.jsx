@@ -4,8 +4,20 @@ import TicketCard from "../TicketCard/TicketCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 
 // overview of all Tickets a user is apart of
-export default function TicketsOverview({ tickets, handleOnTicketClick }) {
+export default function TicketsOverview({
+  tickets,
+  handleOnTicketClick,
+  isLoading,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  // const { projects } = useProjectContext();
+  // const dropdownCategories = [...]
+  const categories = [
+    "All projects",
+    "A bug tracker project",
+    "Student store project",
+  ];
 
   let ticketsToShow = [];
 
@@ -31,6 +43,9 @@ export default function TicketsOverview({ tickets, handleOnTicketClick }) {
       {/* tickets overview header  */}
       <div className="header">
         <h1>Your Tickets</h1>
+        <button className="new-btn" onClick={() => setTicketModal(true)}>
+          Create New Ticket
+        </button>
       </div>
 
       {/* search for tickets  */}
@@ -53,27 +68,40 @@ export default function TicketsOverview({ tickets, handleOnTicketClick }) {
 
       {/* sort by component to sort the ticket results */}
       <div className="sort-by">
-        <p> Sort by: </p>
-        <SortByDrowpdown categories={["Most projects", "Least projects"]} />
+        <p> Display tickets from: </p>
+        <div className="sort-by-dropdown">
+          <select name="selectList" id="selectList">
+            {categories?.map((c) => (
+              <option value="option 1" key={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>{" "}
       </div>
 
       {/* container that will hold ticket cards */}
-      <div className="ticket-card-container">
-        {/* conditionally display ticket cards if ticketsToShow is not empty, otherwise "No tickets available" */}
-        {ticketsToShow.length > 0 ? (
-          <>
-            {ticketsToShow?.map((ticket) => (
-              <TicketCard
-                ticket={ticket}
-                handleOnClick={handleOnTicketClick}
-                key={ticket.id}
-              />
-            ))}{" "}
-          </>
-        ) : (
-          <div className="nothing-available-label">No tickets available</div>
-        )}
-      </div>
+
+      {isLoading ? (
+        <div>Loding ...</div>
+      ) : (
+        <div className="ticket-card-container">
+          {/* conditionally display ticket cards if ticketsToShow is not empty, otherwise "No tickets available" */}
+          {ticketsToShow.length > 0 ? (
+            <>
+              {ticketsToShow?.map((ticket) => (
+                <TicketCard
+                  ticket={ticket}
+                  handleOnClick={handleOnTicketClick}
+                  key={ticket.id}
+                />
+              ))}{" "}
+            </>
+          ) : (
+            <div className="nothing-available-label">No tickets available</div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

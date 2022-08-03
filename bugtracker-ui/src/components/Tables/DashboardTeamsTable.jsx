@@ -1,8 +1,9 @@
 import MaterialTable from "material-table";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTeamContext } from "../../contexts/team";
 import apiClient from "../../services/apiClient";
+
 import "./TableProperties.css";
 
 function handleNewTeamClick() {
@@ -19,24 +20,40 @@ const data = [
 ];
 
 const columns = [
-  { title: "Id", field: "teamId", hidden: true},
-  { title: "Team Name", field: "teamName"  /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */ },
+  { title: "Id", field: "teamId", hidden: true },
+  {
+    title: "Team Name",
+    field:
+      "teamName" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
+  },
   { title: "Members", field: "members" },
 ];
 
-export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal, setTeamsTableData, getTeamsTable}) => {
-  const { teams, setTeams, setTeamModal, fetchTeamsTableData, teamsTableData, getData} = useTeamContext()
+export const DashboardTeamsTable = ({
+  dashboardTeamsModal,
+  setDashboardTeamsModal,
+  setTeamsTableData,
+  getTeamsTable,
+}) => {
+  const {
+    teams,
+    setTeams,
+    setTeamModal,
+    fetchTeamsTableData,
+    teamsTableData,
+    getData,
+  } = useTeamContext();
   //const [tableData, setTableData] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [ids, setIds] = useState([])
-  const didMount = useRef(false)
+  const [isLoading, setIsLoading] = useState(true);
+  const [ids, setIds] = useState([]);
+  const didMount = useRef(false);
 
-    // 3 steps to fix:
-    // 1. move work to backend api if we can
-    // 2. try promise all approach (use an array of promises to fetch them all at once)
-    // 3. try sets
+  // 3 steps to fix:
+  // 1. move work to backend api if we can
+  // 2. try promise all approach (use an array of promises to fetch them all at once)
+  // 3. try sets
 
-    /* function getData() {
+  /* function getData() {
       console.log("Teams length:", teams.length)
       teams.map(async (team) => {
         const memberList = await apiClient.fetchMemberList(team.id)
@@ -51,57 +68,44 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
         console.log("old_team", tableData)
         console.log("new_team", new_team)
         let id = 1
-
         var exists = false //tableData.find(check.id === id)
         ids.forEach((id) => {
           if (tableData.find(exists.id === id) !== undefined) {
             exists = true
           }
         })
-
         if (!exists) {
           setTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}])
           setIds(prev => [...prev, team.id])
         }
       })
-
       console.log("tableData below")
       console.log(teamsTableData)
       setIsLoading(false) 
     } */
 
-    window.onload = function () {
-      //getData()
-      //getTeamsTable()
-    }
+  window.onload = function () {
+    //getData()
+    //getTeamsTable()
+  };
 
-
-  
-    useEffect(() => {
-      //console.log("Inside teams table useEffect")
-      //setTableData([])
-
-      //getTeamsTable()
-
-      // if (!didMount.current) {
-      //   return didMount.current = true
-      // }
-
-
-      //if (tableData.length < 1) {
-
-        //getData() 
-
-      //}
-      /*console.log("Inside useEffect")
+  useEffect(() => {
+    //console.log("Inside teams table useEffect")
+    //setTableData([])
+    //getTeamsTable()
+    // if (!didMount.current) {
+    //   return didMount.current = true
+    // }
+    //if (tableData.length < 1) {
+    //getData()
+    //}
+    /*console.log("Inside useEffect")
       fetchTeamsTableData()
       console.log(teamsTableData)
       setTableData(teamsTableData)
       console.log(tableData)*/
-      
-      //const tableData = []
-      
-      /* ~~~~~~~~~~~~~~~~~~~~~~~~~
+    //const tableData = []
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~
       setTableData([])
       teams.map(async (team) => {
         const memberList = await apiClient.fetchMemberList(team.id)
@@ -113,12 +117,10 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
         })
         setTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}])
       })
-
       console.log("tableData below")
       console.log(tableData)
       setIsLoading(false) ~~~~~~~~~~~~~~~~~~~~~ */
-
-      /*console.log("Inside fetchTeamsTableData")
+    /*console.log("Inside fetchTeamsTableData")
       console.log(teams)
       //const tableData = []
       setTeamsTableData([])
@@ -142,16 +144,15 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
           await setTeamsTableData(prev => [...prev, {id: team.id, name: team.name, members: memberNames.join(", ")}])
           console.log("Teamstabledata below")
           console.log(teamsTableData) */
-      
-        //tableData.push({id: team.id, name: team.name, members: memberNames.join(", ") })
-        /*let memberNames = []
+    //tableData.push({id: team.id, name: team.name, members: memberNames.join(", ") })
+    /*let memberNames = []
         memberList.map((member) => {
           memberNames.push(member.name)
         }) 
         /*tableData.push({id: team.id, name: team.name/*, members: memberNames.join(", ") }) */
-      }, [])
-     
-/*
+  }, []);
+
+  /*
     const tableData = []
     tableData.push({id: 999, name: "testName", members: ""})
     teams.map((team) => {
@@ -179,37 +180,11 @@ export const DashboardTeamsTable = ({dashboardTeamsModal, setDashboardTeamsModal
     console.log("tableData below")
     console.log(tableData) */
 
-    
-  
-
-  return <MaterialTable 
-    title="Your Teams" 
-    columns={columns} 
-    data={teamsTableData} 
-    actions={[
-      {
-        icon:()=><button className="tableCreateButton">Create New Team</button>,
-        tooltip:"Create a new team",
-        onClick: ()=> setTeamModal(true),
-        isFreeAction:true,
-        position: "toolbar"
-      }
-    });
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    memberArray();
-  }, [teams]);
-
-  return isLoading ? (
-    <></>
-  ) : (
+  return (
     <MaterialTable
       title="Your Teams"
       columns={columns}
-      data={teams}
+      data={teamsTableData}
       actions={[
         {
           icon: () => (

@@ -6,10 +6,13 @@ import { useTicketContext } from "../../../contexts/ticket";
 // import { TicketPageProjectsTable } from "../../Tables/TicketPageProjectsTable";
 
 //Overview of a specific ticket
-export default function TicketView({ currentTicket, ticketsAvailable }) {
+export default function TicketView({
+  currentTicket,
+  ticketsAvailable,
+  isLoading,
+}) {
   const { setTicketModal } = useTicketContext();
   const [creator, setCreator] = useState("");
-  const [createdOn, setCreatedOn] = useState("");
 
   const fetchCreator = async () => {
     const { data, error } = await apiClient.fetchUserById(
@@ -22,50 +25,63 @@ export default function TicketView({ currentTicket, ticketsAvailable }) {
 
   useEffect(() => {
     fetchCreator();
-    setCreatedOn(currentTicket.created_at);
   }, [currentTicket]);
 
   return (
     <div className="ticket-view">
-      {/* header for a specific ticket and a button to create new ticket */}
-      <div className="ticket-header">
-        <div className="ticket-title">
-          <h1> {ticketsAvailable && currentTicket?.title} </h1>
-        </div>
-        <button className="new-btn" onClick={() => setTicketModal(true)}>
-          Create New Ticket
-        </button>
-      </div>
-
-      {/* Conditionally render the specific ticket's information, or display "Nothing yet" if no tickets have been created */}
-      {ticketsAvailable ? (
-        currentTicket && (
-          <>
-            {/* an input field to add a developer to the ticket, and all developers listed in table form */}
-            <div className="ticket-created-by"> Ticket Author: {creator}</div>
-            <div className="ticket-opened-on"> Opened on: {createdOn}</div>
-
-            <div className={`ticket-priority ${currentTicket.priority}`}>
-              {currentTicket.priority}
-            </div>
-            <div className="ticket-description">
-              <p>{currentTicket.description}</p>
-            </div>
-            <div className={`ticket-category ${currentTicket.category}`}>
-              {currentTicket.category}
-            </div>
-            <div className={`ticket-status ${currentTicket.status}`}>
-              {currentTicket.status}
-            </div>
-          </>
-        )
-      ) : (
+      {!isLoading ? (
         <>
-          <div className="nothing-created-yet">
-            <h1>You have not created any tickets yet!</h1>
-            <h2>To get started, click the Create New Ticket button.</h2>
+          {/* header for a specific ticket and a button to create new ticket */}
+          <div className="ticket-header">
+            <div className="ticket-title">
+              <h1> {ticketsAvailable && currentTicket?.title} </h1>
+
+              <div className="ticket-info">
+                <div className={`ticket-priority ${currentTicket.priority}`}>
+                  {currentTicket.priority}
+                </div>
+                <div className={`ticket-category ${currentTicket.category}`}>
+                  {currentTicket.category}
+                </div>
+                <div className={`ticket-status ${currentTicket.status}`}>
+                  {currentTicket.status}
+                </div>
+              </div>
+            </div>
+
+            <button className="new-btn" onClick={() => setTicketModal(true)}>
+              <span class="material-symbols-outlined">edit_document</span>
+            </button>
           </div>
+
+          {/* Conditionally render the specific ticket's information, or display "Nothing yet" if no tickets have been created */}
+          {ticketsAvailable ? (
+            currentTicket && (
+              <>
+                {/* an input field to add a developer to the ticket, and all developers listed in table form */}
+
+                <div className="ticket-description">
+                  <p>{currentTicket.description}</p>
+                </div>
+                <div className="ticket-created-by">
+                  Ticket Author: {creator}
+                </div>
+                <div className="ticket-opened-on">
+                  Opened on: {new Date(currentTicket.created_at).toDateString()}
+                </div>
+              </>
+            )
+          ) : (
+            <>
+              <div className="nothing-created-yet">
+                <h1>You have not created any tickets yet!</h1>
+                <h2>To get started, click the Create New Ticket button.</h2>
+              </div>
+            </>
+          )}
         </>
+      ) : (
+        <div className="loading">Loading...</div>
       )}
     </div>
   );

@@ -30,6 +30,9 @@ export const TicketContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
       setTickets(data.ticketList);
+      if (data.ticketList.length > 0) {
+        setCurrentTicket(data.ticketList[0]);
+      }
     }
     if (error) {
       setError(error);
@@ -37,9 +40,10 @@ export const TicketContextProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  // useEffect to fetch tickets on initial load
   useEffect(() => {
     fetchAllTickets();
-  }, [setTickets]);
+  }, []);
 
   const ticketValue = {
     tickets,
@@ -49,6 +53,7 @@ export const TicketContextProvider = ({ children }) => {
     fetchAllTickets,
     ticketModal,
     setTicketModal,
+    isLoading,
   };
 
   return (

@@ -14,6 +14,7 @@ export default function TicketsPage() {
     setCurrentTicket,
     fetchAllTickets,
     ticketModal,
+    isLoading,
   } = useTicketContext();
 
   useEffect(() => {
@@ -33,10 +34,12 @@ export default function TicketsPage() {
         <TicketsOverview
           tickets={tickets}
           handleOnTicketClick={handleOnTicketClick}
+          isLoading={isLoading}
         />
         <TicketView
           currentTicket={currentTicket}
           ticketsAvailable={tickets.length > 0}
+          isLoading={isLoading}
         />
       </div>
     </div>

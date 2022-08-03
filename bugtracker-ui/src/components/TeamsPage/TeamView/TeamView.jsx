@@ -11,47 +11,48 @@ export default function TeamView({ teamsAvailable, isLoading }) {
 
   return (
     <div className="team-view">
-      {/* {!isLoading ? ( */}
-      <>
-        {/* header for a specific team and a button to create new team */}
-        <div className="team-header">
-          <h1> {teamsAvailable && currentTeam?.name} </h1>
-          <button className="new-btn" onClick={() => setTeamModal(true)}>
-            Create New Team
-          </button>
-        </div>
-        {/* Conditionally render the specific team's information, or display "Nothing yet" if no teams have been created */}
-        {teamsAvailable ? (
-          currentTeam && (
+      {!isLoading ? (
+        <>
+          {/* header for a specific team and a button to create new team */}
+          <div className="team-header">
+            <h1> {teamsAvailable && currentTeam?.name} </h1>
+            <button className="new-btn" onClick={() => setTeamModal(true)}>
+              Create New Team
+            </button>
+          </div>
+          {/* Conditionally render the specific team's information, or display "Nothing yet" if no teams have been created */}
+          {teamsAvailable ? (
+            currentTeam && (
+              <>
+                {/* an input field to add a developer to the team, and all developers listed in table form */}
+                <div className="team-developers">
+                  <AddDeveloper currentTeam={currentTeam} />
+                  <div className="table">
+                    <TeamsPageDevelopersTable
+                      currentTeam={currentTeam}
+                      className="dev-table"
+                    />
+                  </div>
+                </div>
+                <div className="project-developers">
+                  <div className="table">
+                    <TeamsPageProjectsTable currentTeam={currentTeam} />
+                  </div>
+                </div>
+              </>
+            )
+          ) : (
             <>
-              {/* an input field to add a developer to the team, and all developers listed in table form */}
-              <div className="team-developers">
-                <AddDeveloper currentTeam={currentTeam} />
-                <div className="table">
-                  <TeamsPageDevelopersTable
-                    currentTeam={currentTeam}
-                    className="dev-table"
-                  />
-                </div>
-              </div>
-              <div className="project-developers">
-                <div className="table">
-                  <TeamsPageProjectsTable currentTeam={currentTeam} />
-                </div>
+              <div className="nothing-created-yet">
+                <h1>You have not created any teams yet!</h1>
+                <h2>To get started, click the Create New Team button.</h2>
               </div>
             </>
-          )
-        ) : (
-          <>
-            <div className="nothing-created-yet">
-              <h1>You have not created any teams yet!</h1>
-              <h2>To get started, click the Create New Team button.</h2>
-            </div>
-          </>
-        )}{" "}
-      </>
-      {/* // ) : ( // <div className="loading">Loading ....</div>
-      // )} */}
+          )}
+        </>
+      ) : (
+        <div className="loading">Loading ....</div>
+      )}
     </div>
   );
 }

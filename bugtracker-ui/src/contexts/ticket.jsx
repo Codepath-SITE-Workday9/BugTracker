@@ -27,7 +27,7 @@ export const TicketContextProvider = ({ children }) => {
   // };
 
   const fetchAllTickets = async () => {
-    setIsLoading(true);
+    //setIsLoading(true);
     setError(null);
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
@@ -39,7 +39,7 @@ export const TicketContextProvider = ({ children }) => {
     if (error) {
       setError(error);
     }
-    setIsLoading(false);
+    //setIsLoading(false);
   };
 
   // useEffect to fetch tickets on initial load

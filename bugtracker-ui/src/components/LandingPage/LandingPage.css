@@ -47,6 +47,12 @@
 }
 
 /* ------------------------------- CONTENT NAVIGATION STYLING SECTION -------------------------------------------*/
+.content-nav
+{
+    margin-top: 60px;
+    margin-bottom: 60px
+}
+
 .content-nav-title
 {
     text-align: center;
@@ -100,7 +106,7 @@
 
 #content-section-gifs
 {
-    width: 700px;
+    width: 800px;
     height: 500px;
 }
 
@@ -119,4 +125,32 @@
 {
     float:right;
     vertical-align: center
+}
+
+@media only screen and (max-width: 90em) 
+{
+
+    #section-nav
+    {
+        font-size: 30px;
+    }
+
+    #section-description
+    {
+        font-size: 15px;
+    }
+
+    .section-checks p
+    {
+        float:right;
+        vertical-align: center;
+        font-size: 13px;
+        margin-left: 5px
+    }
+
+    .section-checks span
+    {
+        float:left;
+        vertical-align: center;
+    }
 }

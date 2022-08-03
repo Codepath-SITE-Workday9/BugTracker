@@ -41,14 +41,8 @@ export default function renderUserCharts(statsPerMonth) {
                ],
                borderWidth: 1
              }]
-           },
-           options: {
-             scales: {
-               y: {
-                 beginAtZero: true
-               }
            }}
-         })
+         )
 
         let chart5 = new Chart(document.getElementById("user-statistics-line-chart"), {
             type: 'line',

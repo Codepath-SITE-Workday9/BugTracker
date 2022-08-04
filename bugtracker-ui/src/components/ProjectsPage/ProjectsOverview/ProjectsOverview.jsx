@@ -60,7 +60,7 @@ export default function ProjectsOverview({
       {/* sort by component to sort the project results */}
       <div className="sort-by">
         <p> Sort by: </p>
-        <SortByDrowpdown categories={["Most tickets", "Least tickets"]} handleOnFilterChange={handleOnFilterChange}/>
+        <SortByDrowpdown categories={["Most Tickets", "Least Tickets", "Most Teams", "Least Teams"]} handleOnFilterChange={handleOnFilterChange}/>
       </div>
 
       {/* container that will hold all ProjectCard components*/}

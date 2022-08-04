@@ -22,22 +22,44 @@ export default function ProjectsPage() {
   useEffect(() => {
     console.log("Entering useEffect")
     fetchProjects();
-  }, [projectModal]);
+  }, [projectModal, sortedProjects]);
 
   // handler function to change which projects's details should be displayed
   const handleOnProjectClick = (projectId) => {
     setCurrentProject(projectId);
   };
 
-  // const [sortedProjects, setSortedProjects] = useState(projects)
+  
 
-  const handleOnFilterChange = () => {
-    console.log("entered")
-    const results = projects.sort((project1, project2) => (project1.tickets.length > project2.tickets.length) ? 1 : -1)
-    setSortedProjects(results)
-    console.log("Filter: ", sortedProjects)
+  //Handler function to change the order of the projects shown in project overview based on the sorting value
+  const handleOnFilterChange = (sortValue) => {
+    if(sortValue === "Least Tickets")
+    {
+      const results = projects.sort((project1, project2) => (project1.tickets.length > project2.tickets.length) ? 1 : -1)
+      setSortedProjects(results)
+    }
+    else if(sortValue === "Most Tickets")
+    {
+      const results = projects.sort((project1, project2) => (project1.tickets.length < project2.tickets.length) ? 1 : -1)
+      setSortedProjects(results)
+    }
+    else if(sortValue === "Most Teams")
+    {
+      const results = projects.sort((project1, project2) => (project1.teams.length > project2.teams.length) ? 1 : -1)
+      setSortedProjects(results)
+    }
+    else if(sortValue === "Least Teams")
+    {
+      const results = projects.sort((project1, project2) => (project1.teams.length < project2.teams.length) ? 1 : -1)
+      setSortedProjects(results)
+    }
   }
 
+
+
+
+
+  //Conditionally set the sorted projects to the list of projects only if projects is populated and the length of sorted projects is zero
   if(projects.length > 0 && sortedProjects.length == 0)
   {
       setSortedProjects(projects)

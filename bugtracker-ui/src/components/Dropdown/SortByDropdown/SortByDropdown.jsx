@@ -4,9 +4,9 @@ export default function SortByDrowpdown({ categories, handleOnFilterChange }) {
 
   return (
     <div className="sort-by-dropdown">
-      <select name="selectList" id="selectList" onChange={handleOnFilterChange}>
+      <select name="selectList" id="selectList" onChange={(evt) => handleOnFilterChange(evt.target.value)}>
         {categories?.map((category) => (
-          <option value="option 1" key={category}>
+          <option value={category} key={category}>
             {category}
           </option>
         ))}

@@ -9,11 +9,11 @@ import {useState, setState} from 'react';
 
 export default function renderCharts(dashboardStatistics, rendered, setRendered) { 
 
-  console.log(dashboardStatistics?.data?.statistics)
+  //console.log(dashboardStatistics?.data?.statistics)
   if (dashboardStatistics?.data?.statistics) {
     setRendered(true)
-    console.log("Set rendered to true")
-    console.log("rendered:", rendered)
+    // console.log("Set rendered to true")
+    // console.log("rendered:", rendered)
   }    
 
     //console.log("RenderCharts dashboardStatistics:", dashboardStatistics)

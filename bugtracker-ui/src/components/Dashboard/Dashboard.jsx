@@ -153,18 +153,18 @@ export default function Dashboard() {
   //    renderCharts(dashboardStatistics)
   //  }
  
-  console.log("dashboard tickets:", tickets)
-  console.log("dashboard tickets.length", tickets.length)
+  // console.log("dashboard tickets:", tickets)
+  // console.log("dashboard tickets.length", tickets.length)
   if (Object.keys(dashboardStatistics).length === 0) {
     console.log("Fetching dashboard statistics outside useEffect...")
     fetchDashboardStatistics()
   }
 
      if (tickets?.length > 0 && rendered === false && Object.keys(dashboardStatistics).length > 0) {
-      console.log("Condition met")
+      //console.log("Condition met")
       renderCharts(dashboardStatistics, rendered, setRendered)
       //setRendered(true)
-      console.log("Rendered?:", rendered)
+      //console.log("Rendered?:", rendered)
      }
 
 

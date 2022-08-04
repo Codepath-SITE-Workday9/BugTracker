@@ -48,7 +48,7 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
         actions={[
           {
             icon: () => (
-              <button className="tableCreateButton">Open A New Ticket</button>
+              <button className="tableCreateButton">Create New Ticket</button>
             ),
             tooltip: "Create a new ticket",
             isFreeAction: true,

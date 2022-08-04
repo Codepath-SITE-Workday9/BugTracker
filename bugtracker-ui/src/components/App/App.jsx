@@ -47,7 +47,7 @@ export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
   const { teams, fetchTeams } = useTeamContext();
-  //const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
 
   //const [dashboardStatistics, setDashboardStatistics] = useState({})
 

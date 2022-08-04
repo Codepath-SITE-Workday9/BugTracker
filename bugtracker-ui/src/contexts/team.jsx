@@ -101,7 +101,6 @@ export const TeamContextProvider = ({ children }) => {
     setTeams,
     currentTeam,
     setCurrentTeam,
-    isLoading,
     fetchTeams,
     fetchTeamsTableData,
     newFetchTeamsTableData,

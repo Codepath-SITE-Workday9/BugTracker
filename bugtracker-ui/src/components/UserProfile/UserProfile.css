@@ -2,7 +2,6 @@
 .user-profile-page
 {
     display: flex;
-    margin-bottom: 10px
 }
 
 
@@ -88,7 +87,9 @@ body
 .user-tables
 {
     margin-left: 50px;
-    margin-top: 10px
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* -----------------------------USER TICKET STATISTICS GENERAL FORMATTING --------------------------------------*/
@@ -136,4 +137,20 @@ body
 .profile-page .chart-container
 {
     margin-top: 20px
+}
+
+/*--------------------------------CHARTS' RESPONSIVE STYLING -------------------------------------------------------*/
+.chart-container
+{
+    width: 800px
+}
+
+@media only screen and (min-width: 100em) 
+{
+    .chart-container
+    {
+        margin-top:20px;
+        padding: 10px;
+        width: 1000px
+    }
 }

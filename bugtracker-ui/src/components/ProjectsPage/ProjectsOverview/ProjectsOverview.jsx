@@ -1,5 +1,5 @@
 import "./ProjectsOverview.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 
@@ -7,7 +7,10 @@ import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 export default function ProjectsOverview({
   projects,
   handleOnProjectClick,
+  handleOnFilterChange,
   isLoading,
+  sortedProjects,
+  setSortedProjects,
 }) {
   var projectsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,8 +26,8 @@ export default function ProjectsOverview({
   };
 
   // update projectsToShow array depending on searchTerm
-  if (projects) {
-    projectsToShow = projects?.filter((p) =>
+  if (sortedProjects) {
+    projectsToShow = sortedProjects?.filter((p) =>
       p?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
   }
@@ -57,12 +60,12 @@ export default function ProjectsOverview({
       {/* sort by component to sort the project results */}
       <div className="sort-by">
         <p> Sort by: </p>
-        <SortByDrowpdown categories={["Most tickets", "Least tickets"]} />
+        <SortByDrowpdown categories={["Most Tickets", "Least Tickets", "Most Teams", "Least Teams"]} handleOnFilterChange={handleOnFilterChange}/>
       </div>
 
       {/* container that will hold all ProjectCard components*/}
       {isLoading ? (
-        <div>Loding ...</div>
+        <div>Loading ...</div>
       ) : (
         <div className="project-card-container">
           {/* conditionally display project cards if teamsToShow is not empty, otherwise "No teams available" */}

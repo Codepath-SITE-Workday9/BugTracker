@@ -33,11 +33,10 @@ export default function UserProfile() {
     }
   
   return (
-      userStats ? 
-        (<div className="user-profile-page">
+        <div className="user-profile-page">
           <ProfileCard />
           <UserTables userStats={userStats} statsPerMonth={statsPerMonth}/>
-      </div>) : (<div></div>)
+      </div>
   )
 }
 
@@ -89,11 +88,12 @@ export function UserTables(props)
 
             <div className="chart-container">
               {/* Renders a bar chart for tickets completed over time based on complexity */}
-              <h1></h1>
               <canvas
                 className="bar-chart"
                 id="user-statistics-chart"
               ></canvas>
+            </div>
+            <div className="chart-container">
               {/* Renders a line chart for tickets opened and closed over time */}
               <canvas
                 className="line-chart"

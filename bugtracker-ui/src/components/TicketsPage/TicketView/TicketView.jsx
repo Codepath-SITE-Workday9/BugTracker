@@ -14,6 +14,7 @@ export default function TicketView({
 }) {
   const { setTicketModal, setEditing, setTicketToEdit } = useTicketContext();
   const [creator, setCreator] = useState("");
+  const [assignedDevs, setAssignedDevs] = useState([]);
 
   const fetchCreator = async () => {
     const { data, error } = await apiClient.fetchUserById(
@@ -32,7 +33,20 @@ export default function TicketView({
 
   useEffect(() => {
     fetchCreator();
+    getDevelopersArray(currentTicket.developers);
   }, [currentTicket]);
+
+  const getDevelopersArray = async (developers) => {
+    setAssignedDevs([]);
+    developers.map((d) => {
+      appendMembersToArray(d);
+    });
+  };
+
+  const appendMembersToArray = async (teamId) => {
+    const { data, error } = await apiClient.fetchUserById(teamId);
+    setAssignedDevs((prev) => [...prev, data.user.fullName]);
+  };
 
   return (
     <div className="ticket-view">
@@ -96,6 +110,15 @@ export default function TicketView({
                       <span className={`${currentTicket.status}`}>
                         {currentTicket.status}
                       </span>
+                    </div>
+                    <div className="ticket-developers">
+                      <label className="developers">
+                        {" "}
+                        Assigned Developers:{" "}
+                      </label>
+                      {assignedDevs.map((d) => (
+                        <p className="developers">{d}</p>
+                      ))}
                     </div>
                   </div>
                 </div>

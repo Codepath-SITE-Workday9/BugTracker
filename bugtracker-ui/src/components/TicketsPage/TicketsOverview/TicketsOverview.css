@@ -70,7 +70,7 @@
 
 
 .tickets-overview .new-btn{
-    background-color: rgb(60, 101, 214);
+    background-color: var(--button-blue);
     padding: 15px 30px;
     font-weight: bold;
     margin: 10px;

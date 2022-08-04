@@ -12,15 +12,12 @@ export const StatisticsContextProvider = ({ children }) => {
 
   const fetchDashboardStatistics = async () => {
     //setIsLoading(true);
-    let stats = await apiClient.getAllStatistics()
-    console.log("fetchDashboardStatistics stats:", stats)
-    setDashboardStatistics(stats)
-    console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+    let stats = await apiClient.getAllStatistics();
+    setDashboardStatistics(stats);
     //setIsLoading(false);
   };
 
   useEffect(() => {
-    //console.log("Enter statistics useEffect")
     fetchDashboardStatistics();
   }, []); // setTickets dependency removed
 
@@ -34,6 +31,7 @@ export const StatisticsContextProvider = ({ children }) => {
     dashboardStatisticsRendered,
     setDashboardStatisticsRendered,
     fetchDashboardStatistics
+
   };
 
   return (

@@ -41,7 +41,10 @@ export default function renderUserCharts(statsPerMonth, complexityPerMonth) {
                ],
                borderWidth: 1
              }]
-           }}
+           },
+           options: {
+            responsive: true
+          }}
          )
 
         let chart5 = new Chart(document.getElementById("user-statistics-line-chart"), {

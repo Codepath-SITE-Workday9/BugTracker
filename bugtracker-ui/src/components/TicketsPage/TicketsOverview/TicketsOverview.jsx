@@ -55,11 +55,28 @@ export default function TicketsOverview({
       {/* tickets overview header  */}
       <div className="header">
         <h1>Your Tickets</h1>
-        <button className="new-btn" onClick={() => setTicketModal(true)}>
-          Create New Ticket
-        </button>
       </div>
-
+      {/* sort by component to sort the ticket results */}
+      <div className="sort-by">
+        <p className="select"> Select project: </p>
+        <div className="sort-by-dropdown">
+          <select
+            name="selectList"
+            id="selectList"
+            onChange={handleOnProjectChange}
+            value={selectedProject}
+          >
+            {dropdownCategories?.map((c) => (
+              <option value={c.id} key={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>{" "}
+      </div>
+      <button className="new-btn" onClick={() => setTicketModal(true)}>
+        Create New Ticket
+      </button>
       {/* search for tickets  */}
       <div className="ticket-search">
         <input
@@ -76,25 +93,6 @@ export default function TicketsOverview({
             {searchTerm == "" ? "search" : "close"}
           </i>
         </button>
-      </div>
-
-      {/* sort by component to sort the ticket results */}
-      <div className="sort-by">
-        <p> Display tickets from: </p>
-        <div className="sort-by-dropdown">
-          <select
-            name="selectList"
-            id="selectList"
-            onChange={handleOnProjectChange}
-            value={selectedProject}
-          >
-            {dropdownCategories?.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>{" "}
       </div>
 
       {/* container that will hold ticket cards */}

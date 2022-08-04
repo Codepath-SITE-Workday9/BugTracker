@@ -8,51 +8,87 @@
 }
 
 .ticket-header{
-    display:flex;
-    flex-direction: row;
+    /* 
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    text-transform: uppercase;    
-    border-bottom: 1px solid black;
+    */
+    text-transform: capitalize;    
+    border-bottom: 1px solid black; 
+}
+
+.ticket-title{
+    display:flex;
+    justify-content: space-between;
+}
+
+.ticket-created-details{
+    display:flex;
+    justify-content: space-between;
+}
+
+.ticket-created-details label{
+    font-weight: bold;
 }
 
 .ticket-header button {
     color: whitesmoke;
-    background-color: var(--lighter-blue);
+    background-color: var(--button-blue);
     border-radius: 10px;
     outline: none;
     border: none;
-    padding: 15px;
     margin: 10px;
     font-size: 20px;
-}
-
-.ticket-title{
-    width: 100%; 
-}
-
-.ticket-priority{
-    width: 100px;
     text-align: center;
-    border-radius: 7px;
-    font-size: 18px;
-}
-
-.ticket-priority.low{
-    background-color:green  ;
-}
-.ticket-priority.medium{
-    background-color:yellow  ;
-}
-.ticket-priority.high{
-    background-color:orange  ;
-}
-.ticket-priority.critical{
-    background-color:red;
 }
 .ticket-header button:hover{
     color: white;
     box-shadow: 0px 0 3px 0 #3f4d67;
+}
+
+
+
+.ticket-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket-description{
+    width: 80%;
+    margin-right: 20px;
+}
+
+.ticket-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ticket-info label{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ticket-priority, .ticket-category, .ticket-status, .ticket-developers{
+    /* background-color: yellow; */
+    margin: 15px 15px 15px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ticket-priority .low{
+    background-color:#caffbf;
+}
+.ticket-priority .medium{
+    background-color:#fdffb6  ;
+}
+.ticket-priority .high{
+    background-color:#ffd6a5  ;
+}
+.ticket-priority .critical{
+    background-color:#ffadad;
 }
 
 .ticket-view .nothing-created-yet{
@@ -60,83 +96,8 @@
     text-align: center
 }
 
-.ticket-info {
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    justify-content: space-between;
-}
 
 
-.ticket-developers{
-    padding: 10px;
-    border-bottom: 1px solid black;
-}
-.project-developers{
-    padding: 10px;
-}
-
-
-/* --------- adding a developer to the ticket section ---------  */
-
-
-.add-developer-to-ticket{
-    display: flex;
-    align-items: center;
-}
-
-.add-developer-to-ticket p{
-    font-size: 20px;
-    margin: 0px;
-}
-
-.add-developer-to-ticket .dev-search{
-    position: relative;
-    display: flex;
-    height: 40px;
-}
-
-.dev-search .search-input{
-        width: 100%;
-        padding: 10px;
-        border-radius: 13px;
-        border-right: none;
-        position: relative;
-        font-size: 16px;
-        border: 1px solid gray;
-        padding-right: 30px;
-}
-
-.dev-search{
-    margin-left: 20px;
-    min-width: 350px;
-    display: flex;
-    align-items: center;
-}
-
-.dev-search .search-btn{
-    position: absolute;
-    right: 0;
-    background: transparent;
-    font-size: 10px;
-}
-
-.dev-search .search-btn .material-symbols-outlined{
-    font-size: 30px;
-    margin: 0px;
-}
-
-.ticket-developers .table {
-    padding: 1% 3% 3% 3%;
-}
-
-.ticket-developers .table .MuiPaper-elevation2{
-    border: 0.1px solid #e9e9e9;
-    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
-}
-.project-developers .table {
-    padding: 3% 3% 1% 3%;
-}
 
 
 .label-nothing-yet{

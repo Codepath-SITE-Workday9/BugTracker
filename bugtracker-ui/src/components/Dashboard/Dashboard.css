@@ -107,6 +107,20 @@
     padding: 1.05rem 0.75rem;
 }
 
+.dashboard .table-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dashboard .teams-table {
+    width: 48%
+}
+
+.dashboard .projects-table {
+    width: 50%
+}
 
 .dashboard .table-header-row {
      display: flex;
@@ -136,6 +150,17 @@
     width: 30%;
     height: 35vh;
     position: relative
+}
+
+.dashboard .ticket-statistics {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; 
+    /*box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
+    /*box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+}
+
+.dashboard .ticket-statistics h {
+    margin-left: 15px;
 }
 
 .dashboard .statistics-row { /* TODO: Add responsiveness to page sizes, If page is small it should be column not row*/

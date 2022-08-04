@@ -25,7 +25,7 @@ export function SideBarIcons() {
         <Link to="/">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">bug_report</span>
-            <span className="icon-text"> Bug tracker </span>
+            <span className="icon-text"> Tracker Max </span>
           </div>
         </Link>
       </div>
@@ -79,7 +79,7 @@ export function SideBarIcons() {
         <Link to="/">
           <div className="sidebar-icon" onClick={logoutUser}>
             <span className="material-symbols-outlined">logout</span>
-            <span className="icon-text"> Log out </span>
+            <span className="icon-text"> Log Out </span>
           </div>
         </Link>
       </div>

@@ -9,7 +9,7 @@ export default function NoUserNavbar() {
           <Link to="/">
             <div className="navbar-btn">
               <span className="material-symbols-outlined">bug_report</span>
-              <label className="link-label">Bug Tracker</label>
+              <label className="link-label">Tracker Max</label>
             </div>
           </Link>
         </div>

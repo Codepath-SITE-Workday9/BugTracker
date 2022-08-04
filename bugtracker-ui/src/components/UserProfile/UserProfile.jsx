@@ -80,8 +80,8 @@ export function UserTables(props)
                     return(
                     <div className="ticket-cards" key={index}>
                       <div className="stats-text">
-                        <h2>Tickets {stat.status}</h2>
-                        <p> {stat.totaltickets} </p>
+                        <h2 id="stats-title">Tickets {stat.status}</h2>
+                        <p id="stats-value"> {stat.totaltickets} </p>
                       </div>
                     </div>)
                 })}
@@ -89,13 +89,14 @@ export function UserTables(props)
 
             <div className="chart-container">
               {/* Renders a bar chart for tickets completed over time based on complexity */}
+              <h1></h1>
               <canvas
                 className="bar-chart"
                 id="user-statistics-chart"
               ></canvas>
               {/* Renders a line chart for tickets opened and closed over time */}
               <canvas
-                className="bar-chart"
+                className="line-chart"
                 id="user-statistics-line-chart"
               ></canvas>
             </div>

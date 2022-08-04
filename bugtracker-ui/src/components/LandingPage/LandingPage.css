@@ -21,7 +21,7 @@
     max-width: 720px;
     justify-content: center;
     text-align: center;
-    padding: 50px;
+    padding: 70px;
 }
 
 .hero-logo span{
@@ -68,13 +68,18 @@
 .content-nav-buttons
 {
     margin-right: 10px;
-    background-color: rgb(119, 143, 211);
+    background-color: rgb(60, 101, 214);
     padding: 15px 30px;
     font-weight: bold;
     margin-left: 15px;
     margin-bottom: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
+}
+
+.content-nav-buttons:focus
+{
+    background-color: rgb(28, 48, 104)
 }
 
 .content-nav-sections
@@ -86,6 +91,7 @@
     margin-top: 20px;
     height: 500px;
     justify-content: center;
+    align-items: center;
 }
 
 .content-section-info
@@ -112,7 +118,9 @@
 
 .section-checks
 {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .section-checks span
@@ -127,6 +135,8 @@
     vertical-align: center
 }
 
+
+/*WHEN A USER'S SCREEN SIZE IS SMALLER THAN THAT OF A LAPTOP ETC., DECREASE THE SIZE OF THE NAVIGATION CONTENT SECTION*/
 @media only screen and (max-width: 90em) 
 {
 
@@ -137,14 +147,14 @@
 
     #section-description
     {
-        font-size: 15px;
+        font-size: 20px;
     }
 
     .section-checks p
     {
         float:right;
         vertical-align: center;
-        font-size: 13px;
+        font-size: 15px;
         margin-left: 5px
     }
 
@@ -152,5 +162,46 @@
     {
         float:left;
         vertical-align: center;
+    }
+}
+
+
+/*WHEN A USER SCREEN'S GET LARGER THAN THAT OF A LAPTOP ETC., INCREASE THE SIZES OF ALL THE INFORMATION IN THE NAVIGATION SECTION*/
+@media only screen and (min-width: 100em) 
+{
+
+    #section-nav
+    {
+        font-size: 60px;
+    }
+
+    #section-description
+    {
+        font-size: 30px;
+    }
+
+    .section-checks p
+    {
+        float:right;
+        vertical-align: center;
+        font-size: 20px;
+        margin-left: 5px
+    }
+
+    .section-checks span
+    {
+        float:left;
+        vertical-align: center;
+    }
+}
+
+
+/*WHEN THE USER'S SCREEN REACHES LARGE SIZES, INCREASE THE LENGTH OF THE IMAGE TO MAINTAIN STRUCTURE*/
+@media only screen and (min-width: 120em) 
+{
+    #content-section-gifs
+    {
+        width: 1000px;
+        height: 500px;
     }
 }

@@ -14,15 +14,13 @@
 }
 
 .project-header button {
-    color: whitesmoke;
-    background-color: var(--lighter-blue);
+    background-color: rgb(60, 101, 214);
+    padding: 15px 30px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-bottom: 15px;
     border-radius: 10px;
-    outline: none;
-    border: none;
-    padding: 15px;
-    margin: 10px;
-    font-size: 20px;
-    border: 1px solid lightgray;
+    color: white;
 }
 
 .project-header button:hover{
@@ -45,7 +43,7 @@
 }
 
 .project-view .tableCreateButton{
-    background-color: var(--lighter-blue);
+    background-color: rgb(119, 143, 211);
     padding: 15px;
     margin-left: 15px;
     margin-bottom: 15px;

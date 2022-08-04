@@ -103,7 +103,7 @@ export default function TicketModal({
       <div className="ticket-modal-container">
         {/* modal header: header text & a close button */}
         <div className="header">
-          <p>CREATE A NEW TICKET</p>
+          <p> {editing ? "EDITING TICKET" : "CREATE A NEW TICKET"}</p>
           <button
             className="close-modal-btn"
             onClick={() => {
@@ -119,17 +119,20 @@ export default function TicketModal({
         {/* form area to create new ticket */}
         <div className="form">
           <div className="form-area">
-            <p className="errors"> {errors} </p>
+            <div className="top-row">
+              <AddTitle title={title} setTitle={setTitle} />
+              <SelectProject
+                handleOnProjectChange={handleOnProjectChange}
+                currentProject={currentProject}
+                projects={projects}
+              />
+            </div>
             <div className="split-input-fields">
-              <div className="column">
-                <AddTitle title={title} setTitle={setTitle} />
+              <div className="row">
                 <AddDescription
                   description={description}
                   setDescription={setDescription}
                 />
-              </div>
-
-              <div className="column">
                 {/* developer area */}
                 <div className="developer-area">
                   <AddDevelopers
@@ -154,29 +157,26 @@ export default function TicketModal({
                     )}
                   </div>
                 </div>
-                <AddComplexity
-                  setComplexity={setComplexity}
-                  complexity={complexity}
-                />
-                <AddStatus setStatus={setStatus} status={status} />
-                <AddPriority setPriority={setPriority} priority={priority} />
-                <AddCategory setCategory={setCategory} category={category} />
-                <div>
-                  {/* sort by component to sort the ticket results */}
-                  <div className="sort-by">
-                    <p> Creating ticket for project: </p>
-                    <div className="sort-by-dropdown">
-                      <select
-                        name="selectList"
-                        id="selectList"
-                        onChange={handleOnProjectChange}
-                        value={currentProject}
-                      >
-                        {projects?.map((c) => (
-                          <option value={c.id}>{c.name}</option>
-                        ))}
-                      </select>
-                    </div>{" "}
+              </div>
+
+              <div className="row">
+                <div className="ticket-dropdowns">
+                  <div className="column">
+                    <AddComplexity
+                      setComplexity={setComplexity}
+                      complexity={complexity}
+                    />
+                    <AddStatus setStatus={setStatus} status={status} />
+                  </div>
+                  <div className="column">
+                    <AddPriority
+                      setPriority={setPriority}
+                      priority={priority}
+                    />
+                    <AddCategory
+                      setCategory={setCategory}
+                      category={category}
+                    />
                   </div>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function TicketModal({
               Cancel
             </button>
             <button className="submit" onClick={handleOnCreateNewTicketSubmit}>
-              {editing ? "Confirm edits" : "Submit"}
+              Submit
             </button>
           </div>
         </div>
@@ -228,6 +228,36 @@ export function AddTitle({ title, setTitle }) {
   );
 }
 
+export function SelectProject({
+  handleOnProjectChange,
+  currentProject,
+  projects,
+}) {
+  return (
+    <div className="select-project">
+      {/* sort by component to sort the ticket results */}
+      <div className="sort-by">
+        <label className="select-project-label">
+          Creating ticket for project:
+        </label>
+        <div className="sort-by-dropdown">
+          <select
+            name="selectList"
+            id="selectList"
+            onChange={handleOnProjectChange}
+            value={currentProject}
+            className="project-dropdown"
+          >
+            {projects?.map((c) => (
+              <option value={c.id}>{c.name}</option>
+            ))}
+          </select>
+        </div>{" "}
+      </div>
+    </div>
+  );
+}
+
 export function AddDescription({ description, setDescription }) {
   const handleOnDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -245,7 +275,6 @@ export function AddDescription({ description, setDescription }) {
           placeholder="describe the ticket"
           autoComplete="off"
         />
-        {/* {errors.password && <p className="error">{errors.password}</p>} */}
       </div>
     </div>
   );
@@ -288,13 +317,12 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
   return (
     <div className="tickets-form-search">
       <div className="developers-area">
-        <p className="errors"> {errors}</p>
-
         <label htmlFor="search"> Assign developers to this ticket </label>
+
         <div className="drop-down-search-area">
           <div className="search-box">
             <input
-              className="search-input"
+              className="search-input ticket-developer"
               type="text"
               name="search"
               placeholder="search for developers"
@@ -451,7 +479,7 @@ export function AddCategory({ setCategory, category }) {
   };
   return (
     <div className="add-category">
-      <label htmlFor="status">Choose the category:</label>
+      <label htmlFor="category">Choose the category:</label>
       <select
         name="category"
         id="category"

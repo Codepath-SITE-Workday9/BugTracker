@@ -24,7 +24,7 @@ router.get("/", security.requireAuthenticatedUser, async(req,res,next) => {
 })
 
 //FUNCTION TO LIST ALL THE TICKETS FOR A SELECTED PROJECT 
-router.get("/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
+router.get("/project/:projectId", security.requireAuthenticatedUser, async(req,res,next) => {
     try
     {
         //Retrieve the user information from the local server

@@ -104,7 +104,7 @@ class ApiClient {
     }
   // list all the tickets for  selected project  
   async listAllProjectTickets(projectId){
-    return await this.request({ endpoint: `ticket/${projectId}`, method: 'GET' })
+    return await this.request({ endpoint: `ticket/project/${projectId}`, method: 'GET' })
   }
   // to create a new tickets credentials must have: 
   // the developers (array of emails), projectId, title, description, category, priority, status, complexity

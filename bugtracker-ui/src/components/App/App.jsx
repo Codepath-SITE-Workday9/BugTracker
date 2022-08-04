@@ -16,7 +16,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import apiClient from "../../services/apiClient";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NotFound from "../NotFound/NotFound";
@@ -46,14 +46,35 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  const { fetchTeams } = useTeamContext();
-  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+  const { teams, fetchTeams } = useTeamContext();
+  //const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+
+  //const [dashboardStatistics, setDashboardStatistics] = useState({})
+
+  // const fetchDashboardStatistics = async () => {
+  //   //setIsLoading(true);
+  //   let stats = await apiClient.getAllStatistics()
+  //   console.log("fetchDashboardStatistics stats:", stats)
+  //   setDashboardStatistics(stats)
+  //   console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+  //   //setIsLoading(false);
+  // };
+
+  // async function fetchDashboardStatistics() {
+  //    let stats = await apiClient.getAllStatistics()
+  //    console.log("fetchDashboardStatistics stats:", stats)
+  //    setDashboardStatistics(stats)
+  //   //  console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+
+  // }
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
         fetchTeams();
+        console.log("App.jsx teams:", teams)
         fetchDashboardStatistics()
       }
       setInitialized(true);

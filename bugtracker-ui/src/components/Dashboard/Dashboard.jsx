@@ -92,20 +92,26 @@ export default function Dashboard() {
   }
 
 
-  // window.onload = function () {
+   window.onload = function () {
   //   //getTeamsTable()
   //   //console.log("Inside window.onload")
   //   fetchDashboardStatistics()
   //   //console.log("Fetched dashboard statistics onload complete")
   //   //renderCharts(dashboardStatistics)
-  // }
+  //fetchTeams()
+  console.log('Inside window.onload')
+   }
 
-  // useEffect(() => {
+   useEffect(() => {
   //    //clearTeams()
-
-  //    fetchDashboardStatistics()
+    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+      fetchDashboardStatistics()
   //    //console.log("dashboard statistics:", dashboardStatistics)
-  //    renderCharts(dashboardStatistics)
+    
+      if (dashboardStatistics) {
+        renderCharts(dashboardStatistics)
+      }
+      
   //    //console.log("dashboard statistics:", dashboardStatistics)
   //    //renderCharts(dashboardStatistics)
 
@@ -116,7 +122,8 @@ export default function Dashboard() {
   //   // }
 
   //    //fetchProjects()
-  //    //newFetchTeamsTableData(teams)
+        //console.log("dashboard teams:", teams)
+        newFetchTeamsTableData(teams)
   //    //fetchTeams()
   //    //getTeamsTable()
   //    //getData()
@@ -129,11 +136,11 @@ export default function Dashboard() {
   //    //console.log(projects)
   //    //console.log("Teams below")
   //    //console.log(teams) 
-  // }, [])
+   }, [])
 
-  if (dashboardStatistics) {
-    renderCharts(dashboardStatistics)
-  }
+  // if (dashboardStatistics) {
+  //   renderCharts(dashboardStatistics)
+  // }
 
   //  if (dashboardStatistics) {
   //    //fetchDashboardStatistics()

@@ -1,11 +1,16 @@
+import "./TicketModal.css";
 import { useState, useEffect } from "react";
 import { useTicketContext } from "../../../contexts/ticket";
 import { useTicketForm } from "../../../hooks/useTicketForm";
 import AddDevelopersDropdown from "../../Dropdown/AddDevelopersDropdown/AddDevelopersDropdown";
-import "./TicketModal.css";
 import { useAuthContext } from "../../../contexts/auth";
 import { useProjectContext } from "../../../contexts/project";
-export default function TicketModal({ availableMembers }) {
+import apiClient from "../../../services/apiClient";
+export default function TicketModal({
+  availableMembers,
+  currentProject,
+  handleOnProjectChange,
+}) {
   const {
     handleOnCreateNewTicketSubmit,
     title,
@@ -36,12 +41,30 @@ export default function TicketModal({ availableMembers }) {
     setTicketToEdit,
   } = useTicketContext();
   const { user } = useAuthContext();
-
   const { projects } = useProjectContext();
+
+  const getProjectName = async (projId) => {
+    const { data, error } = await apiClient.fetchProjectById(projId);
+    if (data) {
+      setSelectedProject(data.project.id);
+    }
+  };
+
+  const getDevelopersArray = async (developers) => {
+    setDevelopersToAdd([]);
+    developers.map((d) => {
+      appendMembersToArray(d);
+    });
+  };
+
+  const appendMembersToArray = async (teamId) => {
+    const { data, error } = await apiClient.fetchUserById(teamId);
+    setDevelopersToAdd((prev) => [...prev, data.user.id]);
+  };
 
   // useEffect hook to set ticket's information based on if a user has clicked on edit or create a new ticket
   useEffect(() => {
-    if (editing && Object.keys(ticketToEdit).length === 0) {
+    if (editing && Object.keys(ticketToEdit).length != 0) {
       //if a user is editing a ticket, prepopulte the form with the specificed ticket's information
       setComplexity(ticketToEdit.complexity);
       setStatus(ticketToEdit.status);
@@ -49,7 +72,11 @@ export default function TicketModal({ availableMembers }) {
       setTitle(ticketToEdit.title);
       setDescription(ticketToEdit.description);
       setCategory(ticketToEdit.category);
-      setDevelopersToAdd(ticketToEdit.developers);
+      getDevelopersArray(ticketToEdit.developers);
+      setSelectedProject(ticketToEdit.project_id);
+      // const {data, error } = await apiClient.fetchProjectById(ticketToEdit.project_id)
+
+      // setSelectedProject(variable)
     } else {
       // if  user is creating a ticket, set the form values to a default value
       setTitle("");
@@ -59,6 +86,13 @@ export default function TicketModal({ availableMembers }) {
       setStatus("unassigned");
       setPriority("low");
       setCategory("bug");
+      // if the current project is "all projects", set selectedProject to 1st in projects list,
+      // else set selectedProject to the currentProject's id.
+      if (currentProject < 0 && projects.length > 0) {
+        setSelectedProject(projects[0].id);
+      } else if (currentProject > 0) {
+        setSelectedProject(currentProject);
+      }
     }
   }, []);
 
@@ -97,7 +131,7 @@ export default function TicketModal({ availableMembers }) {
                 {/* developer area */}
                 <div className="developer-area">
                   <AddDevelopers
-                    developers={["user1", "user2", "user3"]}
+                    developers={availableMembers}
                     setDevelopersToAdd={setDevelopersToAdd}
                   />
 
@@ -110,7 +144,7 @@ export default function TicketModal({ availableMembers }) {
                           email={d}
                           developersToAdd={developersToAdd}
                           setDevelopersToAdd={setDevelopersToAdd}
-                          key={d.id}
+                          // key={d.id}
                         />
                       ))
                     ) : (
@@ -133,8 +167,8 @@ export default function TicketModal({ availableMembers }) {
                       <select
                         name="selectList"
                         id="selectList"
-                        // onChange={handleOnProjectChange}
-                        value={selectedProject}
+                        onChange={handleOnProjectChange}
+                        value={currentProject}
                       >
                         {projects?.map((c) => (
                           <option value={c.id}>{c.name}</option>
@@ -234,17 +268,17 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
   };
 
   // useEffect hook to update developersToShow whenever developerSearch changes
-  //   useEffect(() => {
-  //     setDevelopersToShow(
-  //       developers.filter((d) =>
-  //         d.name.toLowerCase().includes(developerSearch.toLowerCase())
-  //       )
-  //     );
-  //   }, [developerSearch]);
+  useEffect(() => {
+    setDevelopersToShow(
+      developers.filter((d) =>
+        d.toLowerCase().includes(developerSearch.toLowerCase())
+      )
+    );
+  }, [developerSearch]);
 
   // handler function to update the developers list when a user selects a developer from the drop down list
   const handleOnDeveloperClick = (dev) => {
-    setDevelopersToAdd((p) => [...p, dev.id]);
+    setDevelopersToAdd((p) => [...p, dev]);
     setDeveloperSearch("");
     setFocused(false);
   };
@@ -316,7 +350,7 @@ export function ProjectRow({ projectId, projectsToAdd, setProjectsToAdd }) {
   };
 
   const getProjectInfo = async () => {
-    const { data, error } = await apiClient.fetchProjectById(projectId);
+    const { data, error } = await apiClient.fetch(projectId);
     if (data) {
       setProj(data.project);
     }

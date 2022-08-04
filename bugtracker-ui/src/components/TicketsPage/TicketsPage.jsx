@@ -16,36 +16,98 @@ export default function TicketsPage() {
     fetchAllTickets,
     ticketModal,
     isLoading,
+    selectedProject,
+    setSelectedProject,
   } = useTicketContext();
 
-  const [currentProject, setCurrentProject] = useState({});
-  const [availableMembers, setAvailableMembers] = useState({});
+  // tickets to show based on selected project - initially set to all tickets
+  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
+
+  const [availableMembers, setAvailableMembers] = useState([]);
 
   useEffect(() => {
     fetchAllTickets();
   }, [ticketModal]);
+
+  useEffect(() => {
+    fetchMemsForTicket();
+  }, [selectedProject]);
 
   const handleOnTicketClick = (ticket) => {
     setCurrentTicket(ticket);
     fetchMemsForTicket(ticket.id);
   };
 
-  const fetchMemsForTicket = async (id) => {
-    const { data, error } = await apiClient.fetchMembersForTicket(id);
-    if (data) {
-      setAvailableMembers(data.ticketMembers);
+  // function to get all available members for a ticket
+  // * available members are any users who are apart of a team on the project that the ticket is being opened for
+  // First, send a request to get the teams list for the selected project,
+  // Then, call fetchTeamMembers and pass in the teams array to get the array of member names
+  const fetchMemsForTicket = async () => {
+    if (selectedProject) {
+      setAvailableMembers([]);
+      let teams = await getTeamsList();
+      teams.map((t) => {
+        appendToEmailArray(t);
+      });
     }
   };
+
+  const appendToEmailArray = async (teamId) => {
+    const { data, error } = await apiClient.fetchMemberList(teamId);
+    data.teamsData.map((member) =>
+      setAvailableMembers((prev) => [...prev, member.email])
+    );
+  };
+
+  const getTeamsList = async () => {
+    if (selectedProject > 0) {
+      const { data, error } = await apiClient.fetchProjectById(selectedProject);
+      if (data) {
+        return data.project.teams;
+      }
+    }
+  };
+
+  // handler function to set the selected project when a user selects a project from the dropdown
+  const handleOnProjectChange = (event) => {
+    setSelectedProject(event.target.value);
+    fetchProjectTickets(event.target.value);
+  };
+
+  // function to select the tickets for a specifc project given the project's id
+  // if the projId < 0, that means All Projects has been selected -> set tickets to all tickets
+  const fetchProjectTickets = async (projId) => {
+    if (projId < 0) {
+      setSelectedProjectTickets(tickets);
+    } else {
+      const { data, error } = await apiClient.listAllProjectTickets(projId);
+      if (data) {
+        setSelectedProjectTickets(data.ticketList);
+      }
+    }
+  };
+
   return (
     <div className="tickets-page">
       {/* conditionally render the Modal to create a new ticket  */}
-      {ticketModal && <TicketModal availableMembers={availableMembers} />}
+      {ticketModal && (
+        <TicketModal
+          availableMembers={availableMembers}
+          setCurrentProject={setSelectedProject}
+          currentProject={selectedProject}
+          handleOnProjectChange={handleOnProjectChange}
+        />
+      )}
       {/* conditionally blur background depending on if modal is open */}
       <div className={ticketModal ? "background-blur" : "background"}>
         <TicketsOverview
           tickets={tickets}
           handleOnTicketClick={handleOnTicketClick}
           isLoading={isLoading}
+          setCurrentProject={setSelectedProject}
+          currentProject={selectedProject}
+          handleOnProjectChange={handleOnProjectChange}
+          selectedProjectTickets={selectedProjectTickets}
         />
         <TicketView
           currentTicket={currentTicket}

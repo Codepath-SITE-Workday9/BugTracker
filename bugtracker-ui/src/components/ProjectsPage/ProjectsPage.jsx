@@ -6,30 +6,39 @@ import ProjectView from "./ProjectView/ProjectView";
 import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import { useTicketContext } from "../../contexts/ticket";
 import TicketModal from "../Modals/TicketModal/TicketModal"
+import apiClient from "../../services/apiClient";
 
 // page where a user can see all projects they are apart of(ProjectsOverview component) and where a user can view specific details about a project + create a new project(ProjectView component)
 export default function ProjectsPage() {
   const {
     projects,
     setProjects,
+    currentProject,
     setCurrentProject,
     projectModal,
     fetchProjects,
     isLoading,
   } = useProjectContext();
 
-  const {ticketModal} = useTicketContext()
+  const {ticketModal, selectedProject, setSelectedProject} = useTicketContext()
 
   const [sortedProjects, setSortedProjects] = useState(projects)
+  // const [selectedProject, setSelectedProject] = useState(-1)
+  const [availableMembers, setAvailableMembers] = useState([]);
 
   // useEffect hook to fetch updated list of projects a user is apart of after creating a new project
   useEffect(() => {
     fetchProjects();
-  }, [projectModal, sortedProjects]);
+  }, [projectModal, sortedProjects, ticketModal]);
+
+  useEffect(() => {
+    fetchMemsForProject()
+  }, [selectedProject])
 
   // handler function to change which projects's details should be displayed
   const handleOnProjectClick = (projectId) => {
     setCurrentProject(projectId);
+    setSelectedProject(projectId.id)
   };
 
   
@@ -58,6 +67,36 @@ export default function ProjectsPage() {
     }
   }
 
+    // handler function to set the selected project when a user selects a project from the dropdown
+    const handleOnProjectChange = (event) => {
+      setSelectedProject(event.target.value.id);
+    };
+
+
+
+    const appendToEmailArray = async (teamId) => {
+      const { data, error } = await apiClient.fetchMemberList(teamId);
+      data.teamsData.map((member) =>
+        {
+          if(!availableMembers.includes(member.email))
+          {
+            setAvailableMembers((prev) => [...prev, member.email])
+          }
+        }
+      );
+    };
+
+
+  const fetchMemsForProject = async () => {
+    if (selectedProject > -1) {
+      setAvailableMembers([]);
+      let teams = currentProject.teams
+      teams?.map((t) => {
+        appendToEmailArray(t);
+      });
+    }
+  };
+
 
 
 
@@ -72,7 +111,12 @@ export default function ProjectsPage() {
     <div className="projects-page">
       {/* conditionally render the Modal to create a new team  */}
       {projectModal && <ProjectModal />}
-      {ticketModal && <TicketModal />}
+      {ticketModal && <TicketModal
+          availableMembers={availableMembers}
+          setCurrentProject={setSelectedProject}
+          currentProject={selectedProject}
+          handleOnProjectChange={handleOnProjectChange}
+        />}
       {/* conditionally blur background depending on if modal is open */}
       <div className={projectModal || ticketModal ? "background-blur" : "background"}>
         <ProjectsOverview

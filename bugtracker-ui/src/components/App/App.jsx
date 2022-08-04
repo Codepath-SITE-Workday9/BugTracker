@@ -74,7 +74,6 @@ export function App() {
       if (data) {
         setUser(data.user);
         fetchTeams();
-        console.log("App.jsx teams:", teams)
         fetchDashboardStatistics()
       }
       setInitialized(true);

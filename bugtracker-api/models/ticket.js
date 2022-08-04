@@ -47,6 +47,7 @@ class Tickets
 
         //Run a separate query to check if the user is able to access project information
         //If undefined, then throw a not found error because user is neither a creator or member of the project
+
         const validAccess = await Tickets.validUserAccess(projectId, userId)
         if(!validAccess)
         {
@@ -93,10 +94,9 @@ class Tickets
         const results = await db.query(
             `
                 SELECT *
-                FROM projects
-                    LEFT JOIN teams ON teams.id = projects.id
-                WHERE projects.id = $1 AND ((projects.creator_id = $2) 
-                OR ($2 = any(teams.members)))
+                FROM projects as pro
+                    LEFT JOIN teams ON teams.id = any(pro.teams)
+                WHERE pro.id = $1 AND ((pro.creator_id = $1) OR  $2 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams)))
             `, [projectId, userId])
         
         //If user is a creator or member of a project, then return project information; Else, return undefined

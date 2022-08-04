@@ -31,6 +31,15 @@ export const useTicketForm = () => {
           // send request to create new a ticket
             // must send: 
             // title, description, category, priority, status, complexity, the developers (array of emails), projectId
+              console.log("Submitting: ", {title: title,
+              description: description,
+              category: category,
+              priority: priority,
+              status: status,
+              complexity:complexity,
+              developers: developersToAdd,
+              projectId: selectedProject,})
+
             const { data, error } = await apiClient.createNewTicket({
               title: title,
               description: description,

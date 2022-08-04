@@ -59,7 +59,7 @@ export default function TicketModal({
 
   const appendMembersToArray = async (teamId) => {
     const { data, error } = await apiClient.fetchUserById(teamId);
-    setDevelopersToAdd((prev) => [...prev, data.user.id]);
+    setDevelopersToAdd((prev) => [...prev, data.user.email]);
   };
 
   // useEffect hook to set ticket's information based on if a user has clicked on edit or create a new ticket

@@ -17,7 +17,6 @@ export const ProjectContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllProjects();
     if (data) {
       setProjects(data.projectList);
-      console.log(projects)
       if (data.projectList.length > 0) {
         setCurrentProject(data.projectList[0]);
       }

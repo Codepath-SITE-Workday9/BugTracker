@@ -5,21 +5,18 @@ const StatisticsContext = createContext(null);
 
 // context to keep track of a users tickets, the current ticket selected, and whether or not the ticketModal should be displayed.
 export const StatisticsContextProvider = ({ children }) => {
-  const [dashboardStatistics, setDashboardStatistics] = useState({})
+  const [dashboardStatistics, setDashboardStatistics] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const fetchDashboardStatistics = async () => {
     //setIsLoading(true);
-    let stats = await apiClient.getAllStatistics()
-    console.log("fetchDashboardStatistics stats:", stats)
-    setDashboardStatistics(stats)
-    console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+    let stats = await apiClient.getAllStatistics();
+    setDashboardStatistics(stats);
     //setIsLoading(false);
   };
 
   useEffect(() => {
-    //console.log("Enter statistics useEffect")
     fetchDashboardStatistics();
   }, []); // setTickets dependency removed
 
@@ -30,7 +27,7 @@ export const StatisticsContextProvider = ({ children }) => {
   const statisticsValue = {
     dashboardStatistics,
     setDashboardStatistics,
-    fetchDashboardStatistics
+    fetchDashboardStatistics,
   };
 
   return (

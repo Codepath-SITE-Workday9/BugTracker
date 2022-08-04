@@ -250,7 +250,7 @@ class Tickets
             ticketInfo["developers"] = developers
         }
 
-
+        
         //Run a query to retrieve the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
 

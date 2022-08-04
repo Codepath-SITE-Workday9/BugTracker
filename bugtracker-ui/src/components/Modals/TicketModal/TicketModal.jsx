@@ -32,6 +32,7 @@ export default function TicketModal({
     selectedProject,
     setSelectedProject,
   } = useTicketForm();
+
   const {
     setTicketModal,
     editing,
@@ -40,6 +41,7 @@ export default function TicketModal({
     currentTicket,
     setTicketToEdit,
   } = useTicketContext();
+
   const { user } = useAuthContext();
   const { projects } = useProjectContext();
 

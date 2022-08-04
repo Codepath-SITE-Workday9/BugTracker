@@ -1,6 +1,6 @@
 import "./AddDevelopersDropdown.css";
 
-export default function AddDevelopersDropdown({ developers, onClick }) {
+export default function AddDevelopersDropdown({ developers, onClick,}) {
   
   return (
     <div className="dropdown-container">

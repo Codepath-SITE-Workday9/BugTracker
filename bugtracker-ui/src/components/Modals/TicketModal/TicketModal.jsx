@@ -100,6 +100,8 @@ export default function TicketModal({
     }
   }, []);
 
+  
+
   return (
     <div className="ticket-modal-background">
       <div className="ticket-modal-container">
@@ -303,7 +305,7 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
   // useEffect hook to update developersToShow whenever developerSearch changes
   useEffect(() => {
     setDevelopersToShow(
-      developers.filter((d) =>
+      developers?.filter((d) =>
         d.toLowerCase().includes(developerSearch.toLowerCase())
       )
     );

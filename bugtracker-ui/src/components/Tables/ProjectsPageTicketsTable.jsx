@@ -15,7 +15,7 @@ const columns = [
 
 export const ProjectsPageTicketsTable = ({ currentProject }) => {
   const [tickets, setTickets] = useState([]);
-  const { setCurrentTicket } = useTicketContext();
+  const { setCurrentTicket, currentTicket } = useTicketContext();
   const {ticketModal, setTicketModal} = useTicketContext()
 
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
 
   useEffect(() => {
     fetchTickets();
-  }, [currentProject]);
+  }, [currentProject, currentTicket]);
 
   return (
     tickets && (

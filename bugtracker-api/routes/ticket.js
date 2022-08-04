@@ -29,9 +29,12 @@ router.get("/project/:projectId", security.requireAuthenticatedUser, async(req,r
     {
         //Retrieve the user information from the local server
         const {user} = res.locals
+
+        const {projectId} = req.params
+
         //Call the listAllTickets function to get a list of all the tickets from a specific project
         //Request body should have the projectId
-        const ticketList = await Tickets.listAllProjectTickets({user: user, projectId: req.params.projectId})
+        const ticketList = await Tickets.listAllProjectTickets({user: user, projectId: parseInt(projectId)})
         //Return the list of all the tickets if successful
         return res.status(200).json({ticketList: ticketList})
     }

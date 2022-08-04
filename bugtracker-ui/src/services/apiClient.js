@@ -111,7 +111,7 @@ class ApiClient {
   async createNewTicket(credentials){
     return await this.request({ endpoint: 'ticket', method: 'POST', data: credentials })
   }
-  async fetchTicketById(ticketId){
+  async fetchTicketById(ticketId){s
     return await this.request({ endpoint: `ticket/${ticketId}`, method: 'GET'})
   }
   async updateTicket(ticketId, ticketInfo){

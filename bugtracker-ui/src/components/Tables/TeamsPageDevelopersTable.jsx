@@ -4,12 +4,12 @@ import apiClient from "../../services/apiClient";
 
 const columns = [
   { title: "Id", field: "id", hidden: "true" },
-  { title: "Name", field: "full_name" },
-  { title: "Role", field: "role" },
-  { title: "Number of open tickets", field: "numtickets" },
+  { title: "Name", field: "full_name" }
+  //{ title: "Role", field: "role" },
+  //{ title: "Number of open tickets", field: "numtickets" }, Note: re-open this column if we have time
 ];
 
-export const TeamsPageDevelopersTable = ({ currentTeam }) => {
+export const TeamsPageDevelopersTable = ({ currentTeam, handleOnAddNewMember }) => {
   const [members, setMembers] = useState([]);
 
   const fetchMembers = async () => {
@@ -23,7 +23,7 @@ export const TeamsPageDevelopersTable = ({ currentTeam }) => {
     if (currentTeam) {
       fetchMembers();
     }
-  }, [currentTeam]);
+  }, [currentTeam, handleOnAddNewMember]);
 
   return (
     <MaterialTable

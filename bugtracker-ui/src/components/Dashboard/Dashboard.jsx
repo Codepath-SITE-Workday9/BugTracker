@@ -13,15 +13,18 @@ import { useTeamContext } from "../../contexts/team";
 import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 import { useStatisticsContext } from "../../contexts/statistics";
+import { useTicketContext } from "../../contexts/ticket";
 
 export default function Dashboard() {
   //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
   const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
   const { dashboardStatistics, setDashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+  const { tickets } = useTicketContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
   const [teamsTableData, setTeamsTableData] = useState([])
+  const [rendered, setRendered] = useState(false)
   //const [dashboardStatistics, setDashboardStatistics] = useState({})
 
   //fetchProjects()
@@ -105,12 +108,14 @@ export default function Dashboard() {
    useEffect(() => {
   //    //clearTeams()
     console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+    //setRendered(false)
       fetchDashboardStatistics()
+      renderCharts(dashboardStatistics, rendered, setRendered)
   //    //console.log("dashboard statistics:", dashboardStatistics)
     
-      if (dashboardStatistics) {
-        renderCharts(dashboardStatistics)
-      }
+      // if (dashboardStatistics) {
+      //   renderCharts(dashboardStatistics, setRendered)
+      // }
       
   //    //console.log("dashboard statistics:", dashboardStatistics)
   //    //renderCharts(dashboardStatistics)
@@ -148,6 +153,19 @@ export default function Dashboard() {
   //    renderCharts(dashboardStatistics)
   //  }
  
+  // console.log("dashboard tickets:", tickets)
+  // console.log("dashboard tickets.length", tickets.length)
+  if (Object.keys(dashboardStatistics).length === 0) {
+    console.log("Fetching dashboard statistics outside useEffect...")
+    fetchDashboardStatistics()
+  }
+
+     if (tickets?.length > 0 && rendered === false && Object.keys(dashboardStatistics).length > 0) {
+      //console.log("Condition met")
+      renderCharts(dashboardStatistics, rendered, setRendered)
+      //setRendered(true)
+      //console.log("Rendered?:", rendered)
+     }
 
 
 
@@ -167,6 +185,7 @@ export default function Dashboard() {
 
         <div className="ticket-statistics">
           <h>TICKET STATISTICS</h>
+          {tickets.length > 0  ?
           <div className="statistics-row">
             <div className="chart-container">
               <canvas // Renders a donut chart for category statistics
@@ -204,7 +223,9 @@ export default function Dashboard() {
               ></canvas>
             </div>
           </div>
+          : <h1>NO TICKETS</h1>}
         </div>
+        
 
         {/*Renders a table for teams on the dashboard */}
         <DashboardTeamsTable

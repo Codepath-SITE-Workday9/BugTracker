@@ -2,13 +2,20 @@
     Note: For some very weird reason, the last chart that gets rendered on the dashboard MUST be the first chart listed here. Otherwise it won't load on the page.
     No idea why, but that's how it is.
 */
+import {useState, setState} from 'react';
 
 
 
 
-export default function renderCharts(dashboardStatistics) { 
+export default function renderCharts(dashboardStatistics, rendered, setRendered) { 
 
-    
+  //console.log(dashboardStatistics?.data?.statistics)
+  if (dashboardStatistics?.data?.statistics) {
+    setRendered(true)
+    // console.log("Set rendered to true")
+    // console.log("rendered:", rendered)
+  }    
+
     //console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
 
 
@@ -67,7 +74,7 @@ export default function renderCharts(dashboardStatistics) {
     })
 
 
-
+  if (document.getElementById("priority-chart") != null) {
     let myChart = new Chart(document.getElementById("priority-chart"), {
     type: 'doughnut',
     data: {
@@ -88,7 +95,9 @@ export default function renderCharts(dashboardStatistics) {
       maintainAspectRatio: false
     }
     })
+  }
 
+  if (document.getElementById("category-chart") != null) {
     let myChart2 = new Chart(document.getElementById("category-chart"), {
         type: 'doughnut',
         data: {
@@ -104,12 +113,14 @@ export default function renderCharts(dashboardStatistics) {
         options: {
           title: {
             display: true,
-            text: 'Category chart'
+            text: 'Tickets by Category'
           },
           maintainAspectRatio: false
         }
         })
+    }
 
+  if (document.getElementById("status-chart") != null) {
     let myChart3 = new Chart(document.getElementById("status-chart"), {
         type: 'doughnut',
         data: {
@@ -130,6 +141,7 @@ export default function renderCharts(dashboardStatistics) {
             maintainAspectRatio: false
         }
         })
+  }
         
         /*
     let myChart4 = new Chart(document.getElementById("priority-chart"), {

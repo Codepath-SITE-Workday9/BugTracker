@@ -68,13 +68,18 @@
 .content-nav-buttons
 {
     margin-right: 10px;
-    background-color: rgb(119, 143, 211);
+    background-color: rgb(60, 101, 214);
     padding: 15px 30px;
     font-weight: bold;
     margin-left: 15px;
     margin-bottom: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
+}
+
+.content-nav-buttons:focus
+{
+    background-color: rgb(28, 48, 104)
 }
 
 .content-nav-sections

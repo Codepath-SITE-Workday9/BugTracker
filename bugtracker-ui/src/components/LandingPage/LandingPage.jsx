@@ -51,7 +51,7 @@ export function ContentNavigation()
 
    const handleOnClick = (sectionName) =>
    {
-      const searchResult = sectionContent.find((section) => section.value.includes(sectionName))
+      const searchResult = sectionContent.find((section) => section.value.includes(sectionName.value))
       setContent(searchResult)
    }
 
@@ -59,10 +59,10 @@ export function ContentNavigation()
       <div className="content-nav">
           <h1 className="content-nav-title">Everything You Need For Seemless Workflow</h1>
           <div className="content-buttons">
-              <button className="content-nav-buttons" value= "teams" onClick = {(evt) => handleOnClick(evt.target.value)}>Teams</button>
-              <button className="content-nav-buttons" value= "projects" onClick = {(evt) => handleOnClick(evt.target.value)}>Projects</button>
-              <button className="content-nav-buttons" value= "tickets" onClick = {(evt) => handleOnClick(evt.target.value)}>Tickets</button>
-              <button className="content-nav-buttons" value= "statistics" onClick = {(evt) => handleOnClick(evt.target.value)}>Statistics</button>
+              <button className="content-nav-buttons" value= "teams" onClick = {(evt) => handleOnClick(evt.target)}>Teams</button>
+              <button className="content-nav-buttons" value= "projects" onClick = {(evt) => handleOnClick(evt.target)}>Projects</button>
+              <button className="content-nav-buttons" value= "tickets" onClick = {(evt) => handleOnClick(evt.target)}>Tickets</button>
+              <button className="content-nav-buttons" value= "statistics" onClick = {(evt) => handleOnClick(evt.target)}>Statistics</button>
           </div>
 
           <div className="content-nav-sections">

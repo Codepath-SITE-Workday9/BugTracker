@@ -4,6 +4,8 @@ import { useProjectContext } from "../../contexts/project";
 import ProjectsOverview from "./ProjectsOverview/ProjectsOverview";
 import ProjectView from "./ProjectView/ProjectView";
 import ProjectModal from "../Modals/ProjectModal/ProjectModal";
+import { useTicketContext } from "../../contexts/ticket";
+import TicketModal from "../Modals/TicketModal/TicketModal"
 
 // page where a user can see all projects they are apart of(ProjectsOverview component) and where a user can view specific details about a project + create a new project(ProjectView component)
 export default function ProjectsPage() {
@@ -15,6 +17,8 @@ export default function ProjectsPage() {
     fetchProjects,
     isLoading,
   } = useProjectContext();
+
+  const {ticketModal} = useTicketContext()
 
   const [sortedProjects, setSortedProjects] = useState(projects)
 
@@ -69,8 +73,9 @@ export default function ProjectsPage() {
     <div className="projects-page">
       {/* conditionally render the Modal to create a new team  */}
       {projectModal && <ProjectModal />}
+      {ticketModal && <TicketModal />}
       {/* conditionally blur background depending on if modal is open */}
-      <div className={projectModal ? "background-blur" : "background"}>
+      <div className={projectModal || ticketModal ? "background-blur" : "background"}>
         <ProjectsOverview
           projects={projects}
           sortedProjects={sortedProjects}

@@ -16,6 +16,7 @@ const columns = [
 export const ProjectsPageTicketsTable = ({ currentProject }) => {
   const [tickets, setTickets] = useState([]);
   const { setCurrentTicket } = useTicketContext();
+  const {ticketModal, setTicketModal} = useTicketContext()
 
   const navigate = useNavigate();
 
@@ -35,6 +36,11 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
     navigate("/tickets");
   };
 
+  const handleClickCreateTicket = () => {
+    console.log("entered the create ticket")
+    setTicketModal(true)
+  }
+
   useEffect(() => {
     fetchTickets();
   }, [currentProject]);
@@ -48,7 +54,7 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
         actions={[
           {
             icon: () => (
-              <button className="tableCreateButton">Create New Ticket</button>
+              <button className="tableCreateButton" onClick={handleClickCreateTicket}>Create New Ticket</button>
             ),
             tooltip: "Create a new ticket",
             isFreeAction: true,

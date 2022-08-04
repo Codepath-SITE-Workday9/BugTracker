@@ -54,14 +54,21 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
 }
-
+textarea{
+    resize: none;
+}
 .ticket-modal-container .form .form-area{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.ticket-modal-container .top-row{
+    display: flex;
+    width: 100%;
 }
 
 .input-field-name{
@@ -81,6 +88,22 @@
     position: relative;
 }
 
+.developer-area .tickets-form-search{
+    padding-bottom: 0px;
+}
+
+
+.tickets-form-search .search-input.description{
+    height: 250px;
+    word-wrap: break-word;
+    text-align: left;
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+}
 .tickets-form-search .search-box{
     width: 100%;
     display: flex;
@@ -93,12 +116,17 @@
     border: 1px solid gray;
     border-radius: 10px;
 }
-.tickets-form-search .search-box input:focus-visible{
-    border: 2px solid var(--dark-blue);
+
+input.search-input.ticket-developer {
+    border-radius: 10px 10px 0px 0px;
+}
+input.search-input.ticket-developer:focus-visible{
+    border-bottom: 2px solid var(--dark-blue);
 }
 
-.split-input-field{
+.ticket-modal-container .split-input-fields{
     display: flex;
+    flex-direction: column;
 }
 
 .tickets-form-search .search-input{
@@ -113,7 +141,7 @@
     right: 0;
     margin-right: 20px;
     background: transparent;
-
+    display: flex;
 }
 
 .ticket-modal-container .errors{
@@ -122,23 +150,103 @@
     height: 25px;
 }
 
+.ticket-modal-container .project-dropdown{
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+}
+.ticket-modal-container .select-project .sort-by{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.select-project{
+font-size: 25px;
+text-align: center;
+width: 400px;
+padding: 10px 10px 20px;
+display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+.ticket-dropdowns{
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket-dropdowns .column{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.add-complexity label, .add-priority label, .add-category label, .add-status label{
+    font-size: 25px;
+}
+
+.add-complexity, .add-priority, .add-category, .add-status{
+    font-size: 20px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-complexity select, .add-priority select, .add-category select, .add-status select{
+    font-size: 16px;
+    margin: 5px;
+/* 
+    width: 100%; */
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+
+
+
+
+
+
 
 /* ----------- displaying developers/projects added section -------------*/
 
 
 .ticket-modal-container .rows-container{
-    padding-left: 10px;
-    height: 325px;
-    margin: 0px 30px 30px 30px;
+    margin-left: 10px;
+    height: 210px;
+    width: 380px;
     background-color: white;
     overflow: auto;
-    box-shadow: 0px 0 8px 0 var(--dark-blue);
+    border: 1px solid grey;
     z-index: 1;
     border-radius: 5px;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    padding: 10px;
 }
 .added-label{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 17px;
     border-bottom: 20px;
 }
 .nothing-yet-label{
@@ -149,7 +257,7 @@
 }
 .ticket-modal-container .added-row{
     padding: 10px;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid gray;

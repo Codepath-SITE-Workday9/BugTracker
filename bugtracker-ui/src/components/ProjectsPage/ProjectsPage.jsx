@@ -24,7 +24,6 @@ export default function ProjectsPage() {
 
   // useEffect hook to fetch updated list of projects a user is apart of after creating a new project
   useEffect(() => {
-    console.log("Entering useEffect")
     fetchProjects();
   }, [projectModal, sortedProjects]);
 

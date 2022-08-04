@@ -37,7 +37,6 @@ export const ProjectsPageTicketsTable = ({ currentProject }) => {
   };
 
   const handleClickCreateTicket = () => {
-    console.log("entered the create ticket")
     setTicketModal(true)
   }
 

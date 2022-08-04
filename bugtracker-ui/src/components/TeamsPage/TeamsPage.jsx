@@ -18,9 +18,9 @@ export default function TeamsPage() {
   } = useTeamContext();
 
   // useEffect hook to fetch updated list of teams a user is apart of after creating a new team
-  // useEffect(() => {
-  //   fetchTeams();
-  // }, [teamModal]);
+  useEffect(() => {
+    fetchTeams();
+  }, [teamModal]);
 
   // handler function to change which team's details should be displayed
   const handleOnTeamClick = (team) => {

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const columns = [
   { title: "Id", field: "id", hidden: true },
   { title: "Project Name", field: "name" },
-  { title: "Description", field: "description" },
+  { title: "Description", field: "description", width: "10%" },
   { title: "Collaborators", field: "collaborators" },
 ];
 
@@ -41,6 +41,9 @@ export const TeamsPageProjectsTable = ({ currentTeam }) => {
       columns={columns}
       data={projects.projects}
       onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
+      options={{
+        tableLayout: "fixed",
+      }}
     />
   );
 };

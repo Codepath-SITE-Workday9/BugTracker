@@ -10,6 +10,7 @@ export default function TicketView({
   currentTicket,
   ticketsAvailable,
   isLoading,
+  availableMembers,
 }) {
   const { setTicketModal, setEditing, setTicketToEdit } = useTicketContext();
   const [creator, setCreator] = useState("");

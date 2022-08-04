@@ -118,6 +118,10 @@ class ApiClient {
     return await this.request({ endpoint: `ticket/${ticketId}/update`, method: 'PATCH',  data: ticketInfo })
   }
 
+  async fetchMembersForTicket(ticketId){
+    return await this.request({ endpoint: `ticket/${ticketId}/team/members`, method: 'GET' })
+  }
+
   // ----------------------- comments requests -----------------------
 
 

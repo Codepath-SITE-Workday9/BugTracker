@@ -45,7 +45,6 @@ export const TeamContextProvider = ({ children }) => {
     setIsLoading(false);
   }, []); // currentTeam was removed as a dependency to fix infinite loading
 
-
   const fetchTeamsTableData = async (recievedTeams) => {
     //const tableData = []
     setTeamsTableData([]);

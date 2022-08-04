@@ -10,12 +10,12 @@ export const StatisticsContextProvider = ({ children }) => {
   const [error, setError] = useState("");
 
   const fetchDashboardStatistics = async () => {
-    setIsLoading(true);
+    //setIsLoading(true);
     let stats = await apiClient.getAllStatistics()
-    //console.log("fetchDashboardStatistics stats:", stats)
+    console.log("fetchDashboardStatistics stats:", stats)
     setDashboardStatistics(stats)
-    //console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
-    setIsLoading(false);
+    console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+    //setIsLoading(false);
   };
 
   useEffect(() => {

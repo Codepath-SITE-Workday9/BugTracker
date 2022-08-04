@@ -14,6 +14,7 @@ class Projects
         //First, the query combines the information from both the projects and teams table
         //Then finds the project's teams where a user is a member and then checks whether the user is a creator of the project
         //If successful, return all the project information
+        // Note: GROUP BY pro.id was added recently
             const results = await db.query(
                 `
                     SELECT pro.id,

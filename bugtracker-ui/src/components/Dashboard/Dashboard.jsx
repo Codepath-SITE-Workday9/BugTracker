@@ -92,44 +92,55 @@ export default function Dashboard() {
   }
 
 
-  window.onload = function () {
-    //getTeamsTable()
-    //console.log("Inside window.onload")
-    fetchDashboardStatistics()
-    //console.log("Fetched dashboard statistics onload complete")
-    //renderCharts(dashboardStatistics)
-  }
+   window.onload = function () {
+  //   //getTeamsTable()
+  //   //console.log("Inside window.onload")
+  //   fetchDashboardStatistics()
+  //   //console.log("Fetched dashboard statistics onload complete")
+  //   //renderCharts(dashboardStatistics)
+  //fetchTeams()
+  console.log('Inside window.onload')
+   }
 
-  useEffect(() => {
-     //clearTeams()
+   useEffect(() => {
+  //    //clearTeams()
+    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+      fetchDashboardStatistics()
+  //    //console.log("dashboard statistics:", dashboardStatistics)
+    
+      if (dashboardStatistics) {
+        renderCharts(dashboardStatistics)
+      }
+      
+  //    //console.log("dashboard statistics:", dashboardStatistics)
+  //    //renderCharts(dashboardStatistics)
 
-     fetchDashboardStatistics()
-     //console.log("dashboard statistics:", dashboardStatistics)
-     renderCharts(dashboardStatistics)
-     //console.log("dashboard statistics:", dashboardStatistics)
-     //renderCharts(dashboardStatistics)
+  //   //  if (dashboardStatistics) {
+  //   //   fetchDashboardStatistics()
+  //   //   console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+  //   //   renderCharts(dashboardStatistics)
+  //   // }
 
-    //  if (dashboardStatistics) {
-    //   fetchDashboardStatistics()
-    //   console.log("Dashboard dashboardStatistics:", dashboardStatistics)
-    //   renderCharts(dashboardStatistics)
-    // }
-
-     //fetchProjects()
-     //newFetchTeamsTableData(teams)
-     //fetchTeams()
-     //getTeamsTable()
-     //getData()
-     //fetchTeamsTableData()
-     //setProjects(apiClient.listAllProjects())
-     //setTeams(apiClient.listAllTeams())
+  //    //fetchProjects()
+        //console.log("dashboard teams:", teams)
+        newFetchTeamsTableData(teams)
+  //    //fetchTeams()
+  //    //getTeamsTable()
+  //    //getData()
+  //    //fetchTeamsTableData()
+  //    //setProjects(apiClient.listAllProjects())
+  //    //setTeams(apiClient.listAllTeams())
 
 
-     //console.log("Projects below")
-     //console.log(projects)
-     //console.log("Teams below")
-     //console.log(teams) 
-  }, [])
+  //    //console.log("Projects below")
+  //    //console.log(projects)
+  //    //console.log("Teams below")
+  //    //console.log(teams) 
+   }, [])
+
+  // if (dashboardStatistics) {
+  //   renderCharts(dashboardStatistics)
+  // }
 
   //  if (dashboardStatistics) {
   //    //fetchDashboardStatistics()

@@ -23,18 +23,21 @@ import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
 import { TeamContextProvider, useTeamContext } from "../../contexts/team";
 import { TicketContextProvider } from "../../contexts/ticket";
+import { StatisticsContextProvider, useStatisticsContext } from "../../contexts/statistics";
 
 export default function AppContainer() {
   return (
     <AuthContextProvider>
       <OpenContextProvider>
-        <ProjectContextProvider>
-          <TeamContextProvider>
-            <TicketContextProvider>
-              <App />
-            </TicketContextProvider>
-          </TeamContextProvider>
-        </ProjectContextProvider>
+        <StatisticsContextProvider>
+          <ProjectContextProvider>
+            <TeamContextProvider>
+              <TicketContextProvider>
+                <App />
+              </TicketContextProvider>
+            </TeamContextProvider>
+          </ProjectContextProvider>
+        </StatisticsContextProvider>
       </OpenContextProvider>
     </AuthContextProvider>
   );
@@ -43,18 +46,41 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  const { fetchTeams } = useTeamContext();
+  const { teams, fetchTeams } = useTeamContext();
+  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+
+  //const [dashboardStatistics, setDashboardStatistics] = useState({})
+
+  // const fetchDashboardStatistics = async () => {
+  //   //setIsLoading(true);
+  //   let stats = await apiClient.getAllStatistics()
+  //   console.log("fetchDashboardStatistics stats:", stats)
+  //   setDashboardStatistics(stats)
+  //   console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+  //   //setIsLoading(false);
+  // };
+
+  // async function fetchDashboardStatistics() {
+  //    let stats = await apiClient.getAllStatistics()
+  //    console.log("fetchDashboardStatistics stats:", stats)
+  //    setDashboardStatistics(stats)
+  //   //  console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+
+  // }
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
         fetchTeams();
+        console.log("App.jsx teams:", teams)
+        fetchDashboardStatistics()
       }
       setInitialized(true);
       setIsProcessing(false);
     };
-
+    //console.log("App dashboardStatistics:", dashboardStatistics)
     const token = localStorage.getItem("bugtracker_token");
 
     if (token) {
@@ -66,7 +92,6 @@ export function App() {
     setIsProcessing(false);
     setInitialized(true);
   }, [setUser]);
-
 
 
   return (

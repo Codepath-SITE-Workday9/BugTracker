@@ -16,6 +16,7 @@
     padding-bottom:10px;
     text-transform: uppercase;
     border-bottom: 1px solid grey;
+    overflow-wrap: break-word;
 }
 
 .team-card p{

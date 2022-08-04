@@ -22,23 +22,28 @@ export const TeamContextProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     const { data, error } = await apiClient.listAllTeams();
+    console.log("fetchTeams data:", data)
     if (data) {
+      console.log("data.teamList:", data.teamList)
       setTeams(data.teamList);
+      console.log("fetchTeams teams:", teams)
       if (data.teamList.length > 0) {
         setCurrentTeam(data.teamList[0]);
       }
     } else if (error) {
       setError(error);
     }
+    //console.log("fetchTeams teams:", teams)
     setIsLoading(false);
   };
 
   // useEffect to fetch teams on initial load
   useEffect(() => {
     fetchTeams();
+    console.log("useEffect teams:", teams)
     newFetchTeamsTableData();
     setIsLoading(false);
-  }, []);
+  }, []); // currentTeam was removed as a dependency to fix infinite loading
 
   const fetchTeamsTableData = async (recievedTeams) => {
     //const tableData = []
@@ -60,13 +65,14 @@ export const TeamContextProvider = ({ children }) => {
 
   const getTeamIds = (recievedTeams) => {
     let teamIds = [];
-    recievedTeams.map((team) => {
+    recievedTeams?.map((team) => {
       teamIds.push(team.id);
     });
     return teamIds;
   };
 
   const newFetchTeamsTableData = async (recievedTeams) => {
+    console.log("newFetchTeamsTableData recievedTeams:", recievedTeams)
     const { data, error } = await apiClient.fetchTeamMembers(
       getTeamIds(recievedTeams)
     );

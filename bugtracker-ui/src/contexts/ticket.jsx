@@ -32,7 +32,7 @@ export const TicketContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
       setTickets(data.ticketList);
-      if (data.ticketList.length > 0) {
+      if (data.ticketList.length > 0 && !currentTicket) {
         setCurrentTicket(data.ticketList[0]);
       }
     }

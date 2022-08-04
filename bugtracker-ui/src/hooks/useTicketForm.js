@@ -13,9 +13,9 @@ export const useTicketForm = () => {
     const [priority, setPriority] = useState("low");
     const [category, setCategory] = useState("bug");
     const [errors, setErrors] = useState("");
+    const [ticketProject, setTicketProject] = useState({});
     
-    const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit} = useTicketContext();
-    const devs = ["a@b"]
+    const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit, editing, ticketToEdit} = useTicketContext();
     
     const handleOnCreateNewTicketSubmit = async () => {
         // before sending request to create a new ticket, verify title & description is not empty
@@ -25,7 +25,7 @@ export const useTicketForm = () => {
             setErrors("Please add a brief description to your ticket!")
         }else{
           if(!editing){
-            // send request to create a new ticket
+            // send request to create new a ticket
               // must send: 
               // title, description, category, priority, status, complexity, the developers (array of emails), projectId
               const { data, error } = await apiClient.createNewTicket({
@@ -35,24 +35,10 @@ export const useTicketForm = () => {
                 priority: priority,
                 status: status,
                 complexity:complexity,
-                developers: devs,
-                projectId: 3, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
+                developers: ["z@a"],
+                projectId: 10, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
               });
-          } else{
-            const { data, error } = await apiClient.updateTicket({
-              title: title,
-              description: description,
-              category: category,
-              priority: priority,
-              status: status,
-              complexity:complexity,
-              developers: devs,
-              projectId: 3, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
-            })
-          }
-
-      
-            // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
+               // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
             if (data) {
               // TODO: popup message "team successfully created"
             //   fetchTickets()
@@ -66,16 +52,46 @@ export const useTicketForm = () => {
               setTicketModal(false);
               setCurrentTicket(data.ticket)
               setEditing(false);
-              setTicketToEdit({})
-            } else if (error) {
+              setTicketToEdit()
+            } else if (errors) {
               setErrors("Something went wrong! Try again.");
             }
+            // else, send request to update ticket info
+          } else{
+            const { data, error } = await apiClient.updateTicket(ticketToEdit.id,{
+              title: title,
+              description: description,
+              category: category,
+              priority: priority,
+              status: status,
+              complexity:complexity,
+              // developers: [7],
+              // project_id: 7, //TODO: CHANGE THIS TO CORRECT PROJECT ID!
+            })
+             // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
+             if (data) {
+              // TODO: popup message "team successfully created"
+            //   fetchTickets()
+              setTitle("");
+              setDescription("");
+              setDevelopersToAdd([]);
+              setStatus("unassigned");
+              setPriority("low");
+              setComplexity("1");
+              setCategory("bug");
+              setTicketModal(false);
+              setCurrentTicket(data.ticket)
+              setEditing(false);
+              setTicketToEdit({})
+            } else if (errors) {
+              setErrors("Something went wrong! Try again.");
+            } 
           }
-        
+        }
     };
 
     return {
         handleOnCreateNewTicketSubmit,
-        title, setTitle, description, setDescription, developersToAdd, setDevelopersToAdd, complexity,setComplexity, status, setStatus, priority,setPriority,category,setCategory,errors,setErrors
+        title, setTitle, description, setDescription, developersToAdd, setDevelopersToAdd, complexity,setComplexity, status, setStatus, priority,setPriority,category,setCategory,errors,setErrors, ticketProject, setTicketProject
     }
 }

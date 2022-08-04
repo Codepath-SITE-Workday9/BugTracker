@@ -19,7 +19,7 @@ export default function ProjectsPage() {
   // useEffect hook to fetch updated list of projects a user is apart of after creating a new project
   useEffect(() => {
     fetchProjects();
-  }, [setProjects]);
+  }, [projectModal]);
 
   // handler function to change which projects's details should be displayed
   const handleOnProjectClick = (projectId) => {

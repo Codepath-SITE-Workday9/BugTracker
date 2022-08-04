@@ -10,6 +10,7 @@ export default function TicketView({
   currentTicket,
   ticketsAvailable,
   isLoading,
+  availableMembers,
 }) {
   const { setTicketModal, setEditing, setTicketToEdit } = useTicketContext();
   const [creator, setCreator] = useState("");
@@ -44,7 +45,7 @@ export default function TicketView({
             </div>
 
             <button className="new-btn" onClick={() => handleOnEditClick()}>
-              <span class="material-symbols-outlined">edit_document</span>
+              <span className="material-symbols-outlined">edit_document</span>
             </button>
           </div>
 

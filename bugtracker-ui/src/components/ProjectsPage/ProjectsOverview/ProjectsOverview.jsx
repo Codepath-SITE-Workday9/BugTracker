@@ -72,7 +72,7 @@ export default function ProjectsOverview({
                 <ProjectCard
                   project={project}
                   handleOnClick={handleOnProjectClick}
-                  key={project.id}
+                  // key={project.id}
                 />
               ))}
             </>

@@ -4,24 +4,86 @@
 */
 
 
-export default function renderCharts() { 
+
+
+export default function renderCharts(dashboardStatistics) { 
+
+    
+    //console.log("RenderCharts dashboardStatistics:", dashboardStatistics)
+
+
+    
+    // dashboardStatistics.data.statistics.perStatus.find(
+    //   (item) => 
+    // )
+
+    // Get data of the status table, if it does not exist it defaults to 0
+    let statusData = [0, 0, 0, 0, 0]
+    dashboardStatistics?.data?.statistics?.perStatus?.map((statusType) => {
+      if (statusType.status === 'unassigned') {
+        statusData[0] = parseInt(statusType.totaltickets)
+      }
+      else if (statusType.status === 'not started') {
+        statusData[1] = parseInt(statusType.totaltickets)
+      }
+      else if (statusType.status === 'in progress') {
+        statusData[2] = parseInt(statusType.totaltickets)
+      }
+      else if (statusType.status === 'submitted') {
+        statusData[3] = parseInt(statusType.totaltickets)
+      }
+      else if (statusType.status === 'resolved')   {
+        statusData[4] = parseInt(statusType.totaltickets)
+      }
+    })
+
+    // Retrieve priority data
+    let priorityData = [0, 0, 0, 0]
+    dashboardStatistics?.data?.statistics?.perPriority?.map((type) => {
+      if (type.priority === 'low') {
+        priorityData[0] = parseInt(type.totaltickets)
+      }
+      else if (type.priority === 'medium') {
+        priorityData[1] = parseInt(type.totaltickets)
+      }
+      else if (type.priority === 'high') {
+        priorityData[2] = parseInt(type.totaltickets)
+      }
+      else if (type.priority === 'critical') {
+        priorityData[3] = parseInt(type.totaltickets)
+      }
+    })
+
+    // Retrieve category data
+    let categoryData = [0, 0]
+    dashboardStatistics?.data?.statistics?.perCategory?.map((type) => {
+      if (type.category === 'bug') {
+        categoryData[0] = parseInt(type.totaltickets)
+      }
+      else if (type.category === 'new feature') {
+        categoryData[1] = parseInt(type.totaltickets)
+      }
+
+    })
+
+
 
     let myChart = new Chart(document.getElementById("priority-chart"), {
     type: 'doughnut',
     data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: ["Low", "Medium", "High", "Critical"],
       datasets: [
         {
-          label: "Population (millions)",
+          label: "Tickets",
           backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
+          data: priorityData
         }
       ]
     },
     options: {
       title: {
         display: true,
-        text: 'Priority chart'
+        text: 'Tickets by Priority'
       },
       maintainAspectRatio: false
     }
@@ -30,12 +92,12 @@ export default function renderCharts() {
     let myChart2 = new Chart(document.getElementById("category-chart"), {
         type: 'doughnut',
         data: {
-          labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+          labels: ["Bug", "New Feature"],
           datasets: [
             {
-              label: "Population (millions)",
+              label: "Tickets",
               backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-              data: [2478,5267,734,784,433]
+              data: categoryData
             }
           ]
         },
@@ -51,19 +113,19 @@ export default function renderCharts() {
     let myChart3 = new Chart(document.getElementById("status-chart"), {
         type: 'doughnut',
         data: {
-            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            labels: ["Unassigned", "Not Started", "In Progress", "Submitted", "Resolved"],
             datasets: [
             {
-                label: "Population (millions)",
+                label: "Tickets",
                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                data: [2478,5267,734,784,433]
+                data: statusData
             }
             ]
         },
         options: {
             title: {
             display: true,
-            text: 'Status chart'
+            text: 'Tickets by Status'
             },
             maintainAspectRatio: false
         }
@@ -90,4 +152,3 @@ export default function renderCharts() {
         }
         }) */
 };
-

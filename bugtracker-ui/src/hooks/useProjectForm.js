@@ -48,6 +48,7 @@ export const useProjectForm = () => {
   
         // if api request to create a new project was successful: fetchProjects to get updated list of projects, clear all input fields, and setProjectModal to false to exit modal
         if (data) {
+          console.log("data:", data)
           // TODO: popup message "team successfully created"
           fetchProjects();
           setProjectName("");

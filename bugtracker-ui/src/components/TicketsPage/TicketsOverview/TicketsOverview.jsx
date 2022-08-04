@@ -1,28 +1,40 @@
 import "./TicketsOverview.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TicketCard from "../TicketCard/TicketCard";
-import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 import { useTicketContext } from "../../../contexts/ticket";
+import { useProjectContext } from "../../../contexts/project";
+import apiClient from "../../../services/apiClient";
 // overview of all Tickets a user is apart of
 export default function TicketsOverview({
   tickets,
   handleOnTicketClick,
   isLoading,
 }) {
+  // ticket search term
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // tickets to show based on selected project - initially set to all tickets
+  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
+
+  //the selected project from the dropdown menu
+  const [selectedProject, setSelectedProject] = useState("all projects");
+
+  // modal variable to display modal
   const { setTicketModal } = useTicketContext();
-  // const { projects } = useProjectContext();
-  // const dropdownCategories = [...]
-  const categories = [
-    "All projects",
-    "A bug tracker project",
-    "Student store project",
-  ];
 
-  let ticketsToShow = [];
+  // all projects a user is apart of
+  const { projects } = useProjectContext();
 
-  // handler function to set search term as a user types
+  // the projects dropown categories
+  const dropdownCategories = [{ name: "All projects", id: -1 }];
+
+  // map through the projects to add each project's name and id as an object to the dropdown category.
+  projects.map((p) => {
+    let projObj = { name: p.name, id: p.id };
+    dropdownCategories.push(projObj);
+  });
+
+  // handler function to set ticket search term as a user types
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
   };
@@ -32,12 +44,31 @@ export default function TicketsOverview({
     setSearchTerm("");
   };
 
+  const handleOnProjectChange = (event) => {
+    setSelectedProject(event.target.value);
+    fetchProjectTickets(event.target.value);
+  };
+
+  const fetchProjectTickets = async (projId) => {
+    if (projId < 0) {
+      setSelectedProjectTickets(tickets);
+    } else {
+      const { data, error } = await apiClient.listAllProjectTickets(projId);
+      if (data) {
+        setSelectedProjectTickets(data.ticketList);
+      }
+    }
+  };
+
   // update ticketsToShow array depending on searchTerm
-  if (tickets) {
-    ticketsToShow = tickets.filter((t) =>
+  let ticketsToShow = [];
+  if (selectedProjectTickets) {
+    ticketsToShow = selectedProjectTickets.filter((t) =>
       t.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
+
+  useEffect(() => {}, [selectedProject]);
 
   return (
     <div className="tickets-overview">
@@ -71,11 +102,14 @@ export default function TicketsOverview({
       <div className="sort-by">
         <p> Display tickets from: </p>
         <div className="sort-by-dropdown">
-          <select name="selectList" id="selectList">
-            {categories?.map((c) => (
-              <option value="option 1" key={c}>
-                {c}
-              </option>
+          <select
+            name="selectList"
+            id="selectList"
+            onChange={handleOnProjectChange}
+            value={selectedProject}
+          >
+            {dropdownCategories?.map((c) => (
+              <option value={c.id}>{c.name}</option>
             ))}
           </select>
         </div>{" "}

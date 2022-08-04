@@ -15,9 +15,11 @@
     padding-bottom:10px;
     text-transform: uppercase;
     border-bottom: 1px solid grey;
+    overflow-wrap: break-word;
 }
 
 .project-card .project-card-description{
+    overflow-wrap: break-word;
     font-size: 18px;
     padding-top: 10px;
     padding-bottom: 10px;

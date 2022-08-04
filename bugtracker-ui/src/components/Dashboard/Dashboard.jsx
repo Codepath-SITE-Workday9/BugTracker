@@ -12,17 +12,29 @@ import apiClient from "../../services/apiClient";
 import { useTeamContext } from "../../contexts/team";
 import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
+import { useStatisticsContext } from "../../contexts/statistics";
 
 export default function Dashboard() {
   //const { isOpen } = useOpenContext() // Note: Open context is currently lagging dashboard. Fix later
   const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
   const {teams, setTeams, fetchTeams, fetchTeamsTableData, teamModal, setTeamModal, clearTeams, getData, newFetchTeamsTableData} = useTeamContext()
+  const { dashboardStatistics, setDashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false)
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false)
   const [teamsTableData, setTeamsTableData] = useState([])
+  //const [dashboardStatistics, setDashboardStatistics] = useState({})
 
   //fetchProjects()
+  
 
+  // const fetchDashboardStatistics = async () => {
+  //   //setIsLoading(true);
+  //   let stats = await apiClient.getAllStatistics()
+  //   console.log("fetchDashboardStatistics stats:", stats)
+  //   setDashboardStatistics(stats)
+  //   console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
+  //   //setIsLoading(false);
+  // };
 
   async function getTeamsTable() {
     // console.log("Teams length:", teams.length)
@@ -79,28 +91,65 @@ export default function Dashboard() {
     //setIsLoading(false) 
   }
 
-  window.onload = function () {
-    //getTeamsTable()
-  }
 
-  useEffect(() => {
-     //clearTeams()
-     renderCharts()
-     fetchProjects()
-     newFetchTeamsTableData(teams)
-     //fetchTeams()
-     //getTeamsTable()
-     //getData()
-     //fetchTeamsTableData()
-     //setProjects(apiClient.listAllProjects())
-     //setTeams(apiClient.listAllTeams())
+   window.onload = function () {
+  //   //getTeamsTable()
+  //   //console.log("Inside window.onload")
+  //   fetchDashboardStatistics()
+  //   //console.log("Fetched dashboard statistics onload complete")
+  //   //renderCharts(dashboardStatistics)
+  //fetchTeams()
+  console.log('Inside window.onload')
+   }
+
+   useEffect(() => {
+  //    //clearTeams()
+    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+      fetchDashboardStatistics()
+  //    //console.log("dashboard statistics:", dashboardStatistics)
+    
+      if (dashboardStatistics) {
+        renderCharts(dashboardStatistics)
+      }
+      
+  //    //console.log("dashboard statistics:", dashboardStatistics)
+  //    //renderCharts(dashboardStatistics)
+
+  //   //  if (dashboardStatistics) {
+  //   //   fetchDashboardStatistics()
+  //   //   console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+  //   //   renderCharts(dashboardStatistics)
+  //   // }
+
+  //    //fetchProjects()
+        //console.log("dashboard teams:", teams)
+        newFetchTeamsTableData(teams)
+  //    //fetchTeams()
+  //    //getTeamsTable()
+  //    //getData()
+  //    //fetchTeamsTableData()
+  //    //setProjects(apiClient.listAllProjects())
+  //    //setTeams(apiClient.listAllTeams())
 
 
-     //console.log("Projects below")
-     //console.log(projects)
-     //console.log("Teams below")
-     //console.log(teams) 
-  }, [])
+  //    //console.log("Projects below")
+  //    //console.log(projects)
+  //    //console.log("Teams below")
+  //    //console.log(teams) 
+   }, [])
+
+  // if (dashboardStatistics) {
+  //   renderCharts(dashboardStatistics)
+  // }
+
+  //  if (dashboardStatistics) {
+  //    //fetchDashboardStatistics()
+  //    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
+  //    renderCharts(dashboardStatistics)
+  //  }
+ 
+
+
 
   return (
     // <div className={isOpen ? "dashboard open" : "dashboard closed"}>

@@ -33,7 +33,7 @@
 
 .ticket-header button {
     color: whitesmoke;
-    background-color: var(--lighter-blue);
+    background-color: var(--button-blue);
     border-radius: 10px;
     outline: none;
     border: none;
@@ -50,19 +50,18 @@
 
 .ticket-content{
     display: flex;
-    /* flex-wrap: wrap; NOTE: I want to make the details box go to the next line when the page is small*/ 
+    justify-content: space-between;
 }
 
 .ticket-description{
-    /* width: 60%; */
-    margin-right: 50px;
+    width: 80%;
+    margin-right: 20px;
 }
 
 .ticket-info {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    /* background-color: red; */
-    justify-content: space-between;
 }
 
 
@@ -71,16 +70,13 @@
     font-weight: bold;
 }
 
-.ticket-priority, .ticket-category, .ticket-status{
+.ticket-priority, .ticket-category, .ticket-status, .ticket-developers{
     /* background-color: yellow; */
     margin: 15px 15px 15px 0px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* .ticket-priority{
-    width: 100px;
-    border-radius: 7px;
-    font-size: 18px;
-} */
 
 .ticket-priority .low{
     background-color:#caffbf;

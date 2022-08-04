@@ -6,6 +6,10 @@
     box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
+
+
+
+
 /* -------- search box section ------------ */
 
 .tickets-overview .ticket-search{ 
@@ -49,6 +53,35 @@
     align-items: center;
     font-size: 20px;
 }
-.tickets-overview .sort-by p{
+
+.tickets-overview .sort-by p {
+    margin: 0px;
     margin-right: 10px;
+}
+.tickets-overview .sort-by select {
+    font-size: 15px;
+    border-radius: 4px;
+    border: 1px solid black;
+
+}
+.tickets-overview .sort-by select:focus-visible{
+    outline:none;
+}
+
+
+.tickets-overview .new-btn{
+    background-color: rgb(60, 101, 214);
+    padding: 15px 30px;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 10px;
+    color: white;
+
+}
+
+
+
+
+.ticket-card-container{
+    margin-top: 20px;
 }

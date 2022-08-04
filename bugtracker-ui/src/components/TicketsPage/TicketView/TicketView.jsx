@@ -42,39 +42,64 @@ export default function TicketView({
           <div className="ticket-header">
             <div className="ticket-title">
               <h1> {ticketsAvailable && currentTicket?.title} </h1>
+              <button
+                className="new-btn"
+                onClick={() => handleOnEditClick()}
+                title="Edit this ticket"
+              >
+                <span className="material-symbols-outlined">edit_document</span>
+              </button>
             </div>
-
-            <button className="new-btn" onClick={() => handleOnEditClick()}>
-              <span className="material-symbols-outlined">edit_document</span>
-            </button>
+            <div className="ticket-created-details">
+              <div className="ticket-created-by">
+                <label className="ticket-author"> Opened by: </label>
+                <span className="ticket-author">{creator}</span>
+              </div>
+              <div className="ticket-opened-on">
+                <label className="ticket-open-date"> Opened on: </label>
+                <span className="ticket-open-date">
+                  {new Date(currentTicket.created_at).toDateString()}
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Conditionally render the specific ticket's information, or display "Nothing yet" if no tickets have been created */}
           {ticketsAvailable ? (
             currentTicket && (
-              <>
+              <div className="ticket-content">
                 {/* an input field to add a developer to the ticket, and all developers listed in table form */}
-                <div className="ticket-info">
-                  <div className={`ticket-priority ${currentTicket.priority}`}>
-                    {currentTicket.priority}
-                  </div>
-                  <div className={`ticket-category ${currentTicket.category}`}>
-                    {currentTicket.category}
-                  </div>
-                  <div className={`ticket-status ${currentTicket.status}`}>
-                    {currentTicket.status}
-                  </div>
-                </div>
+
                 <div className="ticket-description">
+                  <h2> Description: </h2>
                   <p>{currentTicket.description}</p>
                 </div>
-                <div className="ticket-created-by">
-                  Ticket Author: {creator}
+
+                <div className="ticket-details">
+                  <h2> Details: </h2>
+
+                  <div className="ticket-info">
+                    <div className="ticket-priority">
+                      <label className="priority"> Priority: </label>
+                      <span className={`${currentTicket.priority}`}>
+                        {currentTicket.priority}
+                      </span>
+                    </div>
+                    <div className="ticket-category">
+                      <label className="category"> Category: </label>
+                      <span className={`${currentTicket.category}`}>
+                        {currentTicket.category}
+                      </span>
+                    </div>
+                    <div className="ticket-status">
+                      <label className="status"> Status: </label>
+                      <span className={`${currentTicket.status}`}>
+                        {currentTicket.status}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="ticket-opened-on">
-                  Opened on: {new Date(currentTicket.created_at).toDateString()}
-                </div>
-              </>
+              </div>
             )
           ) : (
             <>

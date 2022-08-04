@@ -240,7 +240,17 @@ class Tickets
             throw new BadRequestError(`New Ticket Information is missing!`)
         }
 
+        let developers = []
+        if(ticketInfo.hasOwnProperty("developers"))
+        {
+            ticketInfo["developers"]?.forEach(async(developer) => {
+                const devId = await Teams.fetchUserId(developer)
+                developers.push(devId)
+            })
+            ticketInfo["developers"] = developers
+        }
 
+        
         //Run a query to retrieve the id of the user using the email from the local server
         const userId = await Teams.fetchUserId(user.email)
 

@@ -20,9 +20,6 @@ export default function TicketsPage() {
     setSelectedProject,
   } = useTicketContext();
 
-  // tickets to show based on selected project - initially set to all tickets
-  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
-
   const [availableMembers, setAvailableMembers] = useState([]);
 
   useEffect(() => {
@@ -32,6 +29,12 @@ export default function TicketsPage() {
   useEffect(() => {
     fetchMemsForTicket();
   }, [selectedProject]);
+
+  // tickets to show based on selected project - initially set to all tickets
+  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
+  if (tickets.length > 0 && selectedProjectTickets.length == 0) {
+    setSelectedProjectTickets(tickets);
+  }
 
   const handleOnTicketClick = (ticket) => {
     setCurrentTicket(ticket);
@@ -43,7 +46,7 @@ export default function TicketsPage() {
   // First, send a request to get the teams list for the selected project,
   // Then, call fetchTeamMembers and pass in the teams array to get the array of member names
   const fetchMemsForTicket = async () => {
-    if (selectedProject) {
+    if (selectedProject > -1) {
       setAvailableMembers([]);
       let teams = await getTeamsList();
       teams.map((t) => {
@@ -51,14 +54,12 @@ export default function TicketsPage() {
       });
     }
   };
-
   const appendToEmailArray = async (teamId) => {
     const { data, error } = await apiClient.fetchMemberList(teamId);
     data.teamsData.map((member) =>
       setAvailableMembers((prev) => [...prev, member.email])
     );
   };
-
   const getTeamsList = async () => {
     if (selectedProject > 0) {
       const { data, error } = await apiClient.fetchProjectById(selectedProject);

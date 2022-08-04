@@ -9,19 +9,15 @@ export default function TicketsOverview({
   tickets,
   handleOnTicketClick,
   isLoading,
+  selectedProject,
+  setSelectedProject,
+  handleOnProjectChange,
+  selectedProjectTickets,
 }) {
   // ticket search term
   const [searchTerm, setSearchTerm] = useState("");
-
-  // tickets to show based on selected project - initially set to all tickets
-  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
-
-  //the selected project from the dropdown menu
-  const [selectedProject, setSelectedProject] = useState("all projects");
-
   // modal variable to display modal
   const { setTicketModal } = useTicketContext();
-
   // all projects a user is apart of
   const { projects } = useProjectContext();
 
@@ -42,22 +38,6 @@ export default function TicketsOverview({
   // handler function to clear search term if close button is clicked
   const handleOnClickSearchBtn = () => {
     setSearchTerm("");
-  };
-
-  const handleOnProjectChange = (event) => {
-    setSelectedProject(event.target.value);
-    fetchProjectTickets(event.target.value);
-  };
-
-  const fetchProjectTickets = async (projId) => {
-    if (projId < 0) {
-      setSelectedProjectTickets(tickets);
-    } else {
-      const { data, error } = await apiClient.listAllProjectTickets(projId);
-      if (data) {
-        setSelectedProjectTickets(data.ticketList);
-      }
-    }
   };
 
   // update ticketsToShow array depending on searchTerm
@@ -109,7 +89,9 @@ export default function TicketsOverview({
             value={selectedProject}
           >
             {dropdownCategories?.map((c) => (
-              <option value={c.id}>{c.name}</option>
+              <option value={c.id} key={c.id}>
+                {c.name}
+              </option>
             ))}
           </select>
         </div>{" "}

@@ -13,6 +13,9 @@ export const TicketContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  //the selected project from the dropdown menu - will be the id of the project (-1 if all projects is selected)
+  const [selectedProject, setSelectedProject] = useState(-1);
+
   // const fetchTicketsForProject = async (projectId) => {
   //   setIsLoading(true);
   //   setError(null);
@@ -60,6 +63,8 @@ export const TicketContextProvider = ({ children }) => {
     isLoading,
     ticketToEdit,
     setTicketToEdit,
+    setSelectedProject,
+    selectedProject,
   };
 
   return (

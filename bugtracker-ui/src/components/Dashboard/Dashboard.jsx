@@ -107,7 +107,6 @@ export default function Dashboard() {
 
    useEffect(() => {
   //    //clearTeams()
-    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
     //setRendered(false)
       fetchDashboardStatistics()
       renderCharts(dashboardStatistics, rendered, setRendered)
@@ -177,14 +176,11 @@ export default function Dashboard() {
       {teamModal && <TeamModal setDashboardTeamsModal={setDashboardTeamsModal} getTeamsTable={getTeamsTable} />}
       <div className={projectModal|| teamModal ? "blur" : "clear"}>
 
-        {/*Renders a table for projects on the dashboard */}
-        <DashboardProjectsTable
-          dashboardProjectsModal={dashboardProjectsModal}
-          setDashboardProjectsModal={setDashboardProjectsModal}
-        />
+
 
         <div className="ticket-statistics">
-          <h>TICKET STATISTICS</h>
+          
+          <h>Ticket Statistics</h>
           {tickets.length > 0  ?
           <div className="statistics-row">
             <div className="chart-container">
@@ -226,16 +222,31 @@ export default function Dashboard() {
           : <h1>NO TICKETS</h1>}
         </div>
         
-
-        {/*Renders a table for teams on the dashboard */}
+        <div className="table-row">
+      {/*Renders a table for teams on the dashboard*/}
+      <div className="teams-table">
         <DashboardTeamsTable
-          dashboardTeamsModal={dashboardTeamsModal}
-          setDashboardTeamsModal={setDashboardTeamsModal}
-          //teamsTableData={teamsTableData}
-          //setTeamsTableData={setTeamsTableData}
-          getTeamsTable={getTeamsTable}
-          teams={teams}
-        />
+            dashboardTeamsModal={dashboardTeamsModal}
+            setDashboardTeamsModal={setDashboardTeamsModal}
+            //teamsTableData={teamsTableData}
+            //setTeamsTableData={setTeamsTableData}
+            getTeamsTable={getTeamsTable}
+            teams={teams}
+          />
+      </div>
+
+      {/* Renders table for projects on the dashboard */}
+      <div className="projects-table">
+        <DashboardProjectsTable
+            dashboardProjectsModal={dashboardProjectsModal}
+            setDashboardProjectsModal={setDashboardProjectsModal}
+          />
+      </div>
+
+
+
+        </div>
+
       </div>
     </div>
   );

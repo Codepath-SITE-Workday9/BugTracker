@@ -1,0 +1,11 @@
+#dropdown-close-button
+{
+    background-color: rgb(82, 101, 155);
+    color: white;
+    font-weight: bold;
+}
+
+#close-text
+{
+    text-align: center;
+}

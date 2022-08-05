@@ -38,7 +38,7 @@ export default function ProjectsOverview({
       {/* projects overview header  */}
       <div className="header">
         <h1> Your Projects</h1>
-        <button className="new-btn" onClick={() => setProjectModal(true)}>
+        <button className="new-btn" onClick={() => setProjectModal(true)} title="Create New Project">
               Create New Project
         </button>
       </div>

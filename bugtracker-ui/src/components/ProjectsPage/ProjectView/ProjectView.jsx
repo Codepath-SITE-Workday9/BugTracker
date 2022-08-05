@@ -2,15 +2,19 @@ import "./ProjectView.css";
 import { useProjectContext } from "../../../contexts/project";
 import { ProjectsPageTicketsTable } from "../../Tables/ProjectsPageTicketsTable";
 import { useTicketContext } from "../../../contexts/ticket";
+import apiClient from "../../../services/apiClient";
+import { useEffect, useState } from "react";
 
 export default function ProjectView({ projectsAvailable }) {
   const { isLoading, setProjectModal, currentProject, projectToEdit, setProjectToEdit, setEditing, editing} = useProjectContext();
+
 
   const handleOnEditClick = () => {
      setEditing(true)
      setProjectToEdit(currentProject)
      setProjectModal(true)
   }
+
 
   return (
     <div className="project-view">
@@ -19,7 +23,7 @@ export default function ProjectView({ projectsAvailable }) {
           <div className="project-header">
             {/* conditionally display the current project's name, if any projects are available */}
             <h1> {projectsAvailable && currentProject?.name} </h1>
-            <button className="edit-btn" onClick={handleOnEditClick} title="Edit this ticket">
+            <button className="edit-btn" onClick={handleOnEditClick} title="Edit This Project">
                 <span className="material-symbols-outlined" id="edit-icon">edit_document</span>
             </button>
           </div>

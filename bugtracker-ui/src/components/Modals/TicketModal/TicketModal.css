@@ -46,6 +46,9 @@
 
 /* ------- form section --------- */
 
+textarea{
+    resize: none;
+}
 
 .ticket-modal-container .form{
     width: 100%;
@@ -56,9 +59,7 @@
     align-items: center;
     padding: 20px;
 }
-textarea{
-    resize: none;
-}
+
 .ticket-modal-container .form .form-area{
     display: flex;
     flex-direction: column;
@@ -66,10 +67,15 @@ textarea{
     align-items: center;
 }
 
+
+/* ------------------- top row: title and project selection ------------------- */
+
 .ticket-modal-container .top-row{
     display: flex;
     width: 100%;
 }
+
+
 
 .input-field-name{
     display: flex;
@@ -267,6 +273,13 @@ display: flex;
     font-size: 20px;
 }
 
+
+.ticket-modal-container .ticket-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
 
 /* ----------- button styling ------------ */
 .modal-buttons{

@@ -6,8 +6,17 @@
     box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
+.tickets-overview .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-
+.tickets-overview .header button{
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
 
 
 /* -------- search box section ------------ */
@@ -17,6 +26,8 @@
     display: flex;
     width: 100%;
     align-items: center;
+    margin-top: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .tickets-overview .ticket-search .search-input{
@@ -46,7 +57,17 @@
     border: 0.1px solid #e9e9e9;
 }
 
-/* ---------- sort by section ----------- */
+/* ---------- sort by/filter section ----------- */
+
+.ticket-filters-container{
+    display: flex;
+    flex-direction: column;
+}
+.ticket-filters-container .bottom{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+}
 
 .tickets-overview .sort-by{
     display: flex;
@@ -59,9 +80,14 @@
     margin-right: 10px;
 }
 .tickets-overview .sort-by select {
-    font-size: 15px;
-    border-radius: 4px;
-    border: 1px solid black;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 2px;
+    margin: 3px;
+    margin-top: 10px;
+    text-align: center;
+
 
 }
 .tickets-overview .sort-by select:focus-visible{
@@ -77,6 +103,7 @@
     border-radius: 10px;
     color: white;
 }
+
 
 
 .ticket-card-container{

@@ -3,6 +3,10 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { useOpenContext } from "../../contexts/open";
 import { useAuthContext } from "../../contexts/auth";
+import { useTicketContext } from "../../contexts/ticket";
+import { useTeamContext } from "../../contexts/team";
+import { useStatisticsContext } from "../../contexts/statistics";
+import { useProjectContext } from "../../contexts/project";
 
 export default function Sidebar() {
   const { setIsOpen } = useOpenContext();
@@ -19,6 +23,19 @@ export default function Sidebar() {
 
 export function SideBarIcons() {
   const { logoutUser } = useAuthContext();
+  const { clearTicketContext } = useTicketContext();
+  const { clearTeamContext } = useTeamContext();
+  const { clearStatisticsContext } = useStatisticsContext();
+  const { clearProjectContext } = useProjectContext();
+
+  const logout = () => {
+    clearTicketContext();
+    clearTeamContext();
+    clearStatisticsContext();
+    clearProjectContext();
+    logoutUser();
+  };
+
   return (
     <div className="sidebar-icons">
       <div className="sidebar-logo">
@@ -77,7 +94,7 @@ export function SideBarIcons() {
           </div>
         </Link>
         <Link to="/">
-          <div className="sidebar-icon" onClick={logoutUser}>
+          <div className="sidebar-icon" onClick={logout}>
             <span className="material-symbols-outlined">logout</span>
             <span className="icon-text"> Log Out </span>
           </div>

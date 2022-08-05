@@ -100,8 +100,6 @@ export default function TicketModal({
     }
   }, []);
 
-  
-
   return (
     <div className="ticket-modal-background">
       <div className="ticket-modal-container">
@@ -132,7 +130,7 @@ export default function TicketModal({
               />
             </div>
             <div className="split-input-fields">
-              <div className="row">
+              <div className="ticket-row">
                 <AddDescription
                   description={description}
                   setDescription={setDescription}
@@ -163,7 +161,7 @@ export default function TicketModal({
                 </div>
               </div>
 
-              <div className="row">
+              <div className="ticket-row">
                 <div className="ticket-dropdowns">
                   <div className="column">
                     <AddComplexity

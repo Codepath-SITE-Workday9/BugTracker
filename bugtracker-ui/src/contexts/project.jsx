@@ -8,6 +8,8 @@ export const ProjectContextProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [projectModal, setProjectModal] = useState(false);
   const [currentProject, setCurrentProject] = useState({});
+  const [projectToEdit, setProjectToEdit] = useState({})
+  const [editing, setEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,6 +43,10 @@ export const ProjectContextProvider = ({ children }) => {
     projectModal,
     setProjectModal,
     isLoading,
+    projectToEdit,
+   setProjectToEdit,
+    editing,
+    setEditing,
   };
 
   return (

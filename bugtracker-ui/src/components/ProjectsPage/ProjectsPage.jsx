@@ -16,6 +16,7 @@ export default function ProjectsPage() {
     currentProject,
     setCurrentProject,
     projectModal,
+    setProjectModal,
     fetchProjects,
     isLoading,
   } = useProjectContext();
@@ -126,6 +127,7 @@ export default function ProjectsPage() {
           handleOnProjectClick={handleOnProjectClick}
           handleOnFilterChange={handleOnFilterChange}
           isLoading={isLoading}
+          setProjectModal={setProjectModal}
         />
         <ProjectView
           projectsAvailable={projects.length > 0}

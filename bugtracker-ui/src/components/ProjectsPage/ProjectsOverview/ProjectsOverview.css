@@ -44,3 +44,18 @@
 .projects-overview .sort-by p{
     margin-right: 10px;
 }
+
+.new-btn
+{
+    background-color: rgb(119, 143, 211);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    color: white;
+}
+
+.new-btn:hover
+{
+    color: white;
+    box-shadow: 0px 0 3px 0 #3f4d67;
+}

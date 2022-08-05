@@ -93,7 +93,7 @@ class ApiClient {
   async fetchProjectById(projectId){
     return await this.request({ endpoint: `project/${projectId}`, method: 'GET'})
   }
-  async updateProject({ projectId, projectInfo}){
+  async updateProject( projectId, projectInfo){
     return await this.request({ endpoint: `project/${projectId}/update`, method: 'PATCH',  data: projectInfo })
   }
 

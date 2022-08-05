@@ -7,7 +7,7 @@ import { useProjectContext } from "../../../contexts/project";
 import { useProjectForm } from "../../../hooks/useProjectForm";
 
 export default function ProjectModal() {
-  const { setProjectModal } = useProjectContext();
+  const { setProjectModal, editing, setEditing, projectToEdit } = useProjectContext();
   const { teams } = useTeamContext();
 
   const {
@@ -20,15 +20,24 @@ export default function ProjectModal() {
     handleOnCreateNewProjectSubmit,
   } = useProjectForm();
 
+  useEffect(() => {
+    if(editing && Object.keys(projectToEdit).length != 0)
+    {
+        setProjectName(projectToEdit.name)
+        setProjectDescription(projectToEdit.description)
+        setTeamsToAdd(projectToEdit.teams)
+    }
+  }, [])
+
   return (
     <div className="project-modal-background">
       <div className="project-modal-container">
         {/* modal header: header text & a close button */}
         <div className="header">
-          <p>CREATE A NEW PROJECT</p>
+          <p>{editing ? ("EDIT PROJECT") : ("CREATE A NEW PROJECT")}</p>
           <button
             className="close-modal-btn"
-            onClick={() => setProjectModal(false)}
+            onClick={() => {setProjectModal(false), setEditing(false)}}
           >
             X
           </button>
@@ -82,7 +91,7 @@ export default function ProjectModal() {
           </div>
 
           <div className="modal-buttons">
-            <button className="cancel" onClick={() => setProjectModal(false)}>
+            <button className="cancel" onClick={() => {setProjectModal(false), setEditing(false)}}>
               Cancel
             </button>
             <button className="submit" onClick={handleOnCreateNewProjectSubmit}>

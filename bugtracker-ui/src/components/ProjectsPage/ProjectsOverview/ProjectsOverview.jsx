@@ -11,6 +11,7 @@ export default function ProjectsOverview({
   isLoading,
   sortedProjects,
   setSortedProjects,
+  setProjectModal
 }) {
   var projectsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,6 +38,9 @@ export default function ProjectsOverview({
       {/* projects overview header  */}
       <div className="header">
         <h1> Your Projects</h1>
+        <button className="new-btn" onClick={() => setProjectModal(true)}>
+              Create New Project
+        </button>
       </div>
 
       {/* search for projects  */}

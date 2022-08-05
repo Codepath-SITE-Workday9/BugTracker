@@ -4,6 +4,7 @@ import { MTableToolbar } from "material-table";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProjectContext } from "../../contexts/project";
+import { useTicketContext } from "../../contexts/ticket";
 import "./TableProperties.css";
 
 const handleOnRowClick = (rowData) => {};
@@ -55,12 +56,19 @@ const columns = [
 ];
 
 export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {
-  const { projects, setProjects, fetchProjects, projectModal, setProjectModal } = useProjectContext()
+  const { projects, setProjects, fetchProjects, projectModal, setProjectModal, currentProject, setCurrentProject, isLoading } = useProjectContext()
+  const {ticketModal, selectedProject, setSelectedProject} = useTicketContext()
   const navigate = useNavigate()
 
   function onRowClick(data) {
-    //console.log("clicked row")
-    navigate('/tickets')
+    console.log("data", data)
+    console.log("data.id", data.id)
+    navigate('/projects')
+    setSelectedProject(data.id)
+    setCurrentProject(data.id)
+    console.log("selectedProject:", selectedProject)
+    console.log("currentProject:", currentProject)
+    navigate('/projects')
   }
 
   return (

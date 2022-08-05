@@ -61,13 +61,13 @@ export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProj
   const navigate = useNavigate()
 
   function onRowClick(data) {
-    console.log("data", data)
-    console.log("data.id", data.id)
+    //console.log("data", data)
+    //console.log("data.id", data.id)
     navigate('/projects')
     setSelectedProject(data.id)
     setCurrentProject(data.id)
-    console.log("selectedProject:", selectedProject)
-    console.log("currentProject:", currentProject)
+    //console.log("selectedProject:", selectedProject)
+    //console.log("currentProject:", currentProject)
     navigate('/projects')
   }
 

@@ -223,7 +223,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
   // focused will be true if the projects search input field is clicked on, and false when a user clicks off of the input field
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
+  const close = () => setFocused(false);
 
   // handler function to update projectSearch and to update projectsToShow whenever the input field value changes
   const handleOnChange = (event) => {
@@ -276,6 +276,7 @@ export function AddProjects({ projects, setProjectsToAdd }) {
                 <AddProjectsDropdown
                   projects={projectsToShow}
                   onClick={handleOnProjectClick}
+                  close={close}
                 />
               </div>
             </>

@@ -1,6 +1,6 @@
 import "./AddTeamsDropdown.css";
 
-export default function AddTeamsDrowpdown({ teams, onClick }) {
+export default function AddTeamsDrowpdown({ teams, onClick, close }) {
   return (
     <div className="dropdown-container">
       {teams.map((t) => (
@@ -8,6 +8,9 @@ export default function AddTeamsDrowpdown({ teams, onClick }) {
           <p>{t.name}</p>
         </div>
       ))}
+      <div className="option-row" id="dropdown-close-button" onClick={close}>
+        <p id="close-text">CLOSE</p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import "./AddProjectsDropdown.css";
 
-export default function AddProjectsDrowpdown({ projects, onClick }) {
+export default function AddProjectsDrowpdown({ projects, onClick, close }) {
   return (
     <div className="dropdown-container">
       {projects.map((p) => (
@@ -8,6 +8,9 @@ export default function AddProjectsDrowpdown({ projects, onClick }) {
           <p>{p.name}</p>
         </div>
       ))}
+      <div className="option-row" id="dropdown-close-button" onClick={close}>
+        <p id="close-text">CLOSE</p>
+      </div>
     </div>
   );
 }

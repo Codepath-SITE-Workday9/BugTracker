@@ -31,19 +31,6 @@ export const useTicketForm = () => {
           // send request to create new a ticket
             // must send: 
             // title, description, category, priority, status, complexity, the developers (array of emails), projectId
-
-            console.log("Ticket info",{
-              title: title,
-              description: description,
-              category: category,
-              priority: priority,
-              status: status,
-              complexity:complexity,
-              developers: developersToAdd,
-              projectId: selectedProject,
-            })
-
-
             const { data, error } = await apiClient.createNewTicket({
               title: title,
               description: description,
@@ -74,16 +61,6 @@ export const useTicketForm = () => {
             }
             // else, send request to update ticket info
           } else{
-            console.log("Ticket info",{
-              title: title,
-              description: description,
-              category: category,
-              priority: priority,
-              status: status,
-              complexity:complexity,
-              developers: developersToAdd,
-              projectId: selectedProject,
-            })
             const { data, error } = await apiClient.updateTicket(ticketToEdit.id,{
               title: title,
               description: description,

@@ -50,7 +50,6 @@ export default function TicketsOverview({
 
   useEffect(() => {}, [selectedProject]);
 
-  console.log("Project categories:", projectCategories);
   return (
     <div className="tickets-overview">
       {/* tickets overview header  */}

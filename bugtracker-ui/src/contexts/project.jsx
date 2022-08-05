@@ -34,6 +34,14 @@ export const ProjectContextProvider = ({ children }) => {
     fetchProjects();
   }, []);
 
+  const clearProjectContext = () => {
+    setProjects([]);
+    setProjectModal(false);
+    setCurrentProject({});
+    setIsLoading(false);
+    setError("");
+  };
+
   const projectValue = {
     projects,
     setProjects,
@@ -43,6 +51,7 @@ export const ProjectContextProvider = ({ children }) => {
     projectModal,
     setProjectModal,
     isLoading,
+    clearProjectContext,
     projectToEdit,
    setProjectToEdit,
     editing,

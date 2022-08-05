@@ -22,12 +22,12 @@ export default function TicketsOverview({
   const { projects } = useProjectContext();
 
   // the projects dropown categories
-  const dropdownCategories = [{ name: "All projects", id: -1 }];
+  const projectCategories = [{ name: "All projects", id: -1 }];
 
   // map through the projects to add each project's name and id as an object to the dropdown category.
   projects.map((p) => {
     let projObj = { name: p.name, id: p.id };
-    dropdownCategories.push(projObj);
+    projectCategories.push(projObj);
   });
 
   // handler function to set ticket search term as a user types
@@ -54,49 +54,44 @@ export default function TicketsOverview({
     <div className="tickets-overview">
       {/* tickets overview header  */}
       <div className="header">
-        <h1>Your Tickets</h1>
-      </div>
-      {/* sort by component to sort the ticket results */}
-      <div className="sort-by">
-        <p className="select"> Select project: </p>
-        <div className="sort-by-dropdown">
-          <select
-            name="selectList"
-            id="selectList"
-            onChange={handleOnProjectChange}
-            value={selectedProject}
-          >
-            {dropdownCategories?.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>{" "}
-      </div>
-      <button className="new-btn" onClick={() => setTicketModal(true)}>
-        Create New Ticket
-      </button>
-      {/* search for tickets  */}
-      <div className="ticket-search">
-        <input
-          className="search-input"
-          type="text"
-          name="search"
-          placeholder="search for a ticket"
-          value={searchTerm}
-          onChange={handleOnSearchChange}
-        />
-        <button className="search-btn" onClick={handleOnClickSearchBtn}>
-          <i className="material-icons">
-            {/* conditionally render search or close icon depending on search terms */}
-            {searchTerm == "" ? "search" : "close"}
-          </i>
+        <h1>Tickets</h1>
+        <button className="new-btn" onClick={() => setTicketModal(true)}>
+          + New Ticket
         </button>
       </div>
+      <div className="top">
+        {/* sort by component to sort the ticket results */}
+        <div className="sort-by">
+          <div className="sort-by-dropdown">
+            <label> Select Project:</label>
+            <select
+              name="selectList"
+              id="selectList"
+              onChange={handleOnProjectChange}
+              value={selectedProject}
+            >
+              {projectCategories?.map((c) => (
+                <option value={c.id} key={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
 
+      <SearchForTickets
+        handleOnSearchChange={handleOnSearchChange}
+        handleOnClickSearchBtn={handleOnClickSearchBtn}
+        searchTerm={searchTerm}
+      />
+
+      <Filters
+        handleOnProjectChange={handleOnProjectChange}
+        selectedProject={selectedProject}
+        projectCategories={projectCategories}
+      />
       {/* container that will hold ticket cards */}
-
       {isLoading ? (
         <div>Loding ...</div>
       ) : (
@@ -117,6 +112,109 @@ export default function TicketsOverview({
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+export function SearchForTickets({
+  handleOnSearchChange,
+  handleOnClickSearchBtn,
+  searchTerm,
+}) {
+  return (
+    <div className="ticket-search">
+      <input
+        className="search-input"
+        type="text"
+        name="search"
+        placeholder="search for a ticket"
+        value={searchTerm}
+        onChange={handleOnSearchChange}
+      />
+      <button className="search-btn" onClick={handleOnClickSearchBtn}>
+        <i className="material-icons">
+          {/* conditionally render search or close icon depending on search terms */}
+          {searchTerm == "" ? "search" : "close"}
+        </i>
+      </button>
+    </div>
+  );
+}
+
+export function Filters({}) {
+  const priorityCategories = [
+    "All priorities",
+    "Low",
+    "Medium",
+    "High",
+    "Critical",
+  ];
+  const statusCategories = [
+    "All statuses",
+    "Unassigned",
+    "Not Started",
+    "In Progress",
+    "Resolved",
+  ];
+  const categoryCategories = ["All categories", "Bug", "New Feature"];
+
+  return (
+    <div className="ticket-filters-container">
+      <div className="bottom">
+        {/* sort by component to sort the ticket results */}
+        <div className="sort-by">
+          <div className="sort-by-dropdown">
+            <select
+              name="selectList"
+              id="selectList"
+              // onChange={handleOnProjectChange}
+              // value={selectedProject}
+            >
+              {priorityCategories?.map((c) => (
+                <option value={c} key={c.id}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* sort by component to sort the ticket results */}
+        <div className="sort-by">
+          <div className="sort-by-dropdown">
+            <select
+              name="selectList"
+              id="selectList"
+              // onChange={handleOnProjectChange}
+              // value={selectedProject}
+            >
+              {statusCategories?.map((c) => (
+                <option value={c} key={c.id}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* sort by component to sort the ticket results */}
+        <div className="sort-by">
+          <div className="sort-by-dropdown">
+            <select
+              name="selectList"
+              id="selectList"
+              // onChange={handleOnProjectChange}
+              // value={selectedProject}
+            >
+              {categoryCategories?.map((c) => (
+                <option value={c} key={c.id}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

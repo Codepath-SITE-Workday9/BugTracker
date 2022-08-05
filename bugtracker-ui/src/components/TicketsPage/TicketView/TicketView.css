@@ -8,11 +8,6 @@
 }
 
 .ticket-header{
-    /* 
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    */
     text-transform: capitalize;    
     border-bottom: 1px solid black; 
 }
@@ -20,6 +15,7 @@
 .ticket-title{
     display:flex;
     justify-content: space-between;
+    align-items: center; 
 }
 
 .ticket-created-details{
@@ -40,6 +36,8 @@
     margin: 10px;
     font-size: 20px;
     text-align: center;
+    height: 50px;
+    width: 50px;
 }
 .ticket-header button:hover{
     color: white;

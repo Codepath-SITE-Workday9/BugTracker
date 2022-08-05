@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import apiClient from "../services/apiClient";
+import { useProjectContext } from "./project";
 
 const TicketContext = createContext(null);
 
@@ -15,6 +16,8 @@ export const TicketContextProvider = ({ children }) => {
 
   //the selected project from the dropdown menu - will be the id of the project (-1 if all projects is selected)
   const [selectedProject, setSelectedProject] = useState(-1);
+
+  const { projects } = useProjectContext();
 
   // const fetchTicketsForProject = async (projectId) => {
   //   setIsLoading(true);
@@ -35,8 +38,12 @@ export const TicketContextProvider = ({ children }) => {
     const { data, error } = await apiClient.listAllTickets();
     if (data) {
       setTickets(data.ticketList);
-      if (data.ticketList.length > 0 && !currentTicket) {
+      if (
+        data.ticketList.length > 0 &&
+        Object.keys(currentTicket).length == 0
+      ) {
         setCurrentTicket(data.ticketList[0]);
+        setSelectedProject(projects[0].id);
       }
     }
     if (error) {
@@ -49,6 +56,16 @@ export const TicketContextProvider = ({ children }) => {
   useEffect(() => {
     fetchAllTickets();
   }, []);
+
+  const clearTicketContext = () => {
+    setTickets([]);
+    setTicketModal(false);
+    setCurrentTicket({});
+    setTicketToEdit({});
+    setEditing(false);
+    setIsLoading(false);
+    setError("");
+  };
 
   const ticketValue = {
     tickets,
@@ -65,6 +82,7 @@ export const TicketContextProvider = ({ children }) => {
     setTicketToEdit,
     setSelectedProject,
     selectedProject,
+    clearTicketContext,
   };
 
   return (

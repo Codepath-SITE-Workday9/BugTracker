@@ -96,6 +96,16 @@ export const TeamContextProvider = ({ children }) => {
     });
   }
 
+  const clearTeamContext = () => {
+    setTeams([]);
+    setTeamModal(false);
+    setCurrentTeam({});
+    setIsLoading(false);
+    setError(null);
+    setTeamsTableData([]);
+    setIds([]);
+  };
+
   const teamValue = {
     teams,
     setTeams,
@@ -111,6 +121,7 @@ export const TeamContextProvider = ({ children }) => {
     setTeamsTableData,
     clearTeams,
     getData,
+    clearTeamContext,
   };
 
   return (

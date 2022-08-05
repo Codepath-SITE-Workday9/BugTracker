@@ -32,13 +32,15 @@ export default function TicketView({
   };
 
   useEffect(() => {
-    fetchCreator();
-    getDevelopersArray(currentTicket.developers);
+    if (Object.keys(currentTicket).length != 0) {
+      fetchCreator();
+      getDevelopersArray(currentTicket?.developers);
+    }
   }, [currentTicket]);
 
   const getDevelopersArray = async (developers) => {
     setAssignedDevs([]);
-    developers.map((d) => {
+    developers?.map((d) => {
       appendMembersToArray(d);
     });
   };
@@ -52,31 +54,41 @@ export default function TicketView({
     <div className="ticket-view">
       {!isLoading ? (
         <>
-          {/* header for a specific ticket and a button to create new ticket */}
-          <div className="ticket-header">
-            <div className="ticket-title">
-              <h1> {ticketsAvailable && currentTicket?.title} </h1>
-              <button
-                className="new-btn"
-                onClick={() => handleOnEditClick()}
-                title="Edit this ticket"
-              >
-                <span className="material-symbols-outlined">edit_document</span>
-              </button>
-            </div>
-            <div className="ticket-created-details">
-              <div className="ticket-created-by">
-                <label className="ticket-author"> Opened by: </label>
-                <span className="ticket-author">{creator}</span>
+          {ticketsAvailable ? (
+            <>
+              {/* header for a specific ticket and a button to create new ticket */}
+              <div className="ticket-header">
+                <div className="ticket-title">
+                  <h1> {ticketsAvailable && currentTicket?.title} </h1>
+                  <button
+                    className="new-btn"
+                    onClick={() => handleOnEditClick()}
+                    title="Edit this ticket"
+                  >
+                    <span className="material-symbols-outlined">
+                      edit_document
+                    </span>
+                  </button>
+                </div>
+                <div className="ticket-created-details">
+                  <div className="ticket-created-by">
+                    <label className="ticket-author"> Opened by: </label>
+                    <span className="ticket-author">{creator}</span>
+                  </div>
+                  <div className="ticket-opened-on">
+                    <label className="ticket-open-date"> Opened on: </label>
+                    <span className="ticket-open-date">
+                      {new Date(currentTicket.created_at).toDateString()}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="ticket-opened-on">
-                <label className="ticket-open-date"> Opened on: </label>
-                <span className="ticket-open-date">
-                  {new Date(currentTicket.created_at).toDateString()}
-                </span>
-              </div>
+            </>
+          ) : (
+            <div className="nothing-created-yet">
+              <h1>You have not created any tickets yet!</h1>
             </div>
-          </div>
+          )}
 
           {/* Conditionally render the specific ticket's information, or display "Nothing yet" if no tickets have been created */}
           {ticketsAvailable ? (
@@ -127,7 +139,6 @@ export default function TicketView({
           ) : (
             <>
               <div className="nothing-created-yet">
-                <h1>You have not created any tickets yet!</h1>
                 <h2>To get started, click the Create New Ticket button.</h2>
               </div>
             </>

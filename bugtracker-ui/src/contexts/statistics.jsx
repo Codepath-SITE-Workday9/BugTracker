@@ -5,8 +5,9 @@ const StatisticsContext = createContext(null);
 
 // context to keep track of a users tickets, the current ticket selected, and whether or not the ticketModal should be displayed.
 export const StatisticsContextProvider = ({ children }) => {
-  const [dashboardStatistics, setDashboardStatistics] = useState({})
-  const [dashboardStatisticsRendered, setDashboardStatisticsRendered] = useState(false)
+  const [dashboardStatistics, setDashboardStatistics] = useState({});
+  const [dashboardStatisticsRendered, setDashboardStatisticsRendered] =
+    useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,13 +26,20 @@ export const StatisticsContextProvider = ({ children }) => {
   //   fetchDashboardStatistics()
   // }
 
+  const clearStatisticsContext = () => {
+    setDashboardStatistics({});
+    setDashboardStatisticsRendered(false);
+    setIsLoading(false);
+    setError("");
+  };
+
   const statisticsValue = {
     dashboardStatistics,
     setDashboardStatistics,
     dashboardStatisticsRendered,
     setDashboardStatisticsRendered,
-    fetchDashboardStatistics
-
+    fetchDashboardStatistics,
+    clearStatisticsContext,
   };
 
   return (

@@ -107,7 +107,6 @@ export default function Dashboard() {
 
    useEffect(() => {
   //    //clearTeams()
-    console.log("Dashboard dashboardStatistics:", dashboardStatistics)
     //setRendered(false)
       fetchDashboardStatistics()
       renderCharts(dashboardStatistics, rendered, setRendered)

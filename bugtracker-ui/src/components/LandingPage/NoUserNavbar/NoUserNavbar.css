@@ -13,7 +13,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    position: relative;
+    position: static;
     font-size: 30px;
     padding: 10px
 }

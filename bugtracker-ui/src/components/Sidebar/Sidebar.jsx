@@ -18,7 +18,7 @@ export default function Sidebar() {
     >
       <SideBarIcons />
     </div>
-  );
+  )
 }
 
 export function SideBarIcons() {
@@ -101,5 +101,5 @@ export function SideBarIcons() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

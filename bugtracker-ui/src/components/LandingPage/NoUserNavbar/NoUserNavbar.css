@@ -4,7 +4,7 @@
     top: 0;
     background-color: #2f3c53;
     width: 100%;
-    box-shadow: 0 1px 5px 0 rgb(96 96 96 / 30%);
+    box-shadow: 0 1px 5px 0 rgba(96, 96, 96, 0.3);
     position: fixed;
 }
 

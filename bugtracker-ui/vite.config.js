@@ -28,6 +28,6 @@ export default defineConfig((envConfig) => ({
     ],
   },
   define: {
-    global: "window", // fix for packages that support both node and browser
+    //global: "window", // fix for packages that support both node and browser
   },
 }))

@@ -27,7 +27,7 @@ class Projects
                            pro.creator_id
                     FROM projects as pro
                         LEFT JOIN teams ON teams.id = any(pro.teams)
-                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams))
+                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(teams.members) FROM teams WHERE teams.id = any(pro.teams))
                     GROUP BY pro.id
                     ORDER BY pro.id ASC
                 `, [userId])

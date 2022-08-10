@@ -73,11 +73,9 @@ export function App() {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      console.log("Fetching user info:");
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
-        console.log("Setting user: ", data.user);
         // fetchTeams();
         // fetchDashboardStatistics();
       }
@@ -88,7 +86,6 @@ export function App() {
     const token = localStorage.getItem("bugtracker_token");
 
     if (token) {
-      console.log("Setting token: ", token);
       apiClient.setToken(token);
       setIsProcessing(true);
       setError(null);
@@ -96,9 +93,7 @@ export function App() {
     }
     setIsProcessing(false);
     setInitialized(true);
-    console.log("User:", user.email);
   }, [setUser]);
-  console.log("App");
   return (
     <div className="app">
       <BrowserRouter>

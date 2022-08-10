@@ -124,8 +124,6 @@ class Projects
         //Run a query to obtain the id of the user given their user email from the local server
         const userId = await Teams.fetchUserId(user.email)
 
-        console.log("User:", user.email)
-
         //Run a query to find the specific project information by id
         //User can not access the project info if they are not a creator or member of the project
         //First, search is the project id can be found and then checks if the user is the creator of the project id

@@ -7,7 +7,6 @@ export default function ProtectedRoute({ element }) {
     return null;
   }
   if (!user?.email) {
-    console.log("Acces forbidenn");
     return <AccessForbidden />;
   }
   return <>{element}</>;

@@ -73,12 +73,12 @@ export function SideBarIcons() {
             <span className="icon-text"> Projects</span>
           </div>
         </Link>
-        <Link to="/statistics">
+        {/*<Link to="/statistics">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">query_stats</span>
             <span className="icon-text"> Statistics </span>
           </div>
-        </Link>
+  </Link> */}
       </div>
       <div className="bottom-sidebar">
         <Link to="/userprofile">
@@ -87,12 +87,12 @@ export function SideBarIcons() {
             <span className="icon-text"> Profile </span>
           </div>
         </Link>
-        <Link to="/settings">
+        {/*<Link to="/settings">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">settings</span>
             <span className="icon-text"> Settings </span>
           </div>
-        </Link>
+  </Link> */}
         <Link to="/">
           <div className="sidebar-icon" onClick={logout}>
             <span className="material-symbols-outlined">logout</span>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useOpenContext } from "../../contexts/open";
 
@@ -61,11 +62,13 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-right">
-          <span className="material-symbols-outlined">
+          {/*<span className="material-symbols-outlined">
             circle_notifications
-          </span>{" "}
+          </span>{" "} */}
           {/* TODO: Add menus for both icons */}
-          <span className="material-symbols-outlined">account_circle</span>
+          <Link to="/userprofile">
+            <span className="material-symbols-outlined">account_circle</span>
+          </Link>
         </div>
       </div>
     </div>

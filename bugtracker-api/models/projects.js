@@ -27,30 +27,22 @@ class Projects
                            pro.creator_id
                     FROM projects as pro
                         LEFT JOIN teams ON teams.id = any(pro.teams)
-                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(teams.members) FROM teams WHERE teams.id = any(pro.teams))
-                    GROUP BY pro.id
+                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(teams .members) FROM teams WHERE teams.id = any(pro.teams))
+                    GROUP BY 
+                        pro.id, 
+                        pro.name, 
+                        pro.description, 
+                        pro.image_url, 
+                        pro.tickets, 
+                        pro.teams, 
+                        pro.created_at, 
+                        pro.creator_id
                     ORDER BY pro.id ASC
                 `, [userId])
         
         //Return all the projects a user is a part of 
         return results.rows
     }
-//     `
-//     SELECT pro.id,
-//            pro.name,
-//            pro.description,
-//            pro.image_url,
-//            pro.tickets,
-//            pro.teams,
-//            pro.created_at,
-//            pro.creator_id
-//     FROM projects as pro
-//         INNER JOIN teams ON teams.id = any(pro.teams)
-//     WHERE (pro.creator_id = $1) 
-//     GROUP BY pro.id
-//     ORDER BY pro.id ASC
-// `, [userId])
-
 
     
 
@@ -131,6 +123,8 @@ class Projects
     {
         //Run a query to obtain the id of the user given their user email from the local server
         const userId = await Teams.fetchUserId(user.email)
+
+        console.log("User:", user.email)
 
         //Run a query to find the specific project information by id
         //User can not access the project info if they are not a creator or member of the project

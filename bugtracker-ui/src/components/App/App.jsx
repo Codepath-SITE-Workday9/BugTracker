@@ -23,7 +23,10 @@ import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
 import { TeamContextProvider, useTeamContext } from "../../contexts/team";
 import { TicketContextProvider } from "../../contexts/ticket";
-import { StatisticsContextProvider, useStatisticsContext } from "../../contexts/statistics";
+import {
+  StatisticsContextProvider,
+  useStatisticsContext,
+} from "../../contexts/statistics";
 
 export default function AppContainer() {
   return (
@@ -46,8 +49,8 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  const { teams, fetchTeams } = useTeamContext();
-  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+  // const { teams, fetchTeams } = useTeamContext();
+  // const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
 
   //const [dashboardStatistics, setDashboardStatistics] = useState({})
 
@@ -70,11 +73,13 @@ export function App() {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      console.log("Fetching user info:");
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
-        fetchTeams();
-        fetchDashboardStatistics()
+        console.log("Setting user: ", data.user);
+        // fetchTeams();
+        // fetchDashboardStatistics();
       }
       setInitialized(true);
       setIsProcessing(false);
@@ -83,6 +88,7 @@ export function App() {
     const token = localStorage.getItem("bugtracker_token");
 
     if (token) {
+      console.log("Setting token: ", token);
       apiClient.setToken(token);
       setIsProcessing(true);
       setError(null);
@@ -90,9 +96,9 @@ export function App() {
     }
     setIsProcessing(false);
     setInitialized(true);
+    console.log("User:", user.email);
   }, [setUser]);
-
-
+  console.log("App");
   return (
     <div className="app">
       <BrowserRouter>

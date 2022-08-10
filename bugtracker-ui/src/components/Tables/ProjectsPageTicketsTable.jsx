@@ -8,8 +8,8 @@ import apiClient from "../../services/apiClient";
 const columns = [
   { title: "Id", field: "id", hidden: true },
   { title: "Ticket name", field: "title" },
-  { title: "Description", field: "description" },
-  { title: "Priority", field: "priority" },
+  { title: "Description", field: "description", cellStyle: {overflowWrap: 'wrap', whiteSpace: 'normal'}},
+  { title: "Priority", field: "priority"},
   { title: "Complexity", field: "complexity", type: "numeric" },
 ];
 

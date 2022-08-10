@@ -2,11 +2,13 @@ import apiClient from "../services/apiClient.js";
 import { useState } from "react"
 import { useTicketContext } from "../contexts/ticket.jsx";
 import { useAuthContext } from "../contexts/auth.jsx";
+import { useProjectContext } from "../contexts/project.jsx";
 
 
 // hook to use when creating new tickets 
 export const useTicketForm = () => {
-  const {user} = useAuthContext();
+    const {user} = useAuthContext();
+    const {fetchProjects} = useProjectContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [developersToAdd, setDevelopersToAdd] = useState([user.email]);
@@ -56,6 +58,7 @@ export const useTicketForm = () => {
               setCurrentTicket(data.ticket)
               setEditing(false);
               setTicketToEdit()
+              fetchProjects();
             } else if (errors) {
               setErrors("Something went wrong! Try again.");
             }
@@ -85,7 +88,8 @@ export const useTicketForm = () => {
               setTicketModal(false);
               setCurrentTicket(data.ticket)
               setEditing(false);
-              setTicketToEdit({})
+              setTicketToEdit({});
+              fetchProjects();
             } else if (errors) {
               setErrors("Something went wrong! Try again.");
             } 

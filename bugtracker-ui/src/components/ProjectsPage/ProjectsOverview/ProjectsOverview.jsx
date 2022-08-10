@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
 import { useProjectContext } from "../../../contexts/project";
+import { useTicketContext } from "../../../contexts/ticket";
 
 // overview of all projects a user is apart of
 export default function ProjectsOverview({
@@ -13,6 +14,7 @@ export default function ProjectsOverview({
   const [searchTerm, setSearchTerm] = useState("");
   const { sortedProjects, sortValue, projectModal } = useProjectContext();
   const [projectsToShow, setProjectsToShow] = useState([]);
+  const { ticketModal } = useTicketContext();
   // handler function to set search term as a user types
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
@@ -37,7 +39,7 @@ export default function ProjectsOverview({
         )
       );
     }
-  }, [searchTerm, sortValue, projectModal]);
+  }, [searchTerm, sortValue, projectModal, ticketModal]);
 
   return (
     <div className="projects-overview">

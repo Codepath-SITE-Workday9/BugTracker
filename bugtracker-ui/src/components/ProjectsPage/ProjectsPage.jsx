@@ -40,7 +40,7 @@ export default function ProjectsPage() {
   };
 
   const appendToEmailArray = async (teamId) => {
-    const { data, error } = await apiClient.fetchMemberList(teamId);
+    const { data } = await apiClient.fetchMemberList(teamId);
     data.teamsData.map((member) => {
       if (!availableMembers.includes(member.email)) {
         setAvailableMembers((prev) => [...prev, member.email]);
@@ -51,7 +51,7 @@ export default function ProjectsPage() {
   // useEffect hook to fetch updated list of projects a user is apart of after creating a new project
   useEffect(() => {
     sortProjects(projects);
-  }, [projectModal, ticketModal]); // possibly change dependencies to handle on create new ticket/project submit function in hooks
+  }, [projectModal, ticketModal]);
 
   useEffect(() => {
     fetchMemsForProject();

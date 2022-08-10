@@ -10,12 +10,24 @@ export default function TicketsOverview({
   isLoading,
   selectedProject,
   handleOnProjectChange,
-  selectedProjectTickets,
+  // selectedProjectTickets,
 }) {
   // ticket search term
   const [searchTerm, setSearchTerm] = useState("");
   // modal variable to display modal
-  const { setTicketModal } = useTicketContext();
+  const {
+    setTicketModal,
+    fetchProjectTickets,
+    selectedProjectTickets,
+    selectedPriority,
+    setSelectedPriority,
+    selectedCategory,
+    setSelectedCategory,
+    selectedStatus,
+    setSelectedStatus,
+    myTicketsOnly,
+    setMyTicketsOnly,
+  } = useTicketContext();
 
   // all projects a user is apart of
   const { projects } = useProjectContext();
@@ -46,7 +58,9 @@ export default function TicketsOverview({
     );
   }
 
-  useEffect(() => {}, [selectedProject]);
+  useEffect(() => {
+    fetchProjectTickets();
+  }, [selectedProject]);
 
   return (
     <div className="tickets-overview">
@@ -88,14 +102,27 @@ export default function TicketsOverview({
         handleOnProjectChange={handleOnProjectChange}
         selectedProject={selectedProject}
         projectCategories={projectCategories}
-        // selectedPriority={selectedPriority}
-        // setSelectedPriority={setSelectedPriority}
-        // selectedCategory={selectedCategory}
-        // setSelectedCategory={setSelectedCategory}
-        // selectedStatus={selectedStatus}
-        // setSelectedStatus={setSelectedStatus}
+        selectedPriority={selectedPriority}
+        setSelectedPriority={setSelectedPriority}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
         // handleOnStatusChange={handleOnStatusChange}
       />
+
+      <div className="my-tickets-only">
+        <label htmlFor="my-tickets-only">
+          <input
+            type="checkbox"
+            name="my-tickets-only"
+            value={myTicketsOnly}
+            onChange={() => setMyTicketsOnly(!myTicketsOnly)}
+          />
+          Show my tickets only
+        </label>
+      </div>
+
       {/* container that will hold ticket cards */}
       {isLoading ? (
         <div>Loding ...</div>

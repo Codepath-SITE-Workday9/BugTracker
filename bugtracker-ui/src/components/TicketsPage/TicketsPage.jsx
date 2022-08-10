@@ -18,6 +18,9 @@ export default function TicketsPage() {
     isLoading,
     selectedProject,
     setSelectedProject,
+    selectedProjectTickets,
+    setSelectedProjectTickets,
+    fetchProjectTickets,
   } = useTicketContext();
 
   const [availableMembers, setAvailableMembers] = useState([]);
@@ -29,16 +32,6 @@ export default function TicketsPage() {
   useEffect(() => {
     fetchMemsForTicket();
   }, [selectedProject]);
-
-  // tickets to show based on selected project - initially set to all tickets
-  const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
-  if (
-    tickets.length > 0 &&
-    selectedProjectTickets.length == 0 &&
-    selectedProject == -1
-  ) {
-    setSelectedProjectTickets(tickets);
-  }
 
   const handleOnTicketClick = (ticket) => {
     setCurrentTicket(ticket);
@@ -76,16 +69,12 @@ export default function TicketsPage() {
   // handler function to set the selected project when a user selects a project from the dropdown
   const handleOnProjectChange = (event) => {
     setSelectedProject(event.target.value);
-    fetchProjectTickets(event.target.value);
-  };
-
-  // function to select the tickets for a specifc project given the project's id
-  // if the projId < 0, that means All Projects has been selected -> set tickets to all tickets
-  const fetchProjectTickets = (projId) => {
-    if (projId < 0) {
+    if (event.target.value < 0) {
       setSelectedProjectTickets(tickets);
     } else {
-      setSelectedProjectTickets(tickets.filter((t) => t.project_id == projId));
+      setSelectedProjectTickets(
+        tickets.filter((t) => t.project_id == event.target.value)
+      );
     }
   };
 

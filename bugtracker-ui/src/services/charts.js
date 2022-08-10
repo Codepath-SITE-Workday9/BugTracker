@@ -25,22 +25,22 @@ export default function renderCharts(dashboardStatistics, rendered, setRendered)
     // )
 
     // Get data of the status table, if it does not exist it defaults to 0
-    let statusData = [0, 0, 0, 0, 0]
+    let statusData = [0, 0, 0, 0,]
     dashboardStatistics?.data?.statistics?.perStatus?.map((statusType) => {
-      if (statusType.status === 'unassigned') {
+      // if (statusType.status === 'unassigned') {
+      //   statusData[0] = parseInt(statusType.totaltickets)
+      // }
+      if (statusType.status === 'not started') {
         statusData[0] = parseInt(statusType.totaltickets)
       }
-      else if (statusType.status === 'not started') {
+      else if (statusType.status === 'in progress') {
         statusData[1] = parseInt(statusType.totaltickets)
       }
-      else if (statusType.status === 'in progress') {
+      else if (statusType.status === 'submitted') {
         statusData[2] = parseInt(statusType.totaltickets)
       }
-      else if (statusType.status === 'submitted') {
-        statusData[3] = parseInt(statusType.totaltickets)
-      }
       else if (statusType.status === 'resolved')   {
-        statusData[4] = parseInt(statusType.totaltickets)
+        statusData[3] = parseInt(statusType.totaltickets)
       }
     })
 
@@ -82,7 +82,7 @@ export default function renderCharts(dashboardStatistics, rendered, setRendered)
       datasets: [
         {
           label: "Tickets",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          backgroundColor: ["#3AD83F", "#CFD126","#E04423","#813424","#c45850"],
           data: priorityData
         }
       ]
@@ -105,7 +105,7 @@ export default function renderCharts(dashboardStatistics, rendered, setRendered)
           datasets: [
             {
               label: "Tickets",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              backgroundColor: ["#CFD126", "#3e95cd","#3cba9f","#e8c3b9","#c45850"],
               data: categoryData
             }
           ]
@@ -124,11 +124,11 @@ export default function renderCharts(dashboardStatistics, rendered, setRendered)
     let myChart3 = new Chart(document.getElementById("status-chart"), {
         type: 'doughnut',
         data: {
-            labels: ["Unassigned", "Not Started", "In Progress", "Submitted", "Resolved"],
+            labels: ["Not Started", "In Progress", "Submitted", "Resolved"],
             datasets: [
             {
                 label: "Tickets",
-                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                backgroundColor: ["#E04423", "#3e95cd","#328442","#3AD83F","#c45850"],
                 data: statusData
             }
             ]

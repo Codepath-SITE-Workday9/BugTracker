@@ -134,7 +134,8 @@ class User {
 
         //Return the exisitng user
         const user = results.rows[0]
-        return user
+        const publicUser = User.makePublicUser(user)
+        return publicUser
     }
 
 

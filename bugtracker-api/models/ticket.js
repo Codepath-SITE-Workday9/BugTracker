@@ -96,7 +96,7 @@ class Tickets
                 SELECT *
                 FROM projects as pro
                     LEFT JOIN teams ON teams.id = any(pro.teams)
-                WHERE pro.id = $1 AND ((pro.creator_id = $1) OR  $2 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams)))
+                WHERE pro.id = $1 AND ((pro.creator_id = $2) OR  $2 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams)))
             `, [projectId, userId])
         
         //If user is a creator or member of a project, then return project information; Else, return undefined

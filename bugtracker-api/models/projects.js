@@ -27,30 +27,22 @@ class Projects
                            pro.creator_id
                     FROM projects as pro
                         LEFT JOIN teams ON teams.id = any(pro.teams)
-                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(members) FROM teams WHERE id = any(pro.teams))
-                    GROUP BY pro.id
+                    WHERE (pro.creator_id = $1) OR  $1 = any(SELECT UNNEST(teams .members) FROM teams WHERE teams.id = any(pro.teams))
+                    GROUP BY 
+                        pro.id, 
+                        pro.name, 
+                        pro.description, 
+                        pro.image_url, 
+                        pro.tickets, 
+                        pro.teams, 
+                        pro.created_at, 
+                        pro.creator_id
                     ORDER BY pro.id ASC
                 `, [userId])
         
         //Return all the projects a user is a part of 
         return results.rows
     }
-//     `
-//     SELECT pro.id,
-//            pro.name,
-//            pro.description,
-//            pro.image_url,
-//            pro.tickets,
-//            pro.teams,
-//            pro.created_at,
-//            pro.creator_id
-//     FROM projects as pro
-//         INNER JOIN teams ON teams.id = any(pro.teams)
-//     WHERE (pro.creator_id = $1) 
-//     GROUP BY pro.id
-//     ORDER BY pro.id ASC
-// `, [userId])
-
 
     
 

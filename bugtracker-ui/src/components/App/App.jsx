@@ -23,7 +23,10 @@ import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
 import { TeamContextProvider, useTeamContext } from "../../contexts/team";
 import { TicketContextProvider } from "../../contexts/ticket";
-import { StatisticsContextProvider, useStatisticsContext } from "../../contexts/statistics";
+import {
+  StatisticsContextProvider,
+  useStatisticsContext,
+} from "../../contexts/statistics";
 
 export default function AppContainer() {
   return (
@@ -46,8 +49,8 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  const { teams, fetchTeams } = useTeamContext();
-  const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
+  // const { teams, fetchTeams } = useTeamContext();
+  // const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
 
   //const [dashboardStatistics, setDashboardStatistics] = useState({})
 
@@ -73,8 +76,8 @@ export function App() {
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
-        fetchTeams();
-        fetchDashboardStatistics()
+        // fetchTeams();
+        // fetchDashboardStatistics();
       }
       setInitialized(true);
       setIsProcessing(false);
@@ -91,8 +94,6 @@ export function App() {
     setIsProcessing(false);
     setInitialized(true);
   }, [setUser]);
-
-
   return (
     <div className="app">
       <BrowserRouter>

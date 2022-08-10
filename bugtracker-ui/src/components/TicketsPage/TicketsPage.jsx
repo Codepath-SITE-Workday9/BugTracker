@@ -32,7 +32,11 @@ export default function TicketsPage() {
 
   // tickets to show based on selected project - initially set to all tickets
   const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
-  if (tickets.length > 0 && selectedProjectTickets.length == 0) {
+  if (
+    tickets.length > 0 &&
+    selectedProjectTickets.length == 0 &&
+    selectedProject == -1
+  ) {
     setSelectedProjectTickets(tickets);
   }
 
@@ -77,14 +81,11 @@ export default function TicketsPage() {
 
   // function to select the tickets for a specifc project given the project's id
   // if the projId < 0, that means All Projects has been selected -> set tickets to all tickets
-  const fetchProjectTickets = async (projId) => {
+  const fetchProjectTickets = (projId) => {
     if (projId < 0) {
       setSelectedProjectTickets(tickets);
     } else {
-      const { data, error } = await apiClient.listAllProjectTickets(projId);
-      if (data) {
-        setSelectedProjectTickets(data.ticketList);
-      }
+      setSelectedProjectTickets(tickets.filter((t) => t.project_id == projId));
     }
   };
 

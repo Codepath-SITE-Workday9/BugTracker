@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import TicketCard from "../TicketCard/TicketCard";
 import { useTicketContext } from "../../../contexts/ticket";
 import { useProjectContext } from "../../../contexts/project";
-import apiClient from "../../../services/apiClient";
+
 // overview of all Tickets a user is apart of
 export default function TicketsOverview({
-  tickets,
   handleOnTicketClick,
   isLoading,
   selectedProject,
-  setSelectedProject,
   handleOnProjectChange,
   selectedProjectTickets,
 }) {
@@ -18,9 +16,9 @@ export default function TicketsOverview({
   const [searchTerm, setSearchTerm] = useState("");
   // modal variable to display modal
   const { setTicketModal } = useTicketContext();
+
   // all projects a user is apart of
   const { projects } = useProjectContext();
-
   // the projects dropown categories
   const projectCategories = [{ name: "All projects", id: -1 }];
 
@@ -90,6 +88,13 @@ export default function TicketsOverview({
         handleOnProjectChange={handleOnProjectChange}
         selectedProject={selectedProject}
         projectCategories={projectCategories}
+        // selectedPriority={selectedPriority}
+        // setSelectedPriority={setSelectedPriority}
+        // selectedCategory={selectedCategory}
+        // setSelectedCategory={setSelectedCategory}
+        // selectedStatus={selectedStatus}
+        // setSelectedStatus={setSelectedStatus}
+        // handleOnStatusChange={handleOnStatusChange}
       />
       {/* container that will hold ticket cards */}
       {isLoading ? (
@@ -141,7 +146,18 @@ export function SearchForTickets({
   );
 }
 
-export function Filters({}) {
+export function Filters({
+  handleOnProjectChange,
+  selectedProject,
+  projectCategories,
+  selectedPriority,
+  setSelectedPriority,
+  selectedCategory,
+  setSelectedCategory,
+  selectedStatus,
+  setSelectedStatus,
+  handleOnStatusChange,
+}) {
   const priorityCategories = [
     "All priorities",
     "Low",
@@ -167,8 +183,8 @@ export function Filters({}) {
             <select
               name="selectList"
               id="selectList"
-              // onChange={handleOnProjectChange}
-              // value={selectedProject}
+              onChange={(evt) => setSelectedPriority(evt.target.value)}
+              value={selectedPriority}
             >
               {priorityCategories?.map((c) => (
                 <option value={c} key={c.id}>
@@ -179,14 +195,14 @@ export function Filters({}) {
           </div>
         </div>
 
-        {/* sort by component to sort the ticket results */}
+        {/* sort by component to sort the ticket results by STATUS */}
         <div className="sort-by">
           <div className="sort-by-dropdown">
             <select
               name="selectList"
               id="selectList"
-              // onChange={handleOnProjectChange}
-              // value={selectedProject}
+              onChange={(evt) => setSelectedStatus(evt.target.value)}
+              value={selectedStatus}
             >
               {statusCategories?.map((c) => (
                 <option value={c} key={c.id}>
@@ -203,8 +219,8 @@ export function Filters({}) {
             <select
               name="selectList"
               id="selectList"
-              // onChange={handleOnProjectChange}
-              // value={selectedProject}
+              onChange={(evt) => setSelectedCategory(evt.target.value)}
+              value={selectedCategory}
             >
               {categoryCategories?.map((c) => (
                 <option value={c} key={c.id}>

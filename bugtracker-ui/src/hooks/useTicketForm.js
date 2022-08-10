@@ -90,6 +90,7 @@ export const useTicketForm = () => {
               setEditing(false);
               setTicketToEdit({});
               fetchProjects();
+              fetchAllTickets();
             } else if (errors) {
               setErrors("Something went wrong! Try again.");
             } 

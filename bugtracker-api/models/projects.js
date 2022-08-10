@@ -139,8 +139,8 @@ class Projects
                        pro.created_at,
                        pro.creator_id
                 FROM projects AS pro
-                    LEFT JOIN teams ON teams.id = pro.id
-                WHERE pro.id = $1 AND ((pro.creator_id = $2) OR $1 = any(teams.members))
+                    LEFT JOIN teams ON teams.id = any(pro.teams)
+                WHERE pro.id = $1 AND ((pro.creator_id = $2) OR  $2 = any(SELECT UNNEST(teams.members) FROM teams WHERE teams.id = any(pro.teams)))
             `, [projectId, userId])
         
         //If the project id could not found, the user is not a member or creator of the project,

@@ -12,8 +12,8 @@ Mentors Names: **Smitha Sandasani, Jason van Raamsdonk, Victor Wei**
 
 Project Code Repository Links
 
-- [https://trackermax-api.herokuapp.com]()
-- [https://trackermax.surge.sh]()
+- [https://github.com/Codepath-SITE-Workday9/BugTracker/tree/main/bugtracker-api]()
+- [https://github.com/Codepath-SITE-Workday9/BugTracker/tree/main/bugtracker-ui]()
 
 ## Project Overview
 

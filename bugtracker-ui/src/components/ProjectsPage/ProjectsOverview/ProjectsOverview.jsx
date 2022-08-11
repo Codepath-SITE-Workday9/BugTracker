@@ -51,7 +51,7 @@ export default function ProjectsOverview({
           onClick={() => setProjectModal(true)}
           title="Create New Project"
         >
-          Create New Project
+          + New Project
         </button>
       </div>
 

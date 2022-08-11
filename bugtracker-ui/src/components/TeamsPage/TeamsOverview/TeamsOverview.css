@@ -6,6 +6,27 @@
     box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
 }
 
+/* --------------- header section ---------------- */
+
+.teams-overview .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.teams-overview .header button{
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    width: 120px;
+}
+.teams-overview .new-btn{
+background-color: var(--button-blue);
+    padding: 15px;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 10px;
+    color: white;
+}
 /* -------- search box section ------------ */
 
 .teams-overview .team-search{ 
@@ -14,7 +35,6 @@
     width: 100%;
     align-items: center;
 }
-
 .teams-overview .team-search .search-input{
     width: 100%;
     padding: 10px;

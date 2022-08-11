@@ -5,9 +5,9 @@ export default function ProjectCard({ project, handleOnClick }) {
       <div className="project-card-title">
         <p>{project?.name}</p>
       </div>
-      <div className="project-card-description">
+      {/* <div className="project-card-description">
         <p>{project?.description}</p>
-      </div>
+      </div> */}
       <div className="project-card-tickets">
         <p> Open tickets: {project?.tickets.length}</p>
       </div>

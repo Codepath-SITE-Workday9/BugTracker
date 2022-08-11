@@ -4,6 +4,7 @@
 */
 
 export default function renderCharts(dashboardStatistics) { 
+  console.log("Rendering charts", dashboardStatistics)
     // Get data of the status table, if it does not exist it defaults to 0
     let statusData = [0, 0, 0, 0,]
     dashboardStatistics?.data?.statistics?.perStatus?.map((statusType) => {

@@ -17,8 +17,9 @@ export const StatisticsContextProvider = ({ children }) => {
     setIsLoading(true);
     let stats = await apiClient.getAllStatistics();
     setDashboardStatistics(stats);
-    renderCharts(stats, rendered, setRendered);
+    // renderCharts(stats);
     setIsLoading(false);
+    setRendered(true);
   };
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export const StatisticsContextProvider = ({ children }) => {
     fetchDashboardStatistics,
     clearStatisticsContext,
     isLoading,
+    rendered,
   };
 
   return (

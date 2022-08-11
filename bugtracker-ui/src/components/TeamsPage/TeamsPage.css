@@ -1,6 +1,7 @@
 .teams-page{
     margin: 10px 10px 0px 100px;
     padding: 20px;
+    margin-top: 80px;
     /* height: 100vh; */
 }
 .teams-page.background, .teams-page.background-blur{

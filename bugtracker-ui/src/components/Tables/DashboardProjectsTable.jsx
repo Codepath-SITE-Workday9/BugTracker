@@ -1,74 +1,27 @@
-import { red } from "@material-ui/core/colors";
 import MaterialTable from "material-table";
-import { MTableToolbar } from "material-table";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProjectContext } from "../../contexts/project";
-import { useTicketContext } from "../../contexts/ticket";
 import "./TableProperties.css";
-
-const handleOnRowClick = (rowData) => {};
-
-
-
-const sampleData = [
-  {
-    id: 1,
-    project_name: "Bug tracker",
-    description: "A bug tracking software",
-    collaborators: "Doug Case, Moe Elias",
-  },
-  {
-    id: 2,
-    project_name: "Flixster",
-    description: "A movie finder app",
-    collaborators: "Doug Case, Moe Elias",
-  },
-  {
-    id: 3,
-    project_name: "Student Store",
-    description: "A simple student store app",
-    collaborators: "Doug Case, Moe Elias",
-  },
-  {
-    id: 4,
-    project_name: "Lifetracker",
-    description: "A life tracking app",
-    collaborators: "Doug Case, Moe Elias",
-  },
-];
-
-
-
 
 const columns = [
   { title: "Id", field: "id", hidden: true },
   {
     title: "Project Name",
-    field:
-      "name" /*, render: row => <div onClick={() => console.log(row.id)}>{row.name}</div> */,
+    field: "name",
     headerStyle: {
       color: 700,
     },
   },
-  { title: "Description", field: "description" }
-  //{ title: "Assigned Teams", field: "collaborators" },
+  { title: "Description", field: "description" },
 ];
 
-export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProjectsModal}) => {
-  const { projects, setProjects, fetchProjects, projectModal, setProjectModal, currentProject, setCurrentProject, isLoading } = useProjectContext()
-  const {ticketModal, selectedProject, setSelectedProject} = useTicketContext()
-  const navigate = useNavigate()
+export const DashboardProjectsTable = () => {
+  const { projects, setProjectModal, setCurrentProject } = useProjectContext();
+  const navigate = useNavigate();
 
   function onRowClick(data) {
-    //console.log("data", data)
-    //console.log("data.id", data.id)
-    navigate('/projects')
-    setSelectedProject(data.id)
-    setCurrentProject(data.id)
-    //console.log("selectedProject:", selectedProject)
-    //console.log("currentProject:", currentProject)
-    navigate('/projects')
+    setCurrentProject(data);
+    navigate("/projects");
   }
 
   return (
@@ -79,19 +32,21 @@ export const DashboardProjectsTable = ({dashboardProjectsModal, setDashboardProj
         data={projects}
         actions={[
           {
-            icon:()=><button className="tableCreateButton">Create New Project</button>,
-            tooltip:"Create a new project",
-            onClick: ()=> setProjectModal(true),
-            isFreeAction:true,
-            position: "toolbar"
-          }
+            icon: () => (
+              <button className="tableCreateButton">Create New Project</button>
+            ),
+            tooltip: "Create a new project",
+            onClick: () => setProjectModal(true),
+            isFreeAction: true,
+            position: "toolbar",
+          },
         ]}
         options={
           [
             // headerStyle: {}
           ]
         }
-        onRowClick={(handleOnRowClick, rowData) => onRowClick(rowData)}
+        onRowClick={(rowData) => onRowClick(rowData)}
       />
     </div>
   );

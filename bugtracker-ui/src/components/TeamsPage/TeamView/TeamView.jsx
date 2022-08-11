@@ -11,7 +11,6 @@ export default function TeamView({ teamsAvailable, isLoading }) {
 
   const [email, setEmail] = useState();
   const [error, setError] = useState("");
-  const [currentTeamMembers, setCurrentTeamMembers] = useState([])
 
   // handler to update the email to add
   const handleOnEmailChange = (event) => {
@@ -29,7 +28,7 @@ export default function TeamView({ teamsAvailable, isLoading }) {
     if (data) {
       setError("");
       setEmail("");
-      setCurrentTeam(currentTeam) // Set current team to itself to try and reset the page
+      setCurrentTeam(currentTeam); // Set current team to itself to try and reset the page
     } else if (error) {
       setError("No developer found with that email. Please try again!");
     }
@@ -52,7 +51,15 @@ export default function TeamView({ teamsAvailable, isLoading }) {
               <>
                 {/* an input field to add a developer to the team, and all developers listed in table form */}
                 <div className="team-developers">
-                  <AddDeveloper currentTeam={currentTeam} email={email} setEmail={setEmail} error={error} setError={setError} handleOnEmailChange={handleOnEmailChange} handleOnAddNewMember={handleOnAddNewMember} />
+                  <AddDeveloper
+                    currentTeam={currentTeam}
+                    email={email}
+                    setEmail={setEmail}
+                    error={error}
+                    setError={setError}
+                    handleOnEmailChange={handleOnEmailChange}
+                    handleOnAddNewMember={handleOnAddNewMember}
+                  />
                   <div className="table">
                     <TeamsPageDevelopersTable
                       currentTeam={currentTeam}
@@ -84,31 +91,12 @@ export default function TeamView({ teamsAvailable, isLoading }) {
   );
 }
 
-export function AddDeveloper({ currentTeam, email, setEmail, error, setError, handleOnEmailChange, handleOnAddNewMember }) {
-  // const [email, setEmail] = useState();
-  // const [error, setError] = useState("");
-
-  // // handler to update the email to add
-  // const handleOnEmailChange = (event) => {
-  //   setEmail(event.target.value);
-  // };
-
-  // // handler function to add a new member to an existsing team
-  // const handleOnAddNewMember = async () => {
-  //   const { data, error } = await apiClient.addMemberToTeam({
-  //     teamId: currentTeam.id,
-  //     memberToAdd: email,
-  //   });
-
-  //   // if request to add a new member was successful, clear errors and clear the email, else output the error
-  //   if (data) {
-  //     setError("");
-  //     setEmail("");
-  //   } else if (error) {
-  //     setError("No developer found with that email. Please try again!");
-  //   }
-  // };
-
+export function AddDeveloper({
+  email,
+  error,
+  handleOnEmailChange,
+  handleOnAddNewMember,
+}) {
   return (
     <>
       {/* search input to add a develoepr to team */}

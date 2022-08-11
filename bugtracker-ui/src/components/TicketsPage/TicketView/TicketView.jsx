@@ -2,8 +2,6 @@ import "./TicketView.css";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
 import { useTicketContext } from "../../../contexts/ticket";
-// import { TicketPageDevelopersTable } from "../../Tables/TicketPageDevelopersTable";
-// import { TicketPageProjectsTable } from "../../Tables/TicketPageProjectsTable";
 
 //Overview of a specific ticket
 export default function TicketView({
@@ -121,6 +119,12 @@ export default function TicketView({
                       <label className="status"> Status: </label>
                       <span className={`${currentTicket.status}`}>
                         {currentTicket.status}
+                      </span>
+                    </div>
+                    <div className="ticket-complexity">
+                      <label className="complexity"> Complexity points: </label>
+                      <span className={`${currentTicket.complexity}`}>
+                        {currentTicket.complexity}
                       </span>
                     </div>
                     <div className="ticket-developers">

@@ -18,6 +18,8 @@ export const TicketContextProvider = ({ children }) => {
   const [selectedStatus, setSelectedStatus] = useState("All statuses");
   const [selectedCategory, setSelectedCategory] = useState("All categories");
   const [myTicketsOnly, setMyTicketsOnly] = useState(true);
+  const [showResolvedTickets, setShowResolvedTickets] = useState(false);
+
 
   //the selected project from the dropdown menu - will be the id of the project (-1 if all projects is selected)
   const [selectedProject, setSelectedProject] = useState(-1);
@@ -25,8 +27,7 @@ export const TicketContextProvider = ({ children }) => {
   // tickets to show based on selected project - initially set to all tickets
   const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
 
-  const { projects, fetchProjects } = useProjectContext();
-
+  const { fetchProjects } = useProjectContext();
   const { user } = useAuthContext();
 
   const fetchAllTickets = async () => {
@@ -42,18 +43,42 @@ export const TicketContextProvider = ({ children }) => {
       ) {
         setCurrentTicket(data.ticketList[0]);
         fetchProjects();
-        if (projects.length > 0) {
-          setSelectedProject(projects[0].id);
-        }
       }
 
-      if (selectedProject < 0) {
-        setSelectedProjectTickets(data.ticketList);
-      } else {
-        setSelectedProjectTickets(
-          data.ticketList.filter((t) => t.project_id == selectedProject)
-        );
-      }
+      const filterMethods = [
+        // filter by project
+        (t) => t.project_id == selectedProject || selectedProject == -1,
+        // filter by category
+        (t) =>
+          t.category.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+          selectedCategory.includes("All"),
+        //filter by priority
+        (t) =>
+          t.priority.toLowerCase().includes(selectedPriority.toLowerCase()) ||
+          selectedPriority.includes("All"),
+        // filter by status
+        (t) =>
+          t.status.toLowerCase().includes(selectedStatus.toLowerCase()) ||
+          selectedStatus.includes("All"),
+        // filter based on if myFilterOnly is checked or not
+        (t) => (myTicketsOnly ? t.creator_id == user.id : true),
+        // filter based on if showResolvedTickets is checked or not
+        (t) =>
+          showResolvedTickets
+            ? t.status.toLowerCase().includes("resolved")
+            : !t.status.toLowerCase().includes("resolved"),
+      ];
+
+      const filteredArray = data.ticketList.filter((t) => {
+        for (let i = 0; i < filterMethods.length; i++) {
+          if (!filterMethods[i](t)) {
+            return false;
+          }
+        }
+        return true;
+      });
+      setSelectedProjectTickets(filteredArray);
+
     }
     if (error) {
       setError(error);
@@ -66,65 +91,28 @@ export const TicketContextProvider = ({ children }) => {
     fetchAllTickets();
   }, []);
 
+  // useEffect to fetch tickets whenever a filter changes
   useEffect(() => {
     fetchAllTickets();
-    filterByCategory();
-    filterByPriority();
-    filterByStatus();
-    showMyTicketsOnly();
   }, [
     selectedCategory,
     selectedStatus,
     selectedPriority,
     selectedProject,
     myTicketsOnly,
+    showResolvedTickets,
+
   ]);
 
   // function to select the tickets for a specifc project given the project's id
   // if the projId < 0, that means All Projects has been selected -> set tickets to all tickets
   const fetchProjectTickets = () => {
     if (selectedProject < 0) {
-      setSelectedProjectTickets(tickets);
+      setSelectedProjectTickets();
     } else {
       setSelectedProjectTickets(
         tickets.filter((t) => t.project_id == selectedProject)
       );
-    }
-  };
-
-  const filterByCategory = () => {
-    if (!selectedCategory.includes("All")) {
-      const results = selectedProjectTickets?.filter((t) =>
-        t.category.toLowerCase().includes(selectedCategory.toLowerCase())
-      );
-      setSelectedProjectTickets(results);
-    }
-  };
-
-  const filterByStatus = () => {
-    if (!selectedStatus.includes("All")) {
-      const results = selectedProjectTickets?.filter((t) =>
-        t.status.toLowerCase().includes(selectedStatus.toLowerCase())
-      );
-      setSelectedProjectTickets(results);
-    }
-  };
-
-  const filterByPriority = () => {
-    if (!selectedPriority.includes("All")) {
-      const results = selectedProjectTickets?.filter((t) =>
-        t.priority.toLowerCase().includes(selectedPriority.toLowerCase())
-      );
-      setSelectedProjectTickets(results);
-    }
-  };
-
-  const showMyTicketsOnly = () => {
-    if (myTicketsOnly) {
-      const results = selectedProjectTickets?.filter(
-        (t) => t.creator_id == user.id
-      );
-      setSelectedProjectTickets(results);
     }
   };
 
@@ -137,6 +125,12 @@ export const TicketContextProvider = ({ children }) => {
     setEditing(false);
     setIsLoading(false);
     setError("");
+    setSelectedStatus("All statuses");
+    setSelectedCategory("All categories");
+    setSelectedPriority("All priorities");
+    setMyTicketsOnly(true);
+    setShowResolvedTickets(false);
+    setSelectedProject(-1);
   };
 
   const ticketValue = {
@@ -168,6 +162,9 @@ export const TicketContextProvider = ({ children }) => {
     fetchProjectTickets,
     myTicketsOnly,
     setMyTicketsOnly,
+    showResolvedTickets,
+    setShowResolvedTickets,
+
   };
 
   return (

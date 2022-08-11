@@ -29,9 +29,9 @@ export default function ProjectsPage() {
   const [availableMembers, setAvailableMembers] = useState([]);
 
   // handler function to change which projects's details should be displayed
-  const handleOnProjectClick = (projectId) => {
-    setCurrentProject(projectId);
-    setSelectedProject(projectId.id);
+  const handleOnProjectClick = (projectObject) => {
+    setCurrentProject(projectObject);
+    setSelectedProject(projectObject.id);
   };
 
   // handler function to set the selected project when a user selects a project from the dropdown
@@ -74,7 +74,7 @@ export default function ProjectsPage() {
       {ticketModal && (
         <TicketModal
           availableMembers={availableMembers}
-          setCurrentProject={setSelectedProject}
+          setSelectedProject={setSelectedProject}
           currentProject={selectedProject}
           handleOnProjectChange={handleOnProjectChange}
         />

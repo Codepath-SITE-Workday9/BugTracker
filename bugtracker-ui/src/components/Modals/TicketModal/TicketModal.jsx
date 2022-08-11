@@ -87,7 +87,7 @@ export default function TicketModal({
       setDescription("");
       setDevelopersToAdd([user.email]);
       setComplexity("1");
-      setStatus("unassigned");
+      setStatus("Not started");
       setPriority("low");
       setCategory("bug");
       // if the current project is "all projects", set selectedProject to 1st in projects list,
@@ -292,8 +292,12 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
 
   // focused will be true if the developer search input field is clicked on, and false when a user clicks off of the input field
   const [focused, setFocused] = useState(false);
-  const onFocus = () => {setFocused(true)};
-  const close = () => {setFocused(false)}
+  const onFocus = () => {
+    setFocused(true);
+  };
+  const close = () => {
+    setFocused(false);
+  };
 
   // handler function to update developerSearch and to update developersToShow whenever the input field value changes
   const handleOnChange = (event) => {
@@ -315,7 +319,7 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
     setDeveloperSearch("");
     setFocused(false);
   };
-  
+
   return (
     <div className="tickets-form-search">
       <div className="developers-area">
@@ -341,14 +345,15 @@ export function AddDevelopers({ developers, setDevelopersToAdd }) {
           {/* conditionally display dropdown if the input field has been clicked on/user has searched for  developer*/}
           {developerSearch || focused ? (
             <>
-              <div className="drop-down-search-box" >
+              <div className="drop-down-search-box">
                 <AddDevelopersDropdown
                   developers={developersToShow}
                   onClick={handleOnDeveloperClick}
                   close={close}
                 />
               </div>
-            </>) : (
+            </>
+          ) : (
             ""
           )}
         </div>
@@ -465,7 +470,6 @@ export function AddStatus({ setStatus, status }) {
         onChange={handleOnChange}
         value={status}
       >
-        <option value="unassigned">Unassigned</option>
         <option value="not started">Not Started</option>
         <option value="in progress">In Progress</option>
         <option value="submitted">Submitted</option>

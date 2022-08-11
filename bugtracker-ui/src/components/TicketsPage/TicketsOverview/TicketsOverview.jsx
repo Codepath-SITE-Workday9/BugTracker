@@ -1,5 +1,5 @@
 import "./TicketsOverview.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TicketCard from "../TicketCard/TicketCard";
 import { useTicketContext } from "../../../contexts/ticket";
 import { useProjectContext } from "../../../contexts/project";
@@ -10,14 +10,12 @@ export default function TicketsOverview({
   isLoading,
   selectedProject,
   handleOnProjectChange,
-  // selectedProjectTickets,
 }) {
   // ticket search term
   const [searchTerm, setSearchTerm] = useState("");
   // modal variable to display modal
   const {
     setTicketModal,
-    fetchProjectTickets,
     selectedProjectTickets,
     selectedPriority,
     setSelectedPriority,
@@ -27,6 +25,8 @@ export default function TicketsOverview({
     setSelectedStatus,
     myTicketsOnly,
     setMyTicketsOnly,
+    showResolvedTickets,
+    setShowResolvedTickets,
   } = useTicketContext();
 
   // all projects a user is apart of
@@ -57,10 +57,6 @@ export default function TicketsOverview({
       t.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
-
-  useEffect(() => {
-    fetchProjectTickets();
-  }, [selectedProject]);
 
   return (
     <div className="tickets-overview">
@@ -116,10 +112,22 @@ export default function TicketsOverview({
           <input
             type="checkbox"
             name="my-tickets-only"
-            value={myTicketsOnly}
+            checked={myTicketsOnly}
             onChange={() => setMyTicketsOnly(!myTicketsOnly)}
           />
           Show my tickets only
+        </label>
+      </div>
+
+      <div className="resolved-tickets-only">
+        <label htmlFor="resolved-tickets-only">
+          <input
+            type="checkbox"
+            name="resolved-tickets-only"
+            checked={showResolvedTickets}
+            onChange={() => setShowResolvedTickets(!showResolvedTickets)}
+          />
+          Show resolved tickets only
         </label>
       </div>
 
@@ -174,16 +182,12 @@ export function SearchForTickets({
 }
 
 export function Filters({
-  handleOnProjectChange,
-  selectedProject,
-  projectCategories,
   selectedPriority,
   setSelectedPriority,
   selectedCategory,
   setSelectedCategory,
   selectedStatus,
   setSelectedStatus,
-  handleOnStatusChange,
 }) {
   const priorityCategories = [
     "All priorities",
@@ -194,7 +198,6 @@ export function Filters({
   ];
   const statusCategories = [
     "All statuses",
-    "Unassigned",
     "Not Started",
     "In Progress",
     "Resolved",

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-// import apiClient from "../services/apiClient";
 
 const OpenContext = createContext(null);
 

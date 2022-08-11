@@ -18,7 +18,7 @@ export default function Sidebar() {
     >
       <SideBarIcons />
     </div>
-  )
+  );
 }
 
 export function SideBarIcons() {
@@ -53,12 +53,10 @@ export function SideBarIcons() {
             <span className="icon-text"> Dashboard </span>
           </div>
         </Link>
-        <Link to="/tickets">
+        <Link to="/projects">
           <div className="sidebar-icon">
-            <span className="material-symbols-outlined">
-              confirmation_number
-            </span>
-            <span className="icon-text"> Tickets </span>
+            <span className="material-symbols-outlined">work</span>
+            <span className="icon-text"> Projects</span>
           </div>
         </Link>
         <Link to="/teams">
@@ -67,18 +65,14 @@ export function SideBarIcons() {
             <span className="icon-text"> Teams </span>
           </div>
         </Link>
-        <Link to="/projects">
+        <Link to="/tickets">
           <div className="sidebar-icon">
-            <span className="material-symbols-outlined">work</span>
-            <span className="icon-text"> Projects</span>
+            <span className="material-symbols-outlined">
+              confirmation_number
+            </span>
+            <span className="icon-text"> Tickets </span>
           </div>
         </Link>
-        {/*<Link to="/statistics">
-          <div className="sidebar-icon">
-            <span className="material-symbols-outlined">query_stats</span>
-            <span className="icon-text"> Statistics </span>
-          </div>
-  </Link> */}
       </div>
       <div className="bottom-sidebar">
         <Link to="/userprofile">
@@ -101,5 +95,5 @@ export function SideBarIcons() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

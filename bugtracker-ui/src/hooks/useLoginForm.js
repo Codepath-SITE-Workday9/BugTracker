@@ -3,6 +3,8 @@ import { useState } from "react";
 import apiClient from "../services/apiClient"
 import { useTeamContext } from "../contexts/team";
 import { useProjectContext } from "../contexts/project";
+import { useStatisticsContext } from "../contexts/statistics";
+import { useTicketContext } from "../contexts/ticket";
 
 
 export const useLoginForm = ({user, setUser}) => {
@@ -10,6 +12,8 @@ export const useLoginForm = ({user, setUser}) => {
   const { fetchTeams } = useTeamContext();
   const { fetchProjects } = useProjectContext();
   const [isLoading, setIsLoading] = useState(false);
+  const {fetchAllTickets} = useTicketContext();
+  const {fetchDashboardStatistics} = useStatisticsContext();
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
     email: "",
@@ -41,6 +45,8 @@ export const useLoginForm = ({user, setUser}) => {
         apiClient.setToken(data.token);
         fetchTeams();
         fetchProjects();
+        fetchDashboardStatistics();
+        fetchAllTickets();
       }
       if (error) {
         setErrors((e) => ({ ...e, form: error }));

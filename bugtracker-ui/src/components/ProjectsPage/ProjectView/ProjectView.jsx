@@ -6,15 +6,21 @@ import apiClient from "../../../services/apiClient";
 import { useEffect, useState } from "react";
 
 export default function ProjectView({ projectsAvailable }) {
-  const { isLoading, setProjectModal, currentProject, projectToEdit, setProjectToEdit, setEditing, editing} = useProjectContext();
-
+  const {
+    isLoading,
+    setProjectModal,
+    currentProject,
+    projectToEdit,
+    setProjectToEdit,
+    setEditing,
+    editing,
+  } = useProjectContext();
 
   const handleOnEditClick = () => {
-     setEditing(true)
-     setProjectToEdit(currentProject)
-     setProjectModal(true)
-  }
-
+    setEditing(true);
+    setProjectToEdit(currentProject);
+    setProjectModal(true);
+  };
 
   return (
     <div className="project-view">
@@ -23,8 +29,14 @@ export default function ProjectView({ projectsAvailable }) {
           <div className="project-header">
             {/* conditionally display the current project's name, if any projects are available */}
             <h1> {projectsAvailable && currentProject?.name} </h1>
-            <button className="edit-btn" onClick={handleOnEditClick} title="Edit This Project">
-                <span className="material-symbols-outlined" id="edit-icon">edit_document</span>
+            <button
+              className="edit-btn"
+              onClick={handleOnEditClick}
+              title="Edit This Project"
+            >
+              <span className="material-symbols-outlined" id="edit-icon">
+                edit_document
+              </span>
             </button>
           </div>
           {/* conditionally display the project's information, if there are no projects available,   display a "No projects created yet" message */}

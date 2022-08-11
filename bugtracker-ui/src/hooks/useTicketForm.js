@@ -13,12 +13,11 @@ export const useTicketForm = () => {
     const [description, setDescription] = useState("");
     const [developersToAdd, setDevelopersToAdd] = useState([user.email]);
     const [complexity, setComplexity] = useState("1");
-    const [status, setStatus] = useState("unassigned");
+    const [status, setStatus] = useState("Not started");
     const [priority, setPriority] = useState("low");
     const [category, setCategory] = useState("bug");
     const [errors, setErrors] = useState("");
     const [ticketProject, setTicketProject] = useState({});
-    // const [selectedProject, setSelectedProject] = useState()
     
     const {setCurrentTicket, setTicketModal, setEditing, setTicketToEdit, editing, ticketToEdit, selectedProject,setSelectedProject,fetchAllTickets} = useTicketContext();
     
@@ -45,12 +44,11 @@ export const useTicketForm = () => {
             });
             // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
             if (data) {
-              // TODO: popup message "team successfully created"
               fetchAllTickets()
               setTitle("");
               setDescription("");
               setDevelopersToAdd([]);
-              setStatus("unassigned");
+              setStatus("Not started");
               setPriority("low");
               setComplexity("1");
               setCategory("bug");
@@ -76,12 +74,10 @@ export const useTicketForm = () => {
             })
              // if api request to create a new ticket was succesful: fetchTickets to get updated list of tickets, clear all input fields, and setTicketModal to false to exit modal
              if (data) {
-              // TODO: popup message "team successfully created"
-            //   fetchTickets()
               setTitle("");
               setDescription("");
               setDevelopersToAdd([]);
-              setStatus("unassigned");
+              setStatus("Not started");
               setPriority("low");
               setComplexity("1");
               setCategory("bug");

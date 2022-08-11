@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import apiClient from "../services/apiClient";
+import renderCharts from "../services/charts";
 
 const StatisticsContext = createContext(null);
 
@@ -10,21 +11,19 @@ export const StatisticsContextProvider = ({ children }) => {
     useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [rendered, setRendered] = useState(false);
 
   const fetchDashboardStatistics = async () => {
-    //setIsLoading(true);
+    setIsLoading(true);
     let stats = await apiClient.getAllStatistics();
     setDashboardStatistics(stats);
-    //setIsLoading(false);
+    renderCharts(stats, rendered, setRendered);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchDashboardStatistics();
-  }, []); // setTickets dependency removed
-
-  // window.onload = function () {
-  //   fetchDashboardStatistics()
-  // }
+  }, []);
 
   const clearStatisticsContext = () => {
     setDashboardStatistics({});
@@ -40,6 +39,7 @@ export const StatisticsContextProvider = ({ children }) => {
     setDashboardStatisticsRendered,
     fetchDashboardStatistics,
     clearStatisticsContext,
+    isLoading,
   };
 
   return (

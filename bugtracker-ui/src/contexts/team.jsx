@@ -12,7 +12,6 @@ export const TeamContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [teamsTableData, setTeamsTableData] = useState([]);
   const [ids, setIds] = useState([]);
-  //const [tableData, setTableData] = useState([])
 
   const clearTeams = () => {
     setTeams([]);
@@ -50,7 +49,6 @@ export const TeamContextProvider = ({ children }) => {
         memberNames.push(member.full_name);
       });
 
-      //tableData.push({id: team.id, name: team.name, members: "testMembers"/*memberNames.join(", ")*/ }
       await setTeamsTableData((prev) => [
         ...prev,
         { id: team.id, name: team.name, members: memberNames.join(", ") },

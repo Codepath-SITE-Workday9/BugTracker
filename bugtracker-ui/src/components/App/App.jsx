@@ -1,3 +1,4 @@
+import "./App.css";
 import * as React from "react";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
@@ -12,21 +13,17 @@ import Settings from "../Settings/Settings";
 import Dashboard from "../Dashboard/Dashboard";
 import ProjectsPage from "../ProjectsPage/ProjectsPage";
 import { AuthContextProvider, useAuthContext } from "../../contexts/auth";
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoUserNavbar from "../LandingPage/NoUserNavbar/NoUserNavbar";
 import { OpenContextProvider } from "../../contexts/open";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import apiClient from "../../services/apiClient";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NotFound from "../NotFound/NotFound";
 import { ProjectContextProvider } from "../../contexts/project";
-import { TeamContextProvider, useTeamContext } from "../../contexts/team";
+import { TeamContextProvider } from "../../contexts/team";
 import { TicketContextProvider } from "../../contexts/ticket";
-import {
-  StatisticsContextProvider,
-  useStatisticsContext,
-} from "../../contexts/statistics";
+import { StatisticsContextProvider } from "../../contexts/statistics";
 
 export default function AppContainer() {
   return (
@@ -49,40 +46,16 @@ export default function AppContainer() {
 export function App() {
   const { user, setUser, setInitialized, setIsProcessing, setError } =
     useAuthContext();
-  // const { teams, fetchTeams } = useTeamContext();
-  // const { dashboardStatistics, fetchDashboardStatistics } = useStatisticsContext()
-
-  //const [dashboardStatistics, setDashboardStatistics] = useState({})
-
-  // const fetchDashboardStatistics = async () => {
-  //   //setIsLoading(true);
-  //   let stats = await apiClient.getAllStatistics()
-  //   console.log("fetchDashboardStatistics stats:", stats)
-  //   setDashboardStatistics(stats)
-  //   console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
-  //   //setIsLoading(false);
-  // };
-
-  // async function fetchDashboardStatistics() {
-  //    let stats = await apiClient.getAllStatistics()
-  //    console.log("fetchDashboardStatistics stats:", stats)
-  //    setDashboardStatistics(stats)
-  //   //  console.log("fetchDashboardStatistics dashboardStatistics:", dashboardStatistics)
-
-  // }
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken();
       if (data) {
         setUser(data.user);
-        // fetchTeams();
-        // fetchDashboardStatistics();
       }
       setInitialized(true);
       setIsProcessing(false);
     };
-    //console.log("App dashboardStatistics:", dashboardStatistics)
     const token = localStorage.getItem("bugtracker_token");
 
     if (token) {

@@ -12,12 +12,12 @@ Mentors Names: **Smitha Sandasani, Jason van Raamsdonk, Victor Wei**
 
 Project Code Repository Links
 
-* [Frontend Repo Link]()
-* [Backend Repo Link]()
+- [https://trackermax-api.herokuapp.com]()
+- [https://trackermax.surge.sh]()
 
 ## Project Overview
 
-Add a quick summary of what your project theme and objectives are. 
+Add a quick summary of what your project theme and objectives are.
 
 Deployment Website: **Add Link to Deployed Project**
 

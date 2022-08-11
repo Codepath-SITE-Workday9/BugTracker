@@ -39,8 +39,8 @@
     transition: 0.5s;
 }
 
-.navbar .navbar-content .navbar-right {
-  
+.navbar .material-symbols-outlined {
+    color: #a9b7d0;
 }
 
 .navbar .navbar-content .navbar-right span:hover {

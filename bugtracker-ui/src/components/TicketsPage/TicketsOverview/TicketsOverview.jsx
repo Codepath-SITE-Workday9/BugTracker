@@ -118,6 +118,7 @@ export default function TicketsOverview({
           Show my tickets only
         </label>
       </div>
+
       <div className="resolved-tickets-only">
         <label htmlFor="resolved-tickets-only">
           <input
@@ -129,6 +130,7 @@ export default function TicketsOverview({
           Show resolved tickets only
         </label>
       </div>
+
       {/* container that will hold ticket cards */}
       {isLoading ? (
         <div>Loding ...</div>

@@ -20,6 +20,7 @@ export const TicketContextProvider = ({ children }) => {
   const [myTicketsOnly, setMyTicketsOnly] = useState(true);
   const [showResolvedTickets, setShowResolvedTickets] = useState(false);
 
+
   //the selected project from the dropdown menu - will be the id of the project (-1 if all projects is selected)
   const [selectedProject, setSelectedProject] = useState(-1);
 
@@ -27,7 +28,6 @@ export const TicketContextProvider = ({ children }) => {
   const [selectedProjectTickets, setSelectedProjectTickets] = useState(tickets);
 
   const { fetchProjects } = useProjectContext();
-
   const { user } = useAuthContext();
 
   const fetchAllTickets = async () => {
@@ -78,6 +78,7 @@ export const TicketContextProvider = ({ children }) => {
         return true;
       });
       setSelectedProjectTickets(filteredArray);
+
     }
     if (error) {
       setError(error);
@@ -100,6 +101,7 @@ export const TicketContextProvider = ({ children }) => {
     selectedProject,
     myTicketsOnly,
     showResolvedTickets,
+
   ]);
 
   // function to select the tickets for a specifc project given the project's id
@@ -162,6 +164,7 @@ export const TicketContextProvider = ({ children }) => {
     setMyTicketsOnly,
     showResolvedTickets,
     setShowResolvedTickets,
+
   };
 
   return (

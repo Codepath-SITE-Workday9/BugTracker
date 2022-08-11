@@ -5,7 +5,7 @@ import StatisticsGif from "../../Gifs/StatisticsGif.gif"
 import TicketsGif from "../../Gifs/TicketsGif.gif"
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
-import {useState} from "react";
+import {useState, useRef} from "react";
 export default function LandingPage() {
 
   return (

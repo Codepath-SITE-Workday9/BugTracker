@@ -59,7 +59,7 @@ export default function TicketView({
                 <div className="ticket-title">
                   <h1> {ticketsAvailable && currentTicket?.title} </h1>
                   <button
-                    className="new-btn"
+                    className="edit-btn"
                     onClick={() => handleOnEditClick()}
                     title="Edit this ticket"
                   >
@@ -133,7 +133,7 @@ export default function TicketView({
                         Assigned Developers:{" "}
                       </label>
                       {assignedDevs.map((d) => (
-                        <p className="developers">{d}</p>
+                        <span className="developers">{d}</span>
                       ))}
                     </div>
                   </div>

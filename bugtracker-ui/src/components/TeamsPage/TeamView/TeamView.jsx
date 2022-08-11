@@ -7,7 +7,7 @@ import { TeamsPageProjectsTable } from "../../Tables/TeamsPageProjectsTable";
 
 //Overview of a specific team
 export default function TeamView({ teamsAvailable, isLoading }) {
-  const { setTeamModal, currentTeam, setCurrentTeam } = useTeamContext();
+  const { currentTeam, setCurrentTeam } = useTeamContext();
 
   const [email, setEmail] = useState();
   const [error, setError] = useState("");
@@ -41,9 +41,6 @@ export default function TeamView({ teamsAvailable, isLoading }) {
           {/* header for a specific team and a button to create new team */}
           <div className="team-header">
             <h1> {teamsAvailable && currentTeam?.name} </h1>
-            <button className="new-btn" onClick={() => setTeamModal(true)}>
-              Create New Team
-            </button>
           </div>
           {/* Conditionally render the specific team's information, or display "Nothing yet" if no teams have been created */}
           {teamsAvailable ? (

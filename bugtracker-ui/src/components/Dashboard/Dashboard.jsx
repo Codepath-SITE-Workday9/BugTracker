@@ -10,11 +10,18 @@ import ProjectModal from "../Modals/ProjectModal/ProjectModal";
 import TeamModal from "../Modals/TeamModal/TeamModal";
 import { useStatisticsContext } from "../../contexts/statistics";
 import { useTicketContext } from "../../contexts/ticket";
+import renderCharts from "../../services/charts.js";
 
 export default function Dashboard() {
   const { projectModal } = useProjectContext();
   const { teams, teamModal, newFetchTeamsTableData } = useTeamContext();
-  const { fetchDashboardStatistics, isLoading } = useStatisticsContext();
+  const {
+    fetchDashboardStatistics,
+    isLoading,
+    dashboardStatistics,
+    rendered,
+    setRendered,
+  } = useStatisticsContext();
   const { tickets, fetchAllTickets } = useTicketContext();
   const [dashboardProjectsModal, setDashboardProjectsModal] = useState(false);
   const [dashboardTeamsModal, setDashboardTeamsModal] = useState(false);
@@ -39,8 +46,16 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchAllTickets();
+    console.log("Rendered:", rendered);
+    // if (rendered) {
+    //   fetchDashboardStatistics();
+    // } else {
+    renderCharts(dashboardStatistics);
+    // }
+    // fetchDashboardStatistics();
+
     newFetchTeamsTableData(teams);
-    fetchDashboardStatistics();
+    console.log("IN the dashboard useeffect");
   }, []);
 
   return (

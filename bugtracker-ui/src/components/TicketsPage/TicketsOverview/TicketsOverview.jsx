@@ -200,6 +200,7 @@ export function Filters({
     "All statuses",
     "Not Started",
     "In Progress",
+    "Submitted",
     "Resolved",
   ];
   const categoryCategories = ["All categories", "Bug", "New Feature"];

@@ -2,12 +2,13 @@ import "./TeamsOverview.css";
 import { useState } from "react";
 import TeamCard from "../TeamCard/TeamCard";
 import SortByDrowpdown from "../../Dropdown/SortByDropdown/SortByDropdown";
+import { useTeamContext } from "../../../contexts/team";
 
 // overview of all teams a user is apart of
 export default function TeamsOverview({ teams, handleOnTeamClick, isLoading }) {
   var teamsToShow = [];
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { setTeamModal } = useTeamContext();
   // handler function to set search term as a user types
   const handleOnSearchChange = (change) => {
     setSearchTerm(change.target.value);
@@ -30,6 +31,9 @@ export default function TeamsOverview({ teams, handleOnTeamClick, isLoading }) {
       {/* teams overview header  */}
       <div className="header">
         <h1>Your Teams</h1>
+        <button className="new-btn" onClick={() => setTeamModal(true)}>
+          + New Team
+        </button>
       </div>
 
       {/* search for teams  */}

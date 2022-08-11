@@ -93,28 +93,25 @@ export function App() {
               element={<ProtectedRoute element={<Dashboard />} />}
             />
             <Route
-              path="/tickets"
-              element={<ProtectedRoute element={<TicketsPage />} />}
-            />
-            <Route
-              path="/statistics"
-              element={<ProtectedRoute element={<StatisticsPage />} />}
-            />
-            <Route
-              path="/userprofile"
-              element={<ProtectedRoute element={<UserProfile />} />}
+              path="/projects"
+              element={<ProtectedRoute element={<ProjectsPage />} />}
             />
             <Route
               path="/teams"
               element={<ProtectedRoute element={<TeamsPage />} />}
             />
             <Route
-              path="/settings"
-              element={<ProtectedRoute element={<Settings />} />}
+              path="/tickets"
+              element={<ProtectedRoute element={<TicketsPage />} />}
             />
             <Route
-              path="/projects"
-              element={<ProtectedRoute element={<ProjectsPage />} />}
+              path="/userprofile"
+              element={<ProtectedRoute element={<UserProfile />} />}
+            />
+
+            <Route
+              path="/settings"
+              element={<ProtectedRoute element={<Settings />} />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

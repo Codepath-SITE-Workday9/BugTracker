@@ -58,9 +58,6 @@ export function ProfileCard()
           <div className="profile-info">
               <h1 className="profile-name">{user.fullName}</h1>
               <p className="email">Email: {user.email}</p>
-              <p className="role">Role: Developer</p>
-              <p className="email">Organization: A Place</p>
-              <button className="edit-btn">Edit Profile</button>
           </div>
     </div>
 
